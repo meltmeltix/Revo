@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">Revo</string>
+    <string name="str_home">Home</string>
+    <string name="str_tracks">Tracks</string>
+    <string name="str_albums">Albums</string>
+    <string name="str_playlists">Playlists</string>
+    <string name="str_spoitfy" translatable="false">Spotify</string>
+</resources>
