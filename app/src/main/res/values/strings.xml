@@ -5,4 +5,5 @@
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>
     <string name="str_spoitfy" translatable="false">Spotify</string>
+    <string name="desc_topmenu">Top Menu</string>
 </resources>
