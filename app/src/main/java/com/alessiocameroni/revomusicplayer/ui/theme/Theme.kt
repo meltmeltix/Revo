@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorPalette = darkColorScheme(
@@ -11,7 +12,6 @@ private val DarkColorPalette = darkColorScheme(
     onPrimary = Purple20,
     primaryContainer = Purple30,
     onPrimaryContainer = Purple90,
-    inversePrimary = Purple40,
 
     secondary = DarkPurple80,
     onSecondary = DarkPurple20,
@@ -30,22 +30,43 @@ private val DarkColorPalette = darkColorScheme(
 
     background = Grey10,
     onBackground = Grey90,
+    surface = Grey10,
+    onSurface = Grey90,
 
-    surface = PurpleGrey30,
-    onSurface = PurpleGrey80,
-    inverseSurface = Grey90,
-    inverseOnSurface = Grey10,
-
-    surfaceVariant = PurpleGrey30,
-    onSurfaceVariant = PurpleGrey80,
-
-    outline = PurpleGrey80
-
+    outline = VarGrey60,
+    surfaceVariant = VarGrey30,
+    onSurfaceVariant = VarGrey80,
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = Purple80,
-    secondary = Purple20
+    primary = Purple40,
+    onPrimary = Color.White,
+    primaryContainer = Purple90,
+    onPrimaryContainer = Purple10,
+
+    secondary = DarkPurple40,
+    onSecondary = Color.White,
+    secondaryContainer = DarkPurple90,
+    onSecondaryContainer = DarkPurple10,
+
+    tertiary = AquaGreen40,
+    onTertiary = Color.White,
+    tertiaryContainer = AquaGreen90,
+    onTertiaryContainer = AquaGreen10,
+
+    error = Red40,
+    onError = Color.White,
+    errorContainer = Red90,
+    onErrorContainer = Red10,
+
+    background = Grey99,
+    onBackground = Grey10,
+    surface = Grey99,
+    onSurface = Grey10,
+
+    outline = VarGrey50,
+    surfaceVariant = VarGrey90,
+    onSurfaceVariant = VarGrey30
 )
 
 @Composable
