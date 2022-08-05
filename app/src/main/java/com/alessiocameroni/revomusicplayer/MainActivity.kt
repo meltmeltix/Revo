@@ -22,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.alessiocameroni.revomusicplayer.uiElements.BottomNavigationItem
 
 class MainActivity : ComponentActivity() {
@@ -30,49 +31,56 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
-            
-            Scaffold(
-                topBar = { TopApplicationBar() },
-                bottomBar = {
-                    BottomNavigationBar(
-                        items = listOf(
-                            BottomNavigationItem(
-                                name = stringResource(id = R.string.str_home),
-                                route = "home",
-                                icon = painterResource(id = R.drawable.ic_outline_home_24)
-                            ),
-                            BottomNavigationItem(
-                                name = stringResource(id = R.string.str_tracks),
-                                route = "tracks",
-                                icon = painterResource(id = R.drawable.ic_outline_music_note_24)
-                            ),
-                            BottomNavigationItem(
-                                name = stringResource(id = R.string.str_albums),
-                                route = "albums",
-                                icon = painterResource(id = R.drawable.ic_outline_album_24)
-                            ),
-                            BottomNavigationItem(
-                                name = stringResource(id = R.string.str_playlists),
-                                route = "playlists",
-                                icon = painterResource(id = R.drawable.ic_outline_playlist_play_24)
-                            ),
-                            BottomNavigationItem(
-                                name = stringResource(id = R.string.str_spoitfy),
-                                route = "spotify",
-                                icon = painterResource(id = R.drawable.ic_spotify_favourite_heart_24)
-                            ),
-                        ),
-                        navController = navController,
-                        onItemClick = {
-                            navController.navigate(it.route)
+            RevoMusicPlayerTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    val navController = rememberNavController()
+
+                    Scaffold(
+                        topBar = { TopApplicationBar() },
+                        bottomBar = {
+                            BottomNavigationBar(
+                                items = listOf(
+                                    BottomNavigationItem(
+                                        name = stringResource(id = R.string.str_home),
+                                        route = "home",
+                                        icon = painterResource(id = R.drawable.ic_outline_home_24)
+                                    ),
+                                    BottomNavigationItem(
+                                        name = stringResource(id = R.string.str_tracks),
+                                        route = "tracks",
+                                        icon = painterResource(id = R.drawable.ic_outline_music_note_24)
+                                    ),
+                                    BottomNavigationItem(
+                                        name = stringResource(id = R.string.str_albums),
+                                        route = "albums",
+                                        icon = painterResource(id = R.drawable.ic_outline_album_24)
+                                    ),
+                                    BottomNavigationItem(
+                                        name = stringResource(id = R.string.str_playlists),
+                                        route = "playlists",
+                                        icon = painterResource(id = R.drawable.ic_outline_playlist_play_24)
+                                    ),
+                                    BottomNavigationItem(
+                                        name = stringResource(id = R.string.str_spoitfy),
+                                        route = "spotify",
+                                        icon = painterResource(id = R.drawable.ic_spotify_favourite_heart_24)
+                                    ),
+                                ),
+                                navController = navController,
+                                onItemClick = {
+                                    navController.navigate(it.route)
+                                }
+                            )
+                        },
+                        content = {
+                            Navigation(navController = navController)
                         }
                     )
-                },
-                content = {
-                    Navigation(navController = navController)
                 }
-            )
+            }
         }
     }
 }
