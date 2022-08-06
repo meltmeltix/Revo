@@ -4,18 +4,18 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -39,7 +39,6 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     Scaffold(
-                        topBar = { TopApplicationBar() },
                         bottomBar = {
                             BottomNavigationBar(
                                 items = listOf(
@@ -85,56 +84,359 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-//Top Navigation
+
+//Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TopApplicationBar() {
+fun HomeScreen() {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    SmallTopAppBar(
-        title = { Text(
-            stringResource(id = R.string.str_home),
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        ) },
-        actions = {
-            IconButton(
-                onClick = {  }
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_home)) },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Settings,
+                            contentDescription = stringResource(id = R.string.str_settings)
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        }
+    ) {
+
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TracksScreen() {
+    var expanded by remember { mutableStateOf(false) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_tracks)) },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                        )
+                    }
+                },
+                actions = {
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded = true }) {
+                            Icon(
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = stringResource(id = R.string.str_settings)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                                        contentDescription = stringResource(id = R.string.desc_sortyby)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
+                                        contentDescription = stringResource(id = R.string.desc_gridtype)
+                                    )
+                                }
+                            )
+                            MenuDefaults.Divider()
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Settings,
+                                        contentDescription = stringResource(id = R.string.desc_settings)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        }
+    ) {
+
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AlbumsScreen() {
+    var expanded by remember { mutableStateOf(false) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_albums)) },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                        )
+                    }
+                },
+                actions = {
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded = true }) {
+                            Icon(
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = stringResource(id = R.string.str_settings)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                                        contentDescription = stringResource(id = R.string.desc_sortyby)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
+                                        contentDescription = stringResource(id = R.string.desc_gridtype)
+                                    )
+                                }
+                            )
+                            MenuDefaults.Divider()
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Settings,
+                                        contentDescription = stringResource(id = R.string.desc_settings)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        }
+    ) {
+
+    }
+}
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PlaylistsScreen() {
+    var expanded by remember { mutableStateOf(false) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_playlists)) },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                        )
+                    }
+                },
+                actions = {
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded = true }) {
+                            Icon(
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = stringResource(id = R.string.str_settings)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                                        contentDescription = stringResource(id = R.string.desc_sortyby)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
+                                        contentDescription = stringResource(id = R.string.desc_gridtype)
+                                    )
+                                }
+                            )
+                            MenuDefaults.Divider()
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Settings,
+                                        contentDescription = stringResource(id = R.string.desc_settings)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        },
+        floatingActionButton = {
+            LargeFloatingActionButton(
+                onClick = { /* do something */ },
+                modifier = Modifier.padding(bottom = 80.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = stringResource(id = R.string.desc_topmenu)
+                    painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                    contentDescription = stringResource(id = R.string.desc_addplaylist),
+                    modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
                 )
             }
         },
-        scrollBehavior = scrollBehavior
-    )
+        floatingActionButtonPosition = FabPosition.Center
+    ) {
+
+    }
 }
 
-/*
-    Scaffold(
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SpotifyFavoritesScreen() {
+    var expanded by remember { mutableStateOf(false) }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-        content = { innerPadding ->
-            LazyColumn(
-                contentPadding = innerPadding,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                val list = (0..75).map { it.toString() }
-                items(count = list.size) {
-                    Text(
-                        text = list[it],
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                    )
-                }
-            }
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
+                navigationIcon = {
+                    IconButton(onClick = {  }) {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                        )
+                    }
+                },
+                actions = {
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded = true }) {
+                            Icon(
+                                imageVector = Icons.Default.MoreVert,
+                                contentDescription = stringResource(id = R.string.str_settings)
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                                        contentDescription = stringResource(id = R.string.desc_sortyby)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
+                                        contentDescription = stringResource(id = R.string.desc_gridtype)
+                                    )
+                                }
+                            )
+                            MenuDefaults.Divider()
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_openspotify)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_launch_spotify_24px),
+                                        contentDescription = stringResource(id = R.string.desc_openspotify)
+                                    )
+                                }
+                            )
+                            MenuDefaults.Divider()
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Settings,
+                                        contentDescription = stringResource(id = R.string.desc_settings)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
         }
-    )
-}*/
+    ) {
+
+    }
+}
+
 
 //Bottom Navigation
 
@@ -179,59 +481,4 @@ fun BottomNavigationBar(
 }
 
 
-//Screens
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "HomeScreen")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TracksScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "TracksScreen")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AlbumsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "AlbumsScreen")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PlaylistsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "PlaylistsScreen")
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SpotifyFavoritesScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "SpotifyFavoritesScreen")
-    }
-}
+//Other functions

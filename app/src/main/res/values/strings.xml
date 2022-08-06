@@ -6,4 +6,14 @@
     <string name="str_playlists">Playlists</string>
     <string name="str_spoitfy" translatable="false">Spotify</string>
     <string name="desc_topmenu">Top Menu</string>
+    <string name="desc_searchmenu">Search</string>
+    <string name="str_settings">Settings</string>
+    <string name="str_gridtype">Grid Type</string>
+    <string name="str_sortby">Sorty By</string>
+    <string name="desc_settings">Settings</string>
+    <string name="desc_sortyby">Sort by filter</string>
+    <string name="desc_gridtype">Select grid type</string>
+    <string name="str_openspotify">Open Spotify</string>
+    <string name="desc_openspotify">Open Spotify Application</string>
+    <string name="desc_addplaylist">Add New Playlist</string>
 </resources>
