@@ -47,27 +47,32 @@ class MainActivity : ComponentActivity() {
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_home),
                                         route = "home",
-                                        icon = painterResource(id = R.drawable.ic_outline_home_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_home_24),
+                                        iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
                                     ),
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_tracks),
                                         route = "tracks",
-                                        icon = painterResource(id = R.drawable.ic_outline_music_note_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_music_note_24),
+                                        iconFilled = painterResource(id = R.drawable.ic_filled_music_note_24)
                                     ),
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_albums),
                                         route = "albums",
-                                        icon = painterResource(id = R.drawable.ic_outline_album_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
+                                        iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                                     ),
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_playlists),
                                         route = "playlists",
-                                        icon = painterResource(id = R.drawable.ic_outline_playlist_play_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                                        iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_add_24)
                                     ),
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_spoitfy),
                                         route = "spotify",
-                                        icon = painterResource(id = R.drawable.ic_spotify_favourite_heart_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
+                                        painterResource(id = R.drawable.ic_filled_spotify_24)
                                     ),
                                 ),
                                 navController = navController,
@@ -486,10 +491,17 @@ fun BottomNavigationBar(
             NavigationBarItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                icon = { Icon(
-                        painter = item.icon,
-                        contentDescription = item.name
-                    )
+                icon = {
+                    when {
+                        selected -> Icon(
+                            painter = item.iconFilled,
+                            contentDescription = item.name
+                        )
+                        else -> Icon(
+                            painter = item.iconOutlined,
+                            contentDescription = item.name
+                        )
+                    }
                 },
                 label = { Text(text = item.name) }
             )
