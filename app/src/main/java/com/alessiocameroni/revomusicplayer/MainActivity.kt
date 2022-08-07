@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -106,7 +105,9 @@ fun HomeScreen() {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_home)) },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SearchActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -118,7 +119,7 @@ fun HomeScreen() {
                         context.startActivity(Intent(context, SettingsActivity::class.java))
                     }) {
                         Icon(
-                            imageVector = Icons.Outlined.Settings,
+                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                             contentDescription = stringResource(id = R.string.str_settings)
                         )
                     }
@@ -144,7 +145,9 @@ fun TracksScreen() {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_tracks)) },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SearchActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -191,7 +194,7 @@ fun TracksScreen() {
                                 },
                                 leadingIcon = {
                                     Icon(
-                                        imageVector = Icons.Outlined.Settings,
+                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                                         contentDescription = stringResource(id = R.string.desc_settings)
                                     )
                                 }
@@ -220,7 +223,9 @@ fun AlbumsScreen() {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_albums)) },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SearchActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -267,7 +272,7 @@ fun AlbumsScreen() {
                                 },
                                 leadingIcon = {
                                     Icon(
-                                        imageVector = Icons.Outlined.Settings,
+                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                                         contentDescription = stringResource(id = R.string.desc_settings)
                                     )
                                 }
@@ -296,7 +301,9 @@ fun PlaylistsScreen() {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_playlists)) },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SearchActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -343,7 +350,7 @@ fun PlaylistsScreen() {
                                 },
                                 leadingIcon = {
                                     Icon(
-                                        imageVector = Icons.Outlined.Settings,
+                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                                         contentDescription = stringResource(id = R.string.desc_settings)
                                     )
                                 }
@@ -385,7 +392,9 @@ fun SpotifyFavoritesScreen() {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
                 navigationIcon = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SearchActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -443,7 +452,7 @@ fun SpotifyFavoritesScreen() {
                                 },
                                 leadingIcon = {
                                     Icon(
-                                        imageVector = Icons.Outlined.Settings,
+                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                                         contentDescription = stringResource(id = R.string.desc_settings)
                                     )
                                 }

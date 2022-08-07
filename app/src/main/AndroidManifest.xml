@@ -27,9 +27,11 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:exported="true"
-
-            >
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:exported="true">
         </activity>
 
     </application>
