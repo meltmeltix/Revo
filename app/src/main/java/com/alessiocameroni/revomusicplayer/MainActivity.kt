@@ -64,8 +64,8 @@ class MainActivity : ComponentActivity() {
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_playlists),
                                         route = "playlists",
-                                        iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                        iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_add_24)
+                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_playlist_play_24),
+                                        iconFilled = painterResource(id = R.drawable.ic_filled_playlist_play_24)
                                     ),
                                     BottomNavigationItem(
                                         name = stringResource(id = R.string.str_spoitfy),
