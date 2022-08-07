@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -91,6 +93,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen() {
+    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -106,7 +109,9 @@ fun HomeScreen() {
                     }
                 },
                 actions = {
-                    IconButton(onClick = {  }) {
+                    IconButton(onClick = {
+                        context.startActivity(Intent(context, SettingsActivity::class.java))
+                    }) {
                         Icon(
                             imageVector = Icons.Outlined.Settings,
                             contentDescription = stringResource(id = R.string.str_settings)
@@ -125,6 +130,7 @@ fun HomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TracksScreen() {
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -175,7 +181,9 @@ fun TracksScreen() {
                             MenuDefaults.Divider()
                             DropdownMenuItem(
                                 text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {  },
+                                onClick = {
+                                    context.startActivity(Intent(context, SettingsActivity::class.java))
+                                },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Outlined.Settings,
@@ -198,6 +206,7 @@ fun TracksScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumsScreen() {
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -248,7 +257,9 @@ fun AlbumsScreen() {
                             MenuDefaults.Divider()
                             DropdownMenuItem(
                                 text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {  },
+                                onClick = {
+                                    context.startActivity(Intent(context, SettingsActivity::class.java))
+                                },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Outlined.Settings,
@@ -271,6 +282,7 @@ fun AlbumsScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistsScreen() {
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -321,7 +333,9 @@ fun PlaylistsScreen() {
                             MenuDefaults.Divider()
                             DropdownMenuItem(
                                 text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {  },
+                                onClick = {
+                                    context.startActivity(Intent(context, SettingsActivity::class.java))
+                                },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Outlined.Settings,
@@ -357,6 +371,7 @@ fun PlaylistsScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpotifyFavoritesScreen() {
+    val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -418,7 +433,9 @@ fun SpotifyFavoritesScreen() {
                             MenuDefaults.Divider()
                             DropdownMenuItem(
                                 text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {  },
+                                onClick = {
+                                    context.startActivity(Intent(context, SettingsActivity::class.java))
+                                },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Outlined.Settings,

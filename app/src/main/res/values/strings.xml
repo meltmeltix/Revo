@@ -16,4 +16,5 @@
     <string name="str_openspotify">Open Spotify</string>
     <string name="desc_openspotify">Open Spotify Application</string>
     <string name="desc_addplaylist">Add New Playlist</string>
+    <string name="desc_back">Go back</string>
 </resources>
