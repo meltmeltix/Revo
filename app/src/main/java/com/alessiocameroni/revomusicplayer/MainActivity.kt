@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -27,7 +25,6 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.alessiocameroni.revomusicplayer.uiElements.BottomNavigationItem
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,8 +77,10 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         },
-                        content = {
-                            Navigation(navController = navController)
+                        content = { padding ->
+                            Column(modifier = Modifier.padding(padding)){
+                                Navigation(navController = navController)
+                            }
                         }
                     )
                 }
@@ -94,7 +93,6 @@ class MainActivity : ComponentActivity() {
 //Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen() {
     val context = LocalContext.current
@@ -126,13 +124,15 @@ fun HomeScreen() {
                 },
                 scrollBehavior = scrollBehavior
             )
-        }
-    ) {
+        },
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
 
-    }
+            }
+        }
+    )
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TracksScreen() {
@@ -204,13 +204,16 @@ fun TracksScreen() {
                 },
                 scrollBehavior = scrollBehavior
             )
-        }
-    ) {
+        },
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
 
-    }
+            }
+        }
+
+    )
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumsScreen() {
@@ -282,13 +285,15 @@ fun AlbumsScreen() {
                 },
                 scrollBehavior = scrollBehavior
             )
-        }
-    ) {
+        },
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
 
-    }
+            }
+        }
+    )
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistsScreen() {
@@ -363,8 +368,7 @@ fun PlaylistsScreen() {
         },
         floatingActionButton = {
             LargeFloatingActionButton(
-                onClick = { /* do something */ },
-                modifier = Modifier.padding(bottom = 80.dp)
+                onClick = { /* do something */ }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
@@ -373,13 +377,15 @@ fun PlaylistsScreen() {
                 )
             }
         },
-        floatingActionButtonPosition = FabPosition.Center
-    ) {
+        floatingActionButtonPosition = FabPosition.Center,
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
 
-    }
+            }
+        }
+    )
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpotifyFavoritesScreen() {
@@ -462,10 +468,13 @@ fun SpotifyFavoritesScreen() {
                 },
                 scrollBehavior = scrollBehavior
             )
-        }
-    ) {
+        },
+        content = { padding ->
+            Column(modifier = Modifier.padding(padding)){
 
-    }
+            }
+        }
+    )
 }
 
 
