@@ -1,12 +1,13 @@
 package com.alessiocameroni.revomusicplayer
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -16,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 class SettingsActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +49,16 @@ class SettingsActivity : ComponentActivity() {
                                 },
                                 scrollBehavior = scrollBehavior
                             )
-                        }
-                    ) {
+                        },
+                        content = { padding ->
+                            Column(modifier = Modifier.padding(padding)){
 
-                    }
+                            }
+                        }
+                    )
                 }
             }
         }
     }
-
-
 }
 
