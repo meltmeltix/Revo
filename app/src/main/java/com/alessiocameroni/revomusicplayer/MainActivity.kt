@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -12,9 +13,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
+import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,44 +47,79 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(
                         bottomBar = {
-                            BottomNavigationBar(
-                                items = listOf(
-                                    BottomNavigationItem(
-                                        name = stringResource(id = R.string.str_home),
-                                        route = "home",
-                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_home_24),
-                                        iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
-                                    ),
-                                    BottomNavigationItem(
-                                        name = stringResource(id = R.string.str_tracks),
-                                        route = "tracks",
-                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_music_note_24),
-                                        iconFilled = painterResource(id = R.drawable.ic_filled_music_note_24)
-                                    ),
-                                    BottomNavigationItem(
-                                        name = stringResource(id = R.string.str_albums),
-                                        route = "albums",
-                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
-                                        iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
-                                    ),
-                                    BottomNavigationItem(
-                                        name = stringResource(id = R.string.str_playlists),
-                                        route = "playlists",
-                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_playlist_play_24),
-                                        iconFilled = painterResource(id = R.drawable.ic_filled_playlist_play_24)
-                                    ),
-                                    BottomNavigationItem(
-                                        name = stringResource(id = R.string.str_spoitfy),
-                                        route = "spotify",
-                                        iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
-                                        painterResource(id = R.drawable.ic_filled_spotify_24)
-                                    ),
-                                ),
-                                navController = navController,
-                                onItemClick = {
-                                    navController.navigate(it.route)
+                            val constraints = ConstraintSet {
+                                val bottomNavigationBar = createRefFor("bottomnavbar")
+                                val miniPlayer = createRefFor("miniplayer")
+
+                                constrain(bottomNavigationBar) {
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                    bottom.linkTo(parent.bottom)
                                 }
-                            )
+
+                                constrain(miniPlayer) {
+                                    start.linkTo(parent.start)
+                                    end.linkTo(parent.end)
+                                    bottom.linkTo(bottomNavigationBar.top)
+                                }
+                            }
+
+                            ConstraintLayout(constraints, Modifier.fillMaxWidth()) {
+                                BottomMiniPlayer(
+                                    modifier = Modifier
+                                        .layoutId("miniplayer")
+                                        .fillMaxWidth()
+                                        .height(64.dp)
+                                        .background(
+                                            MaterialTheme.colorScheme.surfaceColorAtElevation(
+                                                3.dp
+                                            )
+                                        ),
+                                    songName = "SongName",
+                                    artistName = "ArtistName"
+                                )
+
+                                BottomNavigationBar(
+                                    modifier = Modifier
+                                        .layoutId("bottomnavbar"),
+                                    items = listOf(
+                                        BottomNavigationItem(
+                                            name = stringResource(id = R.string.str_home),
+                                            route = "home",
+                                            iconOutlined = painterResource(id = R.drawable.ic_outlined_home_24),
+                                            iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
+                                        ),
+                                        BottomNavigationItem(
+                                            name = stringResource(id = R.string.str_tracks),
+                                            route = "tracks",
+                                            iconOutlined = painterResource(id = R.drawable.ic_outlined_music_note_24),
+                                            iconFilled = painterResource(id = R.drawable.ic_filled_music_note_24)
+                                        ),
+                                        BottomNavigationItem(
+                                            name = stringResource(id = R.string.str_albums),
+                                            route = "albums",
+                                            iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
+                                            iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
+                                        ),
+                                        BottomNavigationItem(
+                                            name = stringResource(id = R.string.str_playlists),
+                                            route = "playlists",
+                                            iconOutlined = painterResource(id = R.drawable.ic_outlined_playlist_play_24),
+                                            iconFilled = painterResource(id = R.drawable.ic_filled_playlist_play_24)
+                                        ),
+                                        BottomNavigationItem(
+                                            name = stringResource(id = R.string.str_spoitfy),
+                                            route = "spotify",
+                                            iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
+                                            painterResource(id = R.drawable.ic_filled_spotify_24)
+                                        ),
+                                    ),
+                                    navController = navController,
+                                    onItemClick = {
+                                        navController.navigate(it.route)
+                                    }
+                                )
+                            }
                         },
                         content = { padding ->
                             Column(modifier = Modifier.padding(padding)){
@@ -90,7 +134,96 @@ class MainActivity : ComponentActivity() {
 }
 
 
-//Screens
+// UI Elements
+@Composable
+fun BottomMiniPlayer(
+    modifier: Modifier,
+    songName: String,
+    artistName: String
+) {
+    Box(
+        modifier = modifier
+    ) {
+        val constraints = ConstraintSet {
+            val musicProgressBar = createRefFor("musicprogressbar")
+            val openPanelButton = createRefFor("openpanelbutton")
+            val songInfoText = createRefFor("songinfotext")
+            val playButton = createRefFor("playbutton")
+
+            constrain(musicProgressBar) {
+                bottom.linkTo(parent.bottom)
+            }
+
+            constrain(openPanelButton) {
+                start.linkTo(parent.start)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            }
+
+            constrain(songInfoText) {
+                start.linkTo(openPanelButton.end)
+                top.linkTo(parent.top)
+                end.linkTo(playButton.start)
+                bottom.linkTo(parent.bottom)
+            }
+
+            constrain(playButton) {
+                top.linkTo(parent.top)
+                end.linkTo(parent.end)
+                bottom.linkTo(parent.bottom)
+            }
+        }
+
+        ConstraintLayout(constraints, modifier = Modifier.fillMaxSize()) {
+            IconButton(
+                onClick = {  },
+                modifier = Modifier
+                    .layoutId("openpanelbutton")
+                    .padding(horizontal = 4.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_up_24),
+                    contentDescription = stringResource(id = R.string.desc_openmusic)
+                )
+            }
+
+            Text(
+                modifier = Modifier
+                    .layoutId("songinfotext")
+                    .width(280.dp)
+                    .background(Color.Yellow),
+                text = "$songName$songName · $artistName$artistName",
+                maxLines = 1,
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            IconButton(
+                onClick = {  },
+                modifier = Modifier
+                    .layoutId("playbutton")
+                    .padding(horizontal = 4.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                    contentDescription = stringResource(id = R.string.desc_openmusic),
+                )
+            }
+
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .layoutId("musicprogressbar")
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+                    .semantics(mergeDescendants = true) {},
+                progress = 0.5f
+            )
+        }
+    }
+}
+
+
+// Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -478,7 +611,7 @@ fun SpotifyFavoritesScreen() {
 }
 
 
-//Bottom Navigation
+// Bottom Navigation
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -528,4 +661,4 @@ fun BottomNavigationBar(
 }
 
 
-//Other functions
+// Other functions

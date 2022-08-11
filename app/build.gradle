@@ -57,6 +57,7 @@ dependencies {
     implementation 'androidx.compose.material3:material3-window-size-class:1.0.0-alpha15'
     implementation 'com.google.accompanist:accompanist-systemuicontroller:0.17.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha03'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
