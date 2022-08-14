@@ -20,4 +20,10 @@
     <string name="str_phsearch">Search…</string>
     <string name="desc_close">Close</string>
     <string name="desc_openmusic">Open music panel</string>
+    <string name="desc_closemusic">Close music panel</string>
+    <string name="desc_favorite">Favorite this song</string>
+    <string name="desc_skipprevious">Skip previous</string>
+    <string name="desc_skipnext">Skip next</string>
+    <string name="desc_playsong">Play song</string>
+    <string name="desc_pausesong">Pause song</string>
 </resources>

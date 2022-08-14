@@ -6,14 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,26 +25,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.alessiocameroni.revomusicplayer.appClasses.BottomNavigationItem
+import com.alessiocameroni.revomusicplayer.appScreens.*
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import com.alessiocameroni.revomusicplayer.uiElements.BottomNavigationItem
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
+
             RevoMusicPlayerTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
-
                     Scaffold(
                         bottomBar = {
                             val constraints = ConstraintSet {
-                                val bottomNavigationBar = createRefFor("bottomnavbar")
-                                val miniPlayer = createRefFor("miniplayer")
+                                val bottomNavigationBar = createRefFor("BottomNavBar")
+                                val miniPlayer = createRefFor("MiniPlayer")
 
                                 constrain(bottomNavigationBar) {
                                     start.linkTo(parent.start)
@@ -67,7 +63,7 @@ class MainActivity : ComponentActivity() {
                             ConstraintLayout(constraints, Modifier.fillMaxWidth()) {
                                 BottomMiniPlayer(
                                     modifier = Modifier
-                                        .layoutId("miniplayer")
+                                        .layoutId("MiniPlayer")
                                         .fillMaxWidth()
                                         .height(64.dp)
                                         .background(
@@ -75,13 +71,13 @@ class MainActivity : ComponentActivity() {
                                                 3.dp
                                             )
                                         ),
-                                    songName = "SongName",
-                                    artistName = "ArtistName"
+                                    songNameString = "SongName",
+                                    artistNameString = "ArtistName"
                                 )
 
                                 BottomNavigationBar(
                                     modifier = Modifier
-                                        .layoutId("bottomnavbar"),
+                                        .layoutId("BottomNavBar"),
                                     items = listOf(
                                         BottomNavigationItem(
                                             name = stringResource(id = R.string.str_home),
@@ -138,17 +134,19 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BottomMiniPlayer(
     modifier: Modifier,
-    songName: String,
-    artistName: String
+    songNameString: String,
+    artistNameString: String
 ) {
+    val context = LocalContext.current
+
     Box(
         modifier = modifier
     ) {
         val constraints = ConstraintSet {
-            val musicProgressBar = createRefFor("musicprogressbar")
-            val openPanelButton = createRefFor("openpanelbutton")
-            val songInfoText = createRefFor("songinfotext")
-            val playButton = createRefFor("playbutton")
+            val musicProgressBar = createRefFor("MusicProgressBar")
+            val openPanelButton = createRefFor("OpenPanelButton")
+            val songInfoText = createRefFor("SongInfoText")
+            val playButton = createRefFor("PlayButton")
 
             constrain(musicProgressBar) {
                 bottom.linkTo(parent.bottom)
@@ -176,9 +174,9 @@ fun BottomMiniPlayer(
 
         ConstraintLayout(constraints, modifier = Modifier.fillMaxSize()) {
             IconButton(
-                onClick = {  },
+                onClick = { context.startActivity(Intent(context, PlayerActivity::class.java)) },
                 modifier = Modifier
-                    .layoutId("openpanelbutton")
+                    .layoutId("OpenPanelButton")
                     .padding(horizontal = 4.dp)
             ) {
                 Icon(
@@ -189,10 +187,9 @@ fun BottomMiniPlayer(
 
             Text(
                 modifier = Modifier
-                    .layoutId("songinfotext")
-                    .width(280.dp)
-                    .background(Color.Yellow),
-                text = "$songName$songName · $artistName$artistName",
+                    .layoutId("SongInfoText")
+                    .width(280.dp),
+                text = "$songNameString · $artistNameString",
                 maxLines = 1,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis
@@ -201,7 +198,7 @@ fun BottomMiniPlayer(
             IconButton(
                 onClick = {  },
                 modifier = Modifier
-                    .layoutId("playbutton")
+                    .layoutId("PlayButton")
                     .padding(horizontal = 4.dp)
             ) {
                 Icon(
@@ -212,7 +209,7 @@ fun BottomMiniPlayer(
 
             LinearProgressIndicator(
                 modifier = Modifier
-                    .layoutId("musicprogressbar")
+                    .layoutId("MusicProgressBar")
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp)
                     .semantics(mergeDescendants = true) {},
@@ -221,397 +218,6 @@ fun BottomMiniPlayer(
         }
     }
 }
-
-
-// Screens
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeScreen() {
-    val context = LocalContext.current
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_home)) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SearchActivity::class.java))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SettingsActivity::class.java))
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                            contentDescription = stringResource(id = R.string.str_settings)
-                        )
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        },
-        content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
-
-            }
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TracksScreen() {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_tracks)) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SearchActivity::class.java))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            MenuDefaults.Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {
-                                    context.startActivity(Intent(context, SettingsActivity::class.java))
-                                },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = stringResource(id = R.string.desc_settings)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        },
-        content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
-
-            }
-        }
-
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AlbumsScreen() {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_albums)) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SearchActivity::class.java))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            MenuDefaults.Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {
-                                    context.startActivity(Intent(context, SettingsActivity::class.java))
-                                },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = stringResource(id = R.string.desc_settings)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        },
-        content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
-
-            }
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PlaylistsScreen() {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_playlists)) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SearchActivity::class.java))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            MenuDefaults.Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {
-                                    context.startActivity(Intent(context, SettingsActivity::class.java))
-                                },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = stringResource(id = R.string.desc_settings)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        },
-        floatingActionButton = {
-            LargeFloatingActionButton(
-                onClick = { /* do something */ }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.desc_addplaylist),
-                    modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
-                )
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
-
-            }
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SpotifyFavoritesScreen() {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        context.startActivity(Intent(context, SearchActivity::class.java))
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded = true }) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            MenuDefaults.Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_openspotify)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_launch_spotify_24px),
-                                        contentDescription = stringResource(id = R.string.desc_openspotify)
-                                    )
-                                }
-                            )
-                            MenuDefaults.Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = {
-                                    context.startActivity(Intent(context, SettingsActivity::class.java))
-                                },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = stringResource(id = R.string.desc_settings)
-                                    )
-                                }
-                            )
-                        }
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
-        },
-        content = { padding ->
-            Column(modifier = Modifier.padding(padding)){
-
-            }
-        }
-    )
-}
-
-
-// Bottom Navigation
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -642,23 +248,15 @@ fun BottomNavigationBar(
             NavigationBarItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
+
                 icon = {
-                    when {
-                        selected -> Icon(
-                            painter = item.iconFilled,
-                            contentDescription = item.name
-                        )
-                        else -> Icon(
-                            painter = item.iconOutlined,
-                            contentDescription = item.name
-                        )
-                    }
+                    Icon(
+                        if(selected) item.iconFilled else item.iconOutlined,
+                        contentDescription = item.name
+                    )
                 },
                 label = { Text(text = item.name) }
             )
         }
     }
 }
-
-
-// Other functions
