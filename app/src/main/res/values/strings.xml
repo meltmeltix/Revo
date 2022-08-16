@@ -26,4 +26,14 @@
     <string name="desc_skipnext">Skip next</string>
     <string name="desc_playsong">Play song</string>
     <string name="desc_pausesong">Pause song</string>
+    <string name="str_queue">Queue</string>
+    <string name="desc_queue">Upcoming songs</string>
+    <string name="str_moreoptions">More</string>
+    <string name="desc_moreoptions">More options</string>
+    <string name="str_shuffle">Shuffle</string>
+    <string name="str_repeat">Repeat</string>
+    <string name="str_repeatone">Repeat one</string>
+    <string name="desc_shuffle">Shuffle songs randomly</string>
+    <string name="desc_repeat">Repeat the current playlist</string>
+    <string name="desc_repeatone">Repeat the current song</string>
 </resources>

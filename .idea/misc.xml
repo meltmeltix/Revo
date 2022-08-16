@@ -4,8 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.121" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1065" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_grid_on_24.xml" value="0.121" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.121" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_playlist_music_24.xml" value="0.1065" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_filled_home_24.xml" value="0.163" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_filled_spotify_24.xml" value="0.163" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_outline_favorite_border_24.xml" value="0.163" />
       </map>
     </option>
   </component>
