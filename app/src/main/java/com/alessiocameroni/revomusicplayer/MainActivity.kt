@@ -25,8 +25,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.alessiocameroni.revomusicplayer.appClasses.BottomNavigationItem
-import com.alessiocameroni.revomusicplayer.appScreens.*
+import com.alessiocameroni.revomusicplayer.classes.BottomNavigationItem
+import com.alessiocameroni.revomusicplayer.mainscreens.*
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 class MainActivity : ComponentActivity() {

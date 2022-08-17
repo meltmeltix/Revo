@@ -23,7 +23,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import com.alessiocameroni.revomusicplayer.uiComponents.CenterSongControls
+import com.alessiocameroni.revomusicplayer.components.CenterSongControls
 
 class PlayerActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

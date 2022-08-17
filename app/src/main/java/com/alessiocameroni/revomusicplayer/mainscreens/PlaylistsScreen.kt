@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.appScreens
+package com.alessiocameroni.revomusicplayer.mainscreens
 
 import android.content.Intent
 import androidx.compose.foundation.layout.*
