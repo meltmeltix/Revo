@@ -23,7 +23,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import com.alessiocameroni.revomusicplayer.uiComponents.RightSongControls
+import com.alessiocameroni.revomusicplayer.uiComponents.CenterSongControls
 
 class PlayerActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -175,7 +175,7 @@ class PlayerActivity : ComponentActivity() {
                                 }
                             }
 
-                            RightSongControls(
+                            CenterSongControls(
                                 modifier = Modifier
                                     .layoutId("SongControls")
                                     .width(360.dp)
