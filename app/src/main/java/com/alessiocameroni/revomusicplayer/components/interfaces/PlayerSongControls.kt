@@ -1,11 +1,14 @@
-package com.alessiocameroni.revomusicplayer.components
+package com.alessiocameroni.revomusicplayer.components.interfaces
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -15,6 +18,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.SettingsActivity
 
 @Preview(showBackground = true)
 @Composable
@@ -59,9 +63,11 @@ fun CenterSongControls(
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
+    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
+    var expanded by remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -118,9 +124,9 @@ fun CenterSongControls(
         Box(
             modifier = Modifier
                 .layoutId("BoxControlButtons")
+                .padding(bottom = 10.dp)
                 .fillMaxWidth()
-                .height(100.dp)
-                .padding(bottom = 20.dp)
+                .height(96.dp)
         ) {
             val constraintsBoxControlsButtons = ConstraintSet {
                 val previousFAB = createRefFor("PreviousFAB")
@@ -226,8 +232,9 @@ fun CenterSongControls(
         Box(
             modifier = Modifier
                 .layoutId("BoxSecondaryButtons")
+                .padding(top = 10.dp)
                 .fillMaxWidth()
-                .height(110.dp)
+                .height(100.dp)
         ) {
             val constraintsBoxSecondaryButtons = ConstraintSet{
                 val moreButton = createRefFor("MoreButton")
@@ -264,19 +271,30 @@ fun CenterSongControls(
                 constraintsBoxSecondaryButtons,
                 modifier = Modifier.fillMaxSize()
             ) {
-                FilledTonalIconButton(
-                    modifier = Modifier
-                        .layoutId("MoreButton")
-                        .width(165.dp),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
+                Box(modifier = Modifier.layoutId("MoreButton")) {
+                    FilledTonalIconButton(
+                        modifier = Modifier
+                            .width(165.dp),
+                        onClick = { expanded = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                            contentDescription = stringResource(id = R.string.str_settings)
+                        )
+                    }
+
+                    DropdownMenu(
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.large)
+                            .width(180.dp),
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        MenuItems(context = context)
+                    }
                 }
 
                 FilledTonalIconButton(
@@ -337,9 +355,11 @@ fun LeftSongControls(
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
+    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
+    var expanded by remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -431,15 +451,15 @@ fun LeftSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("PlayFAB")
-                        .width(210.dp)
-                        .padding(bottom = 10.dp),
+                        .padding(bottom = 10.dp)
+                        .width(210.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
                         defaultElevation = 0.dp,
                         pressedElevation = 0.dp
                     ),
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
@@ -528,19 +548,30 @@ fun LeftSongControls(
                 constraintsBoxSecondaryButtons,
                 modifier = Modifier.fillMaxSize()
             ) {
-                FilledTonalIconButton(
-                    modifier = Modifier
-                        .layoutId("MoreButton")
-                        .fillMaxWidth(),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
+                Box(modifier = Modifier.layoutId("MoreButton")) {
+                    FilledTonalIconButton(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        onClick = { expanded = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                            contentDescription = stringResource(id = R.string.str_settings)
+                        )
+                    }
+
+                    DropdownMenu(
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.large)
+                            .width(180.dp),
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        MenuItems(context = context)
+                    }
                 }
 
                 FilledTonalIconButton(
@@ -601,9 +632,11 @@ fun RightSongControls(
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
+    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
+    var expanded by remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -695,15 +728,15 @@ fun RightSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("PlayFAB")
-                        .width(210.dp)
-                        .padding(bottom = 10.dp),
+                        .padding(bottom = 10.dp)
+                        .width(210.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
                         defaultElevation = 0.dp,
                         pressedElevation = 0.dp
                     ),
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
@@ -792,19 +825,30 @@ fun RightSongControls(
                 constraintsBoxSecondaryButtons,
                 modifier = Modifier.fillMaxSize()
             ) {
-                FilledTonalIconButton(
-                    modifier = Modifier
-                        .layoutId("MoreButton")
-                        .fillMaxWidth(),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
+                Box(modifier = Modifier.layoutId("MoreButton")) {
+                    FilledTonalIconButton(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        onClick = { expanded = true },
+                        colors = IconButtonDefaults.filledTonalIconButtonColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                            contentDescription = stringResource(id = R.string.str_settings)
+                        )
+                    }
+
+                    DropdownMenu(
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.large)
+                            .width(180.dp),
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        MenuItems(context = context)
+                    }
                 }
 
                 FilledTonalIconButton(
@@ -856,4 +900,24 @@ fun RightSongControls(
             }
         }
     }
+}
+
+@Composable
+fun MenuItems(
+    context: Context
+) {
+
+    Divider()
+    DropdownMenuItem(
+        text = { Text(text = stringResource(id = R.string.str_settings)) },
+        onClick = {
+            context.startActivity(Intent(context, SettingsActivity::class.java))
+        },
+        leadingIcon = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                contentDescription = stringResource(id = R.string.desc_settings)
+            )
+        }
+    )
 }

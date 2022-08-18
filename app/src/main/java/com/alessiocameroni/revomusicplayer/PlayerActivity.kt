@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
+import com.alessiocameroni.revomusicplayer.components.interfaces.LeftSongControls
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import com.alessiocameroni.revomusicplayer.components.CenterSongControls
 
 class PlayerActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -90,8 +90,8 @@ class PlayerActivity : ComponentActivity() {
                             Box(
                                 modifier = Modifier
                                     .layoutId("AlbumCover")
-                                    .size(360.dp)
-                                    .padding(10.dp, 10.dp, 10.dp, 20.dp)
+                                    .padding(20.dp)
+                                    .size(340.dp)
                                     .clip(MaterialTheme.shapes.extraLarge)
                                     .background(MaterialTheme.colorScheme.primary)
                             ) {
@@ -101,8 +101,8 @@ class PlayerActivity : ComponentActivity() {
                             Box(
                                 modifier = Modifier
                                     .layoutId("SongInformation")
-                                    .size(360.dp, 80.dp)
-                                    .padding(10.dp)
+                                    .padding(horizontal = 20.dp)
+                                    .size(340.dp, 50.dp)
                             ) {
                                 val songInfoConstraints = ConstraintSet {
                                     val songNameText = createRefFor("SongNameText")
@@ -135,7 +135,7 @@ class PlayerActivity : ComponentActivity() {
                                     Text(
                                         modifier = Modifier
                                             .layoutId("SongNameText")
-                                            .width(300.dp),
+                                            .width(280.dp),
                                         text = "SongName",
                                         textAlign = TextAlign.Start,
                                         style = MaterialTheme.typography.headlineSmall,
@@ -146,7 +146,7 @@ class PlayerActivity : ComponentActivity() {
                                     Text(
                                         modifier = Modifier
                                             .layoutId("ArtistNameText")
-                                            .width(300.dp),
+                                            .width(280.dp),
                                         text = "ArtistName",
                                         textAlign = TextAlign.Start,
                                         style = MaterialTheme.typography.titleMedium,
@@ -175,11 +175,11 @@ class PlayerActivity : ComponentActivity() {
                                 }
                             }
 
-                            CenterSongControls(
+                            LeftSongControls(
                                 modifier = Modifier
                                     .layoutId("SongControls")
-                                    .width(360.dp)
-                                    .padding(10.dp),
+                                    .padding(20.dp)
+                                    .width(340.dp),
                                 floatPosition = 0.5f,
                                 boolShuffleChecked = false,
                                 boolRepeatChecked = false
