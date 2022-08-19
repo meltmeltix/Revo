@@ -19,7 +19,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.SearchActivity
 import com.alessiocameroni.revomusicplayer.SettingsActivity
 import com.alessiocameroni.revomusicplayer.classes.LibraryItemData
-import com.alessiocameroni.revomusicplayer.components.lists.OneColumnItem
+import com.alessiocameroni.revomusicplayer.components.lists.OneColumnListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,7 +120,7 @@ fun TracksScreen() {
                             .clip(RoundedCornerShape(22.dp))
                             .clickable {  },
                     ) {
-                        OneColumnItem(
+                        OneColumnListItem(
                             stringTitleItem = items[i].stringTitle,
                             stringSubtitleItem = items[i].stringSubtitle
                         )

@@ -36,4 +36,8 @@
     <string name="desc_shuffle">Shuffle songs randomly</string>
     <string name="desc_repeat">Repeat the current playlist</string>
     <string name="desc_repeatone">Repeat the current song</string>
+    <string name="str_looks">Looks</string>
+    <string name="str_about">About</string>
+    <string name="desc_looks">Change the theme or layout of the app</string>
+    <string name="desc_about">Developer, app info and others</string>
 </resources>

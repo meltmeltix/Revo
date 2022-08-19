@@ -23,14 +23,14 @@ import com.alessiocameroni.revomusicplayer.R
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
-    OneColumnItem(
+    OneColumnListItem(
         stringTitleItem = "Main Title",
         stringSubtitleItem = "Subtitle"
     )
 }
 
 @Composable
-fun OneColumnItem(
+fun OneColumnListItem(
     stringTitleItem: String,
     stringSubtitleItem: String
 ) {
