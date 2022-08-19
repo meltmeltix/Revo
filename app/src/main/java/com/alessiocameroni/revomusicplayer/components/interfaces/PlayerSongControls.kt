@@ -293,7 +293,7 @@ fun CenterSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        MenuItems(context = context)
+                        PlayerMenuItems(context = context)
                     }
                 }
 
@@ -570,7 +570,7 @@ fun LeftSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        MenuItems(context = context)
+                        PlayerMenuItems(context = context)
                     }
                 }
 
@@ -847,7 +847,7 @@ fun RightSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        MenuItems(context = context)
+                        PlayerMenuItems(context = context)
                     }
                 }
 
@@ -903,7 +903,7 @@ fun RightSongControls(
 }
 
 @Composable
-fun MenuItems(
+fun PlayerMenuItems(
     context: Context
 ) {
 

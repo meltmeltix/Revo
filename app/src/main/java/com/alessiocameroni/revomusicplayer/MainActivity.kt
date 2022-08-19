@@ -25,7 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.alessiocameroni.revomusicplayer.classes.BottomNavigationItem
+import com.alessiocameroni.revomusicplayer.classes.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.mainscreens.*
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -79,31 +79,31 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier
                                         .layoutId("BottomNavBar"),
                                     items = listOf(
-                                        BottomNavigationItem(
+                                        BottomNavigationItemData(
                                             name = stringResource(id = R.string.str_home),
                                             route = "home",
                                             iconOutlined = painterResource(id = R.drawable.ic_outlined_home_24),
                                             iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
                                         ),
-                                        BottomNavigationItem(
+                                        BottomNavigationItemData(
                                             name = stringResource(id = R.string.str_tracks),
                                             route = "tracks",
                                             iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                                             iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                                         ),
-                                        BottomNavigationItem(
+                                        BottomNavigationItemData(
                                             name = stringResource(id = R.string.str_albums),
                                             route = "albums",
                                             iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                                             iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                                         ),
-                                        BottomNavigationItem(
+                                        BottomNavigationItemData(
                                             name = stringResource(id = R.string.str_playlists),
                                             route = "playlists",
                                             iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                                             iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                                         ),
-                                        BottomNavigationItem(
+                                        BottomNavigationItemData(
                                             name = stringResource(id = R.string.str_spoitfy),
                                             route = "spotify",
                                             iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
@@ -232,10 +232,10 @@ fun Navigation(navController: NavHostController) {
 
 @Composable
 fun BottomNavigationBar(
-    items: List<BottomNavigationItem>,
+    items: List<BottomNavigationItemData>,
     navController: NavController,
     modifier: Modifier = Modifier,
-    onItemClick: (BottomNavigationItem) -> Unit
+    onItemClick: (BottomNavigationItemData) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
