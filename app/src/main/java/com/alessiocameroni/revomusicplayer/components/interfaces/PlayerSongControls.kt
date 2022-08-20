@@ -1,69 +1,30 @@
 package com.alessiocameroni.revomusicplayer.components.interfaces
 
-import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
+import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.SettingsActivity
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewRight() {
-    RightSongControls(
-        modifier = Modifier
-            .width(360.dp),
-        floatPosition = 0.5f,
-        boolShuffleChecked = false,
-        boolRepeatChecked = false
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewLeft() {
-    LeftSongControls(
-        modifier = Modifier
-            .width(360.dp),
-        floatPosition = 0.5f,
-        boolShuffleChecked = false,
-        boolRepeatChecked = false
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewCenter() {
-    CenterSongControls(
-        modifier = Modifier
-            .width(360.dp),
-        floatPosition = 0.5f,
-        boolShuffleChecked = false,
-        boolRepeatChecked = false
-    )
-}
+import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @Composable
 fun CenterSongControls(
+    navController: NavController,
     modifier: Modifier,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
-    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
@@ -293,7 +254,9 @@ fun CenterSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        PlayerMenuItems(context = context)
+                        PlayerMenuItems(
+                            navController = navController
+                        )
                     }
                 }
 
@@ -350,12 +313,12 @@ fun CenterSongControls(
 
 @Composable
 fun LeftSongControls(
+    navController: NavController,
     modifier: Modifier,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
-    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
@@ -570,7 +533,7 @@ fun LeftSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        PlayerMenuItems(context = context)
+                        PlayerMenuItems(navController = navController)
                     }
                 }
 
@@ -627,12 +590,12 @@ fun LeftSongControls(
 
 @Composable
 fun RightSongControls(
+    navController: NavController,
     modifier: Modifier,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
 ) {
-    val context = LocalContext.current
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
@@ -847,7 +810,7 @@ fun RightSongControls(
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        PlayerMenuItems(context = context)
+                        PlayerMenuItems(navController = navController)
                     }
                 }
 
@@ -904,15 +867,13 @@ fun RightSongControls(
 
 @Composable
 fun PlayerMenuItems(
-    context: Context
+    navController: NavController
 ) {
 
     Divider()
     DropdownMenuItem(
         text = { Text(text = stringResource(id = R.string.str_settings)) },
-        onClick = {
-            context.startActivity(Intent(context, SettingsActivity::class.java))
-        },
+        onClick = { navController.navigate(Screens.SettingsScreen.route) },
         leadingIcon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_outlined_settings_24),
