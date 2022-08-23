@@ -6,15 +6,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
-import com.alessiocameroni.revomusicplayer.classes.navigation.SettingsScreens
-import com.alessiocameroni.revomusicplayer.screens.MainScreen
-import com.alessiocameroni.revomusicplayer.screens.PlayerScreen
-import com.alessiocameroni.revomusicplayer.screens.main.*
-import com.alessiocameroni.revomusicplayer.screens.other.PermissionsScreen
-import com.alessiocameroni.revomusicplayer.screens.search.SearchScreen
-import com.alessiocameroni.revomusicplayer.screens.settings.LooksScreen
-import com.alessiocameroni.revomusicplayer.screens.settings.SettingsScreen
+import com.alessiocameroni.revomusicplayer.MainScreen
+import com.alessiocameroni.revomusicplayer.PlayerScreen
+import com.alessiocameroni.revomusicplayer.main.*
+import com.alessiocameroni.revomusicplayer.other.PermissionsScreen
+import com.alessiocameroni.revomusicplayer.search.SearchScreen
+import com.alessiocameroni.revomusicplayer.settings.AboutScreen
+import com.alessiocameroni.revomusicplayer.settings.LooksScreen
+import com.alessiocameroni.revomusicplayer.settings.SettingsScreen
 
 @Composable
 fun Navigation() {
@@ -27,6 +26,7 @@ fun Navigation() {
         composable(route = Screens.SettingsScreen.route) { SettingsScreen(navController = navController) }
 
         composable(route = SettingsScreens.LooksScreen.route) { LooksScreen(navController = navController) }
+        composable(route = SettingsScreens.AboutScreen.route) { AboutScreen(navController = navController) }
     }
 }
 

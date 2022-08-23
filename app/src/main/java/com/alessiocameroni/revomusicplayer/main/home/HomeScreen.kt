@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.screens.main
+package com.alessiocameroni.revomusicplayer.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
+import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

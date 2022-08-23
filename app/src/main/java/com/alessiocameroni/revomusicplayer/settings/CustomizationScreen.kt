@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.screens.settings
+package com.alessiocameroni.revomusicplayer.settings
 
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.Image
@@ -28,7 +28,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
+import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.components.lists.SectionTitle
 import com.alessiocameroni.revomusicplayer.components.lists.SettingsActionItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme

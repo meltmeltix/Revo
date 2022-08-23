@@ -217,7 +217,7 @@ fun SectionTitle(
             text = stringTitle,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
-                .padding(horizontal = 25.dp, vertical = 15.dp)
+                .padding(25.dp, 25.dp, 25.dp, 0.dp)
                 .fillMaxWidth(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,

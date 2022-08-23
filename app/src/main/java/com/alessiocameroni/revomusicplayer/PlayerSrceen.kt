@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.screens
+package com.alessiocameroni.revomusicplayer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,9 +15,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
-import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
 import com.alessiocameroni.revomusicplayer.components.interfaces.LeftSongControls
+import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

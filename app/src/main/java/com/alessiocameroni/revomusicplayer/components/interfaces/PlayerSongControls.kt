@@ -15,7 +15,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
+import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @Composable
 fun CenterSongControls(

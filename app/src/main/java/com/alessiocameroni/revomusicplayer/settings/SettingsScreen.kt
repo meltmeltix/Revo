@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.screens.settings
+package com.alessiocameroni.revomusicplayer.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
-import com.alessiocameroni.revomusicplayer.classes.navigation.SettingsScreens
+import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.components.lists.SettingsCategoryItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -69,7 +69,7 @@ fun SettingsScreen(navController: NavController) {
                                     .fillMaxWidth()
                                     .height(84.dp)
                                     .clip(RoundedCornerShape(22.dp))
-                                    .clickable {  }
+                                    .clickable { navController.navigate(SettingsScreens.AboutScreen.route) }
                             )
                         }
                     }

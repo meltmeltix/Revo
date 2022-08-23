@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.screens.other
+package com.alessiocameroni.revomusicplayer.other
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
