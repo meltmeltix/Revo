@@ -92,8 +92,8 @@ fun LooksScreen(navController: NavController) {
                             val openDialog = remember { mutableStateOf(false) }
 
                             SettingsActionItem(
-                                stringTitleItem = "Player",
-                                stringSubtitleItem = "Player",
+                                stringTitleItem = stringResource(id = R.string.str_layoutplayer),
+                                stringSubtitleItem = stringResource(id = R.string.desc_layoutplayer),
                                 unitAction = {  },
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -210,14 +210,6 @@ fun PlayerLayoutDialog(
                                 .height(170.dp),
                             selectedOption = selectedOption
                         )
-                        
-                        /*Image(
-                            modifier = Modifier
-                                .layoutId("ImageDemo")
-                                .height(170.dp),
-                            painter = painterResource(id = R.drawable.ill_light_center_player_controls),
-                            contentDescription = "String"
-                        )*/
                     }
                 }
 

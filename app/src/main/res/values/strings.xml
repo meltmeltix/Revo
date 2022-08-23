@@ -46,4 +46,6 @@
     <string name="str_right">Right</string>
     <string name="str_ok">OK</string>
     <string name="str_cancel">Cancel</string>
+    <string name="str_layoutplayer">Layout Player</string>
+    <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
 </resources>
