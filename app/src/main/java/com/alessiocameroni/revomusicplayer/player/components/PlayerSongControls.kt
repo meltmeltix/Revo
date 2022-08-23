@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.components.interfaces
+package com.alessiocameroni.revomusicplayer.player.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,8 +19,8 @@ import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @Composable
 fun CenterSongControls(
-    navController: NavController,
     modifier: Modifier,
+    navController: NavController,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
@@ -313,8 +313,8 @@ fun CenterSongControls(
 
 @Composable
 fun LeftSongControls(
-    navController: NavController,
     modifier: Modifier,
+    navController: NavController,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean
@@ -590,8 +590,8 @@ fun LeftSongControls(
 
 @Composable
 fun RightSongControls(
-    navController: NavController,
     modifier: Modifier,
+    navController: NavController,
     floatPosition: Float,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean

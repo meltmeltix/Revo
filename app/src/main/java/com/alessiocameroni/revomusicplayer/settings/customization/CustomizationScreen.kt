@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.settings
+package com.alessiocameroni.revomusicplayer.settings.customization
 
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.Image
@@ -29,8 +29,8 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
-import com.alessiocameroni.revomusicplayer.components.lists.SectionTitle
-import com.alessiocameroni.revomusicplayer.components.lists.SettingsActionItem
+import com.alessiocameroni.revomusicplayer.settings.main.components.SectionTitle
+import com.alessiocameroni.revomusicplayer.settings.main.components.SettingsActionItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -102,7 +102,12 @@ fun LooksScreen(navController: NavController) {
                             )
 
                             if (openDialog.value) {
-                                PlayerLayoutDialog(openDialog = openDialog)
+                                PlayerLayoutDialog(
+                                    modifier = Modifier
+                                        .clip(shape = RoundedCornerShape(24.dp))
+                                        .width(560.dp),
+                                    openDialog = openDialog
+                                )
                             }
                         }
                     }
@@ -116,6 +121,7 @@ fun LooksScreen(navController: NavController) {
 
 @Composable
 fun PlayerLayoutDialog(
+    modifier: Modifier,
     openDialog: MutableState<Boolean>
 ) {
     Dialog(onDismissRequest = { openDialog.value = false }) {
@@ -127,9 +133,7 @@ fun PlayerLayoutDialog(
         val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
 
         Surface(
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(24.dp))
-                .width(560.dp),
+            modifier = modifier,
             color = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onSurface
         ) {

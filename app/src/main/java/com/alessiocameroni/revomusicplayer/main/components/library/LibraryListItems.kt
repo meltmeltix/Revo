@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.components.lists
+package com.alessiocameroni.revomusicplayer.main.components.library
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +24,7 @@ import com.alessiocameroni.revomusicplayer.R
 @Composable
 fun Preview() {
     OneColumnListItem(
+        modifier = Modifier,
         stringTitleItem = "Main Title",
         stringSubtitleItem = "Subtitle"
     )
@@ -31,14 +32,11 @@ fun Preview() {
 
 @Composable
 fun OneColumnListItem(
+    modifier: Modifier,
     stringTitleItem: String,
     stringSubtitleItem: String
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(84.dp),
-    ) {
+    Box( modifier = modifier ) {
         val constraints = ConstraintSet {
             val albumCover = createRefFor("AlbumCover")
             val textTitle = createRefFor("TextTitle")

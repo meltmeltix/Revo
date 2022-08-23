@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.components.lists
+package com.alessiocameroni.revomusicplayer.settings.about.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +33,9 @@ fun CreditsItem(
     }
 }
 
-fun CreditsDialog() {
+@Composable
+fun CreditsDialog(
+    modifier: Modifier
+) {
 
 }

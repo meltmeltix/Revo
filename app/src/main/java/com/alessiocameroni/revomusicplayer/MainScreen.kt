@@ -17,7 +17,7 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.alessiocameroni.revomusicplayer.main.classes.BottomNavigationItemData
+import com.alessiocameroni.revomusicplayer.main.data.bottomnav.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -126,8 +126,8 @@ fun MainScreen(navController: NavController) {
 // UI Elements
 @Composable
 fun BottomMiniPlayer(
-    navController: NavController,
     modifier: Modifier,
+    navController: NavController,
     songNameString: String,
     artistNameString: String
 ) {
@@ -213,9 +213,9 @@ fun BottomMiniPlayer(
 
 @Composable
 fun BottomNavigationBar(
+    modifier: Modifier = Modifier,
     items: List<BottomNavigationItemData>,
     navController: NavController,
-    modifier: Modifier = Modifier,
     onItemClick: (BottomNavigationItemData) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()

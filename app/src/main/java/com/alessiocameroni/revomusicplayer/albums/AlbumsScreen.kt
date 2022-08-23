@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.main
+package com.alessiocameroni.revomusicplayer.albums
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

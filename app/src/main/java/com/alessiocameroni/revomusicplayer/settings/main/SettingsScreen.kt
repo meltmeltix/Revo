@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.settings
+package com.alessiocameroni.revomusicplayer.settings.main
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.navigation.SettingsScreens
-import com.alessiocameroni.revomusicplayer.components.lists.SettingsCategoryItem
+import com.alessiocameroni.revomusicplayer.settings.main.components.SettingsCategoryItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

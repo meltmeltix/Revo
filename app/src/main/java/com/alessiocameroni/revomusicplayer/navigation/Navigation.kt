@@ -7,20 +7,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alessiocameroni.revomusicplayer.MainScreen
-import com.alessiocameroni.revomusicplayer.PlayerScreen
-import com.alessiocameroni.revomusicplayer.main.*
-import com.alessiocameroni.revomusicplayer.other.PermissionsScreen
+import com.alessiocameroni.revomusicplayer.albums.AlbumsScreen
+import com.alessiocameroni.revomusicplayer.home.HomeScreen
+import com.alessiocameroni.revomusicplayer.player.PlayerScreen
+import com.alessiocameroni.revomusicplayer.playlists.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
-import com.alessiocameroni.revomusicplayer.settings.AboutScreen
-import com.alessiocameroni.revomusicplayer.settings.LooksScreen
-import com.alessiocameroni.revomusicplayer.settings.SettingsScreen
+import com.alessiocameroni.revomusicplayer.settings.about.AboutScreen
+import com.alessiocameroni.revomusicplayer.settings.customization.LooksScreen
+import com.alessiocameroni.revomusicplayer.settings.main.SettingsScreen
+import com.alessiocameroni.revomusicplayer.spotify.SpotifyFavoritesScreen
+import com.alessiocameroni.revomusicplayer.tracks.TracksScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screens.MainScreen.route) {
         composable(route = Screens.MainScreen.route) { MainScreen(navController = navController) }
-        composable(route = Screens.PermissionsScreen.route) { PermissionsScreen(navController = navController) }
         composable(route = Screens.PlayerScreen.route) { PlayerScreen(navController = navController) }
         composable(route = Screens.SearchScreen.route) { SearchScreen(navController = navController) }
         composable(route = Screens.SettingsScreen.route) { SettingsScreen(navController = navController) }

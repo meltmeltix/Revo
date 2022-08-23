@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.components.lists
+package com.alessiocameroni.revomusicplayer.settings.main.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
@@ -16,10 +16,10 @@ import androidx.constraintlayout.compose.layoutId
 
 @Composable
 fun SettingsCategoryItem(
+    modifier: Modifier,
     painterIcon: Painter,
     stringTitleItem: String,
     stringSubtitleItem: String,
-    modifier: Modifier
 ) {
     Box(
         modifier = modifier
@@ -85,10 +85,10 @@ fun SettingsCategoryItem(
 
 @Composable
 fun SettingsActionItem(
+    modifier: Modifier,
     stringTitleItem: String,
     stringSubtitleItem: String,
     unitAction: @Composable () -> Unit,
-    modifier: Modifier
 ) {
     Box(
         modifier = modifier
@@ -153,9 +153,9 @@ fun SettingsActionItem(
 
 @Composable
 fun SettingsTitleActionItem(
+    modifier: Modifier,
     stringTitleItem: String,
     unitAction: @Composable () -> Unit,
-    modifier: Modifier
 ) {
     Box(
         modifier = Modifier
@@ -207,8 +207,8 @@ fun SettingsTitleActionItem(
 
 @Composable
 fun SectionTitle(
+    modifier: Modifier,
     stringTitle: String,
-    modifier: Modifier
 ) {
     Box(
         modifier = modifier

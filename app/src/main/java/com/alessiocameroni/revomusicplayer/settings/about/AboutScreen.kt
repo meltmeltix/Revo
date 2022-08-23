@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.settings
+package com.alessiocameroni.revomusicplayer.settings.about
 
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.Image
@@ -19,7 +19,7 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
-import com.alessiocameroni.revomusicplayer.components.lists.SectionTitle
+import com.alessiocameroni.revomusicplayer.settings.main.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +72,10 @@ fun AboutScreen(navController: NavController) {
                                 .clip(RoundedCornerShape(22.dp))
                                 .clickable { }
                         ) {
-                            MadeWithLoveItem()
+                            MadeWithLoveItem(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                            )
                         }
 
                         Divider()
@@ -98,11 +101,10 @@ fun AboutScreen(navController: NavController) {
 }
 
 @Composable
-fun MadeWithLoveItem() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
+fun MadeWithLoveItem(
+    modifier: Modifier
+) {
+    Box( modifier = modifier ) {
         val constraints = ConstraintSet {
             val imageProfile = createRefFor("ImageProfile")
             val boxText = createRefFor("BoxText")

@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.main
+package com.alessiocameroni.revomusicplayer.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
