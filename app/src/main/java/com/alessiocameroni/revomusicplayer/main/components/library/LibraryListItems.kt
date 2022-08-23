@@ -20,16 +20,6 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
 
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    OneColumnListItem(
-        modifier = Modifier,
-        stringTitleItem = "Main Title",
-        stringSubtitleItem = "Subtitle"
-    )
-}
-
 @Composable
 fun OneColumnListItem(
     modifier: Modifier,

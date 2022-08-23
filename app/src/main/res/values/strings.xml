@@ -32,13 +32,15 @@
     <string name="str_left">Left</string>
     <string name="str_center">Center</string>
     <string name="str_right">Right</string>
-    <string name="str_ok">OK</string>
+    <string name="str_ok" translatable="false">OK</string>
     <string name="str_cancel">Cancel</string>
     <string name="str_layoutplayer">Layout Player</string>
     <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
-    <string name="desc_meltix">Alessio Cameroni profile picture</string>
+    <string name="desc_alessiocameroni">Alessio Cameroni profile picture</string>
     <string name="str_madewithloveby">Made with &#9829; by</string>
-    <string name="str_alessiocameroni">Alessio \nCameroni</string>
+    <string name="str_alessiocameroni" translatable="false">Alessio \nCameroni</string>
     <string name="str_developer">Developer</string>
     <string name="str_specialthanks">Special thanks</string>
+    <string name="str_katherine" translatable="false">Katherine</string>
+    <string name="desc_katherine">Accessibility help, spanish translator</string>
 </resources>
