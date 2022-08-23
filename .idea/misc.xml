@@ -8,9 +8,17 @@
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_grid_on_24.xml" value="0.121" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_play_arrow_24.xml" value="0.121" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_baseline_playlist_music_24.xml" value="0.1065" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_darkcenterplayerconrttrols.xml" value="0.1375" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_filled_home_24.xml" value="0.163" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_filled_spotify_24.xml" value="0.163" />
         <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ic_outline_favorite_border_24.xml" value="0.163" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_dark_center_player_controls.xml" value="0.1" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_dark_left_player_controls.xml" value="0.1165" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_dark_right_player_controls.xml" value="0.1165" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_darkcenterplayerconrttrols.xml" value="0.1775" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_light_center_player_controls.xml" value="0.1165" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_light_left_player_controls.xml" value="0.1165" />
+        <entry key="..\:/git/Personal/Android/RevoMusicPlayer/app/src/main/res/drawable/ill_light_right_player_controls.xml" value="0.1" />
       </map>
     </option>
   </component>

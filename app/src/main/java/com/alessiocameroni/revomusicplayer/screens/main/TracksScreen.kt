@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.classes.LibraryItemData
 import com.alessiocameroni.revomusicplayer.components.lists.OneColumnListItem
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.classes.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

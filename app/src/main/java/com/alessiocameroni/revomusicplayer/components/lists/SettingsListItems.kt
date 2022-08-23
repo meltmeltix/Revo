@@ -4,34 +4,25 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewComponent() {
-    var checked by remember { mutableStateOf(true) }
-
-}
-
 @Composable
 fun SettingsCategoryItem(
     painterIcon: Painter,
     stringTitleItem: String,
-    stringSubtitleItem: String
+    stringSubtitleItem: String,
+    modifier: Modifier
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(84.dp)
+        modifier = modifier
     ) {
         val constraints = ConstraintSet {
             val settingIcon = createRefFor("SettingIcon")
@@ -96,11 +87,11 @@ fun SettingsCategoryItem(
 fun SettingsActionItem(
     stringTitleItem: String,
     stringSubtitleItem: String,
-    unitAction: @Composable () -> Unit
+    unitAction: @Composable () -> Unit,
+    modifier: Modifier
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
     ) {
         val constraints = ConstraintSet {
             val textTitle = createRefFor("TextTitle")
@@ -163,7 +154,8 @@ fun SettingsActionItem(
 @Composable
 fun SettingsTitleActionItem(
     stringTitleItem: String,
-    unitAction: @Composable () -> Unit
+    unitAction: @Composable () -> Unit,
+    modifier: Modifier
 ) {
     Box(
         modifier = Modifier
@@ -209,5 +201,27 @@ fun SettingsTitleActionItem(
                 unitAction()
             }
         }
+    }
+}
+
+
+@Composable
+fun SectionTitle(
+    stringTitle: String,
+    modifier: Modifier
+) {
+    Box(
+        modifier = modifier
+    ) {
+        Text(
+            text = stringTitle,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .padding(horizontal = 25.dp, vertical = 15.dp)
+                .fillMaxWidth(),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
