@@ -97,6 +97,19 @@ fun AboutScreen(navController: NavController) {
                                 stringDescription = stringResource(id = R.string.desc_katherine)
                             )
                         }
+
+                        Row( modifier = Modifier.fillMaxWidth() ) {
+                            val openDialog = remember { mutableStateOf(false) }
+
+                            CreditsItem(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(22.dp))
+                                    .clickable { openDialog.value = true },
+                                stringTitle = stringResource(id = R.string.str_arigata9),
+                                stringDescription = stringResource(id = R.string.desc_arigata9)
+                            )
+                        }
                     }
                 }
             )

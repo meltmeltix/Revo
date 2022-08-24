@@ -11,24 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
-import com.alessiocameroni.revomusicplayer.R
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewComponent() {
-    CreditsItem(
-        modifier = Modifier
-            .fillMaxWidth(),
-        stringTitle = "This is the title",
-        stringDescription = "This is the subtitle"
-    )
+
 }
 
 @Composable
@@ -61,7 +54,7 @@ fun MadeWithLoveItem(
                     .padding(horizontal = 25.dp, vertical = 15.dp)
                     .clip(MaterialTheme.shapes.extraLarge)
                     .size(100.dp),
-                painter = painterResource(id = R.drawable.ill_meltix_200),
+                painter = painterProfile,
                 contentDescription = stringName
             )
 
