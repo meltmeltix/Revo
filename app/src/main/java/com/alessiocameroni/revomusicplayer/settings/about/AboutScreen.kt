@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer.settings.about
 
 import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,17 +9,20 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.settings.about.components.BigCreditsItem
+import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsDialogDetails
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsItem
-import com.alessiocameroni.revomusicplayer.settings.about.components.MadeWithLoveItem
 import com.alessiocameroni.revomusicplayer.settings.main.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -53,66 +57,181 @@ fun AboutScreen(navController: NavController) {
                         },
                         scrollBehavior = scrollBehavior
                     )
-                },
-                content = { padding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        SectionTitle(
-                            stringTitle = stringResource(id = R.string.str_developer),
-                            modifier = Modifier.fillMaxWidth()
+                }
+            ) { padding ->
+                Column(
+                    modifier = Modifier
+                        .padding(padding)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    SectionTitle(
+                        stringTitle = stringResource(id = R.string.str_developer),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        val openDialog = remember { mutableStateOf(false) }
+                        val uriHandler = LocalUriHandler.current
+
+                        BigCreditsItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(22.dp))
+                                .clickable { openDialog.value = true },
+                            stringTitle = stringResource(id = R.string.str_madewithloveby),
+                            stringName = stringResource(id = R.string.str_alessiocameroni),
+                            unitProfile = { 
+                                Image(
+                                    painter = painterResource(id = R.drawable.ill_meltix_200), 
+                                    contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                )
+                            }
                         )
-                        
-                        Row( modifier = Modifier.fillMaxWidth() ) {
-                            MadeWithLoveItem(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
-                                    .clickable { },
-                                stringTitle = stringResource(id = R.string.str_madewithloveby),
-                                stringName = stringResource(id = R.string.str_alessiocameroni),
-                                painterProfile = painterResource(id = R.drawable.ill_meltix_200)
-                            )
-                        }
 
-                        Divider()
-                        
-                        SectionTitle(
-                            stringTitle = stringResource(id = R.string.str_specialthanks), 
-                            modifier = Modifier.fillMaxWidth()
+                        if (openDialog.value) {
+                            CreditsDialogDetails(
+                                modifier = Modifier
+                                    .clip(shape = RoundedCornerShape(24.dp))
+                                    .width(500.dp),
+                                openDialog = openDialog,
+                                stringTitle = stringResource(id = R.string.str_alessiocameroni),
+                                stringDescription = stringResource(id = R.string.desc_alessiocameroni),
+                                unitProfile = {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ill_meltix_200),
+                                        contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                    )
+                                }
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center,
+                                ) {
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
+                                            contentDescription = stringResource(id = R.string.str_instgram)
+                                        )
+                                    }
+
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_github_24),
+                                            contentDescription = stringResource(id = R.string.str_github)
+                                        )
+                                    }
+
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
+                                            contentDescription = stringResource(id = R.string.str_twitter)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Divider()
+
+                    SectionTitle(
+                        stringTitle = stringResource(id = R.string.str_specialthanks),
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        val openDialog = remember { mutableStateOf(false) }
+                        val uriHandler = LocalUriHandler.current
+
+                        CreditsItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(22.dp))
+                                .clickable { openDialog.value = true },
+                            stringTitle = stringResource(id = R.string.str_katherine),
+                            stringDescription = stringResource(id = R.string.desc_katherine),
+                            unitProfile = null
                         )
 
-                        Row( modifier = Modifier.fillMaxWidth() ) {
-                            val openDialog = remember { mutableStateOf(false) }
-
-                            CreditsItem(
+                        if (openDialog.value) {
+                            CreditsDialogDetails(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
-                                    .clickable { openDialog.value = true },
-                                stringTitle = stringResource(id = R.string.str_katherine), 
-                                stringDescription = stringResource(id = R.string.desc_katherine)
-                            )
+                                    .clip(shape = RoundedCornerShape(24.dp))
+                                    .width(500.dp),
+                                openDialog = openDialog,
+                                stringTitle = stringResource(id = R.string.str_katherine),
+                                stringDescription = stringResource(id = R.string.desc_katherine),
+                                unitProfile = null
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center,
+                                ) {
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://www.instagram.com/kats.keebs/") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
+                                            contentDescription = stringResource(id = R.string.str_instgram)
+                                        )
+                                    }
+                                }
+                            }
                         }
+                    }
 
-                        Row( modifier = Modifier.fillMaxWidth() ) {
-                            val openDialog = remember { mutableStateOf(false) }
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        val openDialog = remember { mutableStateOf(false) }
+                        val uriHandler = LocalUriHandler.current
 
-                            CreditsItem(
+                        CreditsItem(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(22.dp))
+                                .clickable { openDialog.value = true },
+                            stringTitle = stringResource(id = R.string.str_arigata9),
+                            stringDescription = stringResource(id = R.string.desc_arigata9),
+                            unitProfile = null
+                        )
+
+                        if (openDialog.value) {
+                            CreditsDialogDetails(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
-                                    .clickable { openDialog.value = true },
+                                    .clip(shape = RoundedCornerShape(24.dp))
+                                    .width(500.dp),
+                                openDialog = openDialog,
                                 stringTitle = stringResource(id = R.string.str_arigata9),
-                                stringDescription = stringResource(id = R.string.desc_arigata9)
-                            )
+                                stringDescription = stringResource(id = R.string.desc_arigata9),
+                                unitProfile = null
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center,
+                                ) {
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://github.com/arigata9") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_github_24),
+                                            contentDescription = stringResource(id = R.string.str_github)
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            )
+            }
         }
     }
 }

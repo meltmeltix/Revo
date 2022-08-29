@@ -36,13 +36,20 @@
     <string name="str_cancel">Cancel</string>
     <string name="str_layoutplayer">Layout Player</string>
     <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
-    <string name="desc_alessiocameroni">Alessio Cameroni profile picture</string>
     <string name="str_madewithloveby">Made with &#9829; by</string>
-    <string name="str_alessiocameroni" translatable="false">Alessio \nCameroni</string>
+    <string name="str_alessiocameroni" translatable="false">Alessio Cameroni</string>
+    <string name="desc_alessiocameroni">
+        I am a University Student aspiring to be a Software Developer.\n
+        I love working on big projects, working on UI, and studying Design.
+    </string>
     <string name="str_developer">Developer</string>
     <string name="str_specialthanks">Special thanks</string>
     <string name="str_katherine" translatable="false">Katherine</string>
     <string name="desc_katherine">Accessibility help, spanish translator</string>
-    <string name="str_arigata9">arigata9</string>
+    <string name="str_arigata9" translatable="false">arigata9</string>
     <string name="desc_arigata9">German translator</string>
+    <string name="str_github" translatable="false">Github</string>
+    <string name="str_twitter" translatable="false">Twitter</string>
+    <string name="str_instgram" translatable="false">Instagram</string>
+    <string name="str_usericon">User Icon</string>
 </resources>

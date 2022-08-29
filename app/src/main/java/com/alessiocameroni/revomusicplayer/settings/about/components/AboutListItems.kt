@@ -1,35 +1,30 @@
 package com.alessiocameroni.revomusicplayer.settings.about.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewComponent() {
-
-}
+import com.alessiocameroni.revomusicplayer.R
 
 @Composable
-fun MadeWithLoveItem(
+fun BigCreditsItem(
     modifier: Modifier,
     stringTitle: String,
     stringName: String,
-    painterProfile: Painter
+    unitProfile: @Composable () -> Unit
 ) {
     Box( modifier = modifier ) {
         val constraints = ConstraintSet {
@@ -48,15 +43,26 @@ fun MadeWithLoveItem(
         }
 
         ConstraintLayout(constraints, Modifier.fillMaxWidth()) {
-            Image(
+            Box(
                 modifier = Modifier
                     .layoutId("ImageProfile")
                     .padding(horizontal = 25.dp, vertical = 15.dp)
                     .clip(MaterialTheme.shapes.extraLarge)
-                    .size(100.dp),
-                painter = painterProfile,
-                contentDescription = stringName
-            )
+                    .size(100.dp)
+                    .background(MaterialTheme.colorScheme.primary),
+                contentAlignment = Alignment.Center
+            ) {
+                if (unitProfile != null) {
+                    unitProfile()
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
+                        contentDescription = stringResource(id = R.string.str_usericon),
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
+
 
             Box(
                 modifier = Modifier
@@ -90,7 +96,8 @@ fun MadeWithLoveItem(
 
                     Text(
                         modifier = Modifier
-                            .layoutId("TextDeveloper"),
+                            .layoutId("TextDeveloper")
+                            .width(200.dp),
                         text = stringName,
                         style = MaterialTheme.typography.headlineMedium
                     )
@@ -104,7 +111,8 @@ fun MadeWithLoveItem(
 fun CreditsItem(
     modifier: Modifier,
     stringTitle: String,
-    stringDescription: String
+    stringDescription: String,
+    unitProfile: @Composable (() -> Unit)?
 ) {
     Box(
         modifier = modifier
@@ -131,9 +139,18 @@ fun CreditsItem(
                     .padding(24.dp, 10.dp, 16.dp, 10.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .size(54.dp)
-                    .background(Color.Blue)
+                    .background(MaterialTheme.colorScheme.primary),
+                contentAlignment = Alignment.Center
             ) {
-
+                if (unitProfile != null) {
+                    unitProfile()
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
+                        contentDescription = stringResource(id = R.string.str_usericon),
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
             }
 
             Box(

@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name" translatable="false">Revo</string>
     <string name="str_home">Home</string>
     <string name="str_tracks">Tracks</string>
     <string name="str_albums">Alben</string>
     <string name="str_playlists">Playlists</string>
-    <string name="str_spoitfy" translatable="false">Spotify</string>
     <string name="desc_searchmenu">Suche</string>
     <string name="str_settings">Einstellungen</string>
     <string name="str_gridtype">Ansichtstyp auswählen</string>
@@ -32,13 +30,10 @@
     <string name="str_left">Linksbündig</string>
     <string name="str_center">Zentriert</string>
     <string name="str_right">Rechtsbündig</string>
-    <string name="str_ok">OK</string>
     <string name="str_cancel">Abbrechen</string>
     <string name="str_layoutplayer">Layout Player</string>
     <string name="desc_layoutplayer">Wähle, wie die Buttons in der Vollbildansicht dargestellt werden sollen</string>
-    <string name="desc_alessiocameroni">Alessio Cameroni Profilbild</string>
     <string name="str_madewithloveby">Mit &#9829; gemacht von</string>
-    <string name="str_alessiocameroni">Alessio \nCameroni</string>
     <string name="str_developer">Entwickler</string>
     <string name="str_specialthanks">Besonderer Dank</string>
 </resources>
