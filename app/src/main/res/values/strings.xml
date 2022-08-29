@@ -38,7 +38,7 @@
     <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
     <string name="str_madewithloveby">Made with &#9829; by</string>
     <string name="str_alessiocameroni" translatable="false">Alessio Cameroni</string>
-    <string name="desc_alessiocameroni">
+    <string name="bio_alessiocameroni">
         I am a University Student aspiring to be a Software Developer.\n
         I love working on big projects, working on UI, and studying Design.
     </string>

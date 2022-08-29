@@ -1,9 +1,9 @@
 package com.alessiocameroni.revomusicplayer.settings.about
 
-import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.settings.about.components.BigCardAboutItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCreditsItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsDialogDetails
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsItem
@@ -29,11 +31,7 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutScreen(navController: NavController) {
-    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        decayAnimationSpec,
-        rememberTopAppBarState()
-    )
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     RevoMusicPlayerTheme {
         Surface(
@@ -59,18 +57,37 @@ fun AboutScreen(navController: NavController) {
                     )
                 }
             ) { padding ->
-                Column(
+                LazyColumn(
                     modifier = Modifier
                         .padding(padding)
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    SectionTitle(
-                        stringTitle = stringResource(id = R.string.str_developer),
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    item {
+                        BigCardAboutItem(
+                            modifier = Modifier
+                                .padding(14.dp, 16.dp, 14.dp, 0.dp)
+                                .fillMaxWidth(),
+                            unitBanner = {
+                                Image(
+                                    contentScale = ContentScale.FillWidth,
+                                    modifier = Modifier.fillMaxWidth(),
+                                    painter = painterResource(id = R.drawable.ill_revo_banner),
+                                    contentDescription = "Description wee"
+                                )
+                            },
+                            cardShape = RoundedCornerShape(12.dp)
+                        )
+                    }
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
+                    item {
+                        SectionTitle (
+                            stringTitle = stringResource(id = R.string.str_developer),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+
+                    item {
                         val openDialog = remember { mutableStateOf(false) }
                         val uriHandler = LocalUriHandler.current
 
@@ -81,73 +98,75 @@ fun AboutScreen(navController: NavController) {
                                 .clickable { openDialog.value = true },
                             stringTitle = stringResource(id = R.string.str_madewithloveby),
                             stringName = stringResource(id = R.string.str_alessiocameroni),
-                            unitProfile = { 
+                            unitProfile = {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ill_meltix_200), 
+                                    painter = painterResource(id = R.drawable.ill_meltix_200),
                                     contentDescription = stringResource(id = R.string.str_alessiocameroni)
                                 )
                             }
                         )
 
                         if (openDialog.value) {
-                            CreditsDialogDetails(
-                                modifier = Modifier
-                                    .clip(shape = RoundedCornerShape(24.dp))
-                                    .width(500.dp),
-                                openDialog = openDialog,
-                                stringTitle = stringResource(id = R.string.str_alessiocameroni),
-                                stringDescription = stringResource(id = R.string.desc_alessiocameroni),
-                                unitProfile = {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.ill_meltix_200),
-                                        contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                        CreditsDialogDetails(
+                            modifier = Modifier
+                                .clip(shape = RoundedCornerShape(24.dp))
+                                .width(500.dp),
+                            openDialog = openDialog,
+                            stringTitle = stringResource(id = R.string.str_alessiocameroni),
+                            stringDescription = stringResource(id = R.string.bio_alessiocameroni),
+                            unitProfile = {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ill_meltix_200),
+                                    contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                )
+                            }
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center,
+                            ) {
+                                IconButton(
+                                    onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
+                                        contentDescription = stringResource(id = R.string.str_instgram)
                                     )
                                 }
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center,
+
+                                IconButton(
+                                    onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
                                 ) {
-                                    IconButton(
-                                        onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
-                                            contentDescription = stringResource(id = R.string.str_instgram)
-                                        )
-                                    }
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_github_24),
+                                        contentDescription = stringResource(id = R.string.str_github)
+                                    )
+                                }
 
-                                    IconButton(
-                                        onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_github_24),
-                                            contentDescription = stringResource(id = R.string.str_github)
-                                        )
-                                    }
-
-                                    IconButton(
-                                        onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
-                                            contentDescription = stringResource(id = R.string.str_twitter)
-                                        )
-                                    }
+                                IconButton(
+                                    onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
+                                        contentDescription = stringResource(id = R.string.str_twitter)
+                                    )
                                 }
                             }
                         }
                     }
+                    }
 
-                    Divider()
+                    item { Divider() }
 
-                    SectionTitle(
-                        stringTitle = stringResource(id = R.string.str_specialthanks),
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    item {
+                        SectionTitle(
+                            stringTitle = stringResource(id = R.string.str_specialthanks),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
+                    item {
                         val openDialog = remember { mutableStateOf(false) }
                         val uriHandler = LocalUriHandler.current
 
@@ -189,7 +208,7 @@ fun AboutScreen(navController: NavController) {
                         }
                     }
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
+                    item {
                         val openDialog = remember { mutableStateOf(false) }
                         val uriHandler = LocalUriHandler.current
 

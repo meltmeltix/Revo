@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.settings.customization
 
-import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,11 +24,7 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LooksScreen(navController: NavController) {
-    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        decayAnimationSpec,
-        rememberTopAppBarState()
-    )
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     RevoMusicPlayerTheme{
         Surface(
