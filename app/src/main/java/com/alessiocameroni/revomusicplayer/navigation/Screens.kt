@@ -8,6 +8,6 @@ open class Screens(val route: String) {
 }
 
 open class SettingsScreens(val route: String) {
-    object LooksScreen : SettingsScreens("looks_screen")
+    object CustomizationScreen : SettingsScreens("customization_screen")
     object AboutScreen : SettingsScreens("about_screen")
 }

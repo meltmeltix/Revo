@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCardAboutItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCreditsItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsDialogDetails
@@ -34,10 +33,10 @@ fun AboutScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     RevoMusicPlayerTheme {
-        /*Surface(
+        Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
-        ) {*/
+        ) {
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
@@ -45,7 +44,7 @@ fun AboutScreen(navController: NavController) {
                         title = { Text(text = stringResource(id = R.string.str_about)) },
                         navigationIcon = {
                             IconButton(
-                                onClick = { navController.navigate(Screens.SettingsScreen.route) }
+                                onClick = { navController.popBackStack() }
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
@@ -267,6 +266,6 @@ fun AboutScreen(navController: NavController) {
                     }
                 }
             }
-        /*}*/
+        }
     }
 }

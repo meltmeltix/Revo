@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.settings.customization.components.PlayerLayoutDialog
 import com.alessiocameroni.revomusicplayer.settings.main.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.main.components.SettingsActionItem
@@ -39,7 +38,7 @@ fun LooksScreen(navController: NavController) {
                         title = { Text(text = stringResource(id = R.string.str_customization)) },
                         navigationIcon = {
                             IconButton(
-                                onClick = { navController.navigate(Screens.SettingsScreen.route) }
+                                onClick = { navController.navigateUp() }
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),

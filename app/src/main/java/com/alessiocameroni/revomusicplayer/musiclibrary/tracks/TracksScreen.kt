@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.main.spotify
+package com.alessiocameroni.revomusicplayer.musiclibrary.tracks
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -20,9 +21,9 @@ import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SpotifyFavoritesScreen(navController: NavController) {
+fun TracksScreen(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
@@ -36,13 +37,13 @@ fun SpotifyFavoritesScreen(navController: NavController) {
     }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
+
+                title = { Text(text = stringResource(id = R.string.str_tracks)) },
                 navigationIcon = {
-                    IconButton(
-                        onClick = { navController.navigate(Screens.SearchScreen.route) }
-                    ) {
+                    IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -78,17 +79,6 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
                                         contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_openspotify)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_launch_spotify_24px),
-                                        contentDescription = stringResource(id = R.string.desc_openspotify)
                                     )
                                 }
                             )

@@ -12,7 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.settings.main.components.SettingsCategoryItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -30,7 +29,7 @@ fun SettingsScreen(navController: NavController) {
                         title = { Text(text = stringResource(id = R.string.str_settings)) },
                         navigationIcon = {
                             IconButton(
-                                onClick = { navController.navigate(Screens.MainScreen.route) }
+                                onClick = { navController.navigateUp() }
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
@@ -56,7 +55,7 @@ fun SettingsScreen(navController: NavController) {
                                     .fillMaxWidth()
                                     .height(84.dp)
                                     .clip(RoundedCornerShape(22.dp))
-                                    .clickable { navController.navigate(SettingsScreens.LooksScreen.route) }
+                                    .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) }
                             )
                         }
 

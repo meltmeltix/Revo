@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,7 +61,7 @@ fun SearchScreen(navController: NavController) {
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = { navController.navigate(Screens.MainScreen.route) }) {
+                            IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                                     contentDescription = stringResource(id = R.string.desc_back)

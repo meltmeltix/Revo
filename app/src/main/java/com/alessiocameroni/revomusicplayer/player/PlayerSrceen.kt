@@ -16,7 +16,6 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.player.components.LeftSongControls
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -35,9 +34,7 @@ fun PlayerScreen(navController: NavController) {
                     SmallTopAppBar(
                         title = { Text(text = "") },
                         navigationIcon = {
-                            IconButton(
-                                onClick = { navController.navigate(Screens.MainScreen.route) }
-                            ) {
+                            IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(
                                     painter = painterResource(
                                         id = R.drawable.ic_baseline_keyboard_arrow_down_24
