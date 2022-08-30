@@ -271,19 +271,219 @@ fun NavigationBottomNavBar(
 ) {
     AnimatedNavHost(navController = navControllerBottomBar, startDestination = "home") {
         composable(
-            "home"
+            route = "home",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "home" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "home" -> fadeOut(animationSpec = tween( 100 ))
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
         ) { HomeScreen(navController = navControllerApp) }
         composable(
-            "tracks"
+            route = "tracks",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "home" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "home" -> fadeOut(animationSpec = tween( 100 ))
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
         ) { TracksScreen(navController = navControllerApp) }
         composable(
-            "albums"
+            route = "albums",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "home" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "home" -> fadeOut(animationSpec = tween( 100 ))
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
         ) { AlbumsScreen(navController = navControllerApp) }
         composable(
-            "playlists"
+            route = "playlists",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "home" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "home" -> fadeOut(animationSpec = tween( 100 ))
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
         ) { PlaylistsScreen(navController = navControllerApp) }
         composable(
-            "spotify"
+            route = "spotify",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "home" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "home" -> fadeOut(animationSpec = tween( 100 ))
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
         ) { SpotifyFavoritesScreen(navController = navControllerApp) }
     }
 }
