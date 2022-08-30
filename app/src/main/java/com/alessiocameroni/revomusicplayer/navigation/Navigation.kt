@@ -28,13 +28,44 @@ fun Navigation() {
         composable(
             route = Screens.MainScreen.route,
             exitTransition = {
-                when(initialState.destination.route) {
-                    "settings_screen" -> {
+                when(targetState.destination.route) {
+                    // To screen
+                    "search_screen" ->
                         slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    }
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "player_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "search_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "settings_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "player_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null
                 }
             }
@@ -44,6 +75,7 @@ fun Navigation() {
             route = Screens.PlayerScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
+                    // From screen
                     "main_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { 100 },
@@ -52,6 +84,35 @@ fun Navigation() {
                     else -> null
                 }
             },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "main_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+
+                    // From screen
+                    "settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // To screen
+                    "settings_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            }
         ) { PlayerScreen(navController = navController) }
 
         composable(
@@ -66,12 +127,25 @@ fun Navigation() {
                     else -> null
                 }
             },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "main_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    else -> null
+                }
+            },
+            //TODO Add popEnter when actually listing items
         ) { SearchScreen(navController = navController) }
 
         composable(
             route = Screens.SettingsScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
+                    // From screen
                     "main_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { 100 },
@@ -87,16 +161,45 @@ fun Navigation() {
             },
             exitTransition = {
                 when(targetState.destination.route) {
+                    // To screen
                     "main_screen" ->
                         slideOutHorizontally(
-                            targetOffsetX = { 300 },
+                            targetOffsetX = { 100 },
                             animationSpec = tween( 210 )
                         ) + fadeOut(animationSpec = tween( 210 ))
                     "player_screen" ->
                         slideOutHorizontally(
-                            targetOffsetX = { 300 },
+                            targetOffsetX = { 100 },
                             animationSpec = tween( 210 )
                         ) + fadeOut(animationSpec = tween( 210 ))
+
+                    // From screen
+                    "customization_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "about_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    //From screen
+                    "customization_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "about_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null
                 }
             }
@@ -108,6 +211,7 @@ fun Navigation() {
             route = SettingsScreens.CustomizationScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
+                    //From screen
                     "settings_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { 100 },
@@ -118,6 +222,7 @@ fun Navigation() {
             },
             exitTransition = {
                 when(targetState.destination.route) {
+                    //To screen
                     "settings_screen" ->
                         slideOutHorizontally(
                             targetOffsetX = { 100 },
@@ -126,12 +231,14 @@ fun Navigation() {
                     else -> null
                 }
             }
+            //TODO Add popEnter when actually listing items
         ) { LooksScreen(navController = navController) }
 
         composable(
             route = SettingsScreens.AboutScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
+                    // From screen
                     "settings_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { 100 },
@@ -142,6 +249,7 @@ fun Navigation() {
             },
             exitTransition = {
                 when(targetState.destination.route) {
+                    // To screen
                     "settings_screen" ->
                         slideOutHorizontally(
                             targetOffsetX = { 100 },
@@ -150,6 +258,7 @@ fun Navigation() {
                     else -> null
                 }
             }
+            //TODO Add popEnter when actually listing items
         ) { AboutScreen(navController = navController) }
     }
 }
