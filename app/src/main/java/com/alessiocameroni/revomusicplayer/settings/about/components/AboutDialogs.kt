@@ -84,7 +84,7 @@ fun CreditsDialogDetails(
                     modifier = Modifier
                         .layoutId("BoxImage")
                         .padding(bottom = 16.dp)
-                        .size(54.dp)
+                        .size(84.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(MaterialTheme.colorScheme.primary),
                     contentAlignment = Alignment.Center

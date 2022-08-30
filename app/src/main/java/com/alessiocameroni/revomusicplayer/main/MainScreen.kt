@@ -1,5 +1,6 @@
-package com.alessiocameroni.revomusicplayer
+package com.alessiocameroni.revomusicplayer.main
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -16,16 +17,17 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.main.data.bottomnav.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen(navController: NavController) {
-    val navControllerBottomBar = rememberNavController()
+    val navControllerBottomBar = rememberAnimatedNavController()
 
     RevoMusicPlayerTheme {
         Surface(

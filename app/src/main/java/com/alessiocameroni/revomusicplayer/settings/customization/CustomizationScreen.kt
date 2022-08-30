@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.settings.customization
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -50,13 +51,13 @@ fun LooksScreen(navController: NavController) {
                     )
                 },
                 content = { padding ->
-                    Column(
+                    LazyColumn(
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(5.dp)
-                    ){
-                        Row( modifier = Modifier.fillMaxWidth() ) {
+                    ) {
+                        item {
                             SectionTitle(
                                 stringTitle = "User Interface",
                                 modifier = Modifier
@@ -64,7 +65,7 @@ fun LooksScreen(navController: NavController) {
                             )
                         }
 
-                        Row( modifier = Modifier.fillMaxWidth() ) {
+                        item {
                             val openDialog = remember { mutableStateOf(false) }
 
                             SettingsActionItem(

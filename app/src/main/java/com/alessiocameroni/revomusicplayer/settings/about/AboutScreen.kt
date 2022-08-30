@@ -34,10 +34,10 @@ fun AboutScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     RevoMusicPlayerTheme {
-        Surface(
+        /*Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
-        ) {
+        ) {*/
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
@@ -219,7 +219,15 @@ fun AboutScreen(navController: NavController) {
                                 .clickable { openDialog.value = true },
                             stringTitle = stringResource(id = R.string.str_arigata9),
                             stringDescription = stringResource(id = R.string.desc_arigata9),
-                            unitProfile = null
+                            unitProfile = {
+                                Image(
+                                    modifier = Modifier
+                                        .fillMaxSize(),
+                                    contentScale = ContentScale.FillWidth,
+                                    painter = painterResource(id = R.drawable.bm_arigata9),
+                                    contentDescription = stringResource(id = R.string.str_arigata9)
+                                )
+                            }
                         )
 
                         if (openDialog.value) {
@@ -230,7 +238,15 @@ fun AboutScreen(navController: NavController) {
                                 openDialog = openDialog,
                                 stringTitle = stringResource(id = R.string.str_arigata9),
                                 stringDescription = stringResource(id = R.string.desc_arigata9),
-                                unitProfile = null
+                                unitProfile = {
+                                    Image(
+                                        modifier = Modifier
+                                            .fillMaxSize(),
+                                        contentScale = ContentScale.FillWidth,
+                                        painter = painterResource(id = R.drawable.bm_arigata9),
+                                        contentDescription = stringResource(id = R.string.str_arigata9)
+                                    )
+                                }
                             ) {
                                 Row(
                                     modifier = Modifier.fillMaxSize(),
@@ -251,6 +267,6 @@ fun AboutScreen(navController: NavController) {
                     }
                 }
             }
-        }
+        /*}*/
     }
 }

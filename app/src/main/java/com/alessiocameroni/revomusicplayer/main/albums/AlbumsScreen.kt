@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.spotify
+package com.alessiocameroni.revomusicplayer.main.albums
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,14 +16,14 @@ import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SpotifyFavoritesScreen(navController: NavController) {
+fun AlbumsScreen(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         topBar = {
             SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
+                title = { Text(text = stringResource(id = R.string.str_albums)) },
                 navigationIcon = {
                     IconButton(
                         onClick = { navController.navigate(Screens.SearchScreen.route) }
@@ -66,18 +66,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                                     )
                                 }
                             )
-                            Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_openspotify)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_launch_spotify_24px),
-                                        contentDescription = stringResource(id = R.string.desc_openspotify)
-                                    )
-                                }
-                            )
-                            Divider()
+                            MenuDefaults
                             DropdownMenuItem(
                                 text = { Text(text = stringResource(id = R.string.str_settings)) },
                                 onClick = { navController.navigate(Screens.SettingsScreen.route) },

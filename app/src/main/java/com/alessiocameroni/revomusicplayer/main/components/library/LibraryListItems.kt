@@ -13,7 +13,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
@@ -76,7 +75,7 @@ fun OneColumnListItem(
             Text(
                 modifier = Modifier
                     .layoutId("TextTitle")
-                    .width(240.dp)
+                    .width(250.dp)
                     .padding(start = 15.dp, top = 20.dp),
                 text = stringTitleItem,
                 style = MaterialTheme.typography.bodyLarge,
@@ -87,7 +86,7 @@ fun OneColumnListItem(
             Text(
                 modifier = Modifier
                     .layoutId("TextSubtitle")
-                    .width(240.dp)
+                    .width(250.dp)
                     .padding(start = 15.dp, bottom = 20.dp),
                 text = stringSubtitleItem,
                 style = MaterialTheme.typography.bodyMedium,
@@ -98,7 +97,7 @@ fun OneColumnListItem(
             Box(
                 modifier = Modifier
                     .layoutId("MenuButton")
-                    .padding(end = 15.dp)
+                    .padding(end = 5.dp)
             ) {
                 IconButton(
                     onClick = { /*expanded = true*/ },
