@@ -48,8 +48,14 @@
     <string name="desc_katherine">Accessibility help, spanish translator</string>
     <string name="str_arigata9" translatable="false">arigata9</string>
     <string name="desc_arigata9">German translator</string>
+    <string name="bio_arigata9">
+        Hobby developer, mainly coding stuff in Node.JS for fun.\n
+        Big fan of mechanical keyboards.
+    </string>
     <string name="str_github" translatable="false">Github</string>
     <string name="str_twitter" translatable="false">Twitter</string>
     <string name="str_instgram" translatable="false">Instagram</string>
     <string name="str_usericon">User Icon</string>
+    <string name="str_addtoplaylist">Add to playlist</string>
+    <string name="desc_addtoplaylist">Add selected song to playlist</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -84,9 +85,16 @@ fun PlayerScreen(navController: NavController) {
                             .padding(20.dp)
                             .size(340.dp)
                             .clip(MaterialTheme.shapes.extraLarge)
-                            .background(MaterialTheme.colorScheme.primary)
+                            .background(MaterialTheme.colorScheme.primary),
+                        contentAlignment = Alignment.Center
                     ) {
-
+                        Icon(
+                            modifier = Modifier
+                                .size(150.dp),
+                            painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                            contentDescription = stringResource(id = R.string.str_tracks),
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
                     }
 
                     Box(

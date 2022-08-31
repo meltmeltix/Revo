@@ -106,54 +106,54 @@ fun AboutScreen(navController: NavController) {
                         )
 
                         if (openDialog.value) {
-                        CreditsDialogDetails(
-                            modifier = Modifier
-                                .clip(shape = RoundedCornerShape(24.dp))
-                                .width(500.dp),
-                            openDialog = openDialog,
-                            stringTitle = stringResource(id = R.string.str_alessiocameroni),
-                            stringDescription = stringResource(id = R.string.bio_alessiocameroni),
-                            unitProfile = {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ill_meltix_200),
-                                    contentDescription = stringResource(id = R.string.str_alessiocameroni)
-                                )
-                            }
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxSize(),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.Center,
+                            CreditsDialogDetails(
+                                modifier = Modifier
+                                    .clip(shape = RoundedCornerShape(24.dp))
+                                    .width(500.dp),
+                                openDialog = openDialog,
+                                stringTitle = stringResource(id = R.string.str_alessiocameroni),
+                                stringDescription = stringResource(id = R.string.bio_alessiocameroni),
+                                unitProfile = {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.ill_meltix_200),
+                                        contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                    )
+                                }
                             ) {
-                                IconButton(
-                                    onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
+                                Row(
+                                    modifier = Modifier.fillMaxSize(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center,
                                 ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
-                                        contentDescription = stringResource(id = R.string.str_instgram)
-                                    )
-                                }
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
+                                            contentDescription = stringResource(id = R.string.str_instgram)
+                                        )
+                                    }
 
-                                IconButton(
-                                    onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_github_24),
-                                        contentDescription = stringResource(id = R.string.str_github)
-                                    )
-                                }
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_github_24),
+                                            contentDescription = stringResource(id = R.string.str_github)
+                                        )
+                                    }
 
-                                IconButton(
-                                    onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
-                                        contentDescription = stringResource(id = R.string.str_twitter)
-                                    )
+                                    IconButton(
+                                        onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
+                                            contentDescription = stringResource(id = R.string.str_twitter)
+                                        )
+                                    }
                                 }
                             }
                         }
-                    }
                     }
 
                     item { Divider() }
@@ -236,7 +236,7 @@ fun AboutScreen(navController: NavController) {
                                     .width(500.dp),
                                 openDialog = openDialog,
                                 stringTitle = stringResource(id = R.string.str_arigata9),
-                                stringDescription = stringResource(id = R.string.desc_arigata9),
+                                stringDescription = stringResource(id = R.string.bio_arigata9),
                                 unitProfile = {
                                     Image(
                                         modifier = Modifier

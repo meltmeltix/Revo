@@ -1,20 +1,23 @@
-package com.alessiocameroni.revomusicplayer.musiclibrary.playlists
+package com.alessiocameroni.revomusicplayer.library.playlists
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistsScreen(navController: NavController) {
-    var expanded by remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -33,48 +36,21 @@ fun PlaylistsScreen(navController: NavController) {
                 },
                 actions = {
                     Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded = true }) {
+                        IconButton(onClick = { expanded.value = true }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
-                        DropdownMenu(
+
+                        LibraryDropDownMenu(
+                            navController = navController,
                             expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                                onClick = {  },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                                    )
-                                }
-                            )
-                            Divider()
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                                onClick = { navController.navigate(Screens.SettingsScreen.route) },
-                                leadingIcon = {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = stringResource(id = R.string.desc_settings)
-                                    )
-                                }
-                            )
-                        }
+                            itemSortBy = true,
+                            itemGridType = false,
+                            itemOpenSpotify = false,
+                            itemSettings = true
+                        )
                     }
                 },
                 scrollBehavior = scrollBehavior

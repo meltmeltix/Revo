@@ -105,13 +105,7 @@ fun MainScreen(navController: NavController) {
                                 ),
                             ),
                             navController = navControllerBottomBar,
-                            onItemClick = {
-                                navControllerBottomBar.navigate(it.route) {
-                                    popUpTo(it.route) {
-                                        inclusive = true
-                                    }
-                                }
-                            }
+                            onItemClick = { navControllerBottomBar.navigate(it.route) }
                         )
                     }
                 },

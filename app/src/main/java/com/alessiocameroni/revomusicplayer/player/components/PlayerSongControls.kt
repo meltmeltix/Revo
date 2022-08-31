@@ -28,7 +28,7 @@ fun CenterSongControls(
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    var expanded by remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -236,7 +236,7 @@ fun CenterSongControls(
                     FilledTonalIconButton(
                         modifier = Modifier
                             .width(165.dp),
-                        onClick = { expanded = true },
+                        onClick = { expanded.value = true },
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
                         )
@@ -247,16 +247,19 @@ fun CenterSongControls(
                         )
                     }
 
-                    DropdownMenu(
-                        modifier = Modifier
-                            .clip(MaterialTheme.shapes.large)
-                            .width(180.dp),
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        PlayerMenuItems(
-                            navController = navController
-                        )
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                        DropdownMenu(
+                            modifier = Modifier
+                                .clip(MaterialTheme.shapes.large)
+                                .width(180.dp),
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            PlayerMenuItems(
+                                navController = navController,
+                                expanded = expanded
+                            )
+                        }
                     }
                 }
 
@@ -322,7 +325,7 @@ fun LeftSongControls(
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    var expanded by remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -515,7 +518,7 @@ fun LeftSongControls(
                     FilledTonalIconButton(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        onClick = { expanded = true },
+                        onClick = { expanded.value = true },
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
                         )
@@ -526,14 +529,19 @@ fun LeftSongControls(
                         )
                     }
 
-                    DropdownMenu(
-                        modifier = Modifier
-                            .clip(MaterialTheme.shapes.large)
-                            .width(180.dp),
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        PlayerMenuItems(navController = navController)
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                        DropdownMenu(
+                            modifier = Modifier
+                                .clip(MaterialTheme.shapes.large)
+                                .width(180.dp),
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            PlayerMenuItems(
+                                navController = navController,
+                                expanded = expanded
+                            )
+                        }
                     }
                 }
 
@@ -599,7 +607,7 @@ fun RightSongControls(
     var sliderPosition by remember { mutableStateOf(floatPosition) }
     var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
     var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    var expanded by remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     val constraints = ConstraintSet {
         val songSlider = createRefFor("SongSlider")
@@ -792,7 +800,7 @@ fun RightSongControls(
                     FilledTonalIconButton(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        onClick = { expanded = true },
+                        onClick = { expanded.value = true },
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
                         )
@@ -803,14 +811,18 @@ fun RightSongControls(
                         )
                     }
 
-                    DropdownMenu(
-                        modifier = Modifier
-                            .clip(MaterialTheme.shapes.large)
-                            .width(180.dp),
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        PlayerMenuItems(navController = navController)
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                        DropdownMenu(
+                            modifier = Modifier
+                                .width(180.dp),
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            PlayerMenuItems(
+                                navController = navController,
+                                expanded = expanded
+                            )
+                        }
                     }
                 }
 
@@ -867,13 +879,16 @@ fun RightSongControls(
 
 @Composable
 fun PlayerMenuItems(
-    navController: NavController
+    navController: NavController,
+    expanded: MutableState<Boolean>
 ) {
-
     Divider()
     DropdownMenuItem(
         text = { Text(text = stringResource(id = R.string.str_settings)) },
-        onClick = { navController.navigate(Screens.SettingsScreen.route) },
+        onClick = {
+            navController.navigate(Screens.SettingsScreen.route)
+            expanded.value = false
+        },
         leadingIcon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_outlined_settings_24),
