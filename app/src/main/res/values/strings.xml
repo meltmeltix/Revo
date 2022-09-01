@@ -60,4 +60,8 @@
     <string name="desc_addtoplaylist">Add selected song to playlist</string>
     <string name="str_lc_minutes">minutes</string>
     <string name="str_lc_tracks">tracks</string>
+    <string name="str_deleteplaylist">Delete Playlist</string>
+    <string name="desc_deleteplaylist">Delete selected Playlist</string>
+    <string name="str_renameplaylist">Rename Playlist</string>
+    <string name="desc_renameplaylist">Rename selected Playlist</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.playlists
+package com.alessiocameroni.revomusicplayer.library.playlists.main
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,15 +17,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.playlists.components.PlaylistItem
-import com.alessiocameroni.revomusicplayer.library.playlists.data.PlaylistItemData
+import com.alessiocameroni.revomusicplayer.library.playlists.main.components.PlaylistItem
+import com.alessiocameroni.revomusicplayer.library.playlists.main.data.PlaylistItemData
+import com.alessiocameroni.revomusicplayer.navigation.PlaylistsScreens
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlaylistsScreen(navController: NavController) {
+fun PlaylistsScreen(
+    navController: NavController,
+    navControllerBottomBar: NavHostController
+) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -103,7 +108,11 @@ fun PlaylistsScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
+                            .clickable {
+                                navControllerBottomBar.navigate(
+                                    PlaylistsScreens.PlaylistViewScreen.route
+                                )
+                            },
                     ) {
                         PlaylistItem(
                             modifier = Modifier
@@ -115,13 +124,13 @@ fun PlaylistsScreen(navController: NavController) {
                             unitMenuItems = {
                                 DropdownMenuItem(
                                     text = {
-                                        Text(text = stringResource(id = R.string.str_addtoplaylist))
+                                        Text(text = stringResource(id = R.string.str_deleteplaylist))
                                     },
-                                    onClick = { /*TODO*/ },
+                                    onClick = {  },
                                     leadingIcon = {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.desc_addtoplaylist)
+                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
+                                            contentDescription = stringResource(id = R.string.desc_deleteplaylist)
                                         )
                                     }
                                 )
