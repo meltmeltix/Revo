@@ -20,14 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.OneColumnListItem
+import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpotifyFavoritesScreen(navController: NavController) {
-    val numColumns by remember { mutableStateOf(1) }
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
@@ -46,7 +45,6 @@ fun SpotifyFavoritesScreen(navController: NavController) {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SmallTopAppBar(
-
                 title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
                 navigationIcon = {
                     IconButton(
@@ -83,9 +81,9 @@ fun SpotifyFavoritesScreen(navController: NavController) {
         content = { padding ->
             LazyVerticalGrid(
                 modifier = Modifier
+                    .padding(padding)
                     .fillMaxSize(),
-                columns = GridCells.Fixed(numColumns),
-                contentPadding = padding,
+                columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ){
                 items(items.size) { i ->
@@ -95,10 +93,9 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                             .clip(RoundedCornerShape(22.dp))
                             .clickable { },
                     ) {
-                        OneColumnListItem(
+                        LibraryListItem(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .height(84.dp),
+                                .fillMaxWidth(),
                             unitAlbumImage = null,
                             stringTitleItem = items[i].stringTitle,
                             stringSubtitleItem = items[i].stringSubtitle,

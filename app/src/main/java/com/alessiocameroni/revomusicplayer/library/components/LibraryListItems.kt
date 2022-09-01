@@ -11,41 +11,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
 
-
-@Preview(showBackground = true)
 @Composable
-fun PreviewComponent() {
-    TwoColumnListItem(
-        modifier = Modifier
-            .width(180.dp),
-        unitAlbumImage = null,
-        stringTitleItem = "Title",
-        stringSubtitleItem = "Subtitle"
-    ) {
-        DropdownMenuItem(
-            text = {
-                Text(text = stringResource(id = R.string.str_addtoplaylist))
-            },
-            onClick = { /*TODO*/ },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.desc_addtoplaylist)
-                )
-            }
-        )
-    }
-}
-
-@Composable
-fun OneColumnListItem(
+fun LibraryListItem(
     modifier: Modifier,
     unitAlbumImage: @Composable (() -> Unit?)?,
     stringTitleItem: String,
@@ -104,7 +77,7 @@ fun OneColumnListItem(
                 } else {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                        contentDescription = stringResource(id = R.string.str_tracks),
+                        contentDescription = stringResource(id = R.string.str_songs),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -116,7 +89,7 @@ fun OneColumnListItem(
                     .width(250.dp)
                     .padding(start = 15.dp, top = 20.dp),
                 text = stringTitleItem,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )
@@ -162,7 +135,7 @@ fun OneColumnListItem(
 }
 
 @Composable
-fun TwoColumnListItem(
+fun LibraryLargeGridItem(
     modifier: Modifier,
     unitAlbumImage: @Composable() (() -> Unit?)?,
     stringTitleItem: String,
@@ -222,7 +195,7 @@ fun TwoColumnListItem(
                         modifier = Modifier
                             .size(48.dp),
                         painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                        contentDescription = stringResource(id = R.string.str_tracks),
+                        contentDescription = stringResource(id = R.string.str_songs),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -234,7 +207,7 @@ fun TwoColumnListItem(
                     .padding(8.dp, 2.dp, 8.dp, 0.dp)
                     .width(100.dp),
                 text = stringTitleItem,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1
             )

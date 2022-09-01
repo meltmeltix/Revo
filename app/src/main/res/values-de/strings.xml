@@ -1,6 +1,4 @@
 <resources>
-    <string name="str_home">Home</string>
-    <string name="str_tracks">Tracks</string>
     <string name="str_albums">Alben</string>
     <string name="str_playlists">Playlists</string>
     <string name="desc_searchmenu">Suche</string>

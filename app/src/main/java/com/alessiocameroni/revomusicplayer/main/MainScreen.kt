@@ -80,7 +80,7 @@ fun MainScreen(navController: NavController) {
                                     iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
                                 ),
                                 BottomNavigationItemData(
-                                    name = stringResource(id = R.string.str_tracks),
+                                    name = stringResource(id = R.string.str_songs),
                                     route = "tracks",
                                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)

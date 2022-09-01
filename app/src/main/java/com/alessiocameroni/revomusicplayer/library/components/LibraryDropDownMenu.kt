@@ -55,25 +55,7 @@ fun LibraryDropDownMenu(
                 )
 
                 MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
-                    DropdownMenu(
-                        modifier = Modifier.width(180.dp),
-                        expanded = expandedGrid,
-                        onDismissRequest = { expandedGrid = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text(text = stringResource(id = R.string.str_settings)) },
-                            onClick = {
 
-                                expanded.value = false
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                    contentDescription = stringResource(id = R.string.desc_settings)
-                                )
-                            }
-                        )
-                    }
                 }
             }
 

@@ -20,14 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.TwoColumnListItem
+import com.alessiocameroni.revomusicplayer.library.components.LibraryLargeGridItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumsScreen(navController: NavController) {
-    val numColumns by remember { mutableStateOf(2) }
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -82,9 +81,9 @@ fun AlbumsScreen(navController: NavController) {
         content = { padding ->
             LazyVerticalGrid(
                 modifier = Modifier
+                    .padding(padding)
                     .fillMaxSize(),
-                columns = GridCells.Fixed(numColumns),
-                contentPadding = padding,
+                columns = GridCells.Adaptive(190.dp),
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ){
@@ -95,7 +94,7 @@ fun AlbumsScreen(navController: NavController) {
                             .clip(RoundedCornerShape(22.dp))
                             .clickable { },
                     ) {
-                        TwoColumnListItem(
+                        LibraryLargeGridItem(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             unitAlbumImage = null,

@@ -92,7 +92,7 @@ fun PlayerScreen(navController: NavController) {
                             modifier = Modifier
                                 .size(150.dp),
                             painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            contentDescription = stringResource(id = R.string.str_tracks),
+                            contentDescription = stringResource(id = R.string.str_songs),
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Revo</string>
-    <string name="str_home">Home</string>
-    <string name="str_tracks">Tracks</string>
+    <string name="str_home" translatable="false">Home</string>
+    <string name="str_songs">Songs</string>
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>
     <string name="str_spoitfy" translatable="false">Spotify</string>
@@ -58,4 +58,6 @@
     <string name="str_usericon">User Icon</string>
     <string name="str_addtoplaylist">Add to playlist</string>
     <string name="desc_addtoplaylist">Add selected song to playlist</string>
+    <string name="str_lc_minutes">minutes</string>
+    <string name="str_lc_tracks">tracks</string>
 </resources>
