@@ -141,7 +141,7 @@ fun CreditsItem(
                 modifier = Modifier
                     .layoutId("BoxImage")
                     .padding(24.dp, 10.dp, 16.dp, 10.dp)
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(MaterialTheme.shapes.large)
                     .size(54.dp)
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center

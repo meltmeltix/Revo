@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.library.albums.AlbumsScreen
-import com.alessiocameroni.revomusicplayer.library.home.HomeScreen
+import com.alessiocameroni.revomusicplayer.library.artists.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.main.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
@@ -269,71 +269,22 @@ fun NavigationBottomNavBar(
     navControllerBottomBar: NavHostController,
     navControllerApp: NavController
 ) {
-    AnimatedNavHost(navController = navControllerBottomBar, startDestination = "home") {
-        composable(
-            route = "home",
-            enterTransition = {
-                when(initialState.destination.route) {
-                    "home" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "tracks" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    else -> null
-                }
-            },
-            exitTransition = {
-                when(targetState.destination.route) {
-                    "home" -> fadeOut(animationSpec = tween( 100 ))
-                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    else -> null
-                }
-            }
-        ) { HomeScreen(navController = navControllerApp) }
-
+    AnimatedNavHost(navController = navControllerBottomBar, startDestination = "tracks") {
         composable(
             route = "tracks",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "home" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
                     "tracks" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artists" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -358,9 +309,9 @@ fun NavigationBottomNavBar(
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "home" -> fadeOut(animationSpec = tween( 100 ))
                     "tracks" -> fadeOut(animationSpec = tween( 100 ))
                     "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
                     else -> null
@@ -372,17 +323,17 @@ fun NavigationBottomNavBar(
             route = "albums",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "home" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
                     "tracks" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artists" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -407,9 +358,9 @@ fun NavigationBottomNavBar(
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "home" -> fadeOut(animationSpec = tween( 100 ))
                     "tracks" -> fadeOut(animationSpec = tween( 100 ))
                     "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
                     else -> null
@@ -418,21 +369,70 @@ fun NavigationBottomNavBar(
         ) { AlbumsScreen(navController = navControllerApp) }
 
         composable(
-            route = "playlists",
+            route = "artists",
             enterTransition = {
                 when(initialState.destination.route) {
-                    // To screen
-                    "home" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
                     "tracks" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "spotify" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "tracks" -> fadeOut(animationSpec = tween( 100 ))
+                    "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "artists" -> fadeOut(animationSpec = tween( 100 ))
+                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
+                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    else -> null
+                }
+            }
+        ) { ArtistsScreen(navController = navControllerApp) }
+
+        composable(
+            route = "playlists",
+            enterTransition = {
+                when(initialState.destination.route) {
+                    // To screen
+                    "tracks" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artists" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -460,9 +460,9 @@ fun NavigationBottomNavBar(
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "home" -> fadeOut(animationSpec = tween( 100 ))
                     "tracks" -> fadeOut(animationSpec = tween( 100 ))
                     "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
                     "playlist_view_screen" ->
@@ -507,17 +507,17 @@ fun NavigationBottomNavBar(
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "home" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
                     "tracks" ->
                         slideOutVertically(
                             targetOffsetY = { -30 },
                             animationSpec = tween(210)
                         ) + fadeOut(animationSpec = tween(210))
                     "albums" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "artists" ->
                         slideOutVertically(
                             targetOffsetY = { -30 },
                             animationSpec = tween(210)
@@ -546,17 +546,17 @@ fun NavigationBottomNavBar(
             route = "spotify",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "home" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
                     "tracks" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artists" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -581,9 +581,9 @@ fun NavigationBottomNavBar(
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "home" -> fadeOut(animationSpec = tween( 100 ))
                     "tracks" -> fadeOut(animationSpec = tween( 100 ))
                     "albums" -> fadeOut(animationSpec = tween( 100 ))
+                    "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
                     else -> null

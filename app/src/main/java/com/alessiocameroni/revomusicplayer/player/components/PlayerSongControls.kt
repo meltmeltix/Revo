@@ -123,7 +123,7 @@ fun CenterSongControls(
                 FloatingActionButton(
                     modifier = Modifier
                         .layoutId("PreviousFAB")
-                        .clip(RoundedCornerShape(16.dp)),
+                        .clip(MaterialTheme.shapes.large),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
                         defaultElevation = 0.dp,
@@ -169,7 +169,7 @@ fun CenterSongControls(
                 FloatingActionButton(
                     modifier = Modifier
                         .layoutId("NextFAB")
-                        .clip(RoundedCornerShape(16.dp)),
+                        .clip(MaterialTheme.shapes.large),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
                         defaultElevation = 0.dp,
@@ -247,7 +247,7 @@ fun CenterSongControls(
                         )
                     }
 
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
                         DropdownMenu(
                             modifier = Modifier
                                 .clip(MaterialTheme.shapes.large)
@@ -438,7 +438,7 @@ fun LeftSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("PreviousFAB")
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(MaterialTheme.shapes.large)
                         .padding(top = 10.dp, end = 10.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
@@ -458,7 +458,7 @@ fun LeftSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("NextFAB")
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(MaterialTheme.shapes.large)
                         .padding(start = 10.dp, top = 10.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
@@ -529,7 +529,7 @@ fun LeftSongControls(
                         )
                     }
 
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
                         DropdownMenu(
                             modifier = Modifier
                                 .clip(MaterialTheme.shapes.large)
@@ -720,7 +720,7 @@ fun RightSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("PreviousFAB")
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(MaterialTheme.shapes.large)
                         .padding(top = 10.dp, end = 10.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
@@ -740,7 +740,7 @@ fun RightSongControls(
                 LargeFloatingActionButton(
                     modifier = Modifier
                         .layoutId("NextFAB")
-                        .clip(RoundedCornerShape(16.dp))
+                        .clip(MaterialTheme.shapes.large)
                         .padding(start = 10.dp, top = 10.dp),
                     onClick = {  },
                     elevation = FloatingActionButtonDefaults.elevation(
@@ -811,7 +811,7 @@ fun RightSongControls(
                         )
                     }
 
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
                         DropdownMenu(
                             modifier = Modifier
                                 .width(180.dp),

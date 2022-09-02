@@ -69,4 +69,5 @@
     <string name="str_history">History</string>
     <string name="str_lastadded">Last added</string>
     <string name="str_queue">Queue</string>
+    <string name="str_artists">Artists</string>
 </resources>

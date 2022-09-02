@@ -147,7 +147,7 @@ fun PlayerLayoutDialog(
                     radioOptions.forEach { text ->
                         Row(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(16.dp))
+                                .clip(MaterialTheme.shapes.large)
                                 .fillMaxWidth()
                                 .height(46.dp)
                                 .selectable(

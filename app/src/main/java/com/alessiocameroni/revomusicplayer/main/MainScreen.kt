@@ -74,12 +74,6 @@ fun MainScreen(navController: NavController) {
                                 .layoutId("BottomNavBar"),
                             items = listOf(
                                 BottomNavigationItemData(
-                                    name = stringResource(id = R.string.str_home),
-                                    route = "home",
-                                    iconOutlined = painterResource(id = R.drawable.ic_outlined_home_24),
-                                    iconFilled = painterResource(id = R.drawable.ic_filled_home_24)
-                                ),
-                                BottomNavigationItemData(
                                     name = stringResource(id = R.string.str_songs),
                                     route = "tracks",
                                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
@@ -90,6 +84,12 @@ fun MainScreen(navController: NavController) {
                                     route = "albums",
                                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
+                                ),
+                                BottomNavigationItemData(
+                                    name = stringResource(id = R.string.str_artists),
+                                    route = "artists",
+                                    iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
+                                    iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                                 ),
                                 BottomNavigationItemData(
                                     name = stringResource(id = R.string.str_playlists),

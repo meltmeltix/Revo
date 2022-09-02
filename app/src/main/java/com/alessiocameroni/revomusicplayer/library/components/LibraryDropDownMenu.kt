@@ -21,7 +21,7 @@ fun LibraryDropDownMenu(
     itemOpenSpotify: Boolean,
     itemSettings: Boolean
 ) {
-    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
         DropdownMenu(
             modifier = Modifier.width(180.dp),
             expanded = expanded.value,
@@ -54,7 +54,7 @@ fun LibraryDropDownMenu(
                     }
                 )
 
-                MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(16.dp))) {
+                MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
 
                 }
             }

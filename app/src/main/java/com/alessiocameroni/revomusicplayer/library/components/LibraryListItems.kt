@@ -67,7 +67,7 @@ fun LibraryListItem(
                 modifier = Modifier
                     .layoutId("AlbumCover")
                     .padding(start = 15.dp)
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(MaterialTheme.shapes.large)
                     .size(64.dp)
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
@@ -183,7 +183,7 @@ fun LibraryLargeGridItem(
                 modifier = Modifier
                     .layoutId("AlbumCover")
                     .padding(8.dp, 16.dp, 8.dp, 8.dp)
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(MaterialTheme.shapes.large)
                     .size(164.dp)
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
