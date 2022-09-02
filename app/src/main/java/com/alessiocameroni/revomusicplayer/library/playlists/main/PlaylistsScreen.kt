@@ -124,7 +124,7 @@ fun PlaylistsScreen(
                             unitMenuItems = {
                                 DropdownMenuItem(
                                     text = {
-                                        Text(text = stringResource(id = R.string.str_deleteplaylist))
+                                        Text(text = stringResource(id = R.string.str_delete))
                                     },
                                     onClick = {  },
                                     leadingIcon = {

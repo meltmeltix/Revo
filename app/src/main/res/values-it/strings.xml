@@ -45,4 +45,13 @@
     <string name="str_addtoplaylist">Aggiungi a playlist</string>
     <string name="str_usericon">Icona utente</string>
     <string name="bio_arigata9">Sviluppatore come hobby, programmo principalmente in Node.JS per divertimento. \n Grande fan di tastiere meccaniche.</string>
+    <string name="str_delete">Elimina</string>
+    <string name="desc_deleteplaylist">Elimina playlist corrente</string>
+    <string name="str_rename">Rinomina</string>
+    <string name="desc_renameplaylist">Rinomina playlist corrente</string>
+    <string name="str_welcome">Benvenuto</string>
+    <string name="str_shuffle">Casuale</string>
+    <string name="str_history">Cronologia</string>
+    <string name="str_lastadded">Ultimi aggiunti</string>
+    <string name="str_queue">In coda</string>
 </resources>

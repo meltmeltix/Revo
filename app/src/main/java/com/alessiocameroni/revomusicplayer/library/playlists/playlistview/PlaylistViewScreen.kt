@@ -157,7 +157,7 @@ fun PlaylistViewDropDownMenu(
             Divider()
 
             DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_renameplaylist)) },
+                text = { Text(text = stringResource(id = R.string.str_rename)) },
                 onClick = {  },
                 leadingIcon = {
                     Icon(
@@ -168,7 +168,7 @@ fun PlaylistViewDropDownMenu(
             )
 
             DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_deleteplaylist)) },
+                text = { Text(text = stringResource(id = R.string.str_delete)) },
                 onClick = {  },
                 leadingIcon = {
                     Icon(

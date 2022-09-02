@@ -60,8 +60,13 @@
     <string name="desc_addtoplaylist">Add selected song to playlist</string>
     <string name="str_lc_minutes">minutes</string>
     <string name="str_lc_tracks">tracks</string>
-    <string name="str_deleteplaylist">Delete Playlist</string>
-    <string name="desc_deleteplaylist">Delete selected Playlist</string>
-    <string name="str_renameplaylist">Rename Playlist</string>
-    <string name="desc_renameplaylist">Rename selected Playlist</string>
+    <string name="str_delete">Delete</string>
+    <string name="desc_deleteplaylist">Delete current Playlist</string>
+    <string name="str_rename">Rename</string>
+    <string name="desc_renameplaylist">Rename current Playlist</string>
+    <string name="str_welcome">Welcome</string>
+    <string name="str_shuffle">Shuffle</string>
+    <string name="str_history">History</string>
+    <string name="str_lastadded">Last added</string>
+    <string name="str_queue">Queue</string>
 </resources>

@@ -836,7 +836,7 @@ fun RightSongControls(
                     )
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
+                        painter = painterResource(id = R.drawable.ic_baseline_queue_music_24),
                         contentDescription = stringResource(id = R.string.str_moreoptions)
                     )
                 }
