@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.tracks
+package com.alessiocameroni.revomusicplayer.library.songs
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

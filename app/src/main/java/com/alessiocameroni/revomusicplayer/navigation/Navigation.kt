@@ -10,7 +10,7 @@ import com.alessiocameroni.revomusicplayer.library.artists.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.main.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
-import com.alessiocameroni.revomusicplayer.library.tracks.TracksScreen
+import com.alessiocameroni.revomusicplayer.library.songs.TracksScreen
 import com.alessiocameroni.revomusicplayer.main.MainScreen
 import com.alessiocameroni.revomusicplayer.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
@@ -451,7 +451,7 @@ fun NavigationBottomNavBar(
                     //From screen
                     "playlist_view_screen" ->
                         slideInVertically (
-                            initialOffsetY = { -30 },
+                            initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null

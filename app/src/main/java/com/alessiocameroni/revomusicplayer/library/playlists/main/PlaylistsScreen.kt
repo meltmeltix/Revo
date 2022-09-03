@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,11 +33,11 @@ fun PlaylistsScreen(
     navControllerBottomBar: NavHostController
 ) {
     val expanded = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
-            (1..5).map {
+            (1..8).map {
                 PlaylistItemData(
                     stringTitle = "Playlist Title",
                     stringSongAmount = "20",
@@ -47,6 +48,7 @@ fun PlaylistsScreen(
     }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SmallTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_playlists)) },

@@ -10,12 +10,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.library.components.LibraryActionsItem
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
 import com.alessiocameroni.revomusicplayer.navigation.Screens
@@ -27,7 +29,7 @@ fun PlaylistViewScreen(
     navControllerBottomBar: NavHostController,
 ) {
     val expanded = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
@@ -41,9 +43,18 @@ fun PlaylistViewScreen(
     }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
-                title = { Text(text = "Playlist Title")},
+            LargeTopAppBar(
+                title = {
+                    Column {
+                        Text(text = "Playlist Title")
+                        Text(
+                            text = "20 songs - 12:34 minutes",
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                    }
+                },
                 navigationIcon = {
                     IconButton(
                         onClick = { navControllerBottomBar.navigateUp() }
@@ -80,6 +91,10 @@ fun PlaylistViewScreen(
                 columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ){
+                item {
+                    LibraryActionsItem()
+                }
+
                 items(items.size) { i ->
                     Row(
                         modifier = Modifier

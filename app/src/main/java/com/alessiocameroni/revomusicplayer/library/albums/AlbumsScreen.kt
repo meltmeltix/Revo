@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.LibraryLargeGridItem
+import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
@@ -83,6 +83,31 @@ fun AlbumsScreen(navController: NavController) {
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
+                columns = GridCells.Fixed(1),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                items(items.size) { i ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(22.dp))
+                            .clickable { },
+                    ) {
+                        LibraryNoMenuListItem(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            unitAlbumImage = null,
+                            stringTitleItem = items[i].stringTitle,
+                            stringSubtitleItem = items[i].stringSubtitle
+                        )
+                    }
+                }
+            }
+
+            /*LazyVerticalGrid(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
                 columns = GridCells.Adaptive(190.dp),
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -104,7 +129,7 @@ fun AlbumsScreen(navController: NavController) {
                         )
                     }
                 }
-            }
+            }*/
         }
     )
 }
