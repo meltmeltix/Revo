@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">Revo</string>
-    <string name="str_home" translatable="false">Home</string>
     <string name="str_songs">Songs</string>
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>

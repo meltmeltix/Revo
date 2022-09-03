@@ -7,6 +7,14 @@ open class Screens(val route: String) {
     object SettingsScreen : Screens("settings_screen")
 }
 
+open class AlbumsScreens(val route: String) {
+    object AlbumViewScreen : AlbumsScreens("album_view_screen")
+}
+
+open class ArtistsScreens(val route: String) {
+    object ArtistViewScreen : ArtistsScreens("artist_view_screen")
+}
+
 open class PlaylistsScreens(val route: String) {
     object PlaylistViewScreen : PlaylistsScreens("playlist_view_screen")
 }

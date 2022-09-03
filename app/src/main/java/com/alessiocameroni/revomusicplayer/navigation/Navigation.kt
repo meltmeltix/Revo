@@ -5,12 +5,14 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.alessiocameroni.revomusicplayer.library.albums.AlbumsScreen
-import com.alessiocameroni.revomusicplayer.library.artists.ArtistsScreen
+import com.alessiocameroni.revomusicplayer.library.albums.albumview.AlbumViewScreen
+import com.alessiocameroni.revomusicplayer.library.albums.main.AlbumsScreen
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.ArtistViewScreen
+import com.alessiocameroni.revomusicplayer.library.artists.main.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.main.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
-import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
 import com.alessiocameroni.revomusicplayer.library.songs.TracksScreen
+import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
 import com.alessiocameroni.revomusicplayer.main.MainScreen
 import com.alessiocameroni.revomusicplayer.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
@@ -294,12 +296,23 @@ fun NavigationBottomNavBar(
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
+                    "spotify" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
+
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -343,12 +356,25 @@ fun NavigationBottomNavBar(
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
+                    "spotify" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
+
+
+                    //From screen
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -363,10 +389,82 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    "album_view_screen" ->
+                        slideOutVertically (
+                            targetOffsetY = { -30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null
                 }
             }
-        ) { AlbumsScreen(navController = navControllerApp) }
+        ) {
+            AlbumsScreen(
+                navController = navControllerApp,
+                navControllerBottomBar = navControllerBottomBar
+            )
+        }
+        // Album SubScreens
+        composable(
+            route = AlbumsScreens.AlbumViewScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "albums" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "tracks" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "albums" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "artists" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "playlists" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "spotify" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    else -> null
+                }
+            }
+        ) {
+            AlbumViewScreen(
+                navController = navControllerApp,
+                navControllerBottomBar = navControllerBottomBar
+            )
+        }
+
 
         composable(
             route = "artists",
@@ -392,12 +490,31 @@ fun NavigationBottomNavBar(
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
+                    "spotify" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
+
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+
+
+                    //From screen
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -412,10 +529,81 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    "artist_view_screen" ->
+                        slideOutVertically (
+                            targetOffsetY = { -30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+        }
+        ) {
+            ArtistsScreen(
+                navController = navControllerApp,
+                navControllerBottomBar = navControllerBottomBar
+            )
+        }
+        // Artist SubScreens
+        composable(
+            route = ArtistsScreens.ArtistViewScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "artists" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "tracks" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "albums" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "artists" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "playlists" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
+                    "spotify" ->
+                        slideOutVertically(
+                            targetOffsetY = { -30 },
+                            animationSpec = tween(210)
+                        ) + fadeOut(animationSpec = tween(210))
                     else -> null
                 }
             }
-        ) { ArtistsScreen(navController = navControllerApp) }
+        ) {
+            ArtistViewScreen(
+                navController = navControllerApp,
+                navControllerBottomBar = navControllerBottomBar
+            )
+        }
 
         composable(
             route = "playlists",
@@ -449,6 +637,16 @@ fun NavigationBottomNavBar(
                         ) + fadeIn(animationSpec = tween( 210 ))
 
                     //From screen
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     "playlist_view_screen" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
@@ -490,7 +688,6 @@ fun NavigationBottomNavBar(
                 navControllerBottomBar = navControllerBottomBar
             )
         }
-
         // Playlist SubScreens
         composable(
             route = PlaylistsScreens.PlaylistViewScreen.route,
@@ -566,12 +763,23 @@ fun NavigationBottomNavBar(
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
+                    "spotify" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
+
+                    "album_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" ->
+                        slideInVertically (
+                            initialOffsetY = { 30 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )

@@ -54,4 +54,6 @@
     <string name="str_history">Cronologia</string>
     <string name="str_lastadded">Ultimi aggiunti</string>
     <string name="str_queue">In coda</string>
+    <string name="str_play">Riproduci</string>
+    <string name="str_artists">Artisti</string>
 </resources>

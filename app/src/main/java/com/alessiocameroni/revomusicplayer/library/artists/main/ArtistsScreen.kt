@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.artists
+package com.alessiocameroni.revomusicplayer.library.artists.main
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,15 +18,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
+import com.alessiocameroni.revomusicplayer.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArtistsScreen(navController: NavController) {
+fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostController) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
@@ -35,7 +37,7 @@ fun ArtistsScreen(navController: NavController) {
             (1..20).map {
                 LibraryItemData(
                     stringTitle = "Artist Name",
-                    stringSubtitle = "Albums - Songs"
+                    stringSubtitle = "20 songs - 20 albums"
                 )
             }
         )
@@ -89,7 +91,9 @@ fun ArtistsScreen(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
+                            .clickable {
+                                navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
+                            },
                     ) {
                         LibraryNoMenuListItem(
                             modifier = Modifier
