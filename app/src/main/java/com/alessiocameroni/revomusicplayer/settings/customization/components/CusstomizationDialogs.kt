@@ -214,7 +214,7 @@ fun PlayerLayoutDialog(
                         TextButton(
                             modifier = Modifier
                                 .layoutId("ButtonConfirm"),
-                            onClick = { }
+                            onClick = {  }
                         ) {
                             Text(text = stringResource(id = R.string.str_ok))
                         }

@@ -100,6 +100,7 @@ fun PlaylistItem(
                         stringResource(id = R.string.str_lc_tracks) + " · " +
                         stringMinutes + " " +
                         stringResource(id = R.string.str_lc_minutes),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1

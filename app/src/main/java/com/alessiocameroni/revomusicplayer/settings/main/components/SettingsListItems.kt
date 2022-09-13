@@ -214,14 +214,14 @@ fun SectionTitle(
         modifier = modifier
     ) {
         Text(
-            text = stringTitle,
-            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier
                 .padding(25.dp, 25.dp, 25.dp, 0.dp)
                 .fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = stringTitle,
+            style = MaterialTheme.typography.bodyMedium,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

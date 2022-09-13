@@ -26,7 +26,7 @@ fun CreditsDialogDetails(
     openDialog: MutableState<Boolean>,
     stringTitle: String,
     stringDescription: String,
-    unitProfile: @Composable() (() -> Unit)?,
+    unitProfile: @Composable (() -> Unit)?,
     columnButtonItems: @Composable () -> Unit
 ) {
     Dialog(onDismissRequest = { openDialog.value = false }) {

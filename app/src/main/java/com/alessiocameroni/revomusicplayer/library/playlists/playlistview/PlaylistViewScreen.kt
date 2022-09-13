@@ -92,7 +92,7 @@ fun PlaylistViewScreen(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ){
                 item {
-                    LibraryActionsItem()
+                    LibraryActionsItem(modifier = Modifier.height(50.dp))
                 }
 
                 items(items.size) { i ->
