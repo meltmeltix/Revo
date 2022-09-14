@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.alessiocameroni.revomusicplayer"
-        minSdk 23
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "0.1 - Amber"

@@ -33,7 +33,7 @@ fun SearchScreen(navController: NavController) {
         ) {
             Scaffold(
                 topBar = {
-                    SmallTopAppBar(
+                    TopAppBar(
                         title = {
                             TextField(
                                 modifier = Modifier.fillMaxWidth(),

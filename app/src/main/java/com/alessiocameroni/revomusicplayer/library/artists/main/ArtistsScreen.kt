@@ -46,7 +46,7 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_artists)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
@@ -74,8 +74,7 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
                             itemSettings = true
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->

@@ -49,7 +49,7 @@ fun AlbumViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = {  },
                 navigationIcon = {
                     IconButton(
@@ -75,8 +75,7 @@ fun AlbumViewScreen(
                             expanded = expanded
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->

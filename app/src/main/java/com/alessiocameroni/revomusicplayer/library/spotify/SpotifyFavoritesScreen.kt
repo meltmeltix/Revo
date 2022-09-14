@@ -44,8 +44,8 @@ fun SpotifyFavoritesScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_spoitfy)) },
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_spotify)) },
                 navigationIcon = {
                     IconButton(
                         onClick = { navController.navigate(Screens.SearchScreen.route) }
@@ -74,8 +74,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                             itemSettings = true
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->

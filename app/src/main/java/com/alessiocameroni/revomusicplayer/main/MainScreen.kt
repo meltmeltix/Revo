@@ -98,7 +98,7 @@ fun MainScreen(navController: NavController) {
                                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                                 ),
                                 BottomNavigationItemData(
-                                    name = stringResource(id = R.string.str_spoitfy),
+                                    name = stringResource(id = R.string.str_spotify),
                                     route = "spotify",
                                     iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
                                     painterResource(id = R.drawable.ic_filled_spotify_24)

@@ -49,7 +49,7 @@ fun ArtistViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = {  },
                 navigationIcon = {
                     IconButton(
@@ -75,8 +75,7 @@ fun ArtistViewScreen(
                             expanded = expanded
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->

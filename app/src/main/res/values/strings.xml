@@ -3,7 +3,7 @@
     <string name="str_songs">Songs</string>
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>
-    <string name="str_spoitfy" translatable="false">Spotify</string>
+    <string name="str_spotify" translatable="false">Spotify</string>
     <string name="desc_searchmenu">Search</string>
     <string name="str_settings">Settings</string>
     <string name="str_gridtype">Grid Type</string>

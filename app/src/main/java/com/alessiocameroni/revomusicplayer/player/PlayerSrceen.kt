@@ -32,8 +32,7 @@ fun PlayerScreen(navController: NavController) {
         ) {
             Scaffold(
                 topBar = {
-                    SmallTopAppBar(
-                        title = { Text(text = "") },
+                    TopAppBar(title = { Text(text = "") },
                         navigationIcon = {
                             IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(

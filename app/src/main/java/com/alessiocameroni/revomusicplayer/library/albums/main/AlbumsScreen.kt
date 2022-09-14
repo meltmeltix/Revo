@@ -46,7 +46,7 @@ fun AlbumsScreen(navController: NavController, navControllerBottomBar: NavHostCo
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_albums)) },
                 navigationIcon = {
                     IconButton(
@@ -76,8 +76,7 @@ fun AlbumsScreen(navController: NavController, navControllerBottomBar: NavHostCo
                             itemSettings = true
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->

@@ -50,7 +50,7 @@ fun PlaylistsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_playlists)) },
                 navigationIcon = {
                     IconButton(
@@ -80,8 +80,7 @@ fun PlaylistsScreen(
                             itemSettings = true
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }, scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
