@@ -496,12 +496,6 @@ fun NavigationBottomNavBar(
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
 
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-
 
                     //From screen
                     "album_view_screen" ->

@@ -44,7 +44,7 @@ fun TracksScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_songs)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
