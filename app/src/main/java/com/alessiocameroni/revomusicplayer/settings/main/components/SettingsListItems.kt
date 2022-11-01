@@ -1,18 +1,79 @@
 package com.alessiocameroni.revomusicplayer.settings.main.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
+import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.navigation.SettingsScreens
+
+@Preview(showBackground = true)
+@Composable
+fun SettingsCategoryItemPreview() {
+    SettingsCategoryItem(
+        painterIcon = painterResource(id = R.drawable.ic_outlined_palette_24),
+        stringTitleItem = stringResource(id = R.string.str_customization),
+        stringSubtitleItem = stringResource(id = R.string.desc_customization),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(84.dp)
+            .clip(RoundedCornerShape(22.dp))
+            .clickable { }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SettingsActionItemPreview() {
+    SettingsActionItem(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(22.dp))
+            .clickable { },
+        stringTitleItem = stringResource(id = R.string.str_layoutplayer),
+        stringSubtitleItem = stringResource(id = R.string.desc_layoutplayer),
+        unitAction = { Switch(checked = true, onCheckedChange = {  }) }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SettingsTitleActionItemPreview() {
+    SettingsTitleActionItem(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(22.dp))
+            .clickable { },
+        stringTitleItem = stringResource(id = R.string.str_layoutplayer),
+        unitAction = { Switch(checked = true, onCheckedChange = {  }) }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SectionTitlePreview() {
+    SectionTitle(
+        stringTitle = stringResource(id = R.string.str_specialthanks),
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
 
 @Composable
 fun SettingsCategoryItem(
@@ -62,7 +123,7 @@ fun SettingsCategoryItem(
                 modifier = Modifier
                     .layoutId("TextTitle")
                     .padding(start = 15.dp, top = 18.dp)
-                    .width(285.dp),
+                    .width(290.dp),
                 text = stringTitleItem,
                 style = MaterialTheme.typography.titleLarge,
                 overflow = TextOverflow.Ellipsis,
@@ -73,7 +134,7 @@ fun SettingsCategoryItem(
                 modifier = Modifier
                     .layoutId("TextSubtitle")
                     .padding(start = 15.dp, bottom = 18.dp)
-                    .width(285.dp),
+                    .width(290.dp),
                 text = stringSubtitleItem,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
@@ -203,7 +264,6 @@ fun SettingsTitleActionItem(
         }
     }
 }
-
 
 @Composable
 fun SectionTitle(

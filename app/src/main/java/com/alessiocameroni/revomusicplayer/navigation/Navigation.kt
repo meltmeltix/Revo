@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.library.albums.albumview.AlbumViewScreen
-import com.alessiocameroni.revomusicplayer.library.albums.main.AlbumsScreen
+import com.alessiocameroni.revomusicplayer.library.albums.albumsscreen.AlbumsScreen
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.ArtistViewScreen
-import com.alessiocameroni.revomusicplayer.library.artists.main.ArtistsScreen
-import com.alessiocameroni.revomusicplayer.library.playlists.main.PlaylistsScreen
+import com.alessiocameroni.revomusicplayer.library.artists.artistsscreen.ArtistsScreen
+import com.alessiocameroni.revomusicplayer.library.playlists.playlistsscreen.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.library.songs.TracksScreen
 import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen

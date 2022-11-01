@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.playlists.main.data
+package com.alessiocameroni.revomusicplayer.library.playlists.playlistsscreen.data
 
 data class PlaylistItemData (
     var stringTitle: String,

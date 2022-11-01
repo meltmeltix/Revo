@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.playlists.main
+package com.alessiocameroni.revomusicplayer.library.artists.artistsscreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,27 +21,23 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.playlists.main.components.PlaylistItem
-import com.alessiocameroni.revomusicplayer.library.playlists.main.data.PlaylistItemData
-import com.alessiocameroni.revomusicplayer.navigation.PlaylistsScreens
+import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
+import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
+import com.alessiocameroni.revomusicplayer.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlaylistsScreen(
-    navController: NavController,
-    navControllerBottomBar: NavHostController
-) {
+fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostController) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
-            (1..8).map {
-                PlaylistItemData(
-                    stringTitle = "Playlist Title",
-                    stringSongAmount = "20",
-                    stringMinutes = "12:34"
+            (1..20).map {
+                LibraryItemData(
+                    stringTitle = "Artist Name",
+                    stringSubtitle = "20 songs - 20 albums"
                 )
             }
         )
@@ -51,11 +47,9 @@ fun PlaylistsScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_playlists)) },
+                title = { Text(text = stringResource(id = R.string.str_artists)) },
                 navigationIcon = {
-                    IconButton(
-                        onClick = { navController.navigate(Screens.SearchScreen.route) }
-                    ) {
+                    IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -75,7 +69,7 @@ fun PlaylistsScreen(
                             navController = navController,
                             expanded = expanded,
                             itemSortBy = true,
-                            itemGridType = false,
+                            itemGridType = true,
                             itemOpenSpotify = false,
                             itemSettings = true
                         )
@@ -83,63 +77,59 @@ fun PlaylistsScreen(
                 }, scrollBehavior = scrollBehavior
             )
         },
-        floatingActionButton = {
-            LargeFloatingActionButton(
-                onClick = {  }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.desc_addplaylist),
-                    modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
-                )
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
         content = { padding ->
             LazyVerticalGrid(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
                 columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(bottom = 128.dp),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
-            ){
+            ) {
                 items(items.size) { i ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(22.dp))
                             .clickable {
-                                navControllerBottomBar.navigate(
-                                    PlaylistsScreens.PlaylistViewScreen.route
-                                )
+                                navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
                             },
                     ) {
-                        PlaylistItem(
+                        LibraryNoMenuListItem(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             unitAlbumImage = null,
                             stringTitleItem = items[i].stringTitle,
-                            stringSongAmount = items[i].stringSongAmount,
-                            stringMinutes = items[i].stringMinutes,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_delete))
-                                    },
-                                    onClick = {  },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
-                                            contentDescription = stringResource(id = R.string.desc_deleteplaylist)
-                                        )
-                                    }
-                                )
-                            }
+                            stringSubtitleItem = items[i].stringSubtitle
                         )
                     }
                 }
             }
+
+            /*LazyVerticalGrid(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
+                columns = GridCells.Adaptive(190.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp),
+                horizontalArrangement = Arrangement.spacedBy(5.dp)
+            ){
+                items(items.size) { i ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(22.dp))
+                            .clickable { },
+                    ) {
+                        LibraryNoMenuLargeGridItem(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            unitAlbumImage = null,
+                            stringTitleItem = items[i].stringTitle,
+                            stringSubtitleItem = items[i].stringSubtitle
+                        )
+                    }
+                }
+            }*/
         }
     )
 }

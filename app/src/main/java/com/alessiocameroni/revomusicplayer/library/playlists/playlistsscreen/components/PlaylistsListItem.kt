@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.playlists.main.components
+package com.alessiocameroni.revomusicplayer.library.playlists.playlistsscreen.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
