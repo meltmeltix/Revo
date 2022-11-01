@@ -58,14 +58,14 @@ fun PlayerLayoutDialog(
             contentColor = MaterialTheme.colorScheme.onSurface
         ) {
             val constraints = ConstraintSet {
-                val boxDemo = createRefFor("BoxDemo")
+                val rowImagePreview = createRefFor("RowImagePreview")
                 val titleDialog = createRefFor("TitleDialog")
                 val dividerTitleColumn = createRefFor("DividerTitleColumn")
                 val columnSelection = createRefFor("ColumnSelection")
                 val dividerColumnActions = createRefFor("DividerColumnActions")
-                val boxActionButtons = createRefFor("BoxActionButtons")
+                val rowActionButtons = createRefFor("RowActionButtons")
 
-                constrain(boxDemo) {
+                constrain(rowImagePreview) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
@@ -73,7 +73,7 @@ fun PlayerLayoutDialog(
 
                 constrain(titleDialog) {
                     start.linkTo(parent.start)
-                    top.linkTo(boxDemo.bottom)
+                    top.linkTo(rowImagePreview.bottom)
                     end.linkTo(parent.end)
                 }
 
@@ -95,7 +95,7 @@ fun PlayerLayoutDialog(
                     end.linkTo(parent.end)
                 }
 
-                constrain(boxActionButtons) {
+                constrain(rowActionButtons) {
                     start.linkTo(parent.start)
                     top.linkTo(dividerColumnActions.bottom)
                     end.linkTo(parent.end)
@@ -109,32 +109,21 @@ fun PlayerLayoutDialog(
                     .clip(shape = RoundedCornerShape(12.dp))
                     .fillMaxWidth()
             ) {
-                Box(
+                Row(
                     modifier = Modifier
-                        .layoutId("BoxDemo")
+                        .layoutId("RowImagePreview")
                         .clip(shape = RoundedCornerShape(12.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant)
                         .fillMaxWidth()
-                        .height(190.dp)
+                        .height(190.dp),
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    val imgConstraints = ConstraintSet{
-                        val imagePreview = createRefFor("ImagePreview")
-
-                        constrain(imagePreview) {
-                            start.linkTo(parent.start)
-                            top.linkTo(parent.top)
-                            end.linkTo(parent.end)
-                        }
-                    }
-
-                    ConstraintLayout(imgConstraints, modifier = Modifier.fillMaxSize()) {
-                        PlayerLayoutImagePreview(
-                            modifier = Modifier
-                                .layoutId("ImagePreview")
-                                .height(170.dp),
-                            selectedOption = selectedOption
-                        )
-                    }
+                    PlayerLayoutImagePreview(
+                        modifier = Modifier
+                            .layoutId("ImagePreview")
+                            .height(170.dp),
+                        selectedOption = selectedOption
+                    )
                 }
 
                 Text(
@@ -190,48 +179,28 @@ fun PlayerLayoutDialog(
                         .padding(vertical = 8.dp)
                 )
 
-                Box(
+                Row(
                     modifier = Modifier
-                        .layoutId("BoxActionButtons")
+                        .layoutId("RowActionButtons")
                         .padding(top = 8.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
                 ) {
-                    val constraintsActionButtons = ConstraintSet {
-                        val buttonCancel = createRefFor("ButtonCancel")
-                        val buttonConfirm =
-                            createRefFor("ButtonConfirm")
-
-                        constrain(buttonConfirm) {
-                            top.linkTo(parent.top)
-                            end.linkTo(parent.end)
-                        }
-
-                        constrain(buttonCancel) {
-                            top.linkTo(parent.top)
-                            end.linkTo(buttonConfirm.start)
-                        }
+                    TextButton(
+                        modifier = Modifier
+                            .layoutId("ButtonCancel")
+                            .padding(horizontal = 8.dp),
+                        onClick = { openDialog.value = false }
+                    ) {
+                        Text(text = stringResource(id = R.string.str_cancel))
                     }
 
-                    ConstraintLayout(
-                        constraintsActionButtons,
-                        modifier = Modifier.fillMaxWidth()
+                    TextButton(
+                        modifier = Modifier
+                            .layoutId("ButtonConfirm"),
+                        onClick = {  }
                     ) {
-                        TextButton(
-                            modifier = Modifier
-                                .layoutId("ButtonCancel")
-                                .padding(horizontal = 8.dp),
-                            onClick = { openDialog.value = false }
-                        ) {
-                            Text(text = stringResource(id = R.string.str_cancel))
-                        }
-
-                        TextButton(
-                            modifier = Modifier
-                                .layoutId("ButtonConfirm"),
-                            onClick = {  }
-                        ) {
-                            Text(text = stringResource(id = R.string.str_ok))
-                        }
+                        Text(text = stringResource(id = R.string.str_ok))
                     }
                 }
             }
