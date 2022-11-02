@@ -3,112 +3,89 @@ package com.alessiocameroni.revomusicplayer.player.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
-import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+
+@Preview(showBackground = true)
+@Composable
+fun CenterSongControlsPreview() {
+    val sliderPosition by remember { mutableStateOf(0.5f) }
+
+    CenterSongControls (
+        modifier = Modifier
+            .fillMaxWidth(),
+        floatSliderPosition = sliderPosition
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LeftSongControlsPreview() {
+    val sliderPosition by remember { mutableStateOf(0.5f) }
+
+    LeftSongControls (
+        modifier = Modifier
+            .fillMaxWidth(),
+        floatSliderPosition = sliderPosition
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RightSongControlsPreview() {
+    val sliderPosition by remember { mutableStateOf(0.5f) }
+
+    RightSongControls (
+        modifier = Modifier
+            .fillMaxWidth(),
+        floatSliderPosition = sliderPosition
+    )
+}
 
 @Composable
 fun CenterSongControls(
     modifier: Modifier,
-    navController: NavController,
-    floatPosition: Float,
-    boolShuffleChecked: Boolean,
-    boolRepeatChecked: Boolean
+    floatSliderPosition: Float
 ) {
-    var sliderPosition by remember { mutableStateOf(floatPosition) }
-    var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
-    var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    val expanded = remember { mutableStateOf(false) }
+    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
+    var favouriteChecked by remember { mutableStateOf(false) }
 
-    val constraints = ConstraintSet {
-        val songSlider = createRefFor("SongSlider")
-        val textMinutes = createRefFor("MinutesText")
-        val boxControlButtons = createRefFor("BoxControlButtons")
-        val boxSecondaryButtons = createRefFor("BoxSecondaryButtons")
-
-        constrain(textMinutes) {
-            start.linkTo(parent.start)
-            top.linkTo(parent.top)
-            end.linkTo(parent.end)
-        }
-
-        constrain(songSlider) {
-            start.linkTo(parent.start)
-            top.linkTo(textMinutes.bottom)
-            end.linkTo(parent.end)
-        }
-
-        constrain(boxControlButtons) {
-            start.linkTo(parent.start)
-            top.linkTo(songSlider.bottom)
-            end.linkTo(parent.end)
-        }
-
-        constrain(boxSecondaryButtons) {
-            start.linkTo(parent.start)
-            top.linkTo(boxControlButtons.bottom)
-            start.linkTo(parent.start)
-        }
-    }
-
-    ConstraintLayout(
-        constraints,
-        modifier = modifier
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Text(
-            modifier = Modifier
-                .layoutId("MinutesText")
-                .width(360.dp),
-            text = "10:00/10:00",
-            textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.labelSmall
-        )
-
-        Slider(
-            modifier = Modifier
-                .layoutId("SongSlider")
-                .padding(bottom = 10.dp),
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it }
-        )
-
         Box(
             modifier = Modifier
-                .layoutId("BoxControlButtons")
-                .padding(bottom = 10.dp)
-                .fillMaxWidth()
-                .height(96.dp)
+                .fillMaxWidth(),
         ) {
-            val constraintsBoxControlsButtons = ConstraintSet {
-                val previousFAB = createRefFor("PreviousFAB")
-                val playFAB = createRefFor("PlayFAB")
-                val nextFAB = createRefFor("NextFAB")
+            val songInfoConstraints = ConstraintSet {
+                val songNameText = createRefFor("SongNameText")
+                val artistNameText = createRefFor("ArtistNameText")
+                val favoriteIconButton = createRefFor("FavoriteIconButton")
 
-                constrain(previousFAB) {
+                constrain(songNameText) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
-                    end.linkTo(playFAB.start)
+                    bottom.linkTo(artistNameText.top)
+                }
+
+                constrain(artistNameText) {
+                    start.linkTo(parent.start)
+                    top.linkTo(songNameText.bottom)
                     bottom.linkTo(parent.bottom)
                 }
 
-                constrain(playFAB) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-
-                constrain(nextFAB) {
-                    start.linkTo(playFAB.end)
+                constrain(favoriteIconButton) {
                     top.linkTo(parent.top)
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
@@ -116,198 +93,149 @@ fun CenterSongControls(
             }
 
             ConstraintLayout(
-                constraintsBoxControlsButtons,
-                modifier = Modifier.fillMaxSize()
+                songInfoConstraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                FloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PreviousFAB")
-                        .clip(MaterialTheme.shapes.large),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                ) {
-                    Icon(
-                        painter = painterResource(
-                            id = R.drawable.ic_filled_skip_previous_24
-                        ),
-                        contentDescription = stringResource(
-                            id = R.string.desc_skipprevious
-                        )
-                    )
-                }
+                        .layoutId("SongNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "SongName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                LargeFloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PlayFAB")
-                        .width(130.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ) {
-                    Icon(
-                        painter = painterResource(
-                            id = R.drawable.ic_baseline_play_arrow_24
-                        ),
-                        contentDescription = stringResource(
-                            id = R.string.desc_playsong
-                        ),
-                        modifier = Modifier
-                            .size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
-                }
+                        .layoutId("ArtistNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "ArtistName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                FloatingActionButton(
+                IconToggleButton(
                     modifier = Modifier
-                        .layoutId("NextFAB")
-                        .clip(MaterialTheme.shapes.large),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        .layoutId("FavoriteIconButton"),
+                    checked = favouriteChecked,
+                    onCheckedChange = { favouriteChecked = it }
                 ) {
-                    Icon(
-                        painter = painterResource(
-                            id = R.drawable.ic_filled_skip_next_24
-                        ),
-                        contentDescription = stringResource(
-                            id = R.string.desc_skipnext
+                    if(favouriteChecked) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
                         )
-                    )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
+                        )
+                    }
                 }
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterHorizontally)
+        ) {
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
+                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(110.dp, 70.dp),
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                ),
+                shape = MaterialTheme.shapes.large,
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                    contentDescription = stringResource(id = R.string.desc_playsong)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
+                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                )
             }
         }
 
         Box(
             modifier = Modifier
-                .layoutId("BoxSecondaryButtons")
-                .padding(top = 10.dp)
                 .fillMaxWidth()
-                .height(100.dp)
         ) {
-            val constraintsBoxSecondaryButtons = ConstraintSet{
-                val moreButton = createRefFor("MoreButton")
-                val queueButton = createRefFor("QueueButton")
-                val shuffleButton = createRefFor("ShuffleButton")
-                val repeatButton = createRefFor("RepeatButton")
+            val constraints = ConstraintSet {
+                val textCurrentTime = createRefFor("TextCurrentTime")
+                val textSongTime = createRefFor("TextSongTime")
+                val progressBarSong = createRefFor("ProgressBarSong")
 
-                constrain(moreButton) {
-                    top.linkTo(repeatButton.bottom)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-
-                constrain(queueButton) {
+                constrain(textCurrentTime) {
                     start.linkTo(parent.start)
-                    top.linkTo(shuffleButton.bottom)
-                    bottom.linkTo(parent.bottom)
+                    bottom.linkTo(progressBarSong.top)
                 }
 
-                constrain(shuffleButton) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(queueButton.top)
-                }
-
-                constrain(repeatButton) {
-                    top.linkTo(parent.top)
+                constrain(textSongTime) {
                     end.linkTo(parent.end)
-                    bottom.linkTo(moreButton.top)
+                    bottom.linkTo(progressBarSong.top)
+                }
+
+                constrain(progressBarSong) {
+                    bottom.linkTo(parent.bottom)
                 }
             }
 
             ConstraintLayout(
-                constraintsBoxSecondaryButtons,
-                modifier = Modifier.fillMaxSize()
+                constraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Box(modifier = Modifier.layoutId("MoreButton")) {
-                    FilledTonalIconButton(
-                        modifier = Modifier
-                            .width(165.dp),
-                        onClick = { expanded.value = true },
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                            contentDescription = stringResource(id = R.string.str_settings)
-                        )
-                    }
-
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-                        DropdownMenu(
-                            modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
-                                .width(180.dp),
-                            expanded = expanded.value,
-                            onDismissRequest = { expanded.value = false }
-                        ) {
-                            PlayerMenuItems(
-                                navController = navController,
-                                expanded = expanded
-                            )
-                        }
-                    }
-                }
-
-                FilledTonalIconButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("QueueButton")
-                        .width(165.dp),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextCurrentTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "02:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = shuffleChecked,
-                    onCheckedChange = { shuffleChecked = it },
+                Text(
                     modifier = Modifier
-                        .layoutId("ShuffleButton")
-                        .width(165.dp),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextSongTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "04:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = repeatChecked,
-                    onCheckedChange = { repeatChecked = it },
+                Slider(
                     modifier = Modifier
-                        .layoutId("RepeatButton")
-                        .width(165.dp),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("ProgressBarSong"),
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it }
+                )
             }
         }
     }
@@ -316,280 +244,189 @@ fun CenterSongControls(
 @Composable
 fun LeftSongControls(
     modifier: Modifier,
-    navController: NavController,
-    floatPosition: Float,
-    boolShuffleChecked: Boolean,
-    boolRepeatChecked: Boolean
+    floatSliderPosition: Float
 ) {
-    var sliderPosition by remember { mutableStateOf(floatPosition) }
-    var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
-    var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    val expanded = remember { mutableStateOf(false) }
+    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
+    var favouriteChecked by remember { mutableStateOf(false) }
 
-    val constraints = ConstraintSet {
-        val songSlider = createRefFor("SongSlider")
-        val textMinutes = createRefFor("MinutesText")
-        val boxControlButtons = createRefFor("BoxControlButtons")
-        val boxSecondaryButtons = createRefFor("BoxSecondaryButtons")
-
-        constrain(textMinutes) {
-            start.linkTo(parent.start)
-            top.linkTo(parent.top)
-            end.linkTo(parent.end)
-        }
-
-        constrain(songSlider) {
-            start.linkTo(parent.start)
-            top.linkTo(textMinutes.bottom)
-            end.linkTo(parent.end)
-        }
-
-        constrain(boxControlButtons) {
-            start.linkTo(parent.start)
-            top.linkTo(songSlider.bottom)
-            bottom.linkTo(parent.bottom)
-        }
-
-        constrain(boxSecondaryButtons) {
-            top.linkTo(songSlider.bottom)
-            end.linkTo(parent.end)
-            bottom.linkTo(parent.bottom)
-        }
-    }
-
-    ConstraintLayout(
-        constraints,
-        modifier = modifier
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Text(
-            modifier = Modifier
-                .layoutId("MinutesText")
-                .width(360.dp),
-            text = "10:00/10:00",
-            textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.labelSmall
-        )
-
-        Slider(
-            modifier = Modifier
-                .layoutId("SongSlider")
-                .padding(bottom = 10.dp),
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it }
-        )
-
         Box(
             modifier = Modifier
-                .layoutId("BoxControlButtons")
-                .size(210.dp)
+                .fillMaxWidth(),
         ) {
-            val constraintsBoxControlsButtons = ConstraintSet {
-                val previousFAB = createRefFor("PreviousFAB")
-                val playFAB = createRefFor("PlayFAB")
-                val nextFAB = createRefFor("NextFAB")
+            val songInfoConstraints = ConstraintSet {
+                val songNameText = createRefFor("SongNameText")
+                val artistNameText = createRefFor("ArtistNameText")
+                val favoriteIconButton = createRefFor("FavoriteIconButton")
 
-                constrain(playFAB) {
+                constrain(songNameText) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
-                    end.linkTo(parent.end)
+                    bottom.linkTo(artistNameText.top)
                 }
 
-                constrain(previousFAB) {
+                constrain(artistNameText) {
                     start.linkTo(parent.start)
-                    top.linkTo(playFAB.bottom)
-                    end.linkTo(nextFAB.start)
+                    top.linkTo(songNameText.bottom)
                     bottom.linkTo(parent.bottom)
                 }
 
-                constrain(nextFAB) {
-                    start.linkTo(previousFAB.end)
-                    top.linkTo(playFAB.bottom)
+                constrain(favoriteIconButton) {
+                    top.linkTo(parent.top)
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                 }
             }
 
             ConstraintLayout(
-                constraintsBoxControlsButtons,
-                modifier = Modifier.fillMaxSize()
+                songInfoConstraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                LargeFloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PlayFAB")
-                        .padding(bottom = 10.dp)
-                        .width(210.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                        contentDescription = stringResource(id = R.string.desc_playsong),
-                        modifier = Modifier
-                            .size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
-                }
+                        .layoutId("SongNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "SongName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                LargeFloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PreviousFAB")
-                        .clip(MaterialTheme.shapes.large)
-                        .padding(top = 10.dp, end = 10.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                        contentDescription = stringResource(id = R.string.desc_skipprevious),
-                        modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
-                }
+                        .layoutId("ArtistNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "ArtistName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                LargeFloatingActionButton(
+                IconToggleButton(
                     modifier = Modifier
-                        .layoutId("NextFAB")
-                        .clip(MaterialTheme.shapes.large)
-                        .padding(start = 10.dp, top = 10.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        .layoutId("FavoriteIconButton"),
+                    checked = favouriteChecked,
+                    onCheckedChange = { favouriteChecked = it }
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                        contentDescription = stringResource(id = R.string.desc_skipnext),
-                        modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
+                    if(favouriteChecked) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
+                        )
+                    }
                 }
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.Start)
+        ) {
+
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(110.dp, 70.dp),
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                ),
+                shape = MaterialTheme.shapes.large,
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                    contentDescription = stringResource(id = R.string.desc_playsong)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
+                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
+                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                )
             }
         }
 
         Box(
             modifier = Modifier
-                .layoutId("BoxSecondaryButtons")
-                .padding(start = 20.dp)
-                .size(100.dp, 210.dp)
+                .fillMaxWidth()
         ) {
-            val constraintsBoxSecondaryButtons = ConstraintSet{
-                val moreButton = createRefFor("MoreButton")
-                val queueButton = createRefFor("QueueButton")
-                val shuffleButton = createRefFor("ShuffleButton")
-                val repeatButton = createRefFor("RepeatButton")
+            val constraints = ConstraintSet {
+                val textCurrentTime = createRefFor("TextCurrentTime")
+                val textSongTime = createRefFor("TextSongTime")
+                val progressBarSong = createRefFor("ProgressBarSong")
 
-                constrain(moreButton) {
+                constrain(textCurrentTime) {
+                    start.linkTo(parent.start)
+                    bottom.linkTo(progressBarSong.top)
+                }
+
+                constrain(textSongTime) {
                     end.linkTo(parent.end)
+                    bottom.linkTo(progressBarSong.top)
+                }
+
+                constrain(progressBarSong) {
                     bottom.linkTo(parent.bottom)
-                }
-
-                constrain(queueButton) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(moreButton.top)
-                }
-
-                constrain(shuffleButton) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                }
-
-                constrain(repeatButton) {
-                    top.linkTo(shuffleButton.bottom)
-                    end.linkTo(parent.end)
                 }
             }
 
             ConstraintLayout(
-                constraintsBoxSecondaryButtons,
-                modifier = Modifier.fillMaxSize()
+                constraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Box(modifier = Modifier.layoutId("MoreButton")) {
-                    FilledTonalIconButton(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        onClick = { expanded.value = true },
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                            contentDescription = stringResource(id = R.string.str_settings)
-                        )
-                    }
-
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-                        DropdownMenu(
-                            modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
-                                .width(180.dp),
-                            expanded = expanded.value,
-                            onDismissRequest = { expanded.value = false }
-                        ) {
-                            PlayerMenuItems(
-                                navController = navController,
-                                expanded = expanded
-                            )
-                        }
-                    }
-                }
-
-                FilledTonalIconButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("QueueButton")
-                        .fillMaxWidth(),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextCurrentTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "02:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = shuffleChecked,
-                    onCheckedChange = { shuffleChecked = it },
+                Text(
                     modifier = Modifier
-                        .layoutId("ShuffleButton")
-                        .fillMaxWidth(),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextSongTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "04:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = repeatChecked,
-                    onCheckedChange = { repeatChecked = it },
+                Slider(
                     modifier = Modifier
-                        .layoutId("RepeatButton")
-                        .fillMaxWidth(),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("ProgressBarSong"),
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it }
+                )
             }
         }
     }
@@ -598,301 +435,188 @@ fun LeftSongControls(
 @Composable
 fun RightSongControls(
     modifier: Modifier,
-    navController: NavController,
-    floatPosition: Float,
-    boolShuffleChecked: Boolean,
-    boolRepeatChecked: Boolean
+    floatSliderPosition: Float
 ) {
-    var sliderPosition by remember { mutableStateOf(floatPosition) }
-    var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
-    var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    val expanded = remember { mutableStateOf(false) }
+    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
+    var favouriteChecked by remember { mutableStateOf(false) }
 
-    val constraints = ConstraintSet {
-        val songSlider = createRefFor("SongSlider")
-        val textMinutes = createRefFor("MinutesText")
-        val boxControlButtons = createRefFor("BoxControlButtons")
-        val boxSecondaryButtons = createRefFor("BoxSecondaryButtons")
-
-        constrain(textMinutes) {
-            start.linkTo(parent.start)
-            top.linkTo(parent.top)
-            end.linkTo(parent.end)
-        }
-
-        constrain(songSlider) {
-            start.linkTo(parent.start)
-            top.linkTo(textMinutes.bottom)
-            end.linkTo(parent.end)
-        }
-
-        constrain(boxControlButtons) {
-            top.linkTo(songSlider.bottom)
-            end.linkTo(parent.end)
-            bottom.linkTo(parent.bottom)
-        }
-
-        constrain(boxSecondaryButtons) {
-            top.linkTo(songSlider.bottom)
-            start.linkTo(parent.start)
-            bottom.linkTo(parent.bottom)
-        }
-    }
-
-    ConstraintLayout(
-        constraints,
-        modifier = modifier
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Text(
-            modifier = Modifier
-                .layoutId("MinutesText")
-                .width(360.dp),
-            text = "10:00/10:00",
-            textAlign = TextAlign.Right,
-            style = MaterialTheme.typography.labelSmall
-        )
-
-        Slider(
-            modifier = Modifier
-                .layoutId("SongSlider")
-                .padding(bottom = 10.dp),
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it }
-        )
-
         Box(
             modifier = Modifier
-                .layoutId("BoxControlButtons")
-                .size(210.dp)
+                .fillMaxWidth(),
         ) {
-            val constraintsBoxControlsButtons = ConstraintSet {
-                val previousFAB = createRefFor("PreviousFAB")
-                val playFAB = createRefFor("PlayFAB")
-                val nextFAB = createRefFor("NextFAB")
+            val songInfoConstraints = ConstraintSet {
+                val songNameText = createRefFor("SongNameText")
+                val artistNameText = createRefFor("ArtistNameText")
+                val favoriteIconButton = createRefFor("FavoriteIconButton")
 
-                constrain(playFAB) {
+                constrain(songNameText) {
                     start.linkTo(parent.start)
                     top.linkTo(parent.top)
-                    end.linkTo(parent.end)
+                    bottom.linkTo(artistNameText.top)
                 }
 
-                constrain(previousFAB) {
+                constrain(artistNameText) {
                     start.linkTo(parent.start)
-                    top.linkTo(playFAB.bottom)
-                    end.linkTo(nextFAB.start)
+                    top.linkTo(songNameText.bottom)
                     bottom.linkTo(parent.bottom)
                 }
 
-                constrain(nextFAB) {
-                    start.linkTo(previousFAB.end)
-                    top.linkTo(playFAB.bottom)
+                constrain(favoriteIconButton) {
+                    top.linkTo(parent.top)
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                 }
             }
 
             ConstraintLayout(
-                constraintsBoxControlsButtons,
-                modifier = Modifier.fillMaxSize()
+                songInfoConstraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                LargeFloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PlayFAB")
-                        .padding(bottom = 10.dp)
-                        .width(210.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                        contentDescription = stringResource(id = R.string.desc_playsong),
-                        modifier = Modifier
-                            .size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
-                }
+                        .layoutId("SongNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "SongName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                LargeFloatingActionButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("PreviousFAB")
-                        .clip(MaterialTheme.shapes.large)
-                        .padding(top = 10.dp, end = 10.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                        contentDescription = stringResource(id = R.string.desc_skipprevious),
-                        modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
-                }
+                        .layoutId("ArtistNameText")
+                        .padding(vertical = 2.dp)
+                        .width(280.dp),
+                    text = "ArtistName",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
 
-                LargeFloatingActionButton(
+                IconToggleButton(
                     modifier = Modifier
-                        .layoutId("NextFAB")
-                        .clip(MaterialTheme.shapes.large)
-                        .padding(start = 10.dp, top = 10.dp),
-                    onClick = {  },
-                    elevation = FloatingActionButtonDefaults.elevation(
-                        defaultElevation = 0.dp,
-                        pressedElevation = 0.dp
-                    ),
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        .layoutId("FavoriteIconButton"),
+                    checked = favouriteChecked,
+                    onCheckedChange = { favouriteChecked = it }
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                        contentDescription = stringResource(id = R.string.desc_skipnext),
-                        modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize)
-                    )
+                    if(favouriteChecked) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                            contentDescription = stringResource(id = R.string.desc_favorite)
+                        )
+                    }
                 }
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.End)
+        ) {
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
+                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(70.dp),
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
+                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                )
+            }
+
+            FilledTonalIconButton(
+                modifier = Modifier
+                    .size(110.dp, 70.dp),
+                colors = IconButtonDefaults.filledTonalIconButtonColors(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                ),
+                shape = MaterialTheme.shapes.large,
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                    contentDescription = stringResource(id = R.string.desc_playsong)
+                )
             }
         }
 
         Box(
             modifier = Modifier
-                .layoutId("BoxSecondaryButtons")
-                .padding(end = 20.dp)
-                .size(100.dp, 210.dp)
+                .fillMaxWidth()
         ) {
-            val constraintsBoxSecondaryButtons = ConstraintSet{
-                val moreButton = createRefFor("MoreButton")
-                val queueButton = createRefFor("QueueButton")
-                val shuffleButton = createRefFor("ShuffleButton")
-                val repeatButton = createRefFor("RepeatButton")
+            val constraints = ConstraintSet {
+                val textCurrentTime = createRefFor("TextCurrentTime")
+                val textSongTime = createRefFor("TextSongTime")
+                val progressBarSong = createRefFor("ProgressBarSong")
 
-                constrain(moreButton) {
+                constrain(textCurrentTime) {
                     start.linkTo(parent.start)
+                    bottom.linkTo(progressBarSong.top)
+                }
+
+                constrain(textSongTime) {
+                    end.linkTo(parent.end)
+                    bottom.linkTo(progressBarSong.top)
+                }
+
+                constrain(progressBarSong) {
                     bottom.linkTo(parent.bottom)
-                }
-
-                constrain(queueButton) {
-                    start.linkTo(parent.start)
-                    bottom.linkTo(moreButton.top)
-                }
-
-                constrain(shuffleButton) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                }
-
-                constrain(repeatButton) {
-                    start.linkTo(parent.start)
-                    top.linkTo(shuffleButton.bottom)
                 }
             }
 
             ConstraintLayout(
-                constraintsBoxSecondaryButtons,
-                modifier = Modifier.fillMaxSize()
+                constraints,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Box(modifier = Modifier.layoutId("MoreButton")) {
-                    FilledTonalIconButton(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        onClick = { expanded.value = true },
-                        colors = IconButtonDefaults.filledTonalIconButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                        )
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                            contentDescription = stringResource(id = R.string.str_settings)
-                        )
-                    }
-
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-                        DropdownMenu(
-                            modifier = Modifier
-                                .width(180.dp),
-                            expanded = expanded.value,
-                            onDismissRequest = { expanded.value = false }
-                        ) {
-                            PlayerMenuItems(
-                                navController = navController,
-                                expanded = expanded
-                            )
-                        }
-                    }
-                }
-
-                FilledTonalIconButton(
+                Text(
                     modifier = Modifier
-                        .layoutId("QueueButton")
-                        .fillMaxWidth(),
-                    onClick = {  },
-                    colors = IconButtonDefaults.filledTonalIconButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_queue_music_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextCurrentTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "02:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = shuffleChecked,
-                    onCheckedChange = { shuffleChecked = it },
+                Text(
                     modifier = Modifier
-                        .layoutId("ShuffleButton")
-                        .fillMaxWidth(),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("TextSongTime"),
+                    style = MaterialTheme.typography.labelSmall,
+                    text = "04:00"
+                )
 
-                FilledTonalIconToggleButton(
-                    checked = repeatChecked,
-                    onCheckedChange = { repeatChecked = it },
+                Slider(
                     modifier = Modifier
-                        .layoutId("RepeatButton")
-                        .fillMaxWidth(),
-                    colors = IconButtonDefaults.filledTonalIconToggleButtonColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
-                    )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
-                    )
-                }
+                        .layoutId("ProgressBarSong"),
+                    value = sliderPosition,
+                    onValueChange = { sliderPosition = it }
+                )
             }
         }
     }
-}
-
-@Composable
-fun PlayerMenuItems(
-    navController: NavController,
-    expanded: MutableState<Boolean>
-) {
-    Divider()
-    DropdownMenuItem(
-        text = { Text(text = stringResource(id = R.string.str_settings)) },
-        onClick = {
-            navController.navigate(Screens.SettingsScreen.route)
-            expanded.value = false
-        },
-        leadingIcon = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                contentDescription = stringResource(id = R.string.desc_settings)
-            )
-        }
-    )
 }
