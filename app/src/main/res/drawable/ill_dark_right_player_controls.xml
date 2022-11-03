@@ -4,7 +4,7 @@
         <path android:pathData="M4 0h192v159.61c0 4.63-3.76 8.39-8.39 8.39H12.39C7.76 168 4 164.24 4 159.61V0z" android:fillColor="#1D1B1E"/>
         <path android:pathData="M4 154.96h192v13.05H4z" android:fillColor="#1D1B1E"/>
         <path android:pathData="M4 154.96h192v13.05H4z" android:fillColor="#D2BBFF" android:fillAlpha="0.08"/>
-        <path android:pathData="M74.08 161.28h51.84a0.96 0.96 0 0 1 0.96 0.96 0.96 0.96 0 0 1-0.96 0.96H74.08a0.96 0.96 0 0 1-0.96-0.96 0.96 0.96 0 0 1 0.96-0.96z" android:fillColor="#E6E1E6"/>
+        <path android:pathData="M74.08 155.28h51.84a0.96 0.96 0 0 1 0.96 0.96 0.96 0.96 0 0 1-0.96 0.96H74.08a0.96 0.96 0 0 1-0.96-0.96 0.96 0.96 0 0 1 0.96-0.96z" android:fillColor="#E6E1E6"/>
         <group>
             <clip-path android:pathData="M18.4 0h163.2v103.68H18.4z"/>
             <path android:pathData="M18.4 100.14h164.04" android:strokeWidth="1.86408" android:strokeColor="#4A4358" android:strokeLineCap="round"/>

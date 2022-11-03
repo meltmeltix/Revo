@@ -29,7 +29,7 @@ fun LibraryListItem(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box( modifier = modifier.height(85.dp) ) {
+    Box( modifier = modifier.height(80.dp) ) {
         val constraints = ConstraintSet {
             val albumCover = createRefFor("AlbumCover")
             val textTitle = createRefFor("TextTitle")
@@ -70,7 +70,7 @@ fun LibraryListItem(
                     .layoutId("AlbumCover")
                     .padding(start = 15.dp)
                     .clip(MaterialTheme.shapes.large)
-                    .size(65.dp)
+                    .size(60.dp)
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
             ) {
@@ -144,7 +144,7 @@ fun LibraryNoMenuListItem(
     stringTitleItem: String,
     stringSubtitleItem: String
 ) {
-    Box( modifier = modifier.height(85.dp) ) {
+    Box( modifier = modifier.height(80.dp) ) {
         val constraints = ConstraintSet {
             val albumCover = createRefFor("AlbumCover")
             val textTitle = createRefFor("TextTitle")
@@ -178,7 +178,7 @@ fun LibraryNoMenuListItem(
                     .layoutId("AlbumCover")
                     .padding(start = 15.dp)
                     .clip(MaterialTheme.shapes.large)
-                    .size(65.dp)
+                    .size(60.dp)
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
             ) {
