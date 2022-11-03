@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryActionsItem
+import com.alessiocameroni.revomusicplayer.library.components.LibraryHeaderListItem
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
@@ -46,15 +47,7 @@ fun PlaylistViewScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = {
-                    Column {
-                        Text(text = "Playlist Title")
-                        Text(
-                            text = "20 songs - 12:34 minutes",
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                    }
-                },
+                title = { Text(text = "Playlist Title") },
                 navigationIcon = {
                     IconButton(
                         onClick = { navControllerBottomBar.navigateUp() }
@@ -96,6 +89,18 @@ fun PlaylistViewScreen(
                 columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ){
+                item {
+                    LibraryHeaderListItem(
+                        modifier = Modifier
+                            .padding(bottom = 12.dp)
+                            .fillMaxWidth(),
+                        stringTopInfo = null,
+                        stringBottomInfo = "20 songs - 12:34 minutes",
+                        displayIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
+                        unitAlbumImage = null
+                    )
+                }
+
                 item {
                     LibraryActionsItem(modifier = Modifier.height(50.dp))
                 }

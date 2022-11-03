@@ -34,4 +34,24 @@
     <string name="str_madewithloveby">Mit &#9829; gemacht von</string>
     <string name="str_developer">Entwickler</string>
     <string name="str_specialthanks">Besonderer Dank</string>
+    <string name="desc_arigata9">Deutsch-Übersetzer</string>
+    <string name="bio_arigata9">Hobbyentwickler, programmiert hauptsächlich zum Spaß in Node.JS. Großer Fan von mechanischen Tastaturen.</string>
+    <string name="str_usericon">Benutzer-Symbol</string>
+    <string name="str_addtoplaylist">Zur Wiedergabeliste hinzufügen</string>
+    <string name="desc_addtoplaylist">Ausgewählten Titel zur Wiedergabeliste hinzufügen</string>
+    <string name="str_lc_minutes">minuten</string>
+    <string name="str_songs">Lieder</string>
+    <string name="bio_alessiocameroni">Ich bin Universitätsstudent und möchte Softwareentwickler werden. Ich liebe die Arbeit an großen Projekten, die Arbeit an der Benutzeroberfläche und das Designstudium.</string>
+    <string name="str_lc_tracks">musiktitel</string>
+    <string name="str_delete">löschen</string>
+    <string name="desc_deleteplaylist">Aktuelle Wiedergabeliste löschen</string>
+    <string name="str_rename">Umbenennen</string>
+    <string name="desc_renameplaylist">Aktuelle Wiedergabeliste umbenennen</string>
+    <string name="str_shuffle">Mischen</string>
+    <string name="str_history">Geschichte</string>
+    <string name="str_lastadded">"Zuletzt "</string>
+    <string name="str_queue">Warteschlange</string>
+    <string name="str_artists">Künstler</string>
+    <string name="str_play">Spielen</string>
+    <string name="str_icon">Symbol</string>
 </resources>

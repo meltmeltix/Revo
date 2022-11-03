@@ -33,11 +33,11 @@ fun AlbumViewScreen(
     navControllerBottomBar: NavHostController,
 ) {
     val expanded = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
-            (1..20).map {
+            (1..8).map {
                 LibraryItemData(
                     stringTitle = "Song Title",
                     stringSubtitle = "Song Artist"
@@ -49,8 +49,8 @@ fun AlbumViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(
-                title = {  },
+            LargeTopAppBar(
+                title = { Text("Album Name") },
                 navigationIcon = {
                     IconButton(
                         onClick = { navControllerBottomBar.navigateUp() }
@@ -94,11 +94,11 @@ fun AlbumViewScreen(
                 item {
                     LibraryHeaderListItem(
                         modifier = Modifier
-                            .padding(bottom = 8.dp)
+                            .padding(bottom = 12.dp)
                             .fillMaxWidth(),
-                        stringTitle = "Album Name",
-                        stringSubtitle = "Album Artist",
-                        stringInfo = "2022 - 8 songs - 12:34",
+                        stringTopInfo = "Album Artist",
+                        stringBottomInfo = "2022 - 8 songs - 12:34",
+                        displayIcon = painterResource(id = R.drawable.ic_outlined_album_24),
                         unitAlbumImage = null
                     )
                 }

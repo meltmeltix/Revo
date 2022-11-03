@@ -33,7 +33,7 @@ fun ArtistViewScreen(
     navControllerBottomBar: NavHostController,
 ) {
     val expanded = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     val items by remember {
         mutableStateOf(
@@ -49,8 +49,8 @@ fun ArtistViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(
-                title = {  },
+            LargeTopAppBar(
+                title = { Text(text = "Artist Name") },
                 navigationIcon = {
                     IconButton(
                         onClick = { navControllerBottomBar.navigateUp() }
@@ -94,12 +94,12 @@ fun ArtistViewScreen(
                 item {
                     LibraryHeaderListItem(
                         modifier = Modifier
-                            .padding(bottom = 8.dp)
+                            .padding(bottom = 12.dp)
                             .fillMaxWidth(),
-                        stringTitle = "Artist Name",
-                        stringSubtitle = "20 songs - 8 albums - 12:34 minutes",
-                        stringInfo = null,
-                        unitAlbumImage = null,
+                        stringTopInfo = null,
+                        stringBottomInfo = "20 songs - 20 albums",
+                        displayIcon = painterResource(id = R.drawable.ic_outlined_account_circle_24),
+                        unitAlbumImage = null
                     )
                 }
 

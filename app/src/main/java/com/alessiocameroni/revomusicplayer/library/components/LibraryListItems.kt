@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -470,60 +471,60 @@ fun LibraryActionsItem(
 @Composable
 fun LibraryHeaderListItem(
     modifier: Modifier,
-    stringTitle: String,
-    stringSubtitle: String,
-    stringInfo: String?,
+    stringTopInfo: String?,
+    stringBottomInfo: String,
+    displayIcon: Painter,
     unitAlbumImage: @Composable (() -> Unit)?,
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .clip(MaterialTheme.shapes.extraLarge)
-                .size(220.dp)
-                .background(MaterialTheme.colorScheme.primary),
-            contentAlignment = Alignment.Center
-        ) {
+    Card( modifier = modifier.padding(horizontal = 16.dp) ) {
+        Column( modifier = Modifier.fillMaxWidth() ) {
             if (unitAlbumImage != null) {
-                unitAlbumImage()
-            } else {
-                Icon(
+                Box(
                     modifier = Modifier
-                        .size(48.dp),
-                    painter = painterResource(id = R.drawable.ic_outlined_album_24),
-                    contentDescription = stringResource(id = R.string.str_albums),
-                    tint = MaterialTheme.colorScheme.onPrimary
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .clip(MaterialTheme.shapes.large)
+                        .height(220.dp)
+                        .background(MaterialTheme.colorScheme.primary),
+                    contentAlignment = Alignment.Center
+                ) {
+                    unitAlbumImage()
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                        .clip(MaterialTheme.shapes.large)
+                        .height(110.dp)
+                        .background(MaterialTheme.colorScheme.primary),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .size(48.dp),
+                        painter = displayIcon,
+                        contentDescription = stringResource(id = R.string.str_icon),
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
+
+            if(stringTopInfo != null) {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    text = stringTopInfo,
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
-        }
 
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            text = stringTitle,
-            style = MaterialTheme.typography.headlineMedium
-        )
-
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            text = stringSubtitle,
-            style = MaterialTheme.typography.titleMedium
-        )
-
-        if (stringInfo != null) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 16.dp)
                     .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                text = stringInfo,
+                text = stringBottomInfo,
                 style = MaterialTheme.typography.titleMedium
             )
         }
