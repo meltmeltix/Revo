@@ -174,48 +174,6 @@ fun AboutScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(22.dp))
                                 .clickable { openDialog.value = true },
-                            stringTitle = stringResource(id = R.string.str_katherine),
-                            stringDescription = stringResource(id = R.string.desc_katherine),
-                            unitProfile = null
-                        )
-
-                        if (openDialog.value) {
-                            CreditsDialogDetails(
-                                modifier = Modifier
-                                    .clip(shape = RoundedCornerShape(24.dp))
-                                    .width(500.dp),
-                                openDialog = openDialog,
-                                stringTitle = stringResource(id = R.string.str_katherine),
-                                stringDescription = stringResource(id = R.string.desc_katherine),
-                                unitProfile = null
-                            ) {
-                                Row(
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center,
-                                ) {
-                                    IconButton(
-                                        onClick = { uriHandler.openUri("https://www.instagram.com/kats.keebs/") }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
-                                            contentDescription = stringResource(id = R.string.str_instgram)
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    item {
-                        val openDialog = remember { mutableStateOf(false) }
-                        val uriHandler = LocalUriHandler.current
-
-                        CreditsItem(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(22.dp))
-                                .clickable { openDialog.value = true },
                             stringTitle = stringResource(id = R.string.str_arigata9),
                             stringDescription = stringResource(id = R.string.desc_arigata9),
                             unitProfile = {

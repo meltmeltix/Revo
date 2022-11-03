@@ -44,8 +44,8 @@ fun Navigation() {
                             animationSpec = tween( 210 )
                         ) + fadeOut(animationSpec = tween( 210 ))
                     "player_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
+                        slideOutVertically(
+                            targetOffsetY = { -100 },
                             animationSpec = tween( 210 )
                         ) + fadeOut(animationSpec = tween( 210 ))
                     else -> null
@@ -65,8 +65,8 @@ fun Navigation() {
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "player_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
+                        slideInVertically(
+                            initialOffsetY = { -100 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null
@@ -80,8 +80,8 @@ fun Navigation() {
                 when(initialState.destination.route) {
                     // From screen
                     "main_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
+                        slideInVertically(
+                            initialOffsetY = { 100 },
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     else -> null
