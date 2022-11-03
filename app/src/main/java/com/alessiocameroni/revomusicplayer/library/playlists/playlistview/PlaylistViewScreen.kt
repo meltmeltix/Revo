@@ -19,8 +19,8 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryActionsItem
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
+import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
-import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,9 +74,14 @@ fun PlaylistViewScreen(
                             )
                         }
 
-                        PlaylistViewDropDownMenu(
+                        ViewsDropDownMenu(
                             navController = navController,
-                            expanded = expanded
+                            expanded = expanded,
+                            itemSortBy = true,
+                            itemGridType = true,
+                            itemRename = true,
+                            itemDelete = true,
+                            itemSettings = true
                         )
                     }
                 },
@@ -128,86 +133,4 @@ fun PlaylistViewScreen(
             }
         }
     )
-}
-
-@Composable
-fun PlaylistViewDropDownMenu(
-    navController: NavController,
-    expanded: MutableState<Boolean>,
-) {
-    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-        DropdownMenu(
-            modifier = Modifier.width(180.dp),
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false }
-        ) {
-            var expandedGrid by remember { mutableStateOf(false) }
-
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_sortby)) },
-                onClick = {   },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                        contentDescription = stringResource(id = R.string.desc_sortyby)
-                    )
-                }
-            )
-
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_gridtype)) },
-                onClick = { expandedGrid = true },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                        contentDescription = stringResource(id = R.string.desc_gridtype)
-                    )
-                }
-            )
-
-            MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-
-            }
-
-            Divider()
-
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_rename)) },
-                onClick = {  },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_drive_file_rename_24),
-                        contentDescription = stringResource(id = R.string.desc_renameplaylist)
-                    )
-                }
-            )
-
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_delete)) },
-                onClick = {  },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
-                        contentDescription = stringResource(id = R.string.desc_deleteplaylist)
-                    )
-                }
-            )
-
-            Divider()
-
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                onClick = {
-                    navController.navigate(Screens.SettingsScreen.route)
-                    expanded.value = false
-                },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                        contentDescription = stringResource(id = R.string.desc_settings)
-                    )
-                }
-            )
-        }
-    }
 }

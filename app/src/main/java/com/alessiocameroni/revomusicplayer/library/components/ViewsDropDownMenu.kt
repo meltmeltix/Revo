@@ -12,12 +12,13 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @Composable
-fun LibraryDropDownMenu(
+fun ViewsDropDownMenu(
     navController: NavController,
     expanded: MutableState<Boolean>,
     itemSortBy: Boolean,
     itemGridType: Boolean,
-    itemOpenSpotify: Boolean,
+    itemRename: Boolean,
+    itemDelete: Boolean,
     itemSettings: Boolean
 ) {
     MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
@@ -28,7 +29,7 @@ fun LibraryDropDownMenu(
         ) {
             var expandedGrid by remember { mutableStateOf(false) }
 
-            if(itemSortBy) {
+            if (itemSortBy) {
                 DropdownMenuItem(
                     text = { Text(text = stringResource(id = R.string.str_sortby)) },
                     onClick = { },
@@ -41,7 +42,7 @@ fun LibraryDropDownMenu(
                 )
             }
 
-            if(itemGridType) {
+            if (itemGridType) {
                 DropdownMenuItem(
                     text = { Text(text = stringResource(id = R.string.str_gridtype)) },
                     onClick = { expandedGrid = true },
@@ -54,22 +55,37 @@ fun LibraryDropDownMenu(
                 )
             }
 
-            if(itemOpenSpotify) {
+            if (itemRename || itemDelete) {
                 Divider()
+            }
 
+            if (itemRename) {
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.str_openspotify)) },
+                    text = { Text(text = stringResource(id = R.string.str_rename)) },
                     onClick = { },
                     leadingIcon = {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_launch_spotify_24px),
-                            contentDescription = stringResource(id = R.string.desc_openspotify)
+                            painter = painterResource(id = R.drawable.ic_outlined_drive_file_rename_24),
+                            contentDescription = stringResource(id = R.string.desc_renameplaylist)
                         )
                     }
                 )
             }
 
-            if(itemSettings) {
+            if (itemDelete) {
+                DropdownMenuItem(
+                    text = { Text(text = stringResource(id = R.string.str_delete)) },
+                    onClick = { },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
+                            contentDescription = stringResource(id = R.string.desc_deleteplaylist)
+                        )
+                    }
+                )
+            }
+
+            if (itemSettings) {
                 Divider()
 
                 DropdownMenuItem(

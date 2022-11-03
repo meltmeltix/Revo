@@ -23,8 +23,8 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryActionsItem
 import com.alessiocameroni.revomusicplayer.library.components.LibraryHeaderListItem
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
+import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
-import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,9 +70,14 @@ fun ArtistViewScreen(
                             )
                         }
 
-                        PlaylistViewDropDownMenu(
+                        ViewsDropDownMenu(
                             navController = navController,
-                            expanded = expanded
+                            expanded = expanded,
+                            itemSortBy = true,
+                            itemGridType = true,
+                            itemRename = false,
+                            itemDelete = true,
+                            itemSettings = true
                         )
                     }
                 }, scrollBehavior = scrollBehavior

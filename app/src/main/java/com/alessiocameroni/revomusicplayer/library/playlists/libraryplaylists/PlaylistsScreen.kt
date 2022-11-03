@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylistsscreen
+package com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,8 +21,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylistsscreen.components.PlaylistItem
-import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylistsscreen.data.PlaylistItemData
+import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.components.PlaylistItem
+import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.data.PlaylistItemData
 import com.alessiocameroni.revomusicplayer.navigation.PlaylistsScreens
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 

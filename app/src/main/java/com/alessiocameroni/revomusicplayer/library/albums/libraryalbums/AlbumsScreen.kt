@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.artists.libraryartistsscreen
+package com.alessiocameroni.revomusicplayer.library.albums.libraryalbums
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,21 +23,21 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.library.data.LibraryItemData
-import com.alessiocameroni.revomusicplayer.navigation.ArtistsScreens
+import com.alessiocameroni.revomusicplayer.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostController) {
+fun AlbumsScreen(navController: NavController, navControllerBottomBar: NavHostController) {
     val expanded = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     val items by remember {
         mutableStateOf(
             (1..20).map {
                 LibraryItemData(
-                    stringTitle = "Artist Name",
-                    stringSubtitle = "20 songs - 20 albums"
+                    stringTitle = "Album Title",
+                    stringSubtitle = "Album Artist - 20 songs"
                 )
             }
         )
@@ -47,9 +47,11 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_artists)) },
+                title = { Text(text = stringResource(id = R.string.str_albums)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
+                    IconButton(
+                        onClick = { navController.navigate(Screens.SearchScreen.route) }
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
                             contentDescription = stringResource(id = R.string.desc_searchmenu)
@@ -91,7 +93,7 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(22.dp))
                             .clickable {
-                                navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
+                                navControllerBottomBar.navigate(AlbumsScreens.AlbumViewScreen.route)
                             },
                     ) {
                         LibraryNoMenuListItem(
@@ -120,12 +122,13 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
                             .clip(RoundedCornerShape(22.dp))
                             .clickable { },
                     ) {
-                        LibraryNoMenuLargeGridItem(
+                        LibraryLargeGridItem(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             unitAlbumImage = null,
                             stringTitleItem = items[i].stringTitle,
-                            stringSubtitleItem = items[i].stringSubtitle
+                            stringSubtitleItem = items[i].stringSubtitle,
+                            unitMenuItems = null
                         )
                     }
                 }
