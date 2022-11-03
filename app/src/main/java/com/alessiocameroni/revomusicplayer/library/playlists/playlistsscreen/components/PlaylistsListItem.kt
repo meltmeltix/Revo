@@ -26,7 +26,7 @@ fun PlaylistItem(
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box( modifier = modifier.height(84.dp) ) {
+    Box( modifier = modifier.height(85.dp) ) {
         val constraints = ConstraintSet {
             val albumCover = createRefFor("AlbumCover")
             val textTitle = createRefFor("TextTitle")
