@@ -1,84 +1,24 @@
 package com.alessiocameroni.revomusicplayer.settings.about.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
-
-@Preview(showBackground = true)
-@Composable
-fun CreditsDialogDetailsPreview(){
-    val openDialog = remember { mutableStateOf(false) }
-    val uriHandler = LocalUriHandler.current
-
-    CreditsDialogDetails(
-        modifier = Modifier
-            .clip(shape = RoundedCornerShape(24.dp))
-            .width(500.dp),
-        openDialog = openDialog,
-        stringTitle = stringResource(id = R.string.str_alessiocameroni),
-        stringDescription = stringResource(id = R.string.bio_alessiocameroni),
-        unitProfile = {
-            Image(
-                painter = painterResource(id = R.drawable.ill_meltix_200),
-                contentDescription = stringResource(id = R.string.str_alessiocameroni)
-            )
-        }
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            IconButton(
-                onClick = { uriHandler.openUri("https://www.instagram.com/meltmeltix/") }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
-                    contentDescription = stringResource(id = R.string.str_instgram)
-                )
-            }
-
-            IconButton(
-                onClick = { uriHandler.openUri("https://github.com/alessiocameroni") }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_github_24),
-                    contentDescription = stringResource(id = R.string.str_github)
-                )
-            }
-
-            IconButton(
-                onClick = { uriHandler.openUri("https://twitter.com/meltmeltix") }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_twitter_24),
-                    contentDescription = stringResource(id = R.string.str_twitter)
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun CreditsDialogDetails(

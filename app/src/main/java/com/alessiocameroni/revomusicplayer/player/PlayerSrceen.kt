@@ -85,7 +85,7 @@ fun PlayerScreen(navController: NavController) {
                         )
                     }
 
-                    LeftSongControls(
+                    CenterSongControls(
                         modifier = Modifier
                             .layoutId("PlayerControls")
                             .fillMaxWidth(),

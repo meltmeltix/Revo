@@ -1,87 +1,24 @@
 package com.alessiocameroni.revomusicplayer.settings.about.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.BuildConfig
 import com.alessiocameroni.revomusicplayer.R
-
-@Preview(showBackground = true)
-@Composable
-fun BigCardAboutItemPreview() {
-    BigCardAboutItem(
-        modifier = Modifier
-            .padding(14.dp, 16.dp, 14.dp, 0.dp)
-            .fillMaxWidth(),
-        unitBanner = {
-            Image(
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(id = R.drawable.ill_revo_banner),
-                contentDescription = "Description wee"
-            )
-        },
-        cardShape = RoundedCornerShape(12.dp)
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BigCreditsItemPreview() {
-    val openDialog = remember { mutableStateOf(false) }
-
-    BigCreditsItem(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(22.dp))
-            .clickable { openDialog.value = true },
-        stringTitle = stringResource(id = R.string.str_madewithloveby),
-        stringName = stringResource(id = R.string.str_alessiocameroni),
-        unitProfile = {
-            Image(
-                painter = painterResource(id = R.drawable.ill_meltix_200),
-                contentDescription = stringResource(id = R.string.str_alessiocameroni)
-            )
-        }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CreditsItemPreview() {
-    val openDialog = remember { mutableStateOf(false) }
-
-    CreditsItem(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(22.dp))
-            .clickable { openDialog.value = true },
-        stringTitle = "Title Preview",
-        stringDescription = "This is a preview of a very long text string, " +
-                "which might go to a new line",
-        unitProfile = null
-    )
-}
 
 @Composable
 fun BigCreditsItem(

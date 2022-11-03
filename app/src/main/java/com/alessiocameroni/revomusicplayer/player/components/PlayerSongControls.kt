@@ -9,48 +9,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
-
-@Preview(showBackground = true)
-@Composable
-fun CenterSongControlsPreview() {
-    val sliderPosition by remember { mutableStateOf(0.5f) }
-
-    CenterSongControls (
-        modifier = Modifier
-            .fillMaxWidth(),
-        floatSliderPosition = sliderPosition
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LeftSongControlsPreview() {
-    val sliderPosition by remember { mutableStateOf(0.5f) }
-
-    LeftSongControls (
-        modifier = Modifier
-            .fillMaxWidth(),
-        floatSliderPosition = sliderPosition
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun RightSongControlsPreview() {
-    val sliderPosition by remember { mutableStateOf(0.5f) }
-
-    RightSongControls (
-        modifier = Modifier
-            .fillMaxWidth(),
-        floatSliderPosition = sliderPosition
-    )
-}
 
 @Composable
 fun CenterSongControls(
