@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.player.components.CenterSongControls
-import com.alessiocameroni.revomusicplayer.player.components.LeftSongControls
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,6 +63,7 @@ fun PlayerScreen(navController: NavController) {
                         .fillMaxSize()
                         .padding(
                             start = 30.dp,
+                            top = padding.calculateTopPadding() + 15.dp,
                             end = 30.dp,
                             bottom = padding.calculateBottomPadding() + 15.dp,
                         )
