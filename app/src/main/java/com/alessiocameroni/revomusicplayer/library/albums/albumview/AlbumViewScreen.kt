@@ -97,7 +97,7 @@ fun AlbumViewScreen(
                             .padding(bottom = 12.dp)
                             .fillMaxWidth(),
                         stringTopInfo = "Album Artist",
-                        stringBottomInfo = "2022 - 8 songs - 12:34",
+                        stringBottomInfo = "2022 · 8 songs · 12:34",
                         displayIcon = painterResource(id = R.drawable.ic_outlined_album_24),
                         unitAlbumImage = null
                     )

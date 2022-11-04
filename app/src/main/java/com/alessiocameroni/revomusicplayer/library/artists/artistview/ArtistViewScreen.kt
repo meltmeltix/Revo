@@ -97,7 +97,7 @@ fun ArtistViewScreen(
                             .padding(bottom = 12.dp)
                             .fillMaxWidth(),
                         stringTopInfo = null,
-                        stringBottomInfo = "20 songs - 20 albums",
+                        stringBottomInfo = "20 songs · 20 albums",
                         displayIcon = painterResource(id = R.drawable.ic_outlined_account_circle_24),
                         unitAlbumImage = null
                     )

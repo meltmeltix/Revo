@@ -117,7 +117,7 @@ fun CreditsDialogDetails(
                         .layoutId("TextDescription")
                         .padding(bottom = 14.dp)
                         .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                     text = stringDescription,
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis,

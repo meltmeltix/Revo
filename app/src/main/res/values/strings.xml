@@ -37,12 +37,12 @@
     <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
     <string name="str_madewithloveby">Made with &#9829; by</string>
     <string name="str_alessiocameroni" translatable="false">Alessio Cameroni</string>
-    <string name="bio_alessiocameroni">"         I am a University Student aspiring to be a Software Developer.          I love working on big projects, working on UI, and studying Design.     "</string>
+    <string name="bio_alessiocameroni">"I am a University Student aspiring to be a Software Developer.\nI love working on big projects, working on UI, and studying Design."</string>
     <string name="str_developer">Developer</string>
     <string name="str_specialthanks">Special thanks</string>
     <string name="str_arigata9" translatable="false">arigata9</string>
     <string name="desc_arigata9">German translator</string>
-    <string name="bio_arigata9">"         Hobby developer, mainly coding stuff in Node.JS for fun.          Big fan of mechanical keyboards.     "</string>
+    <string name="bio_arigata9">"Hobby developer, mainly coding stuff in Node.JS for fun.\nBig fan of mechanical keyboards."</string>
     <string name="str_github" translatable="false">Github</string>
     <string name="str_twitter" translatable="false">Twitter</string>
     <string name="str_instgram" translatable="false">Instagram</string>

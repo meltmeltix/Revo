@@ -37,7 +37,7 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
             (1..20).map {
                 LibraryItemData(
                     stringTitle = "Artist Name",
-                    stringSubtitle = "20 songs - 20 albums"
+                    stringSubtitle = "20 songs · 20 albums"
                 )
             }
         )

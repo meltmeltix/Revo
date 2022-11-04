@@ -95,7 +95,7 @@ fun PlaylistViewScreen(
                             .padding(bottom = 12.dp)
                             .fillMaxWidth(),
                         stringTopInfo = null,
-                        stringBottomInfo = "20 songs - 12:34 minutes",
+                        stringBottomInfo = "20 songs · 12:34 minutes",
                         displayIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                         unitAlbumImage = null
                     )
