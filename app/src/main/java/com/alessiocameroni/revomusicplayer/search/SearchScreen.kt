@@ -39,14 +39,14 @@ fun SearchScreen(navController: NavController) {
                                 modifier = Modifier.fillMaxWidth(),
                                 value = text,
                                 onValueChange = { text = it },
-                                placeholder = { Text(text = stringResource(id = R.string.str_phsearch)) },
+                                placeholder = { Text(text = stringResource(id = R.string.str_search)) },
                                 textStyle = MaterialTheme.typography.titleMedium,
                                 singleLine = true,
                                 trailingIcon = {
                                     IconButton(onClick = { text = "" }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_filled_close_24),
-                                            contentDescription = stringResource(id = R.string.desc_searchmenu),
+                                            contentDescription = stringResource(id = R.string.desc_searchMenu),
                                             tint = MaterialTheme.colorScheme.onSurface
                                         )
                                     }

@@ -95,12 +95,12 @@ fun AboutScreen(navController: NavController) {
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(22.dp))
                                 .clickable { openDialog.value = true },
-                            stringTitle = stringResource(id = R.string.str_madewithloveby),
-                            stringName = stringResource(id = R.string.str_alessiocameroni),
+                            stringTitle = stringResource(id = R.string.str_madeWithLoveBy),
+                            stringName = stringResource(id = R.string.str_AlessioCameroni),
                             unitProfile = {
                                 Image(
                                     painter = painterResource(id = R.drawable.ill_meltix_200),
-                                    contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                    contentDescription = stringResource(id = R.string.str_AlessioCameroni)
                                 )
                             }
                         )
@@ -111,12 +111,12 @@ fun AboutScreen(navController: NavController) {
                                     .clip(shape = RoundedCornerShape(24.dp))
                                     .width(500.dp),
                                 openDialog = openDialog,
-                                stringTitle = stringResource(id = R.string.str_alessiocameroni),
-                                stringDescription = stringResource(id = R.string.bio_alessiocameroni),
+                                stringTitle = stringResource(id = R.string.str_AlessioCameroni),
+                                stringDescription = stringResource(id = R.string.bio_AlessioCameroni),
                                 unitProfile = {
                                     Image(
                                         painter = painterResource(id = R.drawable.ill_meltix_200),
-                                        contentDescription = stringResource(id = R.string.str_alessiocameroni)
+                                        contentDescription = stringResource(id = R.string.str_AlessioCameroni)
                                     )
                                 }
                             ) {
@@ -130,7 +130,7 @@ fun AboutScreen(navController: NavController) {
                                     ) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_baseline_instagram_24),
-                                            contentDescription = stringResource(id = R.string.str_instgram)
+                                            contentDescription = stringResource(id = R.string.str_instagram)
                                         )
                                     }
 
@@ -160,7 +160,7 @@ fun AboutScreen(navController: NavController) {
 
                     item {
                         SectionTitle(
-                            stringTitle = stringResource(id = R.string.str_specialthanks),
+                            stringTitle = stringResource(id = R.string.str_specialThanks),
                             modifier = Modifier.fillMaxWidth()
                         )
                     }

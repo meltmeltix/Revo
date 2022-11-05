@@ -58,7 +58,7 @@ fun BigCreditsItem(
                 } else {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
-                        contentDescription = stringResource(id = R.string.str_usericon),
+                        contentDescription = stringResource(id = R.string.str_userIcon),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -130,7 +130,7 @@ fun CreditsItem(
                 } else {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
-                        contentDescription = stringResource(id = R.string.str_usericon),
+                        contentDescription = stringResource(id = R.string.str_userIcon),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }

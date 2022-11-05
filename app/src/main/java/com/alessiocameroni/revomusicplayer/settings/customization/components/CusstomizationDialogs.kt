@@ -117,7 +117,7 @@ fun PlayerLayoutDialog(
                         .layoutId("TitleDialog")
                         .padding(top = 16.dp)
                         .fillMaxWidth(),
-                    text = stringResource(id = R.string.str_choosecontrols),
+                    text = stringResource(id = R.string.str_chooseControls),
                     style = MaterialTheme.typography.headlineSmall
                 )
 

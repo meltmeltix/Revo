@@ -169,7 +169,7 @@ fun BottomMiniPlayer(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_up_24),
-                    contentDescription = stringResource(id = R.string.desc_openmusic)
+                    contentDescription = stringResource(id = R.string.desc_openMusic)
                 )
             }
 
@@ -191,7 +191,7 @@ fun BottomMiniPlayer(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_openmusic),
+                    contentDescription = stringResource(id = R.string.desc_openMusic),
                 )
             }
 

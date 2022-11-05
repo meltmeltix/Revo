@@ -68,8 +68,8 @@ fun LooksScreen(navController: NavController) {
                             val openDialog = remember { mutableStateOf(false) }
 
                             SettingsActionItem(
-                                stringTitleItem = stringResource(id = R.string.str_layoutplayer),
-                                stringSubtitleItem = stringResource(id = R.string.desc_layoutplayer),
+                                stringTitleItem = stringResource(id = R.string.str_layoutPlayer),
+                                stringSubtitleItem = stringResource(id = R.string.desc_layoutPlayer),
                                 unitAction = {  },
                                 modifier = Modifier
                                     .fillMaxWidth()

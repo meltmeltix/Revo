@@ -108,7 +108,7 @@ fun TopActionBar(navController: NavController) {
                         id = R.drawable.ic_baseline_keyboard_arrow_down_24
                     ),
                     contentDescription = stringResource(
-                        id = R.string.desc_closemusic
+                        id = R.string.desc_closeMusic
                     )
                 )
             }
@@ -134,7 +134,7 @@ fun BottomActionBar(
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_moreoptions)
+                        contentDescription = stringResource(id = R.string.str_moreOptions)
                     )
                 }
 
@@ -159,7 +159,7 @@ fun BottomActionBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                    contentDescription = stringResource(id = R.string.str_moreoptions)
+                    contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
             }
 
@@ -169,7 +169,7 @@ fun BottomActionBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
-                    contentDescription = stringResource(id = R.string.str_moreoptions)
+                    contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
             }
         },

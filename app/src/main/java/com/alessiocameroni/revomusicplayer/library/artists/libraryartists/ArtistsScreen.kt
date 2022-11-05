@@ -45,7 +45,7 @@ fun ArtistsScreen(navController: NavController, navControllerBottomBar: NavHostC
                     IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                            contentDescription = stringResource(id = R.string.desc_searchMenu)
                         )
                     }
                 },

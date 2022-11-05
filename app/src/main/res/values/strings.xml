@@ -4,62 +4,63 @@
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>
     <string name="str_spotify" translatable="false">Spotify</string>
-    <string name="desc_searchmenu">Search</string>
+    <string name="desc_searchMenu">Search</string>
     <string name="str_settings">Settings</string>
-    <string name="str_gridtype">Grid Type</string>
-    <string name="str_sortby">Sorty By</string>
+    <string name="str_gridType">Grid Type</string>
+    <string name="str_sortBy">Sort By</string>
     <string name="desc_settings">Settings</string>
-    <string name="desc_sortyby">Sort by filter</string>
-    <string name="desc_gridtype">Select grid type</string>
-    <string name="str_openspotify">Open Spotify</string>
-    <string name="desc_openspotify">Open Spotify Application</string>
-    <string name="desc_addplaylist">Add New Playlist</string>
+    <string name="desc_sortBy">Sort by filter</string>
+    <string name="desc_gridType">Select grid type</string>
+    <string name="str_openSpotify">Open Spotify</string>
+    <string name="desc_openSpotify">Open Spotify Application</string>
+    <string name="desc_addPlaylist">Add New Playlist</string>
     <string name="desc_back">Go back</string>
-    <string name="str_phsearch">Search…</string>
-    <string name="desc_openmusic">Open music panel</string>
-    <string name="desc_closemusic">Close music panel</string>
+    <string name="str_search">Search…</string>
+    <string name="desc_openMusic">Open music panel</string>
+    <string name="desc_closeMusic">Close music panel</string>
     <string name="desc_favorite">Favorite this song</string>
-    <string name="desc_skipprevious">Skip previous</string>
-    <string name="desc_skipnext">Skip next</string>
-    <string name="desc_playsong">Play song</string>
-    <string name="str_moreoptions">More</string>
+    <string name="desc_skipPrevious">Skip previous</string>
+    <string name="desc_skipNext">Skip next</string>
+    <string name="desc_playSong">Play song</string>
+    <string name="str_moreOptions">More</string>
     <string name="str_customization">Customization</string>
     <string name="str_about">About</string>
     <string name="desc_customization">Change the theme or layout of the app</string>
     <string name="desc_about">Developer, app info and others</string>
-    <string name="str_choosecontrols">Choose layout</string>
+    <string name="str_chooseControls">Choose layout</string>
     <string name="str_left">Left</string>
     <string name="str_center">Center</string>
     <string name="str_right">Right</string>
     <string name="str_ok" translatable="false">OK</string>
     <string name="str_cancel">Cancel</string>
-    <string name="str_layoutplayer">Player Layout</string>
-    <string name="desc_layoutplayer">Choose how buttons are displayed in the music player fullscreen view</string>
-    <string name="str_madewithloveby">Made with &#9829; by</string>
-    <string name="str_alessiocameroni" translatable="false">Alessio Cameroni</string>
-    <string name="bio_alessiocameroni">"I am a University Student aspiring to be a Software Developer.\nI love working on big projects, working on UI, and studying Design."</string>
+    <string name="str_layoutPlayer">Player Layout</string>
+    <string name="desc_layoutPlayer">Choose how buttons are displayed in the music player fullscreen view</string>
+    <string name="str_madeWithLoveBy">Made with &#9829; by</string>
+    <string name="str_AlessioCameroni" translatable="false">Alessio Cameroni</string>
+    <string name="bio_AlessioCameroni">"I am a University Student aspiring to be a Software Developer.\nI love working on big projects, working on UI, and studying Design."</string>
     <string name="str_developer">Developer</string>
-    <string name="str_specialthanks">Special thanks</string>
+    <string name="str_specialThanks">Special thanks</string>
     <string name="str_arigata9" translatable="false">arigata9</string>
     <string name="desc_arigata9">German translator</string>
     <string name="bio_arigata9">"Hobby developer, mainly coding stuff in Node.JS for fun.\nBig fan of mechanical keyboards."</string>
     <string name="str_github" translatable="false">Github</string>
     <string name="str_twitter" translatable="false">Twitter</string>
-    <string name="str_instgram" translatable="false">Instagram</string>
-    <string name="str_usericon">User Icon</string>
-    <string name="str_addtoplaylist">Add to playlist</string>
-    <string name="desc_addtoplaylist">Add selected song to playlist</string>
+    <string name="str_instagram" translatable="false">Instagram</string>
+    <string name="str_userIcon">User Icon</string>
+    <string name="str_addToPlaylist">Add to playlist</string>
+    <string name="desc_addToPlaylist">Add selected song to playlist</string>
     <string name="str_lc_minutes">minutes</string>
     <string name="str_lc_tracks">tracks</string>
     <string name="str_delete">Delete</string>
-    <string name="desc_deleteplaylist">Delete current Playlist</string>
+    <string name="desc_deletePlaylist">Delete current Playlist</string>
     <string name="str_rename">Rename</string>
-    <string name="desc_renameplaylist">Rename current Playlist</string>
+    <string name="desc_renamePlaylist">Rename current Playlist</string>
     <string name="str_shuffle">Shuffle</string>
     <string name="str_history">History</string>
-    <string name="str_lastadded">Last added</string>
+    <string name="str_lastAdded">Last added</string>
     <string name="str_queue">Queue</string>
     <string name="str_artists">Artists</string>
     <string name="str_play">Play</string>
     <string name="str_icon">Icon</string>
+    <string name="str_tooQuiet">It\'s a little too quiet in here…</string>
 </resources>

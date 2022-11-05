@@ -31,12 +31,12 @@ fun ViewsDropDownMenu(
 
             if (itemSortBy) {
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.str_sortby)) },
+                    text = { Text(text = stringResource(id = R.string.str_sortBy)) },
                     onClick = { },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                            contentDescription = stringResource(id = R.string.desc_sortyby)
+                            contentDescription = stringResource(id = R.string.desc_sortBy)
                         )
                     }
                 )
@@ -44,12 +44,12 @@ fun ViewsDropDownMenu(
 
             if (itemGridType) {
                 DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.str_gridtype)) },
+                    text = { Text(text = stringResource(id = R.string.str_gridType)) },
                     onClick = { expandedGrid = true },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_grid_on_24),
-                            contentDescription = stringResource(id = R.string.desc_gridtype)
+                            contentDescription = stringResource(id = R.string.desc_gridType)
                         )
                     }
                 )
@@ -66,7 +66,7 @@ fun ViewsDropDownMenu(
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_outlined_drive_file_rename_24),
-                            contentDescription = stringResource(id = R.string.desc_renameplaylist)
+                            contentDescription = stringResource(id = R.string.desc_renamePlaylist)
                         )
                     }
                 )
@@ -79,7 +79,7 @@ fun ViewsDropDownMenu(
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
-                            contentDescription = stringResource(id = R.string.desc_deleteplaylist)
+                            contentDescription = stringResource(id = R.string.desc_deletePlaylist)
                         )
                     }
                 )

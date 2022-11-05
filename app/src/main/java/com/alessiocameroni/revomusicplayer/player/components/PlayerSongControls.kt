@@ -117,7 +117,7 @@ fun CenterSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
                 )
             }
 
@@ -134,7 +134,7 @@ fun CenterSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playsong)
+                    contentDescription = stringResource(id = R.string.desc_playSong)
                 )
             }
 
@@ -146,7 +146,7 @@ fun CenterSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                    contentDescription = stringResource(id = R.string.desc_skipNext)
                 )
             }
         }
@@ -313,7 +313,7 @@ fun LeftSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playsong)
+                    contentDescription = stringResource(id = R.string.desc_playSong)
                 )
             }
 
@@ -325,7 +325,7 @@ fun LeftSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
                 )
             }
 
@@ -337,7 +337,7 @@ fun LeftSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                    contentDescription = stringResource(id = R.string.desc_skipNext)
                 )
             }
         }
@@ -497,7 +497,7 @@ fun RightSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipprevious)
+                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
                 )
             }
 
@@ -509,7 +509,7 @@ fun RightSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipnext)
+                    contentDescription = stringResource(id = R.string.desc_skipNext)
                 )
             }
 
@@ -526,7 +526,7 @@ fun RightSongControls(
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playsong)
+                    contentDescription = stringResource(id = R.string.desc_playSong)
                 )
             }
         }

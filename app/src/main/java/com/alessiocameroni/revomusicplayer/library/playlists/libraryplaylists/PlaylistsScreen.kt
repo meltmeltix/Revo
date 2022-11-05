@@ -51,7 +51,7 @@ fun PlaylistsScreen(
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                            contentDescription = stringResource(id = R.string.desc_searchMenu)
                         )
                     }
                 },
@@ -82,7 +82,7 @@ fun PlaylistsScreen(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.desc_addplaylist),
+                    contentDescription = stringResource(id = R.string.desc_addPlaylist),
                     modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
                 )
             }

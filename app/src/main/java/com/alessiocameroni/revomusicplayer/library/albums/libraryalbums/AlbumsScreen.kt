@@ -47,7 +47,7 @@ fun AlbumsScreen(navController: NavController, navControllerBottomBar: NavHostCo
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                            contentDescription = stringResource(id = R.string.desc_searchmenu)
+                            contentDescription = stringResource(id = R.string.desc_searchMenu)
                         )
                     }
                 },
