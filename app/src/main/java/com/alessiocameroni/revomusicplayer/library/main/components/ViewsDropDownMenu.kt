@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.components
+package com.alessiocameroni.revomusicplayer.library.main.components
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.*
