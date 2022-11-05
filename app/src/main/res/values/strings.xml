@@ -63,4 +63,5 @@
     <string name="str_play">Play</string>
     <string name="str_icon">Icon</string>
     <string name="str_tooQuiet">It\'s a little too quiet in here…</string>
+    <string name="desc_tooQuiet">You have no songs in your library.\nAdd some songs and start listening!</string>
 </resources>
