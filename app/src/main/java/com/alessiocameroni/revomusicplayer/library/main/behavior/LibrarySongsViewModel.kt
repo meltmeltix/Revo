@@ -12,7 +12,6 @@ import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.data.LibrarySongData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -105,7 +104,7 @@ class LibrarySongsViewModel: ViewModel() {
         return if (data != null) {
             BitmapFactory.decodeByteArray(data, 0, data.size)
         } else {
-            BitmapFactory.decodeResource(context.resources, R.drawable.ic_baseline_music_note_24)
+            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
         }
     }
 }

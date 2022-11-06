@@ -23,7 +23,7 @@ import com.alessiocameroni.revomusicplayer.R
 @Composable
 fun LibraryListItem(
     modifier: Modifier,
-    unitAlbumImage: @Composable (() -> Unit?)?,
+    unitAlbumImage: @Composable (() -> Unit),
     stringTitleItem: String,
     stringSubtitleItem: String,
     unitMenuItems: @Composable () -> Unit
@@ -75,15 +75,13 @@ fun LibraryListItem(
                     .background(MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
             ) {
-                if (unitAlbumImage != null) {
-                    unitAlbumImage()
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                        contentDescription = stringResource(id = R.string.str_songs),
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                    contentDescription = stringResource(id = R.string.str_songs),
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+
+                unitAlbumImage()
             }
 
             Text(

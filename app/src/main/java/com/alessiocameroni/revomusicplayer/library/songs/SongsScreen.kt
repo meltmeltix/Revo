@@ -114,9 +114,7 @@ fun TracksScreen(
                                              bitmap = item.albumCover!!.asImageBitmap(),
                                              contentDescription = stringResource(id = R.string.str_albums)
                                          )
-                                     }/* else {
-                                        null
-                                     }*/
+                                     }
                                 },
                                 stringTitleItem = item.songTitle,
                                 stringSubtitleItem = item.artist,
