@@ -60,7 +60,7 @@ fun MainScreen(navController: NavController) {
                                 .layoutId("MiniPlayer")
                                 .fillMaxWidth()
                                 .height(64.dp)
-                                .background( MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp) ),
+                                .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
                             songNameString = "SongName",
                             artistNameString = "ArtistName"
                         )

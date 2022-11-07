@@ -9,7 +9,6 @@ data class LibrarySongData(
     var songTitle: String,
     var artist: String,
     var albumId: Long,
-    //var albumTitle: String,
     var albumCover: Bitmap?,
     var duration: Int
 )

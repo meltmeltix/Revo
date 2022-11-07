@@ -57,7 +57,6 @@ class LibrarySongsViewModel: ViewModel() {
             val titleColumn = cursor.getColumnIndexOrThrow(Media.TITLE)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
             val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
-            //val albumTitleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
             val durationColumn = cursor.getColumnIndexOrThrow(Media.DURATION)
 
             while (cursor.moveToNext()) {
@@ -66,7 +65,6 @@ class LibrarySongsViewModel: ViewModel() {
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
                 val albumId = cursor.getLong(albumIdColumn)
-                //val albumTitle = cursor.getString(albumTitleColumn)
                 val duration = cursor.getInt(durationColumn)
 
                 librarySongs.add(
@@ -76,7 +74,6 @@ class LibrarySongsViewModel: ViewModel() {
                         songTitle = title,
                         artist = artist,
                         albumId = albumId,
-                        //albumTitle = albumTitle,
                         albumCover = null,
                         duration = duration
                     )
