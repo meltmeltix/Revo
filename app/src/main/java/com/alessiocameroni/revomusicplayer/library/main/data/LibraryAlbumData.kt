@@ -1,5 +1,12 @@
 package com.alessiocameroni.revomusicplayer.library.main.data
 
-data class LibraryAlbumData (
-    var albumTitle: String
+import android.net.Uri
+
+data class LibraryAlbumData(
+    var albumId: Long,
+    var contentUri: Uri,
+    var albumTitle: String,
+    var artist: String,
+    var tracksNumber: Long?,
+    var duration: Int?
 )

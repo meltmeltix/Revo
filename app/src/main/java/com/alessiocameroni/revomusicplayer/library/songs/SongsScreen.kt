@@ -37,9 +37,7 @@ fun TracksScreen(
     val librarySongs = viewModel.librarySongs
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        viewModel.initializeListIfNeeded(context)
-    }
+    LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
 
     if(librarySongs.size == 0) {
         NoSongsScreen(navController = navController, expanded = expanded)

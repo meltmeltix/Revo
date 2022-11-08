@@ -452,6 +452,7 @@ fun NavigationBottomNavBar(
                 navControllerBottomBar = navControllerBottomBar
             )
         }
+
         // Album SubScreens
         composable(
             route = AlbumsScreens.AlbumViewScreen.route,
@@ -586,6 +587,7 @@ fun NavigationBottomNavBar(
                 navControllerBottomBar = navControllerBottomBar
             )
         }
+
         // Artist SubScreens
         composable(
             route = ArtistsScreens.ArtistViewScreen.route,
@@ -720,6 +722,7 @@ fun NavigationBottomNavBar(
                 navControllerBottomBar = navControllerBottomBar
             )
         }
+
         // Playlist SubScreens
         composable(
             route = PlaylistsScreens.PlaylistViewScreen.route,
