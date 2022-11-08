@@ -95,6 +95,7 @@ fun ArtistsScreen(
                         LibraryNoMenuListItem(
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            painterIcon = painterResource(id = R.drawable.ic_outlined_account_circle_24),
                             unitAlbumImage = {
                                 /*AsyncImage(
                                     model = item.albumCover,

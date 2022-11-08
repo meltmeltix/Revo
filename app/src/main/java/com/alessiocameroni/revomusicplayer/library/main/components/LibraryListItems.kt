@@ -23,6 +23,7 @@ import com.alessiocameroni.revomusicplayer.R
 @Composable
 fun LibraryListItem(
     modifier: Modifier,
+    painterIcon: Painter,
     unitAlbumImage: @Composable (() -> Unit),
     stringTitleItem: String,
     stringSubtitleItem: String,
@@ -76,7 +77,7 @@ fun LibraryListItem(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                    painter = painterIcon,
                     contentDescription = stringResource(id = R.string.str_songs),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
@@ -139,6 +140,7 @@ fun LibraryListItem(
 @Composable
 fun LibraryNoMenuListItem(
     modifier: Modifier,
+    painterIcon: Painter,
     unitAlbumImage: @Composable (() -> Unit),
     stringTitleItem: String,
     stringSubtitleItem: String
@@ -182,7 +184,7 @@ fun LibraryNoMenuListItem(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                    painter = painterIcon,
                     contentDescription = stringResource(id = R.string.str_songs),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
@@ -219,6 +221,7 @@ fun LibraryNoMenuListItem(
 @Composable
 fun LibraryLargeGridItem(
     modifier: Modifier,
+    painterIcon: Painter,
     unitAlbumImage: @Composable (() -> Unit?)?,
     stringTitleItem: String,
     stringSubtitleItem: String,
@@ -276,7 +279,7 @@ fun LibraryLargeGridItem(
                     Icon(
                         modifier = Modifier
                             .size(48.dp),
-                        painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                        painter = painterIcon,
                         contentDescription = stringResource(id = R.string.str_songs),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
@@ -340,6 +343,7 @@ fun LibraryLargeGridItem(
 @Composable
 fun LibraryNoMenuLargeGridItem(
     modifier: Modifier,
+    painterIcon: Painter,
     unitAlbumImage: @Composable (() -> Unit?)?,
     stringTitleItem: String,
     stringSubtitleItem: String
@@ -386,7 +390,7 @@ fun LibraryNoMenuLargeGridItem(
                     Icon(
                         modifier = Modifier
                             .size(48.dp),
-                        painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                        painter = painterIcon,
                         contentDescription = stringResource(id = R.string.str_songs),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )

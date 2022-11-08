@@ -98,6 +98,7 @@ fun TracksScreen(
                         LibraryListItem(
                             modifier = Modifier
                                 .fillMaxWidth(),
+                            painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
                             unitAlbumImage = {
                                 /*AsyncImage(
                                     model = item.albumCover,

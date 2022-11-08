@@ -8,16 +8,12 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.library.main.data.LibrarySongData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.plus
 
 class LibrarySongsViewModel: ViewModel() {
     val librarySongs = mutableStateListOf<LibrarySongData>()
 
     private var initialized = false
-    private val backgroundScope = viewModelScope.plus(Dispatchers.Default)
 
     fun initializeListIfNeeded(context: Context) {
         if(initialized) return
