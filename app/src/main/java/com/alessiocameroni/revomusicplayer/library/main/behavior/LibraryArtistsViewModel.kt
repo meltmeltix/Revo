@@ -3,17 +3,17 @@ package com.alessiocameroni.revomusicplayer.library.main.behavior
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
-import android.provider.MediaStore.Audio.Albums
+import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.library.main.data.LibraryAlbumData
+import com.alessiocameroni.revomusicplayer.library.main.data.LibraryArtistData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.plus
 
-class LibraryAlbumsViewModel: ViewModel() {
-    val libraryAlbums = mutableStateListOf<LibraryAlbumData>()
+class LibraryArtistsViewModel: ViewModel() {
+    val libraryArtists = mutableStateListOf<LibraryArtistData>()
 
     private var initialized = false
     private val backgroundScope = viewModelScope.plus(Dispatchers.Default)
@@ -22,15 +22,14 @@ class LibraryAlbumsViewModel: ViewModel() {
         if(initialized) return
 
         val projection = arrayOf(
-            Albums.ALBUM_ID,
-            Media.ALBUM,
+            Artists._ID,
             Media.ARTIST
         )
 
         val selection = null
-        val sortOrder = "${Media.ALBUM} ASC"
+        val sortOrder = "${Media.ARTIST} ASC"
         val query = context.contentResolver.query(
-            Albums.EXTERNAL_CONTENT_URI,
+            Artists.EXTERNAL_CONTENT_URI,
             projection,
             selection,
             null,
@@ -38,25 +37,21 @@ class LibraryAlbumsViewModel: ViewModel() {
         )
 
         query?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(Albums.ALBUM_ID)
-            val titleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
+            val idColumn = cursor.getColumnIndexOrThrow(Artists._ID)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
-                val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
 
-                libraryAlbums.add(
-                    LibraryAlbumData(
-                        albumId = id,
+                libraryArtists.add(
+                    LibraryArtistData(
+                        artistId = id,
                         contentUri = contentUri,
-                        albumTitle = title,
-                        artist = artist,
-                        //albumCover = null,\
+                        artistName = artist,
                         tracksNumber = null,
-                        duration = null
+                        albumsNumber = null
                     )
                 )
             }
