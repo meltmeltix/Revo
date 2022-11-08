@@ -19,7 +19,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.behavior.LibrarySongsViewModel
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
@@ -79,55 +78,54 @@ fun TracksScreen(
                     },
                     scrollBehavior = scrollBehavior
                 )
-            },
-            content = { padding ->
-                LazyColumn(
-                    modifier = Modifier
-                        .padding(padding)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(5.dp)
-                ) {
-                    itemsIndexed(librarySongs) { index, item ->
-                        LaunchedEffect(Unit) {
-                            viewModel.loadBitmapIfNeeded(context, index)
-                        }
+            }
+        ) { padding ->
+            LazyColumn(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                itemsIndexed(librarySongs) { index, item ->
+                    /*LaunchedEffect(Unit) {
+                        viewModel.loadBitmapIfNeeded(context, index)
+                    }*/
 
-                        Row(
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(22.dp))
+                            .clickable { },
+                    ) {
+                        LibraryListItem(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(22.dp))
-                                .clickable { },
-                        ) {
-                            LibraryListItem(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                unitAlbumImage = {
-                                     AsyncImage(
-                                         model = item.albumCover,
-                                         contentDescription = "Image"
-                                     )
-                                },
-                                stringTitleItem = item.songTitle,
-                                stringSubtitleItem = item.artist,
-                                unitMenuItems = {
-                                    DropdownMenuItem(
-                                        text = {
-                                            Text(text = stringResource(id = R.string.str_addToPlaylist))
-                                        },
-                                        onClick = { },
-                                        leadingIcon = {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                                contentDescription = stringResource(id = R.string.str_addToPlaylist)
-                                            )
-                                        }
-                                    )
-                                }
-                            )
-                        }
+                                .fillMaxWidth(),
+                            unitAlbumImage = {
+                                /*AsyncImage(
+                                    model = item.albumCover,
+                                    contentDescription = "Image"
+                                )*/
+                            },
+                            stringTitleItem = item.songTitle,
+                            stringSubtitleItem = item.artist,
+                            unitMenuItems = {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = stringResource(id = R.string.str_addToPlaylist))
+                                    },
+                                    onClick = { },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                                            contentDescription = stringResource(id = R.string.str_addToPlaylist)
+                                        )
+                                    }
+                                )
+                            }
+                        )
                     }
                 }
             }
-        )
+        }
     }
 }

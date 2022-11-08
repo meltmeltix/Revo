@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.library.main.components
 
-import android.graphics.Paint.Align
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable

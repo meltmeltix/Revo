@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.library.main.data
 
-import android.graphics.Bitmap
 import android.net.Uri
 
 data class LibrarySongData(
@@ -9,6 +8,6 @@ data class LibrarySongData(
     var songTitle: String,
     var artist: String,
     var albumId: Long,
-    var albumCover: Bitmap?,
+    //var albumCover: Bitmap?,
     var duration: Int
 )

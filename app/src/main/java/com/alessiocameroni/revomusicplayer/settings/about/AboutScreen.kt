@@ -24,7 +24,7 @@ import com.alessiocameroni.revomusicplayer.settings.about.components.BigCardAbou
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCreditsItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsDialogDetails
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsItem
-import com.alessiocameroni.revomusicplayer.settings.main.components.SectionTitle
+import com.alessiocameroni.revomusicplayer.settings.mainscreen.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

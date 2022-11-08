@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.main
+package com.alessiocameroni.revomusicplayer.mainscreen
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -18,7 +18,7 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.main.data.bottomnav.BottomNavigationItemData
+import com.alessiocameroni.revomusicplayer.mainscreen.data.bottomnav.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme

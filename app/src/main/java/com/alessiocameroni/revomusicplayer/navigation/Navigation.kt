@@ -13,12 +13,13 @@ import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.Pl
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.library.songs.TracksScreen
 import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
-import com.alessiocameroni.revomusicplayer.main.MainScreen
+import com.alessiocameroni.revomusicplayer.mainscreen.MainScreen
 import com.alessiocameroni.revomusicplayer.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.settings.customization.LooksScreen
-import com.alessiocameroni.revomusicplayer.settings.main.SettingsScreen
+import com.alessiocameroni.revomusicplayer.settings.librarysettings.LibrarySettingsScreen
+import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -177,6 +178,11 @@ fun Navigation() {
                         ) + fadeOut(animationSpec = tween( 210 ))
 
                     // From screen
+                    "library_settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
                     "customization_screen" ->
                         slideOutHorizontally(
                             targetOffsetX = { -100 },
@@ -193,6 +199,11 @@ fun Navigation() {
             popEnterTransition = {
                 when(initialState.destination.route) {
                     //From screen
+                    "library_settings_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     "customization_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { -100 },
@@ -209,6 +220,33 @@ fun Navigation() {
         ) { SettingsScreen(navController = navController) }
 
         // Settings SubScreens
+        composable(
+            route = SettingsScreens.LibrarySettingsScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    //From screen
+                    "settings_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    //To screen
+                    "settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            //TODO Add popEnter when actually listing items
+        ) { LibrarySettingsScreen(navController = navController) }
+
         composable(
             route = SettingsScreens.CustomizationScreen.route,
             enterTransition = {

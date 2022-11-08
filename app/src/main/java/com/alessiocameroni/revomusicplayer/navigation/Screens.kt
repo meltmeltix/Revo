@@ -20,6 +20,7 @@ open class PlaylistsScreens(val route: String) {
 }
 
 open class SettingsScreens(val route: String) {
+    object LibrarySettingsScreen : SettingsScreens("library_settings_screen")
     object CustomizationScreen : SettingsScreens("customization_screen")
     object AboutScreen : SettingsScreens("about_screen")
 }

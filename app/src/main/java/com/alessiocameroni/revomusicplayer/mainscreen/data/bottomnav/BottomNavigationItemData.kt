@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.main.data.bottomnav
+package com.alessiocameroni.revomusicplayer.mainscreen.data.bottomnav
 
 import androidx.compose.ui.graphics.painter.Painter
 
