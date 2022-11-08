@@ -10,7 +10,7 @@
     <string name="str_sortBy">Sort By</string>
     <string name="desc_settings">Settings</string>
     <string name="desc_sortBy">Sort by filter</string>
-    <string name="desc_gridType">Select grid type</string>
+    <string name="desc_gridType">Change the amount of columns and elements shown on screen</string>
     <string name="str_openSpotify">Open Spotify</string>
     <string name="desc_openSpotify">Open Spotify Application</string>
     <string name="desc_addPlaylist">Add New Playlist</string>
