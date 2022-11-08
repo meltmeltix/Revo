@@ -63,13 +63,13 @@
     <string name="str_play">Play</string>
     <string name="str_icon">Icon</string>
     <string name="str_tooQuiet">It\'s a little too quiet in here…</string>
-    <string name="desc_tooQuiet">You have no songs in your library.\nAdd some songs and start listening!</string>
+    <string name="desc_tooQuiet">You have no songs in your library. Add some songs and start listening!</string>
     <string name="str_heyThere">Hey there! 👋🏻</string>
     <string name="str_welcome">Welcome to </string>
     <string name="desc_beforeProceeding">Before proceeding, Revo needs access to your storage for playing your tunes.</string>
     <string name="str_letsGo">Let\'s go!</string>
     <string name="str_grantAccess">Grant access</string>
-    <string name="desc_grantAccess">Grant access</string>
+    <string name="desc_grantAccess">Grant access to the required permission</string>
     <string name="str_library">Library</string>
-    <string name="desc_library">Manage your library and it\'s behavior</string>
+    <string name="desc_library">Manage your library and its behavior</string>
 </resources>

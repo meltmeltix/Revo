@@ -56,4 +56,13 @@
     <string name="str_artists">Artisti</string>
     <string name="str_icon">Icona</string>
     <string name="str_tooQuiet">C\'è troppo silenzio qui dentro…</string>
+    <string name="desc_tooQuiet">Non hai canzoni nella tua libreria. Aggiungi qualche canzone!</string>
+    <string name="str_heyThere">Hey! 👋🏻</string>
+    <string name="str_welcome">Benvenuto in</string>
+    <string name="desc_beforeProceeding">Prima di procedere, Revo ha bisogno di accedere all\'archivio per poter riprodurre le tue canzoni.</string>
+    <string name="str_letsGo">Andiamo!</string>
+    <string name="str_grantAccess">Consenti accesso</string>
+    <string name="desc_grantAccess">Consenti accesso ai permessi necessari</string>
+    <string name="str_library">Libreria</string>
+    <string name="desc_library">Gestisci la tua libreria e il suo comportamento</string>
 </resources>

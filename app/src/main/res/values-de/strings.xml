@@ -55,4 +55,13 @@
     <string name="str_play">Spielen</string>
     <string name="str_icon">Symbol</string>
     <string name="str_tooQuiet">Es ist ein bisschen zu ruhig hier drin…</string>
+    <string name="desc_tooQuiet">Sie haben keine Lieder in Ihrer Liederbibliothek. Fügen Sie einige Lieder hinzu und hören Sie zu!</string>
+    <string name="str_heyThere">Hallo! 👋🏻</string>
+    <string name="str_welcome">Willkommen bei</string>
+    <string name="desc_beforeProceeding">Bevor Sie fortfahren, benötigt Revo Zugriff auf Ihren Speicher, um Ihre Musik abzuspielen.</string>
+    <string name="str_letsGo">Los geht\'s!</string>
+    <string name="str_grantAccess">Zugang gewähren</string>
+    <string name="desc_grantAccess">Gewährung des Zugriffs auf die erforderliche Genehmigung</string>
+    <string name="str_library">Liederbibliothek</string>
+    <string name="desc_library">Verwalten Sie Ihre Song-Bibliothek und deren Verhalten</string>
 </resources>
