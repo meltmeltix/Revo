@@ -11,7 +11,7 @@ import com.alessiocameroni.revomusicplayer.library.artists.artistview.ArtistView
 import com.alessiocameroni.revomusicplayer.library.artists.libraryartists.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
-import com.alessiocameroni.revomusicplayer.library.songs.TracksScreen
+import com.alessiocameroni.revomusicplayer.library.songs.SongsScreen
 import com.alessiocameroni.revomusicplayer.library.spotify.SpotifyFavoritesScreen
 import com.alessiocameroni.revomusicplayer.mainscreen.MainScreen
 import com.alessiocameroni.revomusicplayer.player.PlayerScreen
@@ -368,7 +368,7 @@ fun NavigationBottomNavBar(
                     else -> null
                 }
             }
-        ) { TracksScreen(navController = navControllerApp) }
+        ) { SongsScreen(navController = navControllerApp) }
 
         composable(
             route = "albums",

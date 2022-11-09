@@ -6,10 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,7 +25,7 @@ import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TracksScreen(
+fun SongsScreen(
     navController: NavController,
     viewModel: LibrarySongsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
@@ -43,7 +40,7 @@ fun TracksScreen(
         NoSongsScreen(navController = navController, expanded = expanded)
     } else {
         Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            //modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 TopAppBar(
                     title = { Text(text = stringResource(id = R.string.str_songs)) },
@@ -84,11 +81,7 @@ fun TracksScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                itemsIndexed(librarySongs) { index, item ->
-                    /*LaunchedEffect(Unit) {
-                        viewModel.loadBitmapIfNeeded(context, index)
-                    }*/
-
+                itemsIndexed(items = librarySongs) { i, item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -99,12 +92,7 @@ fun TracksScreen(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            unitAlbumImage = {
-                                /*AsyncImage(
-                                    model = item.albumCover,
-                                    contentDescription = "Image"
-                                )*/
-                            },
+                            unitAlbumImage = {  },
                             stringTitleItem = item.songTitle,
                             stringSubtitleItem = item.artist,
                             unitMenuItems = {
