@@ -83,11 +83,7 @@ fun AlbumsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                itemsIndexed(libraryAlbums) { index, item ->
-                    /*LaunchedEffect(Unit) {
-                        viewModel.loadBitmapIfNeeded(context, index)
-                    }*/
-
+                itemsIndexed(libraryAlbums) { i, item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -98,45 +94,13 @@ fun AlbumsScreen(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_outlined_album_24),
-                            unitAlbumImage = {
-                                /*AsyncImage(
-                                    model = item.albumCover,
-                                    contentDescription = "Image"
-                                )*/
-                            },
+                            unitAlbumImage = {  },
                             stringTitleItem = item.albumTitle,
                             stringSubtitleItem = item.artist
                         )
                     }
                 }
             }
-
-            /*LazyVerticalGrid(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                columns = GridCells.Adaptive(190.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ){
-                items(items.size) { i ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
-                    ) {
-                        LibraryLargeGridItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            unitAlbumImage = null,
-                            stringTitleItem = items[i].stringTitle,
-                            stringSubtitleItem = items[i].stringSubtitle,
-                            unitMenuItems = null
-                        )
-                    }
-                }
-            }*/
         }
     )
 }

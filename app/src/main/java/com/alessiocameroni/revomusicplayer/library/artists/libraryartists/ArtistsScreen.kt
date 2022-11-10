@@ -81,11 +81,7 @@ fun ArtistsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                itemsIndexed(libraryArtists) { index, item ->
-                    /*LaunchedEffect(Unit) {
-                        viewModel.loadBitmapIfNeeded(context, index)
-                    }*/
-
+                itemsIndexed(libraryArtists) { i, item ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -96,44 +92,13 @@ fun ArtistsScreen(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_outlined_account_circle_24),
-                            unitAlbumImage = {
-                                /*AsyncImage(
-                                    model = item.albumCover,
-                                    contentDescription = "Image"
-                                )*/
-                            },
+                            unitAlbumImage = {  },
                             stringTitleItem = item.artistName,
                             stringSubtitleItem = "PH"
                         )
                     }
                 }
             }
-
-            /*LazyVerticalGrid(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                columns = GridCells.Adaptive(190.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp),
-                horizontalArrangement = Arrangement.spacedBy(5.dp)
-            ){
-                items(items.size) { i ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
-                    ) {
-                        LibraryNoMenuLargeGridItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            unitAlbumImage = null,
-                            stringTitleItem = items[i].stringTitle,
-                            stringSubtitleItem = items[i].stringSubtitle
-                        )
-                    }
-                }
-            }*/
         }
     )
 }

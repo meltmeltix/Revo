@@ -20,7 +20,6 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.behavior.LibrarySongsViewModel
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryListItem
-import com.alessiocameroni.revomusicplayer.library.main.components.NoSongsScreen
 import com.alessiocameroni.revomusicplayer.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,81 +35,77 @@ fun SongsScreen(
 
     LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
 
-    if(librarySongs.size == 0) {
-        NoSongsScreen(navController = navController, expanded = expanded)
-    } else {
-        Scaffold(
-            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = stringResource(id = R.string.str_songs)) },
-                    navigationIcon = {
-                        IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                                contentDescription = stringResource(id = R.string.desc_searchMenu)
-                            )
-                        }
-                    },
-                    actions = {
-                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                            IconButton(onClick = { expanded.value = true }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                    contentDescription = stringResource(id = R.string.str_settings)
-                                )
-                            }
-
-                            LibraryDropDownMenu(
-                                navController = navController,
-                                expanded = expanded,
-                                itemSortBy = true,
-                                itemGridType = true,
-                                itemOpenSpotify = false,
-                                itemSettings = true
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior
-                )
-            }
-        ) { padding ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                itemsIndexed(items = librarySongs) { i, item ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
-                    ) {
-                        LibraryListItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            unitAlbumImage = {  },
-                            stringTitleItem = item.songTitle,
-                            stringSubtitleItem = item.artist,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_addToPlaylist))
-                                    },
-                                    onClick = { },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.str_addToPlaylist)
-                                        )
-                                    }
-                                )
-                            }
+    Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.str_songs)) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_search_24),
+                            contentDescription = stringResource(id = R.string.desc_searchMenu)
                         )
                     }
+                },
+                actions = {
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                contentDescription = stringResource(id = R.string.str_settings)
+                            )
+                        }
+
+                        LibraryDropDownMenu(
+                            navController = navController,
+                            expanded = expanded,
+                            itemSortBy = true,
+                            itemGridType = true,
+                            itemOpenSpotify = false,
+                            itemSettings = true
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior
+            )
+        }
+    ) { padding ->
+        LazyColumn(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            itemsIndexed(items = librarySongs) { i, item ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(22.dp))
+                        .clickable { },
+                ) {
+                    LibraryListItem(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                        unitAlbumImage = {  },
+                        stringTitleItem = item.songTitle,
+                        stringSubtitleItem = item.artist,
+                        unitMenuItems = {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(id = R.string.str_addToPlaylist))
+                                },
+                                onClick = {  },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                                        contentDescription = stringResource(id = R.string.str_addToPlaylist)
+                                    )
+                                }
+                            )
+                        }
+                    )
                 }
             }
         }
