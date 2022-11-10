@@ -20,7 +20,8 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.behavior.LibrarySongsViewModel
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryListItem
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.library.main.components.NestedGridTypeMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,7 +29,8 @@ fun SongsScreen(
     navController: NavController,
     viewModel: LibrarySongsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
-    val expanded = remember { mutableStateOf(false) }
+    val expandedMenu = remember { mutableStateOf(false) }
+    val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val librarySongs = viewModel.librarySongs
     val context = LocalContext.current
@@ -50,7 +52,7 @@ fun SongsScreen(
                 },
                 actions = {
                     Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded.value = true }) {
+                        IconButton(onClick = { expandedMenu.value = true }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                                 contentDescription = stringResource(id = R.string.str_settings)
@@ -59,11 +61,16 @@ fun SongsScreen(
 
                         LibraryDropDownMenu(
                             navController = navController,
-                            expanded = expanded,
+                            expandedMenu = expandedMenu,
+                            expandedNestedMenu = expandedNestedMenu,
                             itemSortBy = true,
                             itemGridType = true,
                             itemOpenSpotify = false,
                             itemSettings = true
+                        )
+
+                        NestedGridTypeMenu(
+                            expandedNestedMenu = expandedNestedMenu
                         )
                     }
                 },

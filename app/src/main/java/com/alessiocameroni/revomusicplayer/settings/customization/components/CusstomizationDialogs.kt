@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.settings.customization.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -8,10 +9,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,19 +22,30 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.preferences.StoreUserCustomization
+import kotlinx.coroutines.launch
 
 @Composable
 fun PlayerLayoutDialog(
     modifier: Modifier,
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean>,
+    layoutChoice: State<String>,
+    dataStore: StoreUserCustomization
 ) {
     Dialog(onDismissRequest = { openDialog.value = false }) {
+        val scope = rememberCoroutineScope()
+
         val radioOptions = listOf(
             stringResource(id = R.string.str_left),
             stringResource(id = R.string.str_center),
             stringResource(id = R.string.str_right),
         )
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[1]) }
+
+        val layoutChoicePos = radioOptions.indexOf(layoutChoice.value)
+        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[layoutChoicePos]) }
+
+        Log.d("CustomizationDialogs", "LayoutChoice ${layoutChoice.value}")
+        Log.d("CustomizationDialogs", "selectedOption $selectedOption")
 
         Surface(
             modifier = modifier,
@@ -184,7 +193,13 @@ fun PlayerLayoutDialog(
                     TextButton(
                         modifier = Modifier
                             .layoutId("ButtonConfirm"),
-                        onClick = {  }
+                        onClick = {
+                            scope.launch {
+                                dataStore.saveLayoutChoice(selectedOption)
+                            }
+
+                            openDialog.value = false
+                        }
                     ) {
                         Text(text = stringResource(id = R.string.str_ok))
                     }

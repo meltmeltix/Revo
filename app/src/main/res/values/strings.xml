@@ -72,4 +72,5 @@
     <string name="desc_grantAccess">Grant access to the required permission</string>
     <string name="str_library">Library</string>
     <string name="desc_library">Manage your library and its behavior</string>
+    <string name="desc_openGridTypeMenu">Open the Grid Type menu</string>
 </resources>

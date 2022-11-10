@@ -6,16 +6,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.preferences.StoreUserCustomization
 import com.alessiocameroni.revomusicplayer.settings.customization.components.PlayerLayoutDialog
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.components.SettingsActionItem
@@ -25,6 +28,8 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 @Composable
 fun LooksScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val context = LocalContext.current
+    val dataStoreCustomization = StoreUserCustomization(context)
 
     RevoMusicPlayerTheme{
         Surface(
@@ -66,6 +71,9 @@ fun LooksScreen(navController: NavController) {
 
                         item {
                             val openDialog = remember { mutableStateOf(false) }
+                            val layoutChoice = dataStoreCustomization.getLayoutChoice.collectAsState(
+                                initial = ""
+                            )
 
                             SettingsActionItem(
                                 stringTitleItem = stringResource(id = R.string.str_layoutPlayer),
@@ -82,7 +90,9 @@ fun LooksScreen(navController: NavController) {
                                     modifier = Modifier
                                         .clip(shape = RoundedCornerShape(24.dp))
                                         .width(560.dp),
-                                    openDialog = openDialog
+                                    openDialog = openDialog,
+                                    dataStore = dataStoreCustomization,
+                                    layoutChoice = layoutChoice
                                 )
                             }
                         }

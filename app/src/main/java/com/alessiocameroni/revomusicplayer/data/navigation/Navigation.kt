@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.navigation
+package com.alessiocameroni.revomusicplayer.data.navigation
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween

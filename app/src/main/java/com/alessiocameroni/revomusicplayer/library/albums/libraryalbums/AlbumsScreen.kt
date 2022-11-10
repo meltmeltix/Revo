@@ -24,7 +24,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.behavior.LibraryAlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryNoMenuListItem
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +33,8 @@ fun AlbumsScreen(
     navControllerBottomBar: NavHostController,
     viewModel: LibraryAlbumsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
-    val expanded = remember { mutableStateOf(false) }
+    val expandedMenu = remember { mutableStateOf(false) }
+    val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val libraryAlbums = viewModel.libraryAlbums
     val context = LocalContext.current
@@ -57,7 +58,7 @@ fun AlbumsScreen(
                 },
                 actions = {
                     Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded.value = true }) {
+                        IconButton(onClick = { expandedMenu.value = true }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                                 contentDescription = stringResource(id = R.string.str_settings)
@@ -66,7 +67,8 @@ fun AlbumsScreen(
 
                         LibraryDropDownMenu(
                             navController = navController,
-                            expanded = expanded,
+                            expandedMenu = expandedMenu,
+                            expandedNestedMenu = expandedNestedMenu,
                             itemSortBy = true,
                             itemGridType = true,
                             itemOpenSpotify = false,

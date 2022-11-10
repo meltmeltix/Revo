@@ -19,8 +19,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.mainscreen.data.bottomnav.BottomNavigationItemData
-import com.alessiocameroni.revomusicplayer.navigation.NavigationBottomNavBar
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.navigation.NavigationBottomNavBar
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 

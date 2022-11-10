@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.navigation
+package com.alessiocameroni.revomusicplayer.data.navigation
 
 open class Screens(val route: String) {
     object MainScreen : Screens("main_screen")

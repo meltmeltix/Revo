@@ -16,12 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SpotifyFavoritesScreen(navController: NavController) {
-    val expanded = remember { mutableStateOf(false) }
+    val expandedMenu = remember { mutableStateOf(false) }
+    val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     /*val items by remember {
@@ -52,7 +53,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                 },
                 actions = {
                     Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded.value = true }) {
+                        IconButton(onClick = { expandedMenu.value = true }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                                 contentDescription = stringResource(id = R.string.str_settings)
@@ -61,7 +62,8 @@ fun SpotifyFavoritesScreen(navController: NavController) {
 
                         LibraryDropDownMenu(
                             navController = navController,
-                            expanded = expanded,
+                            expandedMenu = expandedMenu,
+                            expandedNestedMenu = expandedNestedMenu,
                             itemSortBy = true,
                             itemGridType = true,
                             itemOpenSpotify = true,
