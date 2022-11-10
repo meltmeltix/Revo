@@ -24,7 +24,7 @@ fun CenterSongControls(
     var favouriteChecked by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         Box(
@@ -213,7 +213,7 @@ fun LeftSongControls(
     var favouriteChecked by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         Box(
@@ -404,7 +404,7 @@ fun RightSongControls(
     var favouriteChecked by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         Box(

@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -16,7 +17,10 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.preferences.StoreUserCustomization
 import com.alessiocameroni.revomusicplayer.player.components.CenterSongControls
+import com.alessiocameroni.revomusicplayer.player.components.LeftSongControls
+import com.alessiocameroni.revomusicplayer.player.components.RightSongControls
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +29,10 @@ fun PlayerScreen(navController: NavController) {
     val sliderPosition by remember { mutableStateOf(0.5f) }
     val shuffleChecked by remember { mutableStateOf(false) }
     val repeatChecked by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val dataStoreCustomization = StoreUserCustomization(context)
+    val layoutChoice = dataStoreCustomization.getLayoutChoice.collectAsState(initial = "")
 
     RevoMusicPlayerTheme {
         Surface(
@@ -85,12 +93,26 @@ fun PlayerScreen(navController: NavController) {
                         )
                     }
 
-                    CenterSongControls(
-                        modifier = Modifier
-                            .layoutId("PlayerControls")
-                            .fillMaxWidth(),
-                        floatSliderPosition = sliderPosition
-                    )
+                    when(layoutChoice.value) {
+                        "Center" -> {
+                            CenterSongControls(
+                                modifier = Modifier.layoutId("PlayerControls"),
+                                floatSliderPosition = sliderPosition
+                            )
+                        }
+                        "Left" -> {
+                            LeftSongControls(
+                                modifier = Modifier.layoutId("PlayerControls"),
+                                floatSliderPosition = sliderPosition
+                            )
+                        }
+                        "Right" -> {
+                            RightSongControls(
+                                modifier = Modifier.layoutId("PlayerControls"),
+                                floatSliderPosition = sliderPosition
+                            )
+                        }
+                    }
                 }
             }
         }
