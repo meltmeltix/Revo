@@ -195,7 +195,7 @@ fun PlayerLayoutDialog(
                             .layoutId("ButtonConfirm"),
                         onClick = {
                             scope.launch {
-                                dataStore.saveLayoutChoice(selectedOption)
+                                dataStore.setLayoutChoice(selectedOption)
                             }
 
                             openDialog.value = false

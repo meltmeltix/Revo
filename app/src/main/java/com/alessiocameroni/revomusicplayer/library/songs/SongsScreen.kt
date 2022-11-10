@@ -17,10 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.library.main.behavior.LibrarySongsViewModel
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.main.components.LibraryListItem
-import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.library.main.components.NestedGridTypeMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +32,9 @@ fun SongsScreen(
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     val librarySongs = viewModel.librarySongs
+
     val context = LocalContext.current
 
     LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
