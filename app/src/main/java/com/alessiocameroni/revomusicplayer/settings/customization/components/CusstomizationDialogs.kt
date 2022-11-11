@@ -8,7 +8,10 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,17 +24,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.preferences.StoreUserCustomization
 
 @Composable
 fun PlayerLayoutDialog(
     modifier: Modifier,
-    openDialog: MutableState<Boolean>,
-    dataStore: StoreUserCustomization
+    openDialog: MutableState<Boolean>
 ) {
     Dialog(onDismissRequest = { openDialog.value = false }) {
-        val scope = rememberCoroutineScope()
-
         val radioOptions = listOf(
             stringResource(id = R.string.str_left),
             stringResource(id = R.string.str_center),
