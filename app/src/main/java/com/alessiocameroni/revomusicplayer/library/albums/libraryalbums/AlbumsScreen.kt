@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.main.behavior.LibraryAlbumsViewModel
-import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.main.components.LibraryNoMenuListItem
+import com.alessiocameroni.revomusicplayer.library.albums.viewmodels.LibraryAlbumsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)

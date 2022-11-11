@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.main.data
+package com.alessiocameroni.revomusicplayer.library.albums.data
 
 import android.net.Uri
 

@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
-import com.alessiocameroni.revomusicplayer.library.main.behavior.LibrarySongsViewModel
-import com.alessiocameroni.revomusicplayer.library.main.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.main.components.LibraryListItem
-import com.alessiocameroni.revomusicplayer.library.main.components.NestedGridTypeMenu
+import com.alessiocameroni.revomusicplayer.library.songs.viewmodels.LibrarySongsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
+import com.alessiocameroni.revomusicplayer.library.components.NestedGridTypeMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

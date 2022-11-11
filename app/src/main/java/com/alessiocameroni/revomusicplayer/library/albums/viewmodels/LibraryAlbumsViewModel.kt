@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.main.behavior
+package com.alessiocameroni.revomusicplayer.library.albums.viewmodels
 
 import android.content.ContentUris
 import android.content.Context
@@ -7,7 +7,7 @@ import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import com.alessiocameroni.revomusicplayer.library.main.data.LibraryAlbumData
+import com.alessiocameroni.revomusicplayer.library.albums.data.LibraryAlbumData
 
 class LibraryAlbumsViewModel: ViewModel() {
     val libraryAlbums = mutableStateListOf<LibraryAlbumData>()
