@@ -1,7 +1,6 @@
 package com.alessiocameroni.revomusicplayer.data.preferences
 
 import android.content.Context
-import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -18,12 +17,12 @@ class StoreUserCustomization(private val context: Context) {
 
     val getLayoutChoice: Flow<String> = context.dataStore.data
         .map { preferences ->
-            preferences[PLAYER_LAYOUT] ?: "Center"
+            preferences[PLAYER_LAYOUT] ?: ""
         }
 
-    suspend fun setLayoutChoice(strLayout: String) {
+    /*suspend fun setLayoutChoice(intLayout: Int) {
         context.dataStore.edit { preferences ->
-            preferences[PLAYER_LAYOUT] = strLayout
+            preferences[PLAYER_LAYOUT] = intLayout
         }
-    }
+    }*/
 }

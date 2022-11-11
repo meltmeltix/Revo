@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.settings.customization.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -23,13 +22,11 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.preferences.StoreUserCustomization
-import kotlinx.coroutines.launch
 
 @Composable
 fun PlayerLayoutDialog(
     modifier: Modifier,
     openDialog: MutableState<Boolean>,
-    layoutChoice: State<String>,
     dataStore: StoreUserCustomization
 ) {
     Dialog(onDismissRequest = { openDialog.value = false }) {
@@ -41,11 +38,7 @@ fun PlayerLayoutDialog(
             stringResource(id = R.string.str_right),
         )
 
-        val layoutChoicePos = radioOptions.indexOf(layoutChoice.value)
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[layoutChoicePos]) }
-
-        Log.d("CustomizationDialogs", "LayoutChoice ${layoutChoice.value}")
-        Log.d("CustomizationDialogs", "selectedOption $selectedOption")
+        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
         Surface(
             modifier = modifier,
@@ -194,10 +187,6 @@ fun PlayerLayoutDialog(
                         modifier = Modifier
                             .layoutId("ButtonConfirm"),
                         onClick = {
-                            scope.launch {
-                                dataStore.setLayoutChoice(selectedOption)
-                            }
-
                             openDialog.value = false
                         }
                     ) {
