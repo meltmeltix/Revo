@@ -17,7 +17,7 @@ import com.alessiocameroni.revomusicplayer.mainscreen.MainScreen
 import com.alessiocameroni.revomusicplayer.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.settings.about.AboutScreen
-import com.alessiocameroni.revomusicplayer.settings.customization.LooksScreen
+import com.alessiocameroni.revomusicplayer.settings.customization.CustomizationScreen
 import com.alessiocameroni.revomusicplayer.settings.librarysettings.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -272,7 +272,7 @@ fun Navigation() {
                 }
             }
             //TODO Add popEnter when actually listing items
-        ) { LooksScreen(navController = navController) }
+        ) { CustomizationScreen(navController = navController) }
 
         composable(
             route = SettingsScreens.AboutScreen.route,

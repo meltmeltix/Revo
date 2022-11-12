@@ -23,7 +23,7 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LooksScreen(navController: NavController) {
+fun CustomizationScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     RevoMusicPlayerTheme{
