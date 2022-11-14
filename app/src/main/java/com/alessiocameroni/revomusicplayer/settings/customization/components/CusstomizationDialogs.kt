@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.settings.customization.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -8,13 +9,12 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -24,12 +24,25 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.repositories.DataStoreCustomization
+import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
+import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModelFactory
 
 @Composable
 fun PlayerLayoutDialog(
     modifier: Modifier,
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean>,
+    viewModel: CustomizationViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+        factory = CustomizationViewModelFactory(DataStoreCustomization(LocalContext.current))
+    )
 ) {
+    val context = LocalContext.current
+    val dataStoreCustomization = DataStoreCustomization(context)
+    val playerLayoutOption = viewModel.playerLayout.observeAsState().value
+    val scope = rememberCoroutineScope()
+
+    Log.d("CustomizationDialogs", "$playerLayoutOption")
+
     Dialog(onDismissRequest = { openDialog.value = false }) {
         val radioOptions = listOf(
             stringResource(id = R.string.str_left),
@@ -37,7 +50,9 @@ fun PlayerLayoutDialog(
             stringResource(id = R.string.str_right),
         )
 
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
+        val (selectedOption, onOptionSelected) = remember {
+            mutableStateOf(radioOptions[playerLayoutOption!!])
+        }
 
         Surface(
             modifier = modifier,

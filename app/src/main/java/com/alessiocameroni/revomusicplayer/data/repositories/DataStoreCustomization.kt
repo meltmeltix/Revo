@@ -1,24 +1,25 @@
-package com.alessiocameroni.revomusicplayer.data.preferences
+package com.alessiocameroni.revomusicplayer.data.repositories
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class StoreUserCustomization(private val context: Context) {
+class DataStoreCustomization(private val context: Context) {
     private val Context.dataStore by preferencesDataStore(name = "customization_settings")
 
     companion object {
         val PLAYER_LAYOUT = intPreferencesKey("player_layout")
     }
 
-    val getLayoutChoice: String = context.dataStore.data
+    val getPlayerLayout: Flow<Int> = context.dataStore.data
         .map { preferences ->
-            preferences[PLAYER_LAYOUT] ?: 0
-        }.toString()
+            preferences[PLAYER_LAYOUT] ?: 1
+        }
 
-    suspend fun setLayoutChoice(intLayout: Int) {
+    suspend fun setPlayerLayout(intLayout: Int) {
         context.dataStore.edit { preferences ->
             preferences[PLAYER_LAYOUT] = intLayout
         }
