@@ -32,7 +32,6 @@ fun SettingsCategoryItem(
             constrain(settingIcon) {
                 start.linkTo(parent.start)
                 top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
             }
 
             constrain(textTitle) {
@@ -44,15 +43,14 @@ fun SettingsCategoryItem(
             constrain(textSubtitle) {
                 start.linkTo(settingIcon.end)
                 top.linkTo(textTitle.bottom)
-                bottom.linkTo(parent.bottom)
             }
         }
 
-        ConstraintLayout(constraints, modifier = Modifier.fillMaxSize()) {
+        ConstraintLayout(constraints, modifier = Modifier.fillMaxWidth()) {
             Icon(
                 modifier = Modifier
                     .layoutId("SettingIcon")
-                    .padding(start = 30.dp)
+                    .padding(start = 30.dp, top = 30.dp)
                     .size(26.dp),
                 painter = painterIcon,
                 contentDescription = stringTitleItem,
@@ -77,7 +75,7 @@ fun SettingsCategoryItem(
                 text = stringSubtitleItem,
                 style = MaterialTheme.typography.bodyMedium,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                maxLines = 2
             )
         }
     }

@@ -53,7 +53,6 @@ fun SettingsScreen(navController: NavController) {
                                 stringSubtitleItem = stringResource(id = R.string.desc_library),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(84.dp)
                                     .clip(RoundedCornerShape(22.dp))
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) }
                             )
@@ -66,7 +65,6 @@ fun SettingsScreen(navController: NavController) {
                                 stringSubtitleItem = stringResource(id = R.string.desc_customization),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(84.dp)
                                     .clip(RoundedCornerShape(22.dp))
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) }
                             )
@@ -79,7 +77,6 @@ fun SettingsScreen(navController: NavController) {
                                 stringSubtitleItem = stringResource(id = R.string.desc_about),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .height(84.dp)
                                     .clip(RoundedCornerShape(22.dp))
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) }
                             )
