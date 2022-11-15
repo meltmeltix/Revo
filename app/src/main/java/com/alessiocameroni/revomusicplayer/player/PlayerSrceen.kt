@@ -41,16 +41,16 @@ fun PlayerScreen(navController: NavController) {
             ) { padding ->
                 val constraints = ConstraintSet {
                     val boxAlbumCover = createRefFor("AlbumCover")
-                    val playerControls = createRefFor("PlayerControls")
+                    val boxPlayerControls = createRefFor("PlayerControls")
 
                     constrain(boxAlbumCover) {
                         top.linkTo(parent.top)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                        bottom.linkTo(playerControls.top)
+                        bottom.linkTo(boxPlayerControls.top)
                     }
 
-                    constrain(playerControls) {
+                    constrain(boxPlayerControls) {
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
                         bottom.linkTo(parent.bottom)
@@ -85,10 +85,18 @@ fun PlayerScreen(navController: NavController) {
                         )
                     }
 
-                    CenterSongControls(
-                        modifier = Modifier.layoutId("PlayerControls"),
-                        floatSliderPosition = sliderPosition
-                    )
+                    Box(
+                        modifier = Modifier
+                            .layoutId("PlayerControls")
+                            .fillMaxWidth()
+                            .height(246.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CenterSongControls(
+                            modifier = Modifier,
+                            floatSliderPosition = sliderPosition
+                        )
+                    }
                 }
             }
         }
