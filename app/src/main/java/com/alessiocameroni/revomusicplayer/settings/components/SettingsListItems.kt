@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.settings.mainscreen.components
+package com.alessiocameroni.revomusicplayer.settings.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon

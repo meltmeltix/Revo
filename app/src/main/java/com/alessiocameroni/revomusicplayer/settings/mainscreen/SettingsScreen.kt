@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.SettingsScreens
-import com.alessiocameroni.revomusicplayer.settings.mainscreen.components.SettingsCategoryItem
+import com.alessiocameroni.revomusicplayer.settings.components.SettingsCategoryItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
