@@ -40,7 +40,8 @@ fun SongsScreen(
     LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_songs)) },

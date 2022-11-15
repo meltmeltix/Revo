@@ -18,9 +18,9 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.mainscreen.data.bottomnav.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.data.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.mainscreen.data.bottomnav.BottomNavigationItemData
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
@@ -28,6 +28,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @Composable
 fun MainScreen(navController: NavController) {
     val navControllerBottomBar = rememberAnimatedNavController()
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
 
     RevoMusicPlayerTheme {
         Surface(
@@ -106,7 +107,11 @@ fun MainScreen(navController: NavController) {
                     }
                 },
                 content = { padding ->
-                    Column(modifier = Modifier.padding(padding)){
+                    Column(modifier = Modifier
+                        .padding(
+                            bottom = padding.calculateBottomPadding() - systemBarsPadding.calculateBottomPadding()
+                        )
+                    ){
                         NavigationBottomNavBar(
                             navControllerApp = navController,
                             navControllerBottomBar = navControllerBottomBar,
