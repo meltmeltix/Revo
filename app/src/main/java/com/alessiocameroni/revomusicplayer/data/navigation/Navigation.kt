@@ -46,9 +46,9 @@ fun Navigation() {
                         ) + fadeOut(animationSpec = tween( 210 ))
                     "player_screen" ->
                         slideOutVertically(
-                            targetOffsetY = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                            targetOffsetY = { -200 },
+                            animationSpec = tween( 240 )
+                        ) + fadeOut(animationSpec = tween( 260 ))
                     else -> null
                 }
             },
@@ -67,9 +67,9 @@ fun Navigation() {
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "player_screen" ->
                         slideInVertically(
-                            initialOffsetY = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                            initialOffsetY = { -200 },
+                            animationSpec = tween( 240 )
+                        ) + fadeIn(animationSpec = tween( 260 ))
                     else -> null
                 }
             }
@@ -82,9 +82,9 @@ fun Navigation() {
                     // From screen
                     "main_screen" ->
                         slideInVertically(
-                            initialOffsetY = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                            initialOffsetY = { 200 },
+                            animationSpec = tween( 240 )
+                        ) + fadeIn(animationSpec = tween( 260 ))
                     else -> null
                 }
             },
@@ -92,10 +92,10 @@ fun Navigation() {
                 when(targetState.destination.route) {
                     // To screen
                     "main_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                        slideOutVertically (
+                            targetOffsetY = { 200 },
+                            animationSpec = tween( 240 )
+                        ) + fadeOut(animationSpec = tween( 260 ))
 
                     // From screen
                     "settings_screen" ->

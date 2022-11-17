@@ -7,7 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DataStoreCustomization(private val context: Context) {
+class DataStoreCustomization(val context: Context) {
     private val Context.dataStore by preferencesDataStore(name = "customization_settings")
 
     companion object {

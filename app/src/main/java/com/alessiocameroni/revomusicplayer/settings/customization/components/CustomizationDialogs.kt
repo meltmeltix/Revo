@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.settings.customization.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -8,7 +9,10 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,14 +25,17 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun PlayerLayoutDialog(
     modifier: Modifier,
-    openDialog: MutableState<Boolean>
+    openDialog: MutableState<Boolean>,
+    viewModel: CustomizationViewModel,
+    scope: CoroutineScope,
 ) {
-    val scope = rememberCoroutineScope()
-
     Dialog(onDismissRequest = { openDialog.value = false }) {
         val radioOptions = listOf(
             stringResource(id = R.string.str_left),
@@ -36,8 +43,10 @@ fun PlayerLayoutDialog(
             stringResource(id = R.string.str_right),
         )
 
+        Log.d("CustomizationDialogs", "BEFORE SCOPE: ${viewModel.playerLayout}")
+
         val (selectedOption, onOptionSelected) = remember {
-            mutableStateOf(radioOptions[0])
+            mutableStateOf(radioOptions[viewModel.playerLayout])
         }
 
         Surface(
@@ -187,6 +196,9 @@ fun PlayerLayoutDialog(
                         modifier = Modifier
                             .layoutId("ButtonConfirm"),
                         onClick = {
+                            scope.launch {
+                                viewModel.savePlayerLayout(radioOptions.indexOf(selectedOption))
+                            }
                             openDialog.value = false
                         }
                     ) {

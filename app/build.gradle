@@ -74,16 +74,16 @@ dependencies {
     implementation 'androidx.compose.material3:material3:1.1.0-alpha02'
     implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha02'
 
-    implementation 'com.google.accompanist:accompanist-navigation-animation:0.27.0'
-    implementation 'com.google.accompanist:accompanist-permissions:0.27.0'
-    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.27.0'
+    implementation 'com.google.accompanist:accompanist-navigation-animation:0.27.1'
+    implementation 'com.google.accompanist:accompanist-permissions:0.27.1'
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.27.1'
 
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha04'
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-    implementation 'com.google.dagger:dagger:2.44.1'
-    kapt 'com.google.dagger:dagger-compiler:2.44.1'
+    implementation 'com.google.dagger:dagger:2.44.2'
+    kapt 'com.google.dagger:dagger-compiler:2.44.2'
 
     implementation 'com.google.android.exoplayer:exoplayer:2.18.1'
 

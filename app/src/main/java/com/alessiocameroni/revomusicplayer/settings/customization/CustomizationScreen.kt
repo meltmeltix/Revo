@@ -15,18 +15,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.settings.customization.components.PlayerLayoutDialog
+import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
 import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.components.SettingsActionItem
+import com.alessiocameroni.revomusicplayer.settings.customization.components.PlayerLayoutDialog
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomizationScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: CustomizationViewModel = CustomizationViewModel(LocalContext.current)
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     RevoMusicPlayerTheme{
         Surface(
@@ -84,7 +86,9 @@ fun CustomizationScreen(
                                     modifier = Modifier
                                         .clip(shape = RoundedCornerShape(24.dp))
                                         .width(560.dp),
-                                    openDialog = openDialog
+                                    openDialog = openDialog,
+                                    viewModel = viewModel,
+                                    scope = scope
                                 )
                             }
                         }
