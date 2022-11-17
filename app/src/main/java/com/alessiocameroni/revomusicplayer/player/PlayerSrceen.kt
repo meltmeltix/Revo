@@ -63,7 +63,7 @@ fun PlayerScreen(navController: NavController) {
                         .fillMaxSize()
                         .padding(
                             start = 30.dp,
-                            top = padding.calculateTopPadding() + 15.dp,
+                            top = padding.calculateTopPadding(),
                             end = 30.dp,
                             bottom = padding.calculateBottomPadding() + 15.dp,
                         )

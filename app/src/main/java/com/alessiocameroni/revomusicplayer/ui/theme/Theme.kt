@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColorScheme(
     primary = Purple80,
@@ -77,6 +78,7 @@ fun RevoMusicPlayerTheme(
     content: @Composable () -> Unit
 ) {
     val useDynamicColors = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val systemUiController = rememberSystemUiController()
     val colors = when {
         useDynamicColors && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
         useDynamicColors && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
@@ -84,8 +86,12 @@ fun RevoMusicPlayerTheme(
         else -> LightColorPalette
     }
 
-    /*systemUiController.setStatusBarColor(color = colors.background)
-    systemUiController.setNavigationBarColor(color = colors.surfaceColorAtElevation(3.dp))*/
+    when {
+        !darkTheme -> systemUiController
+            .setStatusBarColor(color = Color.Transparent, darkIcons = true)
+        else -> systemUiController
+            .setStatusBarColor(color = Color.Transparent, darkIcons = false)
+    }
 
     MaterialTheme(
         colorScheme = colors,
