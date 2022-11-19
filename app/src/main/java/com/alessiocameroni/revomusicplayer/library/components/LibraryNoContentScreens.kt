@@ -57,33 +57,34 @@ fun NoSongsScreen(
                     }
                 },
             )
-        }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
+        },
+        content = { padding ->
+            Column(
                 modifier = Modifier
-                    .size(50.dp)
-                    .padding(bottom = 5.dp),
-                painter = painterResource(id = R.drawable.baseline_music_off_24),
-                contentDescription = stringResource(id = R.string.str_icon)
-            )
+                    .padding(padding)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .padding(bottom = 5.dp),
+                    painter = painterResource(id = R.drawable.baseline_music_off_24),
+                    contentDescription = stringResource(id = R.string.str_icon)
+                )
 
-            Text(
-                text = stringResource(id = R.string.str_tooQuiet),
-                style = MaterialTheme.typography.titleLarge
-            )
+                Text(
+                    text = stringResource(id = R.string.str_tooQuiet),
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-            Text(
-                text = stringResource(id = R.string.desc_tooQuiet),
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center
-            )
+                Text(
+                    text = stringResource(id = R.string.desc_tooQuiet),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
-    }
+    )
 }

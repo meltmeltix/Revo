@@ -18,6 +18,7 @@ import com.alessiocameroni.revomusicplayer.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.settings.customization.CustomizationScreen
+import com.alessiocameroni.revomusicplayer.settings.customization.playerlayout.PlayerLayoutScreen
 import com.alessiocameroni.revomusicplayer.settings.librarysettings.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -219,6 +220,7 @@ fun Navigation() {
             }
         ) { SettingsScreen(navController = navController) }
 
+
         // Settings SubScreens
         composable(
             route = SettingsScreens.LibrarySettingsScreen.route,
@@ -247,6 +249,7 @@ fun Navigation() {
             //TODO Add popEnter when actually listing items
         ) { LibrarySettingsScreen(navController = navController) }
 
+
         composable(
             route = SettingsScreens.CustomizationScreen.route,
             enterTransition = {
@@ -262,8 +265,52 @@ fun Navigation() {
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    //To screen
+                    // To screen
                     "settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+
+                    // From screen
+                    "player_layout_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "player_layout_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            }
+        ) { CustomizationScreen(navController = navController) }
+
+        composable(
+            route = CustomizationSettingsScreens.PlayerLayoutScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "customization_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { 100 },
+                            animationSpec = tween( 200 )
+                        ) + fadeIn(animationSpec = tween( 200 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "customization_screen" ->
                         slideOutHorizontally(
                             targetOffsetX = { 100 },
                             animationSpec = tween( 210 )
@@ -271,8 +318,8 @@ fun Navigation() {
                     else -> null
                 }
             }
-            //TODO Add popEnter when actually listing items
-        ) { CustomizationScreen(navController = navController) }
+        ) { PlayerLayoutScreen(navController = navController) }
+
 
         composable(
             route = SettingsScreens.AboutScreen.route,

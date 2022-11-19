@@ -51,8 +51,8 @@ fun SearchScreen(navController: NavController) {
                                         )
                                     }
                                 },
-                                keyboardOptions = KeyboardOptions( imeAction = ImeAction.Search ),
-                                keyboardActions = KeyboardActions( onSearch = {  }),
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                                keyboardActions = KeyboardActions(onSearch = { }),
                                 colors = TextFieldDefaults.textFieldColors(
                                     containerColor = MaterialTheme.colorScheme.background,
                                     unfocusedIndicatorColor = MaterialTheme.colorScheme.background,
@@ -70,15 +70,16 @@ fun SearchScreen(navController: NavController) {
                         },
                         scrollBehavior = scrollBehavior
                     )
-                }
-            ) { padding ->
-                Column(
-                    modifier = Modifier
-                        .padding(padding)
-                ) {
+                },
+                content = { padding ->
+                    Column(
+                        modifier = Modifier
+                            .padding(padding)
+                    ) {
 
+                    }
                 }
-            }
+            )
         }
     }
 }

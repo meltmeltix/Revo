@@ -3,21 +3,20 @@ package com.alessiocameroni.revomusicplayer.settings.customization
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.CustomizationSettingsScreens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
 import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.components.SettingsActionItem
-import com.alessiocameroni.revomusicplayer.settings.customization.components.PlayerLayoutDialog
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +27,7 @@ fun CustomizationScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    RevoMusicPlayerTheme{
+    RevoMusicPlayerTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -67,26 +66,18 @@ fun CustomizationScreen(
                         }
 
                         item {
-                            val openDialog = remember { mutableStateOf(false) }
-
                             SettingsActionItem(
                                 stringTitleItem = stringResource(id = R.string.str_layoutPlayer),
                                 stringSubtitleItem = stringResource(id = R.string.desc_layoutPlayer),
                                 unitAction = {  },
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
-                                    .clickable { openDialog.value = true }
+                                    .clickableRowItem()
+                                    .clickable {
+                                        navController.navigate(
+                                            CustomizationSettingsScreens.PlayerLayoutScreen.route
+                                        )
+                                    }
                             )
-
-                            if (openDialog.value) {
-                                PlayerLayoutDialog(
-                                    modifier = Modifier
-                                        .clip(shape = RoundedCornerShape(24.dp))
-                                        .width(560.dp),
-                                    openDialog = openDialog
-                                )
-                            }
                         }
                     }
                 }

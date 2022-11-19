@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -21,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.library.albums.viewmodels.LibraryAlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
@@ -88,8 +87,7 @@ fun AlbumsScreen(
                 itemsIndexed(libraryAlbums) { i, item ->
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
+                            .clickableRowItem()
                             .clickable { },
                     ) {
                         LibraryNoMenuListItem(

@@ -1,24 +1,16 @@
 package com.alessiocameroni.revomusicplayer.settings.customization.components
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -100,22 +92,7 @@ fun PlayerLayoutDialog(
                     .clip(shape = RoundedCornerShape(12.dp))
                     .fillMaxWidth()
             ) {
-                Row(
-                    modifier = Modifier
-                        .layoutId("RowImagePreview")
-                        .clip(shape = RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                        .fillMaxWidth()
-                        .height(190.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    PlayerLayoutImagePreview(
-                        modifier = Modifier
-                            .layoutId("ImagePreview")
-                            .height(170.dp),
-                        selectedOption = selectedOption
-                    )
-                }
+
 
                 Text(
                     modifier = Modifier
@@ -132,37 +109,7 @@ fun PlayerLayoutDialog(
                         .padding(vertical = 8.dp)
                 )
 
-                Column(
-                    modifier = Modifier
-                        .layoutId("ColumnSelection")
-                        .fillMaxWidth()
-                        .selectableGroup()
-                ) {
-                    radioOptions.forEach { text ->
-                        Row(
-                            modifier = Modifier
-                                .clip(MaterialTheme.shapes.large)
-                                .fillMaxWidth()
-                                .height(46.dp)
-                                .selectable(
-                                    selected = (text == selectedOption),
-                                    onClick = { onOptionSelected(text) },
-                                    role = Role.RadioButton
-                                ),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = (text == selectedOption),
-                                onClick = null
-                            )
-                            Text(
-                                text = text,
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
-                        }
-                    }
-                }
+
 
                 Divider(
                     modifier = Modifier
@@ -197,59 +144,6 @@ fun PlayerLayoutDialog(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun PlayerLayoutImagePreview(
-    modifier: Modifier,
-    selectedOption: String
-) {
-    val darkTheme = isSystemInDarkTheme()
-
-    when {
-        darkTheme && selectedOption == "Left" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_left_player_controls),
-                contentDescription = "String"
-            )
-        }
-        darkTheme && selectedOption == "Center" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_center_player_controls),
-                contentDescription = "String"
-            )
-        }
-        darkTheme && selectedOption == "Right" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_right_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == "Left" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_left_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == "Center" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_center_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == "Right" -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_right_player_controls),
-                contentDescription = "String"
-            )
         }
     }
 }

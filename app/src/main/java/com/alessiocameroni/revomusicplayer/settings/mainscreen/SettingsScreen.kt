@@ -2,18 +2,18 @@ package com.alessiocameroni.revomusicplayer.settings.mainscreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.settings.components.SettingsCategoryItem
+import com.alessiocameroni.revomusicplayer.settings.components.SettingsItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,8 +52,7 @@ fun SettingsScreen(navController: NavController) {
                                 stringTitleItem = stringResource(id = R.string.str_library),
                                 stringSubtitleItem = stringResource(id = R.string.desc_library),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
+                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) }
                             )
                         }
@@ -64,8 +63,7 @@ fun SettingsScreen(navController: NavController) {
                                 stringTitleItem = stringResource(id = R.string.str_customization),
                                 stringSubtitleItem = stringResource(id = R.string.desc_customization),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
+                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) }
                             )
                         }
@@ -76,9 +74,30 @@ fun SettingsScreen(navController: NavController) {
                                 stringTitleItem = stringResource(id = R.string.str_about),
                                 stringSubtitleItem = stringResource(id = R.string.desc_about),
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(22.dp))
+                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) }
+                            )
+                        }
+
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            SettingsItem(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickableRowItem()
+                                    .clickable {  },
+                                stringMainTitle = "This is a long title",
+                                stringSubtitle = "And this is a long string explaining",
+                                leadingUnit = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                                        contentDescription = "Description"
+                                    )
+                                },
+                                trailingUnit = {
+                                    Switch(
+                                        checked = false, onCheckedChange = {}
+                                    )
+                                }
                             )
                         }
                     }

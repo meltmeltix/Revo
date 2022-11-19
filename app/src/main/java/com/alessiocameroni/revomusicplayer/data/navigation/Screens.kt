@@ -24,3 +24,7 @@ open class SettingsScreens(val route: String) {
     object CustomizationScreen : SettingsScreens("customization_screen")
     object AboutScreen : SettingsScreens("about_screen")
 }
+
+open class CustomizationSettingsScreens(val route: String) {
+    object PlayerLayoutScreen : CustomizationSettingsScreens("player_layout_screen")
+}
