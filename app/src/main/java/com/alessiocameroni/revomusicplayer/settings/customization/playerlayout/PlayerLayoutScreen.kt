@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.settings.components.InfoText
+import com.alessiocameroni.revomusicplayer.settings.components.SettingsLUnitTitleItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,21 +69,38 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                     Column(
                         modifier = Modifier
                             .padding(padding)
-                            .fillMaxSize()
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         Row(
                             modifier = Modifier
-                                .clip(shape = RoundedCornerShape(12.dp))
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
                                 .fillMaxWidth()
-                                .height(190.dp),
-                            horizontalArrangement = Arrangement.Center
+                                .padding(horizontal = 25.dp)
                         ) {
-                            PlayerLayoutImagePreview(
+                            Box(
                                 modifier = Modifier
-                                    .layoutId("ImagePreview")
-                                    .height(170.dp),
-                                selectedOption = selectedOption
+                                    .clip(shape = RoundedCornerShape(12.dp))
+                                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                                    .fillMaxWidth()
+                                    .height(250.dp),
+                                contentAlignment = Alignment.TopCenter
+                            ) {
+                                PlayerLayoutImagePreview(
+                                    modifier = Modifier
+                                        .layoutId("ImagePreview")
+                                        .width(240.dp)
+                                        .height(200.dp),
+                                    selectedOption = selectedOption
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            InfoText(
+                                modifier = Modifier,
+                                stringTitle = stringResource(id = R.string.desc_layoutPlayer)
                             )
                         }
                         
@@ -88,12 +108,13 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                             modifier = Modifier
                                 .layoutId("ColumnSelection")
                                 .fillMaxWidth()
-                                .selectableGroup()
+                                .selectableGroup(),
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             radioOptions.forEach { text ->
                                 Row(
                                     modifier = Modifier
-                                        .fillMaxWidth()
+                                        .clickableRowItem()
                                         .selectable(
                                             selected = (text == selectedOption),
                                             onClick = { onOptionSelected(text) },
@@ -101,14 +122,15 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                                         ),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    RadioButton(
-                                        selected = (text == selectedOption),
-                                        onClick = null
-                                    )
-                                    Text(
-                                        text = text,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        modifier = Modifier.padding(start = 16.dp)
+                                    SettingsLUnitTitleItem(
+                                        modifier = Modifier,
+                                        stringMainTitle = text,
+                                        leadingUnit = {
+                                            RadioButton(
+                                                selected = (text == selectedOption),
+                                                onClick = null
+                                            )
+                                        }
                                     )
                                 }
                             }

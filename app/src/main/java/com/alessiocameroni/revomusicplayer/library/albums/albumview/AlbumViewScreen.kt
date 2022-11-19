@@ -83,7 +83,7 @@ fun AlbumViewScreen(
                     .padding(padding)
                     .fillMaxSize(),
                 columns = GridCells.Fixed(1),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
                 item {
                     LibraryHeaderListItem(

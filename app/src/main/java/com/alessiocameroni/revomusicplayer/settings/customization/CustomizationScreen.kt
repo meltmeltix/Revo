@@ -16,7 +16,7 @@ import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.CustomizationSettingsScreens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
 import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsActionItem
+import com.alessiocameroni.revomusicplayer.settings.components.SettingsTextItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,7 +55,7 @@ fun CustomizationScreen(
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         item {
                             SectionTitle(
@@ -66,17 +66,17 @@ fun CustomizationScreen(
                         }
 
                         item {
-                            SettingsActionItem(
-                                stringTitleItem = stringResource(id = R.string.str_layoutPlayer),
-                                stringSubtitleItem = stringResource(id = R.string.desc_layoutPlayer),
-                                unitAction = {  },
+                            SettingsTextItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable {
                                         navController.navigate(
                                             CustomizationSettingsScreens.PlayerLayoutScreen.route
                                         )
-                                    }
+                                    },
+                                stringMainTitle = stringResource(id = R.string.str_layoutPlayer),
+                                stringSubtitle = stringResource(id = R.string.desc_layoutPlayer)
+                                /*TODO(Put "dynamic" string here with layout, and both strings)*/
                             )
                         }
                     }

@@ -12,8 +12,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.SettingsScreens
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsCategoryItem
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsItem
+import com.alessiocameroni.revomusicplayer.settings.components.SettingsLUnitItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,58 +43,51 @@ fun SettingsScreen(navController: NavController) {
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(5.dp)
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ){
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsCategoryItem(
-                                painterIcon = painterResource(id = R.drawable.outlined_library_music_24),
-                                stringTitleItem = stringResource(id = R.string.str_library),
-                                stringSubtitleItem = stringResource(id = R.string.desc_library),
+                            SettingsLUnitItem(
                                 modifier = Modifier
                                     .clickableRowItem()
-                                    .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) }
-                            )
-                        }
-
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsCategoryItem(
-                                painterIcon = painterResource(id = R.drawable.ic_outlined_palette_24),
-                                stringTitleItem = stringResource(id = R.string.str_customization),
-                                stringSubtitleItem = stringResource(id = R.string.desc_customization),
-                                modifier = Modifier
-                                    .clickableRowItem()
-                                    .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) }
-                            )
-                        }
-
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsCategoryItem(
-                                painterIcon = painterResource(id = R.drawable.ic_outlined_info_24),
-                                stringTitleItem = stringResource(id = R.string.str_about),
-                                stringSubtitleItem = stringResource(id = R.string.desc_about),
-                                modifier = Modifier
-                                    .clickableRowItem()
-                                    .clickable { navController.navigate(SettingsScreens.AboutScreen.route) }
-                            )
-                        }
-
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsItem(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clickableRowItem()
-                                    .clickable {  },
-                                stringMainTitle = "This is a long title",
-                                stringSubtitle = "And this is a long string explaining",
+                                    .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
+                                stringMainTitle = stringResource(id = R.string.str_library),
+                                stringSubtitle = stringResource(id = R.string.desc_library),
                                 leadingUnit = {
                                     Icon(
-                                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                                        contentDescription = "Description"
+                                        painter = painterResource(id = R.drawable.outlined_library_music_24), 
+                                        contentDescription = stringResource(id = R.string.desc_library)
                                     )
-                                },
-                                trailingUnit = {
-                                    Switch(
-                                        checked = false, onCheckedChange = {}
+                                }
+                            )
+                        }
+
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            SettingsLUnitItem(
+                                modifier = Modifier
+                                    .clickableRowItem()
+                                    .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
+                                stringMainTitle = stringResource(id = R.string.str_customization),
+                                stringSubtitle = stringResource(id = R.string.desc_customization),
+                                leadingUnit = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_palette_24), 
+                                        contentDescription = stringResource(id = R.string.desc_customization)
+                                    )
+                                }
+                            )
+                        }
+
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            SettingsLUnitItem(
+                                modifier = Modifier
+                                    .clickableRowItem()
+                                    .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
+                                stringMainTitle = stringResource(id = R.string.str_about),
+                                stringSubtitle = stringResource(id = R.string.desc_about),
+                                leadingUnit = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_info_24), 
+                                        contentDescription = stringResource(id = R.string.desc_about)
                                     )
                                 }
                             )

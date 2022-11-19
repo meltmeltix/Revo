@@ -97,7 +97,7 @@ fun PlaylistsScreen(
                     .fillMaxSize(),
                 columns = GridCells.Fixed(1),
                 contentPadding = PaddingValues(bottom = 128.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
                 /*items(items.size) { i ->
                     Row(

@@ -73,4 +73,6 @@
     <string name="str_library">Library</string>
     <string name="desc_library">Manage your library and its behavior</string>
     <string name="desc_openGridTypeMenu">Open the Grid Type menu</string>
+    <string name="desc_1_playerLayout">The player will use the </string>
+    <string name="desc_2_playerLayout">layout to display the Play and skip buttons</string>
 </resources>

@@ -84,7 +84,7 @@ fun SongsScreen(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 itemsIndexed(items = librarySongs) { i, item ->
                     Row(
