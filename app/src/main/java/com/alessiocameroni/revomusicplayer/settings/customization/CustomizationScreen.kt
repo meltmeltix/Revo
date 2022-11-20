@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.CustomizationSettingsScreens
-import com.alessiocameroni.revomusicplayer.data.viewmodels.CustomizationViewModel
 import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.components.SettingsTextItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -22,8 +21,7 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomizationScreen(
-    navController: NavController,
-    viewModel: CustomizationViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    navController: NavController
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
