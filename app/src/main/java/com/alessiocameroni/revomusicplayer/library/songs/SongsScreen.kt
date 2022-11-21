@@ -8,12 +8,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
@@ -87,6 +90,8 @@ fun SongsScreen(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 itemsIndexed(items = librarySongs) { i, item ->
+                    LaunchedEffect(Unit) { viewModel.loadBitmapIfNeeded(context, i) }
+
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
@@ -96,7 +101,12 @@ fun SongsScreen(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            unitAlbumImage = { },
+                            unitAlbumImage = {
+                                AsyncImage(
+                                    model = item.albumCover,
+                                    contentDescription = stringResource(id = R.string.desc_albumImage)
+                                )
+                            },
                             stringTitleItem = item.songTitle,
                             stringSubtitleItem = item.artist,
                             unitMenuItems = {

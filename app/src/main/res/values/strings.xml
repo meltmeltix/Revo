@@ -75,4 +75,5 @@
     <string name="desc_openGridTypeMenu">Open the Grid Type menu</string>
     <string name="desc_1_playerLayout">The player will use the </string>
     <string name="desc_2_playerLayout">layout to display the Play and skip buttons</string>
+    <string name="desc_albumImage">Album image</string>
 </resources>
