@@ -9,13 +9,13 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DataStoreCustomization(val context: Context) {
+class CustomizationPrefsDataStore(val context: Context) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "customization_settings"
     )
 
     companion object {
-        val PLAYER_LAYOUT = intPreferencesKey("player_layout")
+        private val PLAYER_LAYOUT = intPreferencesKey("player_layout")
     }
 
     val getPlayerLayout: Flow<Int> = context.dataStore.data

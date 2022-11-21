@@ -66,7 +66,7 @@ class LibrarySongsViewModel: ViewModel() {
                         songTitle = title,
                         artist = artist,
                         albumId = albumId,
-                        //albumCover = null,
+                        albumCover = null,
                         duration = duration
                     )
                 )
@@ -74,26 +74,4 @@ class LibrarySongsViewModel: ViewModel() {
         }
         initialized = true
     }
-
-    /*fun loadBitmapIfNeeded(context: Context, index: Int) {
-        if(librarySongs[index].albumCover != null) return
-
-        backgroundScope.launch {
-            val bitmap = getAlbumArt(context, librarySongs[index].contentUri)
-            librarySongs[index] = librarySongs[index].copy(albumCover = bitmap)
-        }
-    }
-
-    private fun getAlbumArt(context: Context, uri: Uri): Bitmap {
-        val mmr = MediaMetadataRetriever()
-        mmr.setDataSource(context, uri)
-
-        val data = mmr.embeddedPicture
-
-        return if (data != null) {
-            BitmapFactory.decodeByteArray(data, 0, data.size)
-        } else {
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-        }
-    }*/
 }
