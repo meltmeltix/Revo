@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -20,10 +19,10 @@ import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
-import com.alessiocameroni.revomusicplayer.library.songs.viewmodels.LibrarySongsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.components.NestedGridTypeMenu
+import com.alessiocameroni.revomusicplayer.library.songs.viewmodels.LibrarySongsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,9 +88,7 @@ fun SongsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                itemsIndexed(items = librarySongs) { i, item ->
-                    LaunchedEffect(Unit) { viewModel.loadBitmapIfNeeded(context, i) }
-
+                itemsIndexed(items = librarySongs) { _, item ->
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
@@ -103,7 +100,10 @@ fun SongsScreen(
                             painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
                             unitAlbumImage = {
                                 AsyncImage(
-                                    model = item.albumCover,
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(item.contentUri)
+                                        .crossfade(true)
+                                        .build(),
                                     contentDescription = stringResource(id = R.string.desc_albumImage)
                                 )
                             },

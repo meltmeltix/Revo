@@ -2,29 +2,17 @@ package com.alessiocameroni.revomusicplayer.library.songs.viewmodels
 
 import android.content.ContentUris
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.ui.res.booleanResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.songs.data.LibrarySongData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 
 class LibrarySongsViewModel: ViewModel() {
-    val librarySongs = mutableStateListOf<LibrarySongData>()
-
     private var initialized = false
-    private var backgroundScope = viewModelScope.plus(Dispatchers.Default)
+    val librarySongs = mutableStateListOf<LibrarySongData>()
 
     fun initializeListIfNeeded(context: Context) {
         if(initialized) return
@@ -77,33 +65,11 @@ class LibrarySongsViewModel: ViewModel() {
                         songTitle = title,
                         artist = artist,
                         albumId = albumId,
-                        albumCover = null,
                         duration = duration
                     )
                 )
             }
         }
         initialized = true
-    }
-
-    fun loadBitmapIfNeeded(context: Context, index: Int) {
-        if(librarySongs[index].albumCover != null) return
-
-        backgroundScope.launch {
-            val bitmap = getAlbumArt(context, librarySongs[index].contentUri)
-            librarySongs[index] = librarySongs[index].copy(albumCover = bitmap)
-        }
-    }
-
-    private fun getAlbumArt(context: Context, uri: Uri): Bitmap {
-        val mmr = MediaMetadataRetriever()
-        mmr.setDataSource(context, uri)
-        val data = mmr.embeddedPicture
-
-        return if(data != null) {
-            BitmapFactory.decodeByteArray(data, 0, data.size)
-        } else {
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-        }
     }
 }
