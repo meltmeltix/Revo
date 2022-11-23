@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.albums.viewmodels
+package com.alessiocameroni.revomusicplayer.data.viewmodels
 
 import android.content.ContentUris
 import android.content.Context
@@ -7,10 +7,10 @@ import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import com.alessiocameroni.revomusicplayer.library.albums.data.LibraryAlbumData
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
 
-class LibraryAlbumsViewModel: ViewModel() {
-    val libraryAlbums = mutableStateListOf<LibraryAlbumData>()
+class AlbumsViewModel: ViewModel() {
+    val libraryAlbums = mutableStateListOf<AlbumData>()
 
     private var initialized = false
 
@@ -18,7 +18,7 @@ class LibraryAlbumsViewModel: ViewModel() {
         if(initialized) return
 
         val projection = arrayOf(
-            Albums.ALBUM_ID,
+            Albums._ID,
             Media.ALBUM,
             Media.ARTIST
         )
@@ -34,23 +34,27 @@ class LibraryAlbumsViewModel: ViewModel() {
         )
 
         query?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(Albums.ALBUM_ID)
+            val idColumn = cursor.getColumnIndexOrThrow(Albums._ID)
             val titleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
+
+                val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
+                val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, id)
+
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
 
                 libraryAlbums.add(
-                    LibraryAlbumData(
+                    AlbumData(
                         albumId = id,
                         contentUri = contentUri,
                         albumTitle = title,
                         artist = artist,
-                        //albumCover = null,\
+                        albumCoverUri = albumCoverUri,
                         tracksNumber = null,
                         duration = null
                     )
@@ -59,26 +63,4 @@ class LibraryAlbumsViewModel: ViewModel() {
         }
         initialized = true
     }
-
-    /*fun loadBitmapIfNeeded(context: Context, index: Int) {
-        if(librarySongs[index].albumCover != null) return
-
-        backgroundScope.launch {
-            val bitmap = getAlbumArt(context, librarySongs[index].contentUri)
-            librarySongs[index] = librarySongs[index].copy(albumCover = bitmap)
-        }
-    }
-
-    private fun getAlbumArt(context: Context, uri: Uri): Bitmap {
-        val mmr = MediaMetadataRetriever()
-        mmr.setDataSource(context, uri)
-
-        val data = mmr.embeddedPicture
-
-        return if (data != null) {
-            BitmapFactory.decodeByteArray(data, 0, data.size)
-        } else {
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-        }
-    }*/
 }

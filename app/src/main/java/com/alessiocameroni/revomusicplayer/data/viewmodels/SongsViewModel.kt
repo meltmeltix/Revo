@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.songs.viewmodels
+package com.alessiocameroni.revomusicplayer.data.viewmodels
 
 import android.content.ContentUris
 import android.content.Context
@@ -8,11 +8,11 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import com.alessiocameroni.revomusicplayer.library.songs.data.LibrarySongData
+import com.alessiocameroni.revomusicplayer.data.classes.SongData
 
-class LibrarySongsViewModel: ViewModel() {
+class SongsViewModel: ViewModel() {
     private var initialized = false
-    val librarySongs = mutableStateListOf<LibrarySongData>()
+    val librarySongs = mutableStateListOf<SongData>()
 
     fun initializeListIfNeeded(context: Context) {
         if(initialized) return
@@ -63,7 +63,7 @@ class LibrarySongsViewModel: ViewModel() {
                 val duration = cursor.getInt(durationColumn)
 
                 librarySongs.add(
-                    LibrarySongData(
+                    SongData(
                         songId = id,
                         contentUri = contentUri,
                         songTitle = title,

@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
-import com.alessiocameroni.revomusicplayer.library.artists.viewmodels.LibraryArtistsViewModel
+import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
@@ -30,7 +30,7 @@ import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 fun ArtistsScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: LibraryArtistsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: ArtistsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }

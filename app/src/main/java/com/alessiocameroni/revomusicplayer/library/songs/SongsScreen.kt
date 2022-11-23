@@ -22,13 +22,13 @@ import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.components.NestedGridTypeMenu
-import com.alessiocameroni.revomusicplayer.library.songs.viewmodels.LibrarySongsViewModel
+import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SongsScreen(
     navController: NavController,
-    viewModel: LibrarySongsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: SongsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }

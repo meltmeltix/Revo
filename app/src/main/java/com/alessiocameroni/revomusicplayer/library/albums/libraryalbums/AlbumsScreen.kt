@@ -18,9 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
-import com.alessiocameroni.revomusicplayer.library.albums.viewmodels.LibraryAlbumsViewModel
+import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
@@ -30,7 +32,7 @@ import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 fun AlbumsScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: LibraryAlbumsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: AlbumsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }
@@ -84,7 +86,7 @@ fun AlbumsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                itemsIndexed(libraryAlbums) { i, item ->
+                itemsIndexed(libraryAlbums) { _, item ->
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
@@ -94,7 +96,15 @@ fun AlbumsScreen(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_outlined_album_24),
-                            unitAlbumImage = {  },
+                            unitAlbumImage = {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(item.albumCoverUri)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = stringResource(id = R.string.desc_albumImage)
+                                )
+                            },
                             stringTitleItem = item.albumTitle,
                             stringSubtitleItem = item.artist
                         )
