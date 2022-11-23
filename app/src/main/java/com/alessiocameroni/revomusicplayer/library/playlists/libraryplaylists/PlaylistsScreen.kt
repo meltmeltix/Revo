@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.components.AddPlaylistDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,6 +29,7 @@ fun PlaylistsScreen(
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val openDialog = remember { mutableStateOf(false) }
 
     /*val items by remember {
         mutableStateOf(
@@ -80,7 +82,7 @@ fun PlaylistsScreen(
         },
         floatingActionButton = {
             LargeFloatingActionButton(
-                onClick = {  }
+                onClick = { openDialog.value = true }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
@@ -91,6 +93,13 @@ fun PlaylistsScreen(
         },
         floatingActionButtonPosition = FabPosition.Center,
         content = { padding ->
+            if(openDialog.value) {
+                AddPlaylistDialog(
+                    modifier = Modifier,
+                    openDialog = openDialog
+                )
+            }
+
             LazyVerticalGrid(
                 modifier = Modifier
                     .padding(padding)

@@ -45,7 +45,7 @@ fun SearchScreen(navController: NavController) {
                                 trailingIcon = {
                                     IconButton(onClick = { text = "" }) {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.ic_filled_close_24),
+                                            painter = painterResource(id = R.drawable.ic_baseline_close_24),
                                             contentDescription = stringResource(id = R.string.desc_searchMenu),
                                             tint = MaterialTheme.colorScheme.onSurface
                                         )

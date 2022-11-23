@@ -76,4 +76,7 @@
     <string name="desc_1_playerLayout">The player will use the </string>
     <string name="desc_2_playerLayout">layout to display the Play and skip buttons</string>
     <string name="desc_albumImage">Album image</string>
+    <string name="str_newPlaylist">New playlist</string>
+    <string name="desc_closeNewPlaylistDialog">Close the new playlist dialog</string>
+    <string name="str_create">Create</string>
 </resources>
