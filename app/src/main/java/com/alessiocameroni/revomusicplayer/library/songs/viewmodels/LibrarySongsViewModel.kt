@@ -56,6 +56,10 @@ class LibrarySongsViewModel: ViewModel() {
                 val title = cursor.getString(titleColumn)
                 val artist = cursor.getString(artistColumn)
                 val albumId = cursor.getLong(albumIdColumn)
+
+                val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
+                val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
+
                 val duration = cursor.getInt(durationColumn)
 
                 librarySongs.add(
@@ -65,6 +69,7 @@ class LibrarySongsViewModel: ViewModel() {
                         songTitle = title,
                         artist = artist,
                         albumId = albumId,
+                        albumCoverUri = albumCoverUri,
                         duration = duration
                     )
                 )

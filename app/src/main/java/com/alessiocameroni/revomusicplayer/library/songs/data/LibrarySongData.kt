@@ -8,5 +8,6 @@ data class LibrarySongData(
     var songTitle: String,
     var artist: String,
     var albumId: Long,
-    var duration: Int
+    val albumCoverUri: Uri,
+    var duration: Int,
 )

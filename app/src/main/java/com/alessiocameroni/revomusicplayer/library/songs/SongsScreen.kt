@@ -101,7 +101,7 @@ fun SongsScreen(
                             unitAlbumImage = {
                                 AsyncImage(
                                     model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.contentUri)
+                                        .data(item.albumCoverUri)
                                         .crossfade(true)
                                         .build(),
                                     contentDescription = stringResource(id = R.string.desc_albumImage)
