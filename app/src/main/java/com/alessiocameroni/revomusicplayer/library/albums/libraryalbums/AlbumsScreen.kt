@@ -22,10 +22,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,13 +91,16 @@ fun AlbumsScreen(
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
-                            .clickable { },
+                            .clickable {
+                                navControllerBottomBar.navigate(AlbumsScreens.AlbumViewScreen.route)
+                            },
                     ) {
-                        LibraryNoMenuListItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            painterIcon = painterResource(id = R.drawable.ic_outlined_album_24),
-                            unitAlbumImage = {
+                        LibraryListItem(
+                            modifier = Modifier,
+                            painterPlaceholder = painterResource(id = R.drawable.ic_outlined_album_24),
+                            stringMainTitle = item.albumTitle,
+                            stringSubtitle = item.artist,
+                            leadingUnit = {
                                 AsyncImage(
                                     model = ImageRequest.Builder(LocalContext.current)
                                         .data(item.albumCoverUri)
@@ -105,8 +109,8 @@ fun AlbumsScreen(
                                     contentDescription = stringResource(id = R.string.desc_albumImage)
                                 )
                             },
-                            stringTitleItem = item.albumTitle,
-                            stringSubtitleItem = item.artist
+                            unitMenuItems = {  },
+                            menuEnabled = false
                         )
                     }
                 }

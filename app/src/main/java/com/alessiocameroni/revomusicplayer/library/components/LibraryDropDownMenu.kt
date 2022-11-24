@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.library.components
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
@@ -59,7 +60,7 @@ fun LibraryDropDownMenu(
                     },
                     trailingIcon = {
                         Icon(
-                            painter = painterResource(id = R.drawable.baseline_arrow_right_24),
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24),
                             contentDescription = stringResource(id = R.string.desc_openGridTypeMenu)
                         )
                     }
@@ -140,4 +141,16 @@ fun NestedGridTypeMenu(
             }
         }
     }
+}
+
+@Composable
+fun DropdownMenuTitle(
+    text: String
+) {
+    Text(
+        modifier = Modifier
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        text = text,
+        style = MaterialTheme.typography.labelLarge
+    )
 }

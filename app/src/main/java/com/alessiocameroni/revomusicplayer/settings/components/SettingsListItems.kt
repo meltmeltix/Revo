@@ -23,9 +23,7 @@ fun SettingsItem(
     leadingUnit: @Composable (() -> Unit?),
     trailingUnit: @Composable (() -> Unit?)
 ) {
-    Box(
-        modifier = modifier.fillMaxWidth()
-    ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val leadingBox = createRefFor("LeadingBox")
             val trailingBox = createRefFor("TrailingBox")
@@ -108,9 +106,7 @@ fun SettingsLUnitItem(
     stringSubtitle: String,
     leadingUnit: @Composable (() -> Unit?)
 ) {
-    Box(
-        modifier = modifier.fillMaxWidth()
-    ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val leadingBox = createRefFor("LeadingBox")
             val textTitle = createRefFor("TextTitle")
@@ -177,9 +173,7 @@ fun SettingsLUnitTitleItem(
     stringMainTitle: String,
     leadingUnit: @Composable (() -> Unit?)
 ) {
-    Box(
-        modifier = modifier.fillMaxWidth()
-    ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val leadingBox = createRefFor("LeadingBox")
             val textTitle = createRefFor("TextTitle")
@@ -228,9 +222,7 @@ fun SettingsTextItem(
     stringMainTitle: String,
     stringSubtitle: String
 ) {
-    Box(
-        modifier = modifier.fillMaxWidth()
-    ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val textTitle = createRefFor("TextTitle")
             val textSubtitle = createRefFor("TextSubtitle")
@@ -278,9 +270,7 @@ fun SectionTitle(
     modifier: Modifier,
     stringTitle: String,
 ) {
-    Box(
-        modifier = modifier
-    ) {
+    Row(modifier = modifier) {
         Text(
             modifier = Modifier
                 .padding(25.dp, 25.dp, 25.dp, 0.dp)

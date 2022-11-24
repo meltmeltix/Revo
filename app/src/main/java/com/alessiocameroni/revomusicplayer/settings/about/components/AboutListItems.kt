@@ -27,7 +27,7 @@ fun BigCreditsItem(
     stringName: String,
     unitProfile: @Composable () -> Unit
 ) {
-    Box( modifier = modifier ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val imageProfile = createRefFor("ImageProfile")
             val columnText = createRefFor("ColumnText")
@@ -97,9 +97,7 @@ fun CreditsItem(
     stringDescription: String,
     unitProfile: @Composable (() -> Unit)?
 ) {
-    Box(
-        modifier = modifier
-    ) {
+    Row(modifier = modifier) {
         val constraints = ConstraintSet {
             val boxImage = createRefFor("BoxImage")
             val boxText = createRefFor("BoxText")

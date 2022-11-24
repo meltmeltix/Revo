@@ -70,7 +70,7 @@ fun NoSongsScreen(
                     modifier = Modifier
                         .size(50.dp)
                         .padding(bottom = 5.dp),
-                    painter = painterResource(id = R.drawable.baseline_music_off_24),
+                    painter = painterResource(id = R.drawable.ic_baseline_music_off_24),
                     contentDescription = stringResource(id = R.string.str_icon)
                 )
 

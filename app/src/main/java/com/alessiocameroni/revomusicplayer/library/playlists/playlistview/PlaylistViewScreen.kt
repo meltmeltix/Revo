@@ -14,8 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.components.LibraryActionsItem
-import com.alessiocameroni.revomusicplayer.library.components.LibraryHeaderListItem
+import com.alessiocameroni.revomusicplayer.library.components.ActionButtonsItem
+import com.alessiocameroni.revomusicplayer.library.components.HeaderListItem
 import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +85,7 @@ fun PlaylistViewScreen(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
                 item {
-                    LibraryHeaderListItem(
+                    HeaderListItem(
                         modifier = Modifier
                             .padding(bottom = 12.dp)
                             .fillMaxWidth(),
@@ -97,7 +97,7 @@ fun PlaylistViewScreen(
                 }
 
                 item {
-                    LibraryActionsItem(modifier = Modifier.height(50.dp))
+                    ActionButtonsItem(modifier = Modifier.height(50.dp))
                 }
 
                 /*items(items.size) { i ->

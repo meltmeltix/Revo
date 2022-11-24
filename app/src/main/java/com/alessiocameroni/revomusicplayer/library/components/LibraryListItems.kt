@@ -15,102 +15,70 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.layoutId
 import com.alessiocameroni.revomusicplayer.R
 
 @Composable
 fun LibraryListItem(
     modifier: Modifier,
-    painterIcon: Painter,
-    unitAlbumImage: @Composable (() -> Unit),
-    stringTitleItem: String,
-    stringSubtitleItem: String,
-    unitMenuItems: @Composable () -> Unit
+    painterPlaceholder: Painter,
+    stringMainTitle: String,
+    stringSubtitle: String,
+    leadingUnit: @Composable (() -> Unit?),
+    unitMenuItems: @Composable () -> Unit,
+    menuEnabled: Boolean
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box( modifier = modifier.height(80.dp) ) {
-        val constraints = ConstraintSet {
-            val albumCover = createRefFor("AlbumCover")
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-            val menuButton = createRefFor("MenuButton")
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(15.dp, 10.dp, 0.dp, 10.dp)
+                .clip(MaterialTheme.shapes.medium)
+                .background(MaterialTheme.colorScheme.primary)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterPlaceholder,
+                contentDescription = stringResource(id = R.string.desc_albumImage),
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
 
-            constrain(albumCover) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(albumCover.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(textSubtitle.top)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(albumCover.end)
-                top.linkTo(textTitle.bottom)
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(menuButton) {
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-            }
+            leadingUnit()
         }
 
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxSize()
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+                .weight(1f)
         ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("AlbumCover")
-                    .padding(start = 15.dp)
-                    .clip(MaterialTheme.shapes.large)
-                    .size(60.dp)
-                    .background(MaterialTheme.colorScheme.primary),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterIcon,
-                    contentDescription = stringResource(id = R.string.str_songs),
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-
-                unitAlbumImage()
-            }
-
             Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .width(250.dp)
-                    .padding(start = 15.dp, top = 20.dp),
-                text = stringTitleItem,
+                text = stringMainTitle,
+                modifier = Modifier,
                 style = MaterialTheme.typography.titleMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
 
             Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .width(250.dp)
-                    .padding(start = 15.dp, bottom = 20.dp),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                text = stringSubtitleItem,
+                text = stringSubtitle,
+                modifier = Modifier,
                 style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
+        }
 
+        if(menuEnabled) {
             Box(
                 modifier = Modifier
-                    .layoutId("MenuButton")
                     .padding(end = 5.dp)
             ) {
                 IconButton(
@@ -134,296 +102,12 @@ fun LibraryListItem(
                 }
             }
         }
+
     }
 }
 
 @Composable
-fun LibraryNoMenuListItem(
-    modifier: Modifier,
-    painterIcon: Painter,
-    unitAlbumImage: @Composable (() -> Unit),
-    stringTitleItem: String,
-    stringSubtitleItem: String
-) {
-    Box( modifier = modifier.height(80.dp) ) {
-        val constraints = ConstraintSet {
-            val albumCover = createRefFor("AlbumCover")
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-
-            constrain(albumCover) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(albumCover.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(textSubtitle.top)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(albumCover.end)
-                top.linkTo(textTitle.bottom)
-                bottom.linkTo(parent.bottom)
-            }
-        }
-
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("AlbumCover")
-                    .padding(start = 15.dp)
-                    .clip(MaterialTheme.shapes.large)
-                    .size(60.dp)
-                    .background(MaterialTheme.colorScheme.primary),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterIcon,
-                    contentDescription = stringResource(id = R.string.str_songs),
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-
-                unitAlbumImage()
-            }
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .width(290.dp)
-                    .padding(start = 15.dp, top = 20.dp),
-                text = stringTitleItem,
-                style = MaterialTheme.typography.titleMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .width(290.dp)
-                    .padding(start = 15.dp, bottom = 20.dp),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                text = stringSubtitleItem,
-                style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-        }
-    }
-}
-
-@Composable
-fun LibraryLargeGridItem(
-    modifier: Modifier,
-    painterIcon: Painter,
-    unitAlbumImage: @Composable (() -> Unit?)?,
-    stringTitleItem: String,
-    stringSubtitleItem: String,
-    unitMenuItems: @Composable (() -> Unit)?,
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    Box( modifier = modifier ) {
-        val constraints = ConstraintSet {
-            val albumCover = createRefFor("AlbumCover")
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-            val menuButton = createRefFor("MenuButton")
-
-            constrain(albumCover) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(parent.start)
-                top.linkTo(albumCover.bottom)
-                end.linkTo(menuButton.start)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(parent.start)
-                top.linkTo(textTitle.bottom)
-                end.linkTo(menuButton.start)
-            }
-
-            constrain(menuButton) {
-                top.linkTo(albumCover.bottom)
-                end.linkTo(parent.end)
-            }
-        }
-
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("AlbumCover")
-                    .padding(8.dp, 16.dp, 8.dp, 8.dp)
-                    .clip(MaterialTheme.shapes.large)
-                    .size(164.dp)
-                    .background(MaterialTheme.colorScheme.primary),
-                contentAlignment = Alignment.Center
-            ) {
-                if (unitAlbumImage != null) {
-                    unitAlbumImage()
-                } else {
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp),
-                        painter = painterIcon,
-                        contentDescription = stringResource(id = R.string.str_songs),
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            }
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .padding(8.dp, 2.dp, 8.dp, 0.dp)
-                    .width(100.dp),
-                text = stringTitleItem,
-                style = MaterialTheme.typography.titleMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .padding(8.dp, 0.dp, 8.dp, 8.dp)
-                    .width(100.dp),
-                text = stringSubtitleItem,
-                style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-
-            Box(
-                modifier = Modifier
-                    .layoutId("MenuButton")
-                    .padding(8.dp, 0.dp, 8.dp, 8.dp)
-                    .size(48.dp)
-            ) {
-                if (unitMenuItems != null) {
-                    IconButton(
-                        onClick = { expanded = true },
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                            contentDescription = stringResource(id = R.string.str_settings)
-                        )
-                    }
-
-                    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(20.dp))) {
-                        DropdownMenu(
-                            modifier = Modifier
-                                .width(180.dp),
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            unitMenuItems()
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun LibraryNoMenuLargeGridItem(
-    modifier: Modifier,
-    painterIcon: Painter,
-    unitAlbumImage: @Composable (() -> Unit?)?,
-    stringTitleItem: String,
-    stringSubtitleItem: String
-) {
-    Box( modifier = modifier ) {
-        val constraints = ConstraintSet {
-            val albumCover = createRefFor("AlbumCover")
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-
-            constrain(albumCover) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(parent.start)
-                top.linkTo(albumCover.bottom)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(parent.start)
-                top.linkTo(textTitle.bottom)
-            }
-        }
-
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("AlbumCover")
-                    .padding(8.dp, 16.dp, 8.dp, 8.dp)
-                    .clip(MaterialTheme.shapes.large)
-                    .size(164.dp)
-                    .background(MaterialTheme.colorScheme.primary),
-                contentAlignment = Alignment.Center
-            ) {
-                if (unitAlbumImage != null) {
-                    unitAlbumImage()
-                } else {
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp),
-                        painter = painterIcon,
-                        contentDescription = stringResource(id = R.string.str_songs),
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            }
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .padding(8.dp, 2.dp, 8.dp, 0.dp)
-                    .width(164.dp),
-                text = stringTitleItem,
-                style = MaterialTheme.typography.titleMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-
-            Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .padding(8.dp, 0.dp, 8.dp, 8.dp)
-                    .width(164.dp),
-                text = stringSubtitleItem,
-                style = MaterialTheme.typography.bodyMedium,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
-            )
-        }
-    }
-}
-
-@Composable
-fun LibraryActionsItem(
+fun ActionButtonsItem(
     modifier: Modifier
 ) {
     LazyVerticalGrid(
@@ -469,7 +153,7 @@ fun LibraryActionsItem(
 }
 
 @Composable
-fun LibraryHeaderListItem(
+fun HeaderListItem(
     modifier: Modifier,
     stringTopInfo: String?,
     stringBottomInfo: String,

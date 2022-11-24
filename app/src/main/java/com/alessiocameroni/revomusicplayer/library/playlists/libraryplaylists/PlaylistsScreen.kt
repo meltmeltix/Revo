@@ -31,18 +31,6 @@ fun PlaylistsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val openDialog = remember { mutableStateOf(false) }
 
-    /*val items by remember {
-        mutableStateOf(
-            (1..8).map {
-                PlaylistItemData(
-                    stringTitle = "Playlist Title",
-                    stringSongAmount = "20",
-                    stringMinutes = "12:34"
-                )
-            }
-        )
-    }*/
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -108,41 +96,7 @@ fun PlaylistsScreen(
                 contentPadding = PaddingValues(bottom = 128.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
-                /*items(items.size) { i ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable {
-                                navControllerBottomBar.navigate(
-                                    PlaylistsScreens.PlaylistViewScreen.route
-                                )
-                            },
-                    ) {
-                        PlaylistItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            unitAlbumImage = null,
-                            stringTitleItem = items[i].stringTitle,
-                            stringSongAmount = items[i].stringSongAmount,
-                            stringMinutes = items[i].stringMinutes,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_delete))
-                                    },
-                                    onClick = {  },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_remove_24),
-                                            contentDescription = stringResource(id = R.string.desc_deleteplaylist)
-                                        )
-                                    }
-                                )
-                            }
-                        )
-                    }
-                }*/
+
             }
         }
     )

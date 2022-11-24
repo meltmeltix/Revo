@@ -95,6 +95,37 @@ fun SongsScreen(
                             .clickable { },
                     ) {
                         LibraryListItem(
+                            modifier = Modifier,
+                            painterPlaceholder = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                            stringMainTitle = item.songTitle,
+                            stringSubtitle = item.artist,
+                            leadingUnit = {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(item.albumCoverUri)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = stringResource(id = R.string.desc_albumImage)
+                                )
+                            },
+                            unitMenuItems = {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = stringResource(id = R.string.str_addToPlaylist))
+                                    },
+                                    onClick = { },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                                            contentDescription = stringResource(id = R.string.str_addToPlaylist)
+                                        )
+                                    }
+                                )
+                            },
+                            menuEnabled = true
+                        )
+
+                        /*LibraryListItemOld(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
@@ -123,7 +154,7 @@ fun SongsScreen(
                                     }
                                 )
                             }
-                        )
+                        )*/
                     }
                 }
             }

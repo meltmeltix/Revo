@@ -20,10 +20,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
+import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.LibraryNoMenuListItem
-import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,16 +86,11 @@ fun ArtistsScreen(
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
-                            .clickable { },
+                            .clickable {
+                                navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
+                            },
                     ) {
-                        LibraryNoMenuListItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            painterIcon = painterResource(id = R.drawable.ic_outlined_account_circle_24),
-                            unitAlbumImage = {  },
-                            stringTitleItem = item.artistName,
-                            stringSubtitleItem = "PH"
-                        )
+
                     }
                 }
             }
