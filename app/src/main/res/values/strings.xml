@@ -79,4 +79,5 @@
     <string name="str_newPlaylist">New playlist</string>
     <string name="desc_closeNewPlaylistDialog">Close the new playlist dialog</string>
     <string name="str_create">Create</string>
+    <string name="str_playlistTitle">Playlist title</string>
 </resources>

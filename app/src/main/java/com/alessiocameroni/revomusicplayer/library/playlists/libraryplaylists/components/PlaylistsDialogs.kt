@@ -1,16 +1,17 @@
 package com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.alessiocameroni.revomusicplayer.R
@@ -22,6 +23,7 @@ fun AddPlaylistDialog(
     openDialog: MutableState<Boolean>
 ) {
     val buttonEnabled = remember { mutableStateOf(true) }
+    var text by rememberSaveable { mutableStateOf("") }
 
     Dialog(
         properties = DialogProperties(
@@ -31,7 +33,7 @@ fun AddPlaylistDialog(
         onDismissRequest = { openDialog.value = false }
     ) {
         Scaffold(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize(),
             topBar = {
                 TopAppBar(
@@ -57,11 +59,17 @@ fun AddPlaylistDialog(
                 )
             },
             content = { padding ->
-                Surface(
+                Column(
                     modifier = Modifier
                         .padding(padding)
+                        .padding(horizontal = 24.dp)
                 ) {
-
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = text,
+                        onValueChange = { text = it },
+                        label = { Text(text = stringResource(id = R.string.str_playlistTitle)) }
+                    )
                 }
             }
         )
