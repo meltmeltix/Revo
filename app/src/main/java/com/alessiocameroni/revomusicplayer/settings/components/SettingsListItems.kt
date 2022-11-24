@@ -114,7 +114,6 @@ fun SettingsLUnitItem(
     ) {
         Box(
             modifier = Modifier
-                .layoutId("LeadingBox")
                 .padding(horizontal = 5.dp)
                 .size(60.dp),
             contentAlignment = Alignment.Center
@@ -128,18 +127,14 @@ fun SettingsLUnitItem(
                 .weight(1f)
         ) {
             Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .width(310.dp),
+                modifier = Modifier.fillMaxWidth(),
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 20.sp
             )
 
             Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .width(310.dp),
+                modifier = Modifier.fillMaxWidth(),
                 text = stringSubtitle,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 14.sp,
@@ -164,7 +159,6 @@ fun SettingsLUnitTitleItem(
     ) {
         Box(
             modifier = Modifier
-                .layoutId("LeadingBox")
                 .padding(horizontal = 5.dp)
                 .size(60.dp),
             contentAlignment = Alignment.Center
@@ -178,9 +172,7 @@ fun SettingsLUnitTitleItem(
                 .weight(1f)
         ) {
             Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .width(310.dp),
+                modifier = Modifier.fillMaxWidth(),
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 20.sp
@@ -205,14 +197,14 @@ fun SettingsTextItem(
                 .weight(1f)
         ) {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 20.sp
             )
 
             Text(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 text = stringSubtitle,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 14.sp
@@ -250,7 +242,8 @@ fun InfoText(
 ) {
     Text(
         modifier = modifier
-            .padding(horizontal = 25.dp, vertical = 10.dp),
+            .padding(horizontal = 25.dp, vertical = 10.dp)
+            .fillMaxWidth(),
         text = stringTitle,
         style = MaterialTheme.typography.bodyMedium,
         fontSize = 14.sp

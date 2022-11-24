@@ -27,43 +27,19 @@ fun CenterSongControls(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val songInfoConstraints = ConstraintSet {
-                val songNameText = createRefFor("SongNameText")
-                val artistNameText = createRefFor("ArtistNameText")
-                val favoriteIconButton = createRefFor("FavoriteIconButton")
-
-                constrain(songNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(artistNameText.top)
-                }
-
-                constrain(artistNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(songNameText.bottom)
-                    bottom.linkTo(parent.bottom)
-                }
-
-                constrain(favoriteIconButton) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                songInfoConstraints,
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .weight(1f)
             ) {
                 Text(
                     modifier = Modifier
-                        .layoutId("SongNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "SongName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.headlineSmall,
@@ -73,33 +49,32 @@ fun CenterSongControls(
 
                 Text(
                     modifier = Modifier
-                        .layoutId("ArtistNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "ArtistName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+            }
 
-                IconToggleButton(
-                    modifier = Modifier
-                        .layoutId("FavoriteIconButton"),
-                    checked = favouriteChecked,
-                    onCheckedChange = { favouriteChecked = it }
-                ) {
-                    if(favouriteChecked) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    }
+            IconToggleButton(
+                modifier = Modifier
+                    .padding(start = 15.dp),
+                checked = favouriteChecked,
+                onCheckedChange = { favouriteChecked = it }
+            ) {
+                if(favouriteChecked) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
                 }
             }
         }
@@ -216,43 +191,19 @@ fun LeftSongControls(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val songInfoConstraints = ConstraintSet {
-                val songNameText = createRefFor("SongNameText")
-                val artistNameText = createRefFor("ArtistNameText")
-                val favoriteIconButton = createRefFor("FavoriteIconButton")
-
-                constrain(songNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(artistNameText.top)
-                }
-
-                constrain(artistNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(songNameText.bottom)
-                    bottom.linkTo(parent.bottom)
-                }
-
-                constrain(favoriteIconButton) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                songInfoConstraints,
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .weight(1f)
             ) {
                 Text(
                     modifier = Modifier
-                        .layoutId("SongNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "SongName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.headlineSmall,
@@ -262,33 +213,32 @@ fun LeftSongControls(
 
                 Text(
                     modifier = Modifier
-                        .layoutId("ArtistNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "ArtistName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+            }
 
-                IconToggleButton(
-                    modifier = Modifier
-                        .layoutId("FavoriteIconButton"),
-                    checked = favouriteChecked,
-                    onCheckedChange = { favouriteChecked = it }
-                ) {
-                    if(favouriteChecked) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    }
+            IconToggleButton(
+                modifier = Modifier
+                    .padding(start = 15.dp),
+                checked = favouriteChecked,
+                onCheckedChange = { favouriteChecked = it }
+            ) {
+                if(favouriteChecked) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
                 }
             }
         }
@@ -407,43 +357,19 @@ fun RightSongControls(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            val songInfoConstraints = ConstraintSet {
-                val songNameText = createRefFor("SongNameText")
-                val artistNameText = createRefFor("ArtistNameText")
-                val favoriteIconButton = createRefFor("FavoriteIconButton")
-
-                constrain(songNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(artistNameText.top)
-                }
-
-                constrain(artistNameText) {
-                    start.linkTo(parent.start)
-                    top.linkTo(songNameText.bottom)
-                    bottom.linkTo(parent.bottom)
-                }
-
-                constrain(favoriteIconButton) {
-                    top.linkTo(parent.top)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                songInfoConstraints,
-                modifier = Modifier.fillMaxWidth()
+            Column(
+                modifier = Modifier
+                    .weight(1f)
             ) {
                 Text(
                     modifier = Modifier
-                        .layoutId("SongNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "SongName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.headlineSmall,
@@ -453,33 +379,32 @@ fun RightSongControls(
 
                 Text(
                     modifier = Modifier
-                        .layoutId("ArtistNameText")
                         .padding(vertical = 2.dp)
-                        .width(280.dp),
+                        .fillMaxWidth(),
                     text = "ArtistName",
                     textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
+            }
 
-                IconToggleButton(
-                    modifier = Modifier
-                        .layoutId("FavoriteIconButton"),
-                    checked = favouriteChecked,
-                    onCheckedChange = { favouriteChecked = it }
-                ) {
-                    if(favouriteChecked) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                            contentDescription = stringResource(id = R.string.desc_favorite)
-                        )
-                    }
+            IconToggleButton(
+                modifier = Modifier
+                    .padding(start = 15.dp),
+                checked = favouriteChecked,
+                onCheckedChange = { favouriteChecked = it }
+            ) {
+                if(favouriteChecked) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_filled_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
+                } else {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
+                        contentDescription = stringResource(id = R.string.desc_favorite)
+                    )
                 }
             }
         }

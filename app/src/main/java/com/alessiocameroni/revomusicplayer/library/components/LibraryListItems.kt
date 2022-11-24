@@ -14,28 +14,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alessiocameroni.revomusicplayer.R
-
-@Preview(showBackground = true)
-@Composable
-fun Preview() {
-    LibraryIconListItem(
-        modifier = Modifier,
-        stringMainTitle = "This is the main title",
-        stringSubtitle = "This is the subtitle",
-        leadingUnit = {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_outlined_groups_24),
-                contentDescription = "AAAAAAAAAAA"
-            )
-        },
-        unitMenuItems = {  },
-        menuEnabled = true
-    )
-}
-
 
 @Composable
 fun LibraryListItem(
@@ -79,7 +59,7 @@ fun LibraryListItem(
         ) {
             Text(
                 text = stringMainTitle,
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
@@ -88,7 +68,7 @@ fun LibraryListItem(
 
             Text(
                 text = stringSubtitle,
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
@@ -158,7 +138,7 @@ fun LibraryIconListItem(
         ) {
             Text(
                 text = stringMainTitle,
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
@@ -167,7 +147,7 @@ fun LibraryIconListItem(
 
             Text(
                 text = stringSubtitle,
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

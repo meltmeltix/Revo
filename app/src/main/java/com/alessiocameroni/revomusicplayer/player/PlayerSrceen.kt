@@ -10,9 +10,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
@@ -41,7 +38,55 @@ fun PlayerScreen(navController: NavController) {
                     )
                 },
                 content = { padding ->
-                    val constraints = ConstraintSet {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                start = 30.dp,
+                                top = padding.calculateTopPadding(),
+                                end = 30.dp,
+                                bottom = padding.calculateBottomPadding() + 15.dp,
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(15.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .aspectRatio(1f)
+                                .weight(1f)
+                                .clip(MaterialTheme.shapes.extraLarge)
+                                .background(MaterialTheme.colorScheme.primary),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier,
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    modifier = Modifier
+                                        .size(120.dp),
+                                    painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                                    contentDescription = stringResource(id = R.string.str_songs),
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(246.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            CenterSongControls(
+                                modifier = Modifier,
+                                floatSliderPosition = sliderPosition
+                            )
+                        }
+                    }
+
+                    /*val constraints = ConstraintSet {
                         val boxAlbumCover = createRefFor("AlbumCover")
                         val boxPlayerControls = createRefFor("PlayerControls")
 
@@ -99,7 +144,7 @@ fun PlayerScreen(navController: NavController) {
                                 floatSliderPosition = sliderPosition
                             )
                         }
-                    }
+                    }*/
                 }
             )
         }
