@@ -14,8 +14,28 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alessiocameroni.revomusicplayer.R
+
+@Preview(showBackground = true)
+@Composable
+fun Preview() {
+    LibraryIconListItem(
+        modifier = Modifier,
+        stringMainTitle = "This is the main title",
+        stringSubtitle = "This is the subtitle",
+        leadingUnit = {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_outlined_groups_24),
+                contentDescription = "AAAAAAAAAAA"
+            )
+        },
+        unitMenuItems = {  },
+        menuEnabled = true
+    )
+}
+
 
 @Composable
 fun LibraryListItem(
@@ -102,7 +122,85 @@ fun LibraryListItem(
                 }
             }
         }
+    }
+}
 
+@Composable
+fun LibraryIconListItem(
+    modifier: Modifier,
+    stringMainTitle: String,
+    stringSubtitle: String,
+    leadingUnit: @Composable () -> Unit,
+    unitMenuItems: @Composable () -> Unit,
+    menuEnabled: Boolean
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 5.dp, vertical = 9.dp)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            leadingUnit()
+        }
+
+        Column(
+            modifier = Modifier
+                .padding(end = 15.dp)
+                .weight(1f)
+        ) {
+            Text(
+                text = stringMainTitle,
+                modifier = Modifier,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = stringSubtitle,
+                modifier = Modifier,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+
+        if(menuEnabled) {
+            Box(
+                modifier = Modifier
+                    .padding(end = 5.dp)
+            ) {
+                IconButton(
+                    onClick = { expanded = true },
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                        contentDescription = stringResource(id = R.string.str_settings)
+                    )
+                }
+
+                MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = RoundedCornerShape(20.dp))) {
+                    DropdownMenu(
+                        modifier = Modifier
+                            .width(180.dp),
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false }
+                    ) {
+                        unitMenuItems()
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -24,6 +24,7 @@ import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryIconListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +91,19 @@ fun ArtistsScreen(
                                 navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
                             },
                     ) {
-
+                        LibraryIconListItem(
+                            modifier = Modifier,
+                            stringMainTitle = item.artistName,
+                            stringSubtitle = "PH",
+                            leadingUnit = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
+                                    contentDescription = stringResource(id = R.string.str_artists)
+                                )
+                            },
+                            unitMenuItems = {  },
+                            menuEnabled = false
+                        )
                     }
                 }
             }
