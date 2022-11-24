@@ -106,46 +106,30 @@ fun SettingsLUnitItem(
     stringSubtitle: String,
     leadingUnit: @Composable (() -> Unit?)
 ) {
-    Row(modifier = modifier) {
-        val constraints = ConstraintSet {
-            val leadingBox = createRefFor("LeadingBox")
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-
-            constrain(leadingBox) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(leadingBox.end)
-                top.linkTo(parent.top)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(leadingBox.end)
-                top.linkTo(textTitle.bottom)
-            }
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .layoutId("LeadingBox")
+                .padding(horizontal = 5.dp)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            leadingUnit()
         }
 
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .padding(end = 15.dp)
+                .weight(1f)
         ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("LeadingBox")
-                    .padding(horizontal = 5.dp, vertical = 9.dp)
-                    .size(60.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                leadingUnit()
-            }
-
             Text(
                 modifier = Modifier
                     .layoutId("TextTitle")
-                    .padding(top = 15.dp)
                     .width(310.dp),
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
@@ -155,7 +139,6 @@ fun SettingsLUnitItem(
             Text(
                 modifier = Modifier
                     .layoutId("TextSubtitle")
-                    .padding(bottom = 15.dp)
                     .width(310.dp),
                 text = stringSubtitle,
                 style = MaterialTheme.typography.bodyMedium,
@@ -173,40 +156,30 @@ fun SettingsLUnitTitleItem(
     stringMainTitle: String,
     leadingUnit: @Composable (() -> Unit?)
 ) {
-    Row(modifier = modifier) {
-        val constraints = ConstraintSet {
-            val leadingBox = createRefFor("LeadingBox")
-            val textTitle = createRefFor("TextTitle")
-
-            constrain(leadingBox) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-            }
-
-            constrain(textTitle) {
-                start.linkTo(leadingBox.end)
-                top.linkTo(parent.top)
-            }
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .layoutId("LeadingBox")
+                .padding(horizontal = 5.dp)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            leadingUnit()
         }
 
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            modifier = Modifier
+                .padding(end = 15.dp)
+                .weight(1f)
         ) {
-            Box(
-                modifier = Modifier
-                    .layoutId("LeadingBox")
-                    .padding(horizontal = 5.dp, vertical = 9.dp)
-                    .size(60.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                leadingUnit()
-            }
-
             Text(
                 modifier = Modifier
                     .layoutId("TextTitle")
-                    .padding(top = 25.dp)
                     .width(310.dp),
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
@@ -222,41 +195,24 @@ fun SettingsTextItem(
     stringMainTitle: String,
     stringSubtitle: String
 ) {
-    Row(modifier = modifier) {
-        val constraints = ConstraintSet {
-            val textTitle = createRefFor("TextTitle")
-            val textSubtitle = createRefFor("TextSubtitle")
-
-            constrain(textTitle) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-            }
-
-            constrain(textSubtitle) {
-                start.linkTo(parent.start)
-                top.linkTo(textTitle.bottom)
-            }
-        }
-
-        ConstraintLayout(
-            constraints,
-            modifier = Modifier.fillMaxWidth()
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 25.dp, vertical = 15.dp)
+                .weight(1f)
         ) {
             Text(
-                modifier = Modifier
-                    .layoutId("TextTitle")
-                    .padding(start = 25.dp, end = 25.dp, top = 15.dp)
-                    .width(360.dp),
+                modifier = Modifier,
                 text = stringMainTitle,
                 style = MaterialTheme.typography.titleLarge,
                 fontSize = 20.sp
             )
 
             Text(
-                modifier = Modifier
-                    .layoutId("TextSubtitle")
-                    .padding(start = 25.dp, end = 25.dp, bottom = 15.dp)
-                    .width(360.dp),
+                modifier = Modifier,
                 text = stringSubtitle,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 14.sp
@@ -270,7 +226,10 @@ fun SectionTitle(
     modifier: Modifier,
     stringTitle: String,
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
         Text(
             modifier = Modifier
                 .padding(25.dp, 25.dp, 25.dp, 0.dp)
