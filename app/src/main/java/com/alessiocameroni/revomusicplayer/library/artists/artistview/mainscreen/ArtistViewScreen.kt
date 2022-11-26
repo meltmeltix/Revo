@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.library.artists.artistview
+package com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -8,26 +8,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistalbums.ArtistTabAlbums
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistsongs.ArtistTabSongs
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen.data.tabs.ArtistTabsItemData
 import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
-@Preview(showBackground = true)
-@Composable
-fun Screen() {
-    val navController = rememberNavController()
-    val navBottomController = rememberNavController()
-
-    ArtistViewScreen(
-        navController = navController,
-        navControllerBottomBar = navBottomController
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
 @Composable
 fun ArtistViewScreen(
     navController: NavController,
@@ -35,7 +29,17 @@ fun ArtistViewScreen(
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    var state by remember { mutableStateOf(0) }
+    val pagerState = rememberPagerState(0)
+    val tabs = listOf(
+        ArtistTabsItemData(
+            name = stringResource(id = R.string.str_songs),
+            screen = { ArtistTabSongs() }
+        ),
+        ArtistTabsItemData(
+            name = stringResource(id = R.string.str_albums),
+            screen = { ArtistTabAlbums() }
+        )
+    )
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -71,7 +75,11 @@ fun ArtistViewScreen(
                             itemSettings = true
                         )
                     }
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    scrolledContainerColor = MaterialTheme.colorScheme.background
+                )
             )
         },
         content = { padding ->
@@ -80,24 +88,51 @@ fun ArtistViewScreen(
                     .fillMaxSize()
                     .padding(padding)
             ) {
-                TabRow(selectedTabIndex = state) {
-                    Tab(
-                        selected = true,
-                        onClick = {},
-                        text = {
-                            Text(text = "Tab 1")
-                        }
-                    )
+                ArtistViewTabs(
+                    modifier = Modifier,
+                    pagerState = pagerState,
+                    tabs = tabs
+                )
 
-                    Tab(
-                        selected = false,
-                        onClick = {},
-                        text = {
-                            Text(text = "Tab 2")
-                        }
-                    )
-                }
+                ArtistViewTabContent(
+                    tabs = tabs,
+                    pagerState = pagerState
+                )
             }
         }
     )
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun ArtistViewTabs(
+    modifier: Modifier,
+    pagerState: PagerState,
+    tabs: List<ArtistTabsItemData>
+) {
+    val scope = rememberCoroutineScope()
+
+    TabRow(
+        selectedTabIndex = pagerState.currentPage,
+        modifier = modifier
+    ) {
+        tabs.forEachIndexed { index, tab ->
+            Tab(
+                text = { Text(text = tab.name) },
+                selected = pagerState.currentPage == index,
+                onClick = { scope.launch { pagerState.animateScrollToPage(index) } }
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun ArtistViewTabContent(
+    tabs: List<ArtistTabsItemData>,
+    pagerState: PagerState
+) {
+    HorizontalPager(count = tabs.size, state = pagerState) { page ->
+        tabs[page].screen()
+    }
 }

@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.library.albums.albumview.AlbumViewScreen
 import com.alessiocameroni.revomusicplayer.library.albums.libraryalbums.AlbumsScreen
-import com.alessiocameroni.revomusicplayer.library.artists.artistview.ArtistViewScreen
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen.ArtistViewScreen
 import com.alessiocameroni.revomusicplayer.library.artists.libraryartists.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen

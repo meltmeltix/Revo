@@ -78,7 +78,7 @@ fun SongsScreen(
                         )
                     }
                 },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
             )
         },
         content = { padding ->
@@ -124,37 +124,6 @@ fun SongsScreen(
                             },
                             menuEnabled = true
                         )
-
-                        /*LibraryListItemOld(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            painterIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            unitAlbumImage = {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.albumCoverUri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = stringResource(id = R.string.desc_albumImage)
-                                )
-                            },
-                            stringTitleItem = item.songTitle,
-                            stringSubtitleItem = item.artist,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_addToPlaylist))
-                                    },
-                                    onClick = { },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.str_addToPlaylist)
-                                        )
-                                    }
-                                )
-                            }
-                        )*/
                     }
                 }
             }
