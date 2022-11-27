@@ -15,7 +15,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @Composable
-fun LibraryDropDownMenu(
+fun LibraryTopBarDropDownMenu(
     navController: NavController,
     expandedMenu: MutableState<Boolean>,
     expandedNestedMenu: MutableState<Boolean>,

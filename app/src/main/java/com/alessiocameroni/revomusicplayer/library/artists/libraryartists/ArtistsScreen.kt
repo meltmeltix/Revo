@@ -23,7 +23,7 @@ import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryIconListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +63,7 @@ fun ArtistsScreen(
                             )
                         }
 
-                        LibraryDropDownMenu(
+                        LibraryTopBarDropDownMenu(
                             navController = navController,
                             expandedMenu = expandedMenu,
                             expandedNestedMenu = expandedNestedMenu,
@@ -91,17 +91,17 @@ fun ArtistsScreen(
                                 navControllerBottomBar.navigate(
                                     ArtistsScreens.ArtistViewScreen.route +
                                             "/${item.artistId}" +
-                                            "/${item.artistName}"
+                                            "/${item.artist}"
                                 )
                             },
                     ) {
                         LibraryIconListItem(
                             modifier = Modifier,
-                            stringMainTitle = item.artistName,
+                            stringMainTitle = item.artist,
                             stringSubtitle = "PH",
                             leadingUnit = {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_account_circle_24),
+                                    painter = painterResource(id = R.drawable.outlined_artist_24),
                                     contentDescription = stringResource(id = R.string.str_artists)
                                 )
                             },

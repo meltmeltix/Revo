@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +60,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                             )
                         }
 
-                        LibraryDropDownMenu(
+                        LibraryTopBarDropDownMenu(
                             navController = navController,
                             expandedMenu = expandedMenu,
                             expandedNestedMenu = expandedNestedMenu,

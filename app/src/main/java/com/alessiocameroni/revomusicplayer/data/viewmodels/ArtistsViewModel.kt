@@ -45,7 +45,7 @@ class ArtistsViewModel: ViewModel() {
                     ArtistData(
                         artistId = id,
                         contentUri = contentUri,
-                        artistName = artist,
+                        artist = artist,
                         tracksNumber = null,
                         albumsNumber = null
                     )

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.components.AddPlaylistDialog
 
@@ -55,7 +55,7 @@ fun PlaylistsScreen(
                             )
                         }
 
-                        LibraryDropDownMenu(
+                        LibraryTopBarDropDownMenu(
                             navController = navController,
                             expandedMenu = expandedMenu,
                             expandedNestedMenu = expandedNestedMenu,

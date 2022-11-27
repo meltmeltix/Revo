@@ -13,13 +13,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
-import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.library.components.NestedGridTypeMenu
 import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
@@ -28,7 +30,8 @@ import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
 @Composable
 fun SongsScreen(
     navController: NavController,
-    viewModel: SongsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: SongsViewModel = viewModel(),
+    navControllerBottomBar: NavController
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedNestedMenu = remember { mutableStateOf(false) }
@@ -63,7 +66,7 @@ fun SongsScreen(
                             )
                         }
 
-                        LibraryDropDownMenu(
+                        LibraryTopBarDropDownMenu(
                             navController = navController,
                             expandedMenu = expandedMenu,
                             expandedNestedMenu = expandedNestedMenu,
@@ -109,6 +112,43 @@ fun SongsScreen(
                                 )
                             },
                             unitMenuItems = {
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = stringResource(id = R.string.str_viewAlbumm))
+                                    },
+                                    onClick = {
+
+                                    },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_outlined_album_24),
+                                            contentDescription = stringResource(id = R.string.str_viewAlbumm)
+                                        )
+                                    }
+                                )
+
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = stringResource(id = R.string.str_viewArtist))
+                                    },
+                                    onClick = {
+                                        navControllerBottomBar.navigate(
+                                            ArtistsScreens.ArtistViewScreen.route +
+                                                    "/${item.artistId}" +
+                                                    "/${item.artist}"
+                                        )
+                                        expandedMenu.value = false
+                                    },
+                                    leadingIcon = {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.outlined_artist_24),
+                                            contentDescription = stringResource(id = R.string.str_viewArtist)
+                                        )
+                                    }
+                                )
+
+                                Divider()
+
                                 DropdownMenuItem(
                                     text = {
                                         Text(text = stringResource(id = R.string.str_addToPlaylist))

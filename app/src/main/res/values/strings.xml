@@ -80,4 +80,6 @@
     <string name="desc_closeNewPlaylistDialog">Close the new playlist dialog</string>
     <string name="str_create">Create</string>
     <string name="str_playlistTitle">Playlist title</string>
+    <string name="str_viewArtist">View artist</string>
+    <string name="str_viewAlbumm">View album</string>
 </resources>

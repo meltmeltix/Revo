@@ -4,8 +4,8 @@ import android.net.Uri
 
 data class ArtistData(
     var artistId: Long,
+    var artist: String,
     var contentUri: Uri,
-    var artistName: String,
     var tracksNumber: Int?,
     var albumsNumber: Int?
 )

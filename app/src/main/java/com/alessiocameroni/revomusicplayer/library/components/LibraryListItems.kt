@@ -23,9 +23,9 @@ fun LibraryListItem(
     painterPlaceholder: Painter,
     stringMainTitle: String,
     stringSubtitle: String,
-    leadingUnit: @Composable (() -> Unit?),
+    leadingUnit: @Composable () -> Unit?,
     unitMenuItems: @Composable () -> Unit,
-    menuEnabled: Boolean
+    menuEnabled: Boolean,
 ) {
     var expanded by remember { mutableStateOf(false) }
 

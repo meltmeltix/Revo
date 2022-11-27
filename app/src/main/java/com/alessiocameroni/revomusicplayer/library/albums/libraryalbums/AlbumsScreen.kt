@@ -23,10 +23,10 @@ import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
-import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryDropDownMenu
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
+import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,7 +67,7 @@ fun AlbumsScreen(
                             )
                         }
 
-                        LibraryDropDownMenu(
+                        LibraryTopBarDropDownMenu(
                             navController = navController,
                             expandedMenu = expandedMenu,
                             expandedNestedMenu = expandedNestedMenu,
@@ -110,7 +110,7 @@ fun AlbumsScreen(
                                 )
                             },
                             unitMenuItems = {  },
-                            menuEnabled = false
+                            menuEnabled = false,
                         )
                     }
                 }
