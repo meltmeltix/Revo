@@ -141,7 +141,7 @@ fun SongsScreen(
                                     },
                                     leadingIcon = {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.outlined_artist_24),
+                                            painter = painterResource(id = R.drawable.ic_outlined_artist_24),
                                             contentDescription = stringResource(id = R.string.str_viewArtist)
                                         )
                                     }

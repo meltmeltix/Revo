@@ -54,7 +54,7 @@ fun SettingsScreen(navController: NavController) {
                                 stringSubtitle = stringResource(id = R.string.desc_library),
                                 leadingUnit = {
                                     Icon(
-                                        painter = painterResource(id = R.drawable.outlined_library_music_24), 
+                                        painter = painterResource(id = R.drawable.ic_outlined_library_music_24),
                                         contentDescription = stringResource(id = R.string.desc_library)
                                     )
                                 }
