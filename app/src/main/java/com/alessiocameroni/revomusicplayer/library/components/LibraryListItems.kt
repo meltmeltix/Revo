@@ -40,6 +40,7 @@ fun LibraryListItem(
                 .padding(15.dp, 10.dp, 0.dp, 10.dp)
                 .clip(MaterialTheme.shapes.medium)
                 .background(MaterialTheme.colorScheme.primary)
+                .aspectRatio(1f)
                 .size(60.dp),
             contentAlignment = Alignment.Center
         ) {

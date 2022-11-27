@@ -30,7 +30,8 @@ class SongsViewModel: ViewModel() {
             Media.DURATION,
             Media.TITLE,
             Media.ALBUM_ID,
-            Media.ARTIST
+            Media.ARTIST_ID,
+            Media.ARTIST,
         )
 
         val selection = Media.IS_MUSIC + "!= 0"
@@ -46,6 +47,7 @@ class SongsViewModel: ViewModel() {
         query?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(Media._ID)
             val titleColumn = cursor.getColumnIndexOrThrow(Media.TITLE)
+            val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
             val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
             val durationColumn = cursor.getColumnIndexOrThrow(Media.DURATION)
@@ -54,6 +56,7 @@ class SongsViewModel: ViewModel() {
                 val id = cursor.getLong(idColumn)
                 val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
                 val title = cursor.getString(titleColumn)
+                val artistId = cursor.getLong(artistIdColumn)
                 val artist = cursor.getString(artistColumn)
                 val albumId = cursor.getLong(albumIdColumn)
 
@@ -67,6 +70,7 @@ class SongsViewModel: ViewModel() {
                         songId = id,
                         contentUri = contentUri,
                         songTitle = title,
+                        artistId = artistId,
                         artist = artist,
                         albumId = albumId,
                         albumCoverUri = albumCoverUri,

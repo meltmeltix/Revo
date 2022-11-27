@@ -26,6 +26,8 @@ import kotlinx.coroutines.launch
 fun ArtistViewScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
+    artistId: Long?,
+    artist: String?,
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -45,7 +47,13 @@ fun ArtistViewScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text(text = "Artist Name") },
+                title = {
+                    if (artist != null) {
+                        Text(text = artist)
+                    } else {
+                        Text(text = "Artist")
+                    }
+                },
                 navigationIcon = {
                     IconButton(
                         onClick = { navControllerBottomBar.navigateUp() }

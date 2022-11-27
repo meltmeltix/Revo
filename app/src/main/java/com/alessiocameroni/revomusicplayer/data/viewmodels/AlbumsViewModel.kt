@@ -20,6 +20,7 @@ class AlbumsViewModel: ViewModel() {
         val projection = arrayOf(
             Albums._ID,
             Media.ALBUM,
+            Media.ARTIST_ID,
             Media.ARTIST
         )
 
@@ -36,6 +37,7 @@ class AlbumsViewModel: ViewModel() {
         query?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(Albums._ID)
             val titleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
+            val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
 
             while (cursor.moveToNext()) {
@@ -46,6 +48,7 @@ class AlbumsViewModel: ViewModel() {
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, id)
 
                 val title = cursor.getString(titleColumn)
+                val artistId = cursor.getLong(artistIdColumn)
                 val artist = cursor.getString(artistColumn)
 
                 libraryAlbums.add(
@@ -53,6 +56,7 @@ class AlbumsViewModel: ViewModel() {
                         albumId = id,
                         contentUri = contentUri,
                         albumTitle = title,
+                        artistId = artistId,
                         artist = artist,
                         albumCoverUri = albumCoverUri,
                         tracksNumber = null,

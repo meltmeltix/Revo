@@ -6,6 +6,7 @@ data class AlbumData(
     var albumId: Long,
     var contentUri: Uri,
     var albumTitle: String,
+    var artistId: Long,
     var artist: String,
     val albumCoverUri: Uri,
     var tracksNumber: Long?,

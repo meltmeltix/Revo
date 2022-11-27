@@ -83,12 +83,16 @@ fun ArtistsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-                itemsIndexed(libraryArtists) { i, item ->
+                itemsIndexed(libraryArtists) { _, item ->
                     Row(
                         modifier = Modifier
                             .clickableRowItem()
                             .clickable {
-                                navControllerBottomBar.navigate(ArtistsScreens.ArtistViewScreen.route)
+                                navControllerBottomBar.navigate(
+                                    ArtistsScreens.ArtistViewScreen.route +
+                                            "/${item.artistId}" +
+                                            "/${item.artistName}"
+                                )
                             },
                     ) {
                         LibraryIconListItem(

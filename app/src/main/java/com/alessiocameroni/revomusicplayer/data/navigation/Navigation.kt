@@ -29,7 +29,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @Composable
 fun Navigation() {
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = Screens.MainScreen.route) {
+    AnimatedNavHost(navController = navController, startDestination = "main_screen") {
         composable(
             route = Screens.MainScreen.route,
             exitTransition = {
@@ -637,7 +637,7 @@ fun NavigationBottomNavBar(
 
         // Artist SubScreens
         composable(
-            route = ArtistsScreens.ArtistViewScreen.route,
+            route = "artist_view_screen/{artistId}/{artist}",
             enterTransition = {
                 when(initialState.destination.route) {
                     "artists" ->
@@ -679,10 +679,15 @@ fun NavigationBottomNavBar(
                     else -> null
                 }
             }
-        ) {
+        ) { navBackStack ->
+            val artistId = navBackStack.arguments?.getLong("artistId")
+            val artist = navBackStack.arguments?.getString("artist")
+
             ArtistViewScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerBottomBar,
+                artistId = artistId,
+                artist = artist
             )
         }
 
