@@ -14,7 +14,7 @@ class AlbumsViewModel: ViewModel() {
 
     private var initialized = false
 
-    fun initializeListIfNeeded(context: Context) {
+    fun initializeAlbumList(context: Context) {
         if(initialized) return
 
         val projection = arrayOf(
@@ -66,5 +66,12 @@ class AlbumsViewModel: ViewModel() {
             }
         }
         initialized = true
+    }
+
+    fun initializeArtistAlbumList(
+        context: Context,
+        artistId: Long
+    ) {
+
     }
 }

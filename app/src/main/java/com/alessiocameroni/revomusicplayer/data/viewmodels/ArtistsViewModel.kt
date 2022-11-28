@@ -14,7 +14,7 @@ class ArtistsViewModel: ViewModel() {
 
     private var initialized = false
 
-    fun initializeListIfNeeded(context: Context) {
+    fun initializeArtistList(context: Context) {
         if(initialized) return
 
         val projection = arrayOf(

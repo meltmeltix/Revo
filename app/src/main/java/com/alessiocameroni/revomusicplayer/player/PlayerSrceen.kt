@@ -85,66 +85,6 @@ fun PlayerScreen(navController: NavController) {
                             )
                         }
                     }
-
-                    /*val constraints = ConstraintSet {
-                        val boxAlbumCover = createRefFor("AlbumCover")
-                        val boxPlayerControls = createRefFor("PlayerControls")
-
-                        constrain(boxAlbumCover) {
-                            top.linkTo(parent.top)
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(boxPlayerControls.top)
-                        }
-
-                        constrain(boxPlayerControls) {
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(parent.bottom)
-                        }
-                    }
-
-                    ConstraintLayout(
-                        constraints,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(
-                                start = 30.dp,
-                                top = padding.calculateTopPadding(),
-                                end = 30.dp,
-                                bottom = padding.calculateBottomPadding() + 15.dp,
-                            )
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .layoutId("AlbumCover")
-                                .size(340.dp)
-                                .clip(MaterialTheme.shapes.extraLarge)
-                                .background(MaterialTheme.colorScheme.primary),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                modifier = Modifier
-                                    .size(150.dp),
-                                painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                                contentDescription = stringResource(id = R.string.str_songs),
-                                tint = MaterialTheme.colorScheme.onPrimary
-                            )
-                        }
-
-                        Box(
-                            modifier = Modifier
-                                .layoutId("PlayerControls")
-                                .fillMaxWidth()
-                                .height(246.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CenterSongControls(
-                                modifier = Modifier,
-                                floatSliderPosition = sliderPosition
-                            )
-                        }
-                    }*/
                 }
             )
         }
@@ -204,7 +144,6 @@ fun BottomActionBar(
                         )
                     }
                 }
-
             }
 
             IconToggleButton(

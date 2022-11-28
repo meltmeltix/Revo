@@ -14,8 +14,8 @@ class SongsViewModel: ViewModel() {
     private var initialized = false
     val librarySongs = mutableStateListOf<SongData>()
 
-    fun initializeListIfNeeded(context: Context) {
-        if(initialized) return
+    fun initializeSongList(context: Context) {
+        if (initialized) return
 
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -80,5 +80,12 @@ class SongsViewModel: ViewModel() {
             }
         }
         initialized = true
+    }
+
+    fun initializeArtistSongList(
+        context: Context,
+        artistId: Long,
+    ) {
+
     }
 }

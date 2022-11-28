@@ -15,19 +15,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 
 @Composable
 fun LibraryListItem(
     modifier: Modifier,
+    navControllerBottomBar: NavController,
     painterPlaceholder: Painter,
     stringMainTitle: String,
     stringSubtitle: String,
     leadingUnit: @Composable () -> Unit?,
-    unitMenuItems: @Composable () -> Unit,
     menuEnabled: Boolean,
+    stringViewAlbumRoute: String?,
+    stringViewArtistRoute: String?,
+    itemAddToPlaylist: Boolean,
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
 
     Row(
         modifier = modifier
@@ -83,7 +87,7 @@ fun LibraryListItem(
                     .padding(end = 5.dp)
             ) {
                 IconButton(
-                    onClick = { expanded = true },
+                    onClick = { expanded.value = true },
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
@@ -95,10 +99,63 @@ fun LibraryListItem(
                     DropdownMenu(
                         modifier = Modifier
                             .width(180.dp),
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                        expanded = expanded.value,
+                        onDismissRequest = { expanded.value = false }
                     ) {
-                        unitMenuItems()
+                        if (!stringViewAlbumRoute.isNullOrEmpty()) {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(id = R.string.str_viewAlbumm))
+                                },
+                                onClick = {
+                                    navControllerBottomBar.navigate(stringViewAlbumRoute)
+                                    expanded.value = false
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_album_24),
+                                        contentDescription = stringResource(id = R.string.str_viewAlbumm)
+                                    )
+                                }
+                            )
+                        }
+
+                        if (!stringViewArtistRoute.isNullOrEmpty()) {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(id = R.string.str_viewArtist))
+                                },
+                                onClick = {
+                                    navControllerBottomBar.navigate(stringViewArtistRoute)
+                                    expanded.value = false
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_artist_24),
+                                        contentDescription = stringResource(id = R.string.str_viewArtist)
+                                    )
+                                }
+                            )
+                        }
+
+                        if(!(stringViewAlbumRoute.isNullOrEmpty() || stringViewArtistRoute.isNullOrEmpty())) {
+                            Divider()
+                        }
+
+                        if (itemAddToPlaylist) {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = stringResource(id = R.string.str_addToPlaylist))
+                                },
+                                onClick = { },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                                        contentDescription = stringResource(id = R.string.str_addToPlaylist)
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             }

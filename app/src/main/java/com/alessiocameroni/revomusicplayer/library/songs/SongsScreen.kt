@@ -19,6 +19,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
@@ -41,7 +42,7 @@ fun SongsScreen(
 
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
+    LaunchedEffect(Unit) { viewModel.initializeSongList(context) }
 
     Scaffold(
         modifier = Modifier
@@ -99,6 +100,7 @@ fun SongsScreen(
                     ) {
                         LibraryListItem(
                             modifier = Modifier,
+                            navControllerBottomBar = navControllerBottomBar,
                             painterPlaceholder = painterResource(id = R.drawable.ic_baseline_music_note_24),
                             stringMainTitle = item.songTitle,
                             stringSubtitle = item.artist,
@@ -111,58 +113,13 @@ fun SongsScreen(
                                     contentDescription = stringResource(id = R.string.desc_albumImage)
                                 )
                             },
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_viewAlbumm))
-                                    },
-                                    onClick = {
-
-                                    },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_outlined_album_24),
-                                            contentDescription = stringResource(id = R.string.str_viewAlbumm)
-                                        )
-                                    }
-                                )
-
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_viewArtist))
-                                    },
-                                    onClick = {
-                                        navControllerBottomBar.navigate(
-                                            ArtistsScreens.ArtistViewScreen.route +
-                                                    "/${item.artistId}" +
-                                                    "/${item.artist}"
-                                        )
-                                        expandedMenu.value = false
-                                    },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_outlined_artist_24),
-                                            contentDescription = stringResource(id = R.string.str_viewArtist)
-                                        )
-                                    }
-                                )
-
-                                Divider()
-
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_addToPlaylist))
-                                    },
-                                    onClick = { },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.str_addToPlaylist)
-                                        )
-                                    }
-                                )
-                            },
-                            menuEnabled = true
+                            menuEnabled = true,
+                            stringViewAlbumRoute = AlbumsScreens.AlbumViewScreen.route,
+                            stringViewArtistRoute =
+                                ArtistsScreens.ArtistViewScreen.route +
+                                    "/${item.artistId}" +
+                                    "/${item.artist}",
+                            itemAddToPlaylist = true
                         )
                     }
                 }

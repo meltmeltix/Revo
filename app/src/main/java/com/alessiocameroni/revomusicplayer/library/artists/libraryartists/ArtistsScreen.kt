@@ -39,7 +39,7 @@ fun ArtistsScreen(
     val libraryArtists = viewModel.libraryArtists
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
+    LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

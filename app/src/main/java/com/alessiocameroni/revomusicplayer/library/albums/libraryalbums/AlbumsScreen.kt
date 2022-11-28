@@ -23,6 +23,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
+import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
@@ -41,7 +42,7 @@ fun AlbumsScreen(
     val libraryAlbums = viewModel.libraryAlbums
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) { viewModel.initializeListIfNeeded(context) }
+    LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -97,6 +98,7 @@ fun AlbumsScreen(
                     ) {
                         LibraryListItem(
                             modifier = Modifier,
+                            navControllerBottomBar = navControllerBottomBar,
                             painterPlaceholder = painterResource(id = R.drawable.ic_outlined_album_24),
                             stringMainTitle = item.albumTitle,
                             stringSubtitle = item.artist,
@@ -109,8 +111,13 @@ fun AlbumsScreen(
                                     contentDescription = stringResource(id = R.string.desc_albumImage)
                                 )
                             },
-                            unitMenuItems = {  },
-                            menuEnabled = false,
+                            menuEnabled = true,
+                            stringViewAlbumRoute = null,
+                            stringViewArtistRoute =
+                                ArtistsScreens.ArtistViewScreen.route +
+                                    "/${item.artistId}" +
+                                    "/${item.artist}",
+                            itemAddToPlaylist = false
                         )
                     }
                 }
