@@ -37,7 +37,7 @@ fun ArtistViewScreen(
             name = stringResource(id = R.string.str_songs),
             screen = {
                 if (artistId != null) {
-                    ArtistTabSongs(artistId)
+                    ArtistTabSongs(artistId, navControllerBottomBar)
                 }
             }
         ),
@@ -45,7 +45,7 @@ fun ArtistViewScreen(
             name = stringResource(id = R.string.str_albums),
             screen = {
                 if (artistId != null) {
-                    ArtistTabAlbums(artistId)
+                    ArtistTabAlbums(artistId, navControllerBottomBar)
                 }
             }
         )

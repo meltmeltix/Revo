@@ -11,7 +11,6 @@ import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
 
 class ArtistsViewModel: ViewModel() {
     val libraryArtists = mutableStateListOf<ArtistData>()
-
     private var initialized = false
 
     fun initializeArtistList(context: Context) {

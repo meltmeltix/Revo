@@ -3,30 +3,31 @@ package com.alessiocameroni.revomusicplayer.data.viewmodels
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
-import android.provider.MediaStore.Audio.Albums
-import android.provider.MediaStore.Audio.Media
+import android.provider.MediaStore
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
 
-class AlbumsViewModel: ViewModel() {
+class ArtistAlbumsViewModel: ViewModel() {
     val libraryAlbums = mutableStateListOf<AlbumData>()
     private var initialized = false
 
-    fun initializeAlbumList(context: Context) {
+    fun initializeArtistAlbumList(
+        context: Context,
+        artistId: Long
+    ) {
         if(initialized) return
 
         val projection = arrayOf(
-            Albums._ID,
-            Media.ALBUM,
-            Media.ARTIST_ID,
-            Media.ARTIST
+            MediaStore.Audio.Albums._ID,
+            MediaStore.Audio.Media.ALBUM,
+            MediaStore.Audio.Media.ARTIST
         )
 
-        val selection = null
-        val sortOrder = "${Media.ALBUM} ASC"
+        val selection = "${MediaStore.Audio.Media.ARTIST_ID} = $artistId"
+        val sortOrder = "${MediaStore.Audio.Media.ALBUM} ASC"
         val query = context.contentResolver.query(
-            Albums.EXTERNAL_CONTENT_URI,
+            MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
             projection,
             selection,
             null,
@@ -34,20 +35,18 @@ class AlbumsViewModel: ViewModel() {
         )
 
         query?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(Albums._ID)
-            val titleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
-            val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
-            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
+            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums._ID)
+            val titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)
+            val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
-                val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
+                val contentUri: Uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
 
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, id)
 
                 val title = cursor.getString(titleColumn)
-                val artistId = cursor.getLong(artistIdColumn)
                 val artist = cursor.getString(artistColumn)
 
                 libraryAlbums.add(
@@ -66,6 +65,4 @@ class AlbumsViewModel: ViewModel() {
         }
         initialized = true
     }
-
-
 }

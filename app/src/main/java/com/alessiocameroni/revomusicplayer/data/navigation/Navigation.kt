@@ -695,7 +695,7 @@ fun NavigationBottomNavBar(
                 }
             }
         ) { navBackStack ->
-            val artistId = navBackStack.arguments?.getLong("artistId")
+            val artistId = navBackStack.arguments?.getString("artistId")?.toLong()
             val artist = navBackStack.arguments?.getString("artist")
 
             ArtistViewScreen(
