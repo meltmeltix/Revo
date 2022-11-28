@@ -35,11 +35,19 @@ fun ArtistViewScreen(
     val tabs = listOf(
         ArtistTabsItemData(
             name = stringResource(id = R.string.str_songs),
-            screen = { ArtistTabSongs() }
+            screen = {
+                if (artistId != null) {
+                    ArtistTabSongs(artistId)
+                }
+            }
         ),
         ArtistTabsItemData(
             name = stringResource(id = R.string.str_albums),
-            screen = { ArtistTabAlbums() }
+            screen = {
+                if (artistId != null) {
+                    ArtistTabAlbums(artistId)
+                }
+            }
         )
     )
 
