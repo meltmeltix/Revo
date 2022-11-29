@@ -1,24 +1,26 @@
 package com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.modifiers.pagerTabIndicatorOffset
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistalbums.ArtistTabAlbums
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistsongs.ArtistTabSongs
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen.data.tabs.ArtistTabsItemData
 import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
@@ -127,10 +129,14 @@ fun ArtistViewTabs(
     tabs: List<ArtistTabsItemData>
 ) {
     val scope = rememberCoroutineScope()
+    val indicator = @Composable { tabPositions: List<TabPosition> ->
+        ModernIndicator(modifier = Modifier.pagerTabIndicatorOffset(pagerState, tabPositions))
+    }
 
     TabRow(
         selectedTabIndex = pagerState.currentPage,
-        modifier = modifier
+        modifier = modifier,
+        indicator = indicator
     ) {
         tabs.forEachIndexed { index, tab ->
             Tab(
@@ -151,4 +157,15 @@ fun ArtistViewTabContent(
     HorizontalPager(count = tabs.size, state = pagerState) { page ->
         tabs[page].screen()
     }
+}
+
+@Composable
+fun ModernIndicator(modifier: Modifier) {
+    Box(
+        modifier
+            .padding(horizontal = 60.dp)
+            .clip(RoundedCornerShape(topStart = 3.dp, topEnd = 3.dp))
+            .background(MaterialTheme.colorScheme.primary)
+            .height(3.dp)
+    )
 }
