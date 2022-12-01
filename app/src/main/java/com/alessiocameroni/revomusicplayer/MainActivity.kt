@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,8 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.alessiocameroni.revomusicplayer.data.navigation.Navigation
+import com.alessiocameroni.revomusicplayer.permissions.SetContentByPermission
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+
+val permissionsList = listOf(
+    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        android.Manifest.permission.READ_MEDIA_AUDIO
+    } else { android.Manifest.permission.READ_EXTERNAL_STORAGE },
+)
 
 class MainActivity : ComponentActivity() {
     @ExperimentalAnimationApi
@@ -24,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navigation()
+                    SetContentByPermission()
                 }
             }
         }

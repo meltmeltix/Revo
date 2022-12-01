@@ -21,15 +21,31 @@ import com.alessiocameroni.revomusicplayer.settings.customization.CustomizationS
 import com.alessiocameroni.revomusicplayer.settings.customization.playerlayout.PlayerLayoutScreen
 import com.alessiocameroni.revomusicplayer.settings.librarysettings.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
+import com.alessiocameroni.revomusicplayer.welcome.WelcomeScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun Navigation() {
+fun Navigation(startDestination: String) {
     val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = "main_screen") {
+    AnimatedNavHost(navController = navController, startDestination = startDestination) {
+        composable(
+            route = Screens.WelcomeScreen.route,
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "main_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            }
+        ) { WelcomeScreen(navController) }
+
         composable(
             route = Screens.MainScreen.route,
             exitTransition = {
@@ -56,6 +72,11 @@ fun Navigation() {
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
+                    "welcome_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
                     "search_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { -100 },

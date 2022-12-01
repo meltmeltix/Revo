@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer.data.navigation
 
 open class Screens(val route: String) {
+    object WelcomeScreen : Screens("welcome_screen")
     object MainScreen : Screens("main_screen")
     object PlayerScreen : Screens("player_screen")
     object SearchScreen : Screens("search_screen")

@@ -68,6 +68,7 @@
     <string name="str_welcome">Welcome to </string>
     <string name="desc_beforeProceeding">Before proceeding, Revo needs access to your storage for playing your tunes.</string>
     <string name="str_letsGo">Let\'s go!</string>
+    <string name="str_grant">Grant</string>
     <string name="str_grantAccess">Grant access</string>
     <string name="desc_grantAccess">Grant access to the required permission</string>
     <string name="str_library">Library</string>
@@ -82,4 +83,9 @@
     <string name="str_playlistTitle">Playlist title</string>
     <string name="str_viewArtist">View artist</string>
     <string name="str_viewAlbumm">View album</string>
+    <string name="str_storageAccess">Storage Access</string>
+    <string name="desc_storageAccess">Revo needs permission to access your device
+        storage to find and play your tunes.</string>
+    <string name="str_accessGranted">Access granted</string>
+    <string name="str_permStorageDenied">Permission to access external storage denied.</string>
 </resources>

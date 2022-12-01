@@ -25,17 +25,6 @@ fun SpotifyFavoritesScreen(navController: NavController) {
     val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    /*val items by remember {
-        mutableStateOf(
-            (1..20).map {
-                LibrarySongData(
-                    stringTitle = "Song Title",
-                    stringSubtitle = "Song Artist"
-                )
-            }
-        )
-    }*/
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -81,36 +70,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
                 columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
-                /*items(items.size) { i ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
-                    ) {
-                        LibraryListItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            unitAlbumImage = null,
-                            stringTitleItem = items[i].stringTitle,
-                            stringSubtitleItem = items[i].stringSubtitle,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_addtoplaylist))
-                                    },
-                                    onClick = {  },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.desc_addtoplaylist)
-                                        )
-                                    }
-                                )
-                            }
-                        )
-                    }
-                }*/
+
             }
         }
     )
