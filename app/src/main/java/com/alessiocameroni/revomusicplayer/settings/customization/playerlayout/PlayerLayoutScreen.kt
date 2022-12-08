@@ -148,42 +148,42 @@ fun PlayerLayoutImagePreview(
     val darkTheme = isSystemInDarkTheme()
 
     when {
-        darkTheme && selectedOption == "Left" -> {
+        darkTheme && selectedOption == stringResource(id = R.string.str_left) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_dark_left_player_controls),
                 contentDescription = "String"
             )
         }
-        darkTheme && selectedOption == "Center" -> {
+        darkTheme && selectedOption == stringResource(id = R.string.str_center) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_dark_center_player_controls),
                 contentDescription = "String"
             )
         }
-        darkTheme && selectedOption == "Right" -> {
+        darkTheme && selectedOption == stringResource(id = R.string.str_right) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_dark_right_player_controls),
                 contentDescription = "String"
             )
         }
-        !darkTheme && selectedOption == "Left" -> {
+        !darkTheme && selectedOption == stringResource(id = R.string.str_left) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_light_left_player_controls),
                 contentDescription = "String"
             )
         }
-        !darkTheme && selectedOption == "Center" -> {
+        !darkTheme && selectedOption == stringResource(id = R.string.str_center) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_light_center_player_controls),
                 contentDescription = "String"
             )
         }
-        !darkTheme && selectedOption == "Right" -> {
+        !darkTheme && selectedOption == stringResource(id = R.string.str_right) -> {
             Image(
                 modifier = modifier,
                 painter = painterResource(id = R.drawable.ill_light_right_player_controls),
