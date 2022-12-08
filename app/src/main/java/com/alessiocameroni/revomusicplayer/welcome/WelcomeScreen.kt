@@ -1,5 +1,9 @@
 package com.alessiocameroni.revomusicplayer.welcome
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -7,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -23,23 +28,36 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.alessiocameroni.revomusicplayer.welcome.components.WelcomePermissionRow
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun WelcomeScreen(navController: NavHostController) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     val snackBarHostState = remember { SnackbarHostState() }
+    val snackBarMessage = stringResource(id = R.string.str_permStorageDenied)
+    val snackBarAction = stringResource(id = R.string.str_settings)
 
     val buttonForwardEnabled = checkPermissions()
     val buttonStorageEnabled = remember { mutableStateOf(true) }
 
-    val mediaPermissionRationale = remember { mutableStateOf(true) }
     val mediaPermissionState = rememberPermissionState(
         permission = permissionsList[0]
     ) { isGranted ->
         if(isGranted) { buttonStorageEnabled.value = false }
+        else {
+            callSnackBar(
+                context = context,
+                coroutineScope = scope,
+                hostState = snackBarHostState,
+                stringMessage = snackBarMessage,
+                stringAction = snackBarAction
+            )
+        }
     }
 
     RevoMusicPlayerTheme {
@@ -122,8 +140,6 @@ fun WelcomeScreen(navController: NavHostController) {
                                 FilledTonalButton(
                                     onClick = {
                                         mediaPermissionState.launchPermissionRequest()
-                                        mediaPermissionRationale.value =
-                                            mediaPermissionState.status.shouldShowRationale
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth(),
@@ -152,6 +168,31 @@ fun WelcomeScreen(navController: NavHostController) {
                     }
                 }
             )
+        }
+    }
+}
+
+fun callSnackBar(
+    context: Context,
+    coroutineScope: CoroutineScope,
+    stringMessage: String,
+    stringAction: String,
+    hostState: SnackbarHostState,
+) {
+    coroutineScope.launch {
+        val snackBar = hostState.showSnackbar(
+            message = stringMessage,
+            actionLabel = stringAction,
+            duration = SnackbarDuration.Short
+        )
+
+        when(snackBar) {
+            SnackbarResult.Dismissed -> {  }
+            SnackbarResult.ActionPerformed -> {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.data = Uri.parse("package:com.alessiocameroni.revomusicplayer")
+                context.startActivity(intent)
+            }
         }
     }
 }

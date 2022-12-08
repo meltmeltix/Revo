@@ -56,49 +56,63 @@ fun ArtistViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    if (artist != null) {
-                        Text(text = artist)
-                    } else {
-                        Text(text = "Artist")
-                    }
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navControllerBottomBar.navigateUp() }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                            contentDescription = stringResource(id = R.string.desc_back)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expanded.value = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    LargeTopAppBar(
+                        title = {
+                            if (artist != null) {
+                                Text(text = artist)
+                            } else {
+                                Text(text = "Artist")
+                            }
+                        },
+                        navigationIcon = {
+                            IconButton(
+                                onClick = { navControllerBottomBar.navigateUp() }
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                                    contentDescription = stringResource(id = R.string.desc_back)
+                                )
+                            }
+                        },
+                        actions = {
+                            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                IconButton(onClick = { expanded.value = true }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                        contentDescription = stringResource(id = R.string.str_settings)
+                                    )
+                                }
 
-                        ViewsDropDownMenu(
-                            navController = navController,
-                            expanded = expanded,
-                            itemSortBy = true,
-                            itemGridType = true,
-                            itemRename = false,
-                            itemDelete = true,
-                            itemSettings = true
+                                ViewsDropDownMenu(
+                                    navController = navController,
+                                    expanded = expanded,
+                                    itemSortBy = true,
+                                    itemGridType = true,
+                                    itemRename = false,
+                                    itemDelete = true,
+                                    itemSettings = true
+                                )
+                            }
+                        },
+                        scrollBehavior = scrollBehavior,
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            scrolledContainerColor = MaterialTheme.colorScheme.background
                         )
-                    }
-                },
-                scrollBehavior = scrollBehavior,
-                colors = TopAppBarDefaults.topAppBarColors(
-                    scrolledContainerColor = MaterialTheme.colorScheme.background
-                )
-            )
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "0 songs 0 albums")
+                }
+            }
         },
         content = { padding ->
             Column(

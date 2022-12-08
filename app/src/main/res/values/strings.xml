@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_packageName" translatable="false">com.alessiocameroni.revomusicplayer</string>
     <string name="app_name" translatable="false">Revo</string>
     <string name="str_songs">Songs</string>
     <string name="str_albums">Albums</string>

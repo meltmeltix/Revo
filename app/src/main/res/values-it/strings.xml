@@ -65,4 +65,19 @@
     <string name="desc_grantAccess">Consenti accesso ai permessi necessari</string>
     <string name="str_library">Libreria</string>
     <string name="desc_library">Gestisci la tua libreria e il suo comportamento</string>
+    <string name="desc_openGridTypeMenu">Apri il menu di selezione griglia</string>
+    <string name="desc_1_playerLayout">Il player usera\' il layout</string>
+    <string name="desc_2_playerLayout">per mostrare i pulsanti Riproduci e salta</string>
+    <string name="desc_albumImage">Immagine album</string>
+    <string name="str_newPlaylist">Nuova playlist</string>
+    <string name="desc_closeNewPlaylistDialog">Chiudi il popup di creazione nuova playlist</string>
+    <string name="str_create">Crea</string>
+    <string name="str_playlistTitle">Titolo playlist</string>
+    <string name="str_viewArtist">Mostra artista</string>
+    <string name="str_viewAlbumm">Mostra album</string>
+    <string name="str_storageAccess">Accesso Archivio</string>
+    <string name="desc_storageAccess">Revo ha bisogno del consenso per accedere all\'archivio del tuo dispositivo</string>
+    <string name="str_grant">Consenti</string>
+    <string name="str_accessGranted">Accesso consentito</string>
+    <string name="str_permStorageDenied">Permesso per accedere all\'archivio negato.</string>
 </resources>
