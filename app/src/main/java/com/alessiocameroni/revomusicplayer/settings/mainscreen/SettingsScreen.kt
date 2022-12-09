@@ -81,6 +81,22 @@ fun SettingsScreen(navController: NavController) {
                             SettingsLUnitItem(
                                 modifier = Modifier
                                     .clickableRowItem()
+                                    .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
+                                stringMainTitle = stringResource(id = R.string.str_other),
+                                stringSubtitle = stringResource(id = R.string.desc_other),
+                                leadingUnit = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_interests_24),
+                                        contentDescription = stringResource(id = R.string.desc_other)
+                                    )
+                                }
+                            )
+                        }
+
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            SettingsLUnitItem(
+                                modifier = Modifier
+                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
                                 stringMainTitle = stringResource(id = R.string.str_about),
                                 stringSubtitle = stringResource(id = R.string.desc_about),

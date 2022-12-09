@@ -19,8 +19,9 @@ import com.alessiocameroni.revomusicplayer.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.settings.customization.CustomizationScreen
 import com.alessiocameroni.revomusicplayer.settings.customization.playerlayout.PlayerLayoutScreen
-import com.alessiocameroni.revomusicplayer.settings.librarysettings.LibrarySettingsScreen
+import com.alessiocameroni.revomusicplayer.settings.library.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
+import com.alessiocameroni.revomusicplayer.settings.other.OtherScreen
 import com.alessiocameroni.revomusicplayer.welcome.WelcomeScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -210,6 +211,11 @@ fun Navigation(startDestination: String) {
                             targetOffsetX = { -100 },
                             animationSpec = tween( 210 )
                         ) + fadeOut(animationSpec = tween( 210 ))
+                    "other_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
                     "about_screen" ->
                         slideOutHorizontally(
                             targetOffsetX = { -100 },
@@ -227,6 +233,11 @@ fun Navigation(startDestination: String) {
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
                     "customization_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "other_screen" ->
                         slideInHorizontally(
                             initialOffsetX = { -100 },
                             animationSpec = tween( 210 )
@@ -340,6 +351,34 @@ fun Navigation(startDestination: String) {
                 }
             }
         ) { PlayerLayoutScreen(navController = navController) }
+
+
+        composable(
+            route = SettingsScreens.OtherScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    //From screen
+                    "settings_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    //To screen
+                    "settings_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            },
+            //TODO Add popEnter when actually listing items
+        ) { OtherScreen(navController = navController) }
 
 
         composable(

@@ -182,6 +182,88 @@ fun SettingsLUnitTitleItem(
 }
 
 @Composable
+fun SettingsRUnitItem(
+    modifier: Modifier,
+    stringMainTitle: String,
+    stringSubtitle: String,
+    leadingUnit: @Composable (() -> Unit?)
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(start = 15.dp)
+                .weight(1f)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringMainTitle,
+                style = MaterialTheme.typography.titleLarge,
+                fontSize = 20.sp
+            )
+
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringSubtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                fontSize = 14.sp,
+                maxLines = 4,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 5.dp)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            leadingUnit()
+        }
+    }
+}
+
+@Composable
+fun SettingsRUnitTitleItem(
+    modifier: Modifier,
+    stringMainTitle: String,
+    leadingUnit: @Composable () -> Unit?
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(80.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(start = 15.dp)
+                .weight(1f)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringMainTitle,
+                style = MaterialTheme.typography.titleLarge,
+                fontSize = 20.sp
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 5.dp)
+                .size(60.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            leadingUnit()
+        }
+    }
+}
+
+@Composable
 fun SettingsTextItem(
     modifier: Modifier,
     stringMainTitle: String,
@@ -208,6 +290,31 @@ fun SettingsTextItem(
                 text = stringSubtitle,
                 style = MaterialTheme.typography.bodyMedium,
                 fontSize = 14.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun SettingsTitleItem(
+    modifier: Modifier,
+    stringMainTitle: String
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 25.dp)
+                .padding(top = 16.dp, bottom = 20.dp)
+                .weight(1f)
+        ) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringMainTitle,
+                style = MaterialTheme.typography.titleLarge,
+                fontSize = 20.sp
             )
         }
     }

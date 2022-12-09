@@ -25,7 +25,7 @@
     <string name="str_customization">Personalizzazione</string>
     <string name="str_about">Informazioni</string>
     <string name="desc_customization">Cambia il tema o layout dell\'applicazione</string>
-    <string name="desc_about">Sviluppatore, informazioni app e altro</string>
+    <string name="desc_about">Informazioni app, sviluppatore e riconoscimenti</string>
     <string name="str_chooseControls">Scegli controlli</string>
     <string name="str_left">Sinistra</string>
     <string name="str_center">Centro</string>
@@ -80,4 +80,9 @@
     <string name="str_grant">Consenti</string>
     <string name="str_accessGranted">Accesso consentito</string>
     <string name="str_permStorageDenied">Permesso per accedere all\'archivio negato.</string>
+    <string name="str_other">Altro</string>
+    <string name="desc_other">Altre funzionalita\' avanzate</string>
+    <string name="app_launguage">Italiano</string>
+    <string name="str_generalPrefs">Preferenze generali</string>
+    <string name="str_appLanguage">Lingua app</string>
 </resources>

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_packageName" translatable="false">com.alessiocameroni.revomusicplayer</string>
     <string name="app_name" translatable="false">Revo</string>
+    <string name="app_launguage">English</string>
     <string name="str_songs">Songs</string>
     <string name="str_albums">Albums</string>
     <string name="str_playlists">Playlists</string>
@@ -27,7 +28,7 @@
     <string name="str_customization">Customization</string>
     <string name="str_about">About</string>
     <string name="desc_customization">Change the theme or layout of the app</string>
-    <string name="desc_about">Developer, app info and others</string>
+    <string name="desc_about">App info, developer and acknowledgements</string>
     <string name="str_chooseControls">Choose layout</string>
     <string name="str_left">Left</string>
     <string name="str_center">Center</string>
@@ -89,4 +90,8 @@
         storage to find and play your tunes.</string>
     <string name="str_accessGranted">Access granted</string>
     <string name="str_permStorageDenied">Permission to access external storage denied.</string>
+    <string name="str_other">Other</string>
+    <string name="desc_other">Advanced other features</string>
+    <string name="str_generalPrefs">General preferences</string>
+    <string name="str_appLanguage">App language</string>
 </resources>

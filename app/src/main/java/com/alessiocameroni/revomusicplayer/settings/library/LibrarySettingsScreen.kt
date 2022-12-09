@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.settings.librarysettings
+package com.alessiocameroni.revomusicplayer.settings.library
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
