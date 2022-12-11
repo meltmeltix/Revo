@@ -22,6 +22,7 @@ import com.alessiocameroni.revomusicplayer.settings.customization.playerlayout.P
 import com.alessiocameroni.revomusicplayer.settings.library.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.mainscreen.SettingsScreen
 import com.alessiocameroni.revomusicplayer.settings.other.OtherScreen
+import com.alessiocameroni.revomusicplayer.settings.other.applanguage.AppLanguageScreen
 import com.alessiocameroni.revomusicplayer.welcome.WelcomeScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -377,9 +378,45 @@ fun Navigation(startDestination: String) {
                     else -> null
                 }
             },
-            //TODO Add popEnter when actually listing items
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "app_language_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { -100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeIn(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            }
         ) { OtherScreen(navController = navController) }
 
+        composable(
+            route = OtherSettingsScreens.AppLanguageScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    // From screen
+                    "other_screen" ->
+                        slideInHorizontally(
+                            initialOffsetX = { 100 },
+                            animationSpec = tween( 200 )
+                        ) + fadeIn(animationSpec = tween( 200 ))
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    // To screen
+                    "other_screen" ->
+                        slideOutHorizontally(
+                            targetOffsetX = { 100 },
+                            animationSpec = tween( 210 )
+                        ) + fadeOut(animationSpec = tween( 210 ))
+                    else -> null
+                }
+            }
+        ) { AppLanguageScreen(navController = navController) }
+        
 
         composable(
             route = SettingsScreens.AboutScreen.route,

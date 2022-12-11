@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
+import com.alessiocameroni.revomusicplayer.data.navigation.OtherSettingsScreens
 import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.settings.components.SettingsTextItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -66,7 +67,12 @@ fun OtherScreen(navController: NavController) {
                             SettingsTextItem(
                                 modifier = Modifier
                                     .clickableRowItem()
-                                    .clickable { },
+                                    .clickable {
+                                        navController
+                                            .navigate(
+                                                OtherSettingsScreens.AppLanguageScreen.route
+                                            )
+                                    },
                                 stringMainTitle = stringResource(id = R.string.str_appLanguage),
                                 stringSubtitle = stringResource(id = R.string.app_launguage)
                             )

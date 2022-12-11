@@ -2,18 +2,21 @@ package com.alessiocameroni.revomusicplayer.mainscreen
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -37,38 +40,16 @@ fun MainScreen(navController: NavController) {
         ) {
             Scaffold(
                 bottomBar = {
-                    val constraints = ConstraintSet {
-                        val bottomNavigationBar = createRefFor("BottomNavBar")
-                        val miniPlayer = createRefFor("MiniPlayer")
-
-                        constrain(bottomNavigationBar) {
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(parent.bottom)
-                        }
-
-                        constrain(miniPlayer) {
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            bottom.linkTo(bottomNavigationBar.top)
-                        }
-                    }
-
-                    ConstraintLayout(constraints, Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.fillMaxWidth()) {
                         BottomMiniPlayer(
                             navController = navController,
-                            modifier = Modifier
-                                .layoutId("MiniPlayer")
-                                .fillMaxWidth()
-                                .height(64.dp)
-                                .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
+                            modifier = Modifier,
                             songNameString = "SongName",
                             artistNameString = "ArtistName"
                         )
 
                         BottomNavigationBar(
-                            modifier = Modifier
-                                .layoutId("BottomNavBar"),
+                            modifier = Modifier,
                             items = listOf(
                                 BottomNavigationItemData(
                                     name = stringResource(id = R.string.str_songs),
@@ -123,6 +104,23 @@ fun MainScreen(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class)
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    val navController = rememberAnimatedNavController()
+
+    BottomMiniPlayer(
+        navController = navController,
+        modifier = Modifier
+            .layoutId("MiniPlayer")
+            .fillMaxWidth()
+            .height(64.dp)
+            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
+        songNameString = "SongName",
+        artistNameString = "ArtistName"
+    )
+}
 
 // UI Elements
 @Composable
@@ -132,45 +130,32 @@ fun BottomMiniPlayer(
     songNameString: String,
     artistNameString: String
 ) {
-    Box(
+    val interactionSource = remember { MutableInteractionSource() }
+
+    Column(
         modifier = modifier
+            .fillMaxWidth()
+            .height(64.dp)
+            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp))
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                navController.navigate(Screens.PlayerScreen.route)
+            },
     ) {
-        val constraints = ConstraintSet {
-            val musicProgressBar = createRefFor("MusicProgressBar")
-            val openPanelButton = createRefFor("OpenPanelButton")
-            val songInfoText = createRefFor("SongInfoText")
-            val playButton = createRefFor("PlayButton")
-
-            constrain(musicProgressBar) {
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(openPanelButton) {
-                start.linkTo(parent.start)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(songInfoText) {
-                start.linkTo(openPanelButton.end)
-                top.linkTo(parent.top)
-                end.linkTo(playButton.start)
-                bottom.linkTo(parent.bottom)
-            }
-
-            constrain(playButton) {
-                top.linkTo(parent.top)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-            }
-        }
-
-        ConstraintLayout(constraints, modifier = Modifier.fillMaxSize()) {
-            IconButton(
-                onClick = { navController.navigate(Screens.PlayerScreen.route) },
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
                 modifier = Modifier
-                    .layoutId("OpenPanelButton")
                     .padding(horizontal = 4.dp)
+                    .size(40.dp)
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_up_24),
@@ -178,10 +163,9 @@ fun BottomMiniPlayer(
                 )
             }
 
+
             Text(
-                modifier = Modifier
-                    .layoutId("SongInfoText")
-                    .width(280.dp),
+                modifier = Modifier.weight(1f),
                 text = "$songNameString · $artistNameString",
                 maxLines = 1,
                 textAlign = TextAlign.Center,
@@ -190,23 +174,26 @@ fun BottomMiniPlayer(
 
             IconButton(
                 onClick = {  },
-                modifier = Modifier
-                    .layoutId("PlayButton")
-                    .padding(horizontal = 4.dp)
+                modifier = Modifier.padding(horizontal = 4.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
                     contentDescription = stringResource(id = R.string.desc_openMusic),
                 )
             }
+        }
 
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(4.dp)
+        ) {
             LinearProgressIndicator(
                 modifier = Modifier
-                    .layoutId("MusicProgressBar")
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 15.dp)
                     .fillMaxWidth()
                     .clip(MaterialTheme.shapes.medium),
-                progress = 0.5f
+                progress = 0.3f
             )
         }
     }

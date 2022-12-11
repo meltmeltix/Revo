@@ -186,7 +186,7 @@ fun SettingsRUnitItem(
     modifier: Modifier,
     stringMainTitle: String,
     stringSubtitle: String,
-    leadingUnit: @Composable (() -> Unit?)
+    trailingUnit: @Composable (() -> Unit?)
 ) {
     Row(
         modifier = modifier
@@ -222,7 +222,7 @@ fun SettingsRUnitItem(
                 .size(60.dp),
             contentAlignment = Alignment.Center
         ) {
-            leadingUnit()
+            trailingUnit()
         }
     }
 }
@@ -231,7 +231,7 @@ fun SettingsRUnitItem(
 fun SettingsRUnitTitleItem(
     modifier: Modifier,
     stringMainTitle: String,
-    leadingUnit: @Composable () -> Unit?
+    trailingUnit: @Composable () -> Unit?
 ) {
     Row(
         modifier = modifier
@@ -241,7 +241,7 @@ fun SettingsRUnitTitleItem(
     ) {
         Column(
             modifier = Modifier
-                .padding(start = 15.dp)
+                .padding(start = 25.dp)
                 .weight(1f)
         ) {
             Text(
@@ -258,7 +258,7 @@ fun SettingsRUnitTitleItem(
                 .size(60.dp),
             contentAlignment = Alignment.Center
         ) {
-            leadingUnit()
+            trailingUnit()
         }
     }
 }
@@ -345,13 +345,13 @@ fun SectionTitle(
 @Composable
 fun InfoText(
     modifier: Modifier,
-    stringTitle: String
+    stringText: String
 ) {
     Text(
         modifier = modifier
             .padding(horizontal = 25.dp, vertical = 10.dp)
             .fillMaxWidth(),
-        text = stringTitle,
+        text = stringText,
         style = MaterialTheme.typography.bodyMedium,
         fontSize = 14.sp
     )

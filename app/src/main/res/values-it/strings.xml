@@ -66,7 +66,7 @@
     <string name="str_library">Libreria</string>
     <string name="desc_library">Gestisci la tua libreria e il suo comportamento</string>
     <string name="desc_openGridTypeMenu">Apri il menu di selezione griglia</string>
-    <string name="desc_1_playerLayout">Il player usera\' il layout</string>
+    <string name="desc_1_playerLayout">Il player userà il layout</string>
     <string name="desc_2_playerLayout">per mostrare i pulsanti Riproduci e salta</string>
     <string name="desc_albumImage">Immagine album</string>
     <string name="str_newPlaylist">Nuova playlist</string>
@@ -81,8 +81,11 @@
     <string name="str_accessGranted">Accesso consentito</string>
     <string name="str_permStorageDenied">Permesso per accedere all\'archivio negato.</string>
     <string name="str_other">Altro</string>
-    <string name="desc_other">Altre funzionalita\' avanzate</string>
+    <string name="desc_other">Altre funzionalità avanzate</string>
     <string name="app_launguage">Italiano</string>
     <string name="str_generalPrefs">Preferenze generali</string>
     <string name="str_appLanguage">Lingua app</string>
+    <string name="desc_appLanguage">Cambia il linguaggio dell\'app nelle impostazioni di sistema</string>
+    <string name="desc_infoAppLanguage">Questa funzionalità è disponibile solo su Android 13.</string>
+    <string name="desc_infoSystemAppLanguage">Revo utilizza di default lo stesso linguaggio che è attualmente impostato sul tuo dispositivo.\nPuoi cambiare il linguaggio dell\'app con un altro qui.</string>
 </resources>

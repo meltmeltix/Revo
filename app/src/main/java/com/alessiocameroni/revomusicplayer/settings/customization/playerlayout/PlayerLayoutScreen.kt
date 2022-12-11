@@ -98,7 +98,7 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                         ) {
                             InfoText(
                                 modifier = Modifier,
-                                stringTitle = stringResource(id = R.string.desc_layoutPlayer)
+                                stringText = stringResource(id = R.string.desc_layoutPlayer)
                             )
                         }
                         
