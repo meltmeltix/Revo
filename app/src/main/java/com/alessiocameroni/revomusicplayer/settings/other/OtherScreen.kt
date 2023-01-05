@@ -14,11 +14,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.OtherSettingsScreens
-import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsTextItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,14 +57,14 @@ fun OtherScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         item {
-                            SectionTitle(
+                            PixelySectionTitle(
                                 modifier = Modifier.fillMaxWidth(),
                                 stringTitle = stringResource(id = R.string.str_generalPrefs)
                             )
                         }
 
                         item {
-                            SettingsTextItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable {
@@ -73,8 +73,8 @@ fun OtherScreen(navController: NavController) {
                                                 OtherSettingsScreens.AppLanguageScreen.route
                                             )
                                     },
-                                stringMainTitle = stringResource(id = R.string.str_appLanguage),
-                                stringSubtitle = stringResource(id = R.string.app_launguage)
+                                stringHeadlineText = stringResource(id = R.string.str_appLanguage),
+                                stringSupportingText = stringResource(id = R.string.app_launguage)
                             )
                         }
                     }

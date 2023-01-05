@@ -19,10 +19,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavHostController
+import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
-import com.alessiocameroni.revomusicplayer.settings.components.InfoText
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsLUnitTitleItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,7 +96,7 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                         Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            InfoText(
+                            PixelySupportInfoText(
                                 modifier = Modifier,
                                 stringText = stringResource(id = R.string.desc_layoutPlayer)
                             )
@@ -120,9 +120,9 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                                         ),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    SettingsLUnitTitleItem(
+                                    PixelyListItem(
                                         modifier = Modifier,
-                                        stringMainTitle = text,
+                                        stringHeadlineText = text,
                                         leadingUnit = {
                                             RadioButton(
                                                 selected = (text == selectedOption),

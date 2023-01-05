@@ -11,11 +11,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.CustomizationSettingsScreens
-import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsTextItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +56,7 @@ fun CustomizationScreen(
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         item {
-                            SectionTitle(
+                            PixelySectionTitle(
                                 stringTitle = "User Interface",
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -64,7 +64,7 @@ fun CustomizationScreen(
                         }
 
                         item {
-                            SettingsTextItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable {
@@ -72,8 +72,8 @@ fun CustomizationScreen(
                                             CustomizationSettingsScreens.PlayerLayoutScreen.route
                                         )
                                     },
-                                stringMainTitle = stringResource(id = R.string.str_layoutPlayer),
-                                stringSubtitle = stringResource(id = R.string.desc_layoutPlayer)
+                                stringHeadlineText = stringResource(id = R.string.str_layoutPlayer),
+                                stringSupportingText = stringResource(id = R.string.desc_layoutPlayer)
                                 /*TODO(Put "dynamic" string here with layout, and both strings)*/
                             )
                         }

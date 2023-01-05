@@ -9,10 +9,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.SettingsScreens
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsLUnitItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,12 +46,12 @@ fun SettingsScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ){
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsLUnitItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
-                                stringMainTitle = stringResource(id = R.string.str_library),
-                                stringSubtitle = stringResource(id = R.string.desc_library),
+                                stringHeadlineText = stringResource(id = R.string.str_library),
+                                stringSupportingText = stringResource(id = R.string.desc_library),
                                 leadingUnit = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_library_music_24),
@@ -62,12 +62,12 @@ fun SettingsScreen(navController: NavController) {
                         }
 
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsLUnitItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
-                                stringMainTitle = stringResource(id = R.string.str_customization),
-                                stringSubtitle = stringResource(id = R.string.desc_customization),
+                                stringHeadlineText = stringResource(id = R.string.str_customization),
+                                stringSupportingText = stringResource(id = R.string.desc_customization),
                                 leadingUnit = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_palette_24), 
@@ -78,12 +78,12 @@ fun SettingsScreen(navController: NavController) {
                         }
 
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsLUnitItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
-                                stringMainTitle = stringResource(id = R.string.str_other),
-                                stringSubtitle = stringResource(id = R.string.desc_other),
+                                stringHeadlineText = stringResource(id = R.string.str_other),
+                                stringSupportingText = stringResource(id = R.string.desc_other),
                                 leadingUnit = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_interests_24),
@@ -94,12 +94,12 @@ fun SettingsScreen(navController: NavController) {
                         }
 
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            SettingsLUnitItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
-                                stringMainTitle = stringResource(id = R.string.str_about),
-                                stringSubtitle = stringResource(id = R.string.desc_about),
+                                stringHeadlineText = stringResource(id = R.string.str_about),
+                                stringSupportingText = stringResource(id = R.string.desc_about),
                                 leadingUnit = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_info_24), 

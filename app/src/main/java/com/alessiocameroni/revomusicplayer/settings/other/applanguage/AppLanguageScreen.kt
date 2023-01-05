@@ -19,10 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
-import com.alessiocameroni.revomusicplayer.settings.components.InfoText
-import com.alessiocameroni.revomusicplayer.settings.components.SettingsRUnitTitleItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +65,7 @@ fun AppLanguageScreen(navController: NavController) {
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         item {
-                            SettingsRUnitTitleItem(
+                            PixelyListItem(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable(
@@ -77,7 +77,7 @@ fun AppLanguageScreen(navController: NavController) {
                                             context.startActivity(intent)
                                         }
                                     },
-                                stringMainTitle = stringResource(id = R.string.app_launguage),
+                                stringHeadlineText = stringResource(id = R.string.app_launguage),
                                 trailingUnit = {
                                     if(changeLanguageEnabled) {
                                         Icon(
@@ -90,7 +90,7 @@ fun AppLanguageScreen(navController: NavController) {
                         }
 
                         item {
-                            InfoText(
+                            PixelySupportInfoText(
                                 modifier = Modifier,
                                 stringText =
                                     stringResource(id = R.string.desc_infoAppLanguage) + "\n\n" +

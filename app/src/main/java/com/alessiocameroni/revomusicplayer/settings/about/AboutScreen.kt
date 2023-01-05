@@ -19,13 +19,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCardAboutItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.BigCreditsItem
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsDialogDetails
 import com.alessiocameroni.revomusicplayer.settings.about.components.CreditsItem
-import com.alessiocameroni.revomusicplayer.settings.components.SectionTitle
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +81,7 @@ fun AboutScreen(navController: NavController) {
                         }
 
                         item {
-                            SectionTitle(
+                            PixelySectionTitle(
                                 stringTitle = stringResource(id = R.string.str_developer),
                                 modifier = Modifier.fillMaxWidth()
                             )
@@ -159,7 +159,7 @@ fun AboutScreen(navController: NavController) {
                         item { Divider() }
 
                         item {
-                            SectionTitle(
+                            PixelySectionTitle(
                                 stringTitle = stringResource(id = R.string.str_specialThanks),
                                 modifier = Modifier.fillMaxWidth()
                             )
