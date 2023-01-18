@@ -28,7 +28,7 @@
     <string name="str_center">Zentriert</string>
     <string name="str_right">Rechtsbündig</string>
     <string name="str_cancel">Abbrechen</string>
-    <string name="str_layoutPlayer">Layout Player</string>
+    <string name="str_layoutPlayer">Layout player</string>
     <string name="desc_layoutPlayer">Wähle, wie die Buttons in der Vollbildansicht dargestellt werden sollen</string>
     <string name="str_madeWithLoveBy">Mit &#9829; gemacht von</string>
     <string name="str_developer">Entwickler</string>

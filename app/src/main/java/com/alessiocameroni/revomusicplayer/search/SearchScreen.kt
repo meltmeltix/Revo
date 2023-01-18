@@ -32,8 +32,8 @@ fun SearchScreen(navController: NavController) {
                     TopAppBar(
                         title = {
                             PixelyTextField(
-                                valueText = text,
-                                placeHolderString = stringResource(id = R.string.str_search),
+                                stringText = text,
+                                stringPlaceHolder = stringResource(id = R.string.str_search),
                                 clearTrailingIcon = painterResource(id = R.drawable.ic_baseline_close_24),
                                 descriptionTrailingIcon = stringResource(id = R.string.desc_searchMenu),
                                 onSearch = {  }

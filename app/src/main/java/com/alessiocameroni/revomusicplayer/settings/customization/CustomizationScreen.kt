@@ -57,9 +57,33 @@ fun CustomizationScreen(
                     ) {
                         item {
                             PixelySectionTitle(
-                                stringTitle = "User Interface",
+                                modifier = Modifier,
+                                stringTitle = stringResource(id = R.string.str_theme)
+                            )
+                        }
+                        
+                        item { 
+                            PixelyListItem(
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .clickableRowItem()
+                                    .clickable { }, 
+                                stringHeadlineText = stringResource(id = R.string.str_appTheme)
+                            )
+                        }
+
+                        item {
+                            PixelyListItem(
+                                modifier = Modifier
+                                    .clickableRowItem()
+                                    .clickable { },
+                                stringHeadlineText = stringResource(id = R.string.str_colorScheme)
+                            )
+                        }
+                        
+                        item {
+                            PixelySectionTitle(
+                                modifier = Modifier,
+                                stringTitle = stringResource(id = R.string.str_interface)
                             )
                         }
 
