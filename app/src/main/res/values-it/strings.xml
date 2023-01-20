@@ -88,4 +88,11 @@
     <string name="desc_appLanguage">Cambia il linguaggio dell\'app nelle impostazioni di sistema</string>
     <string name="desc_infoAppLanguage">Questa funzionalità è disponibile solo su Android 13.</string>
     <string name="desc_infoSystemAppLanguage">Revo utilizza di default lo stesso linguaggio che è attualmente impostato sul tuo dispositivo.\nPuoi cambiare il linguaggio dell\'app con un altro qui.</string>
+    <string name="str_interface">Interfaccia</string>
+    <string name="str_theme">Tema</string>
+    <string name="str_appTheme">Tema app</string>
+    <string name="str_light">Chiaro</string>
+    <string name="str_dark">Scuro</string>
+    <string name="str_systemDefault">Predefinito di sistema</string>
+    <string name="str_colorScheme">Schema colori</string>
 </resources>

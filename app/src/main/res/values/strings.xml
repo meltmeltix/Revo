@@ -103,5 +103,5 @@
     <string name="str_dark">Dark</string>
     <string name="str_systemDefault">System default</string>
     <string name="str_colorScheme">Color scheme</string>
-    <string name="str_materialYou">Material You</string>
+    <string name="str_materialYou" translatable="false">Material You</string>
 </resources>

@@ -71,9 +71,10 @@ fun AppLanguageScreen(navController: NavController) {
                                     .clickable(
                                         enabled = changeLanguageEnabled
                                     ) {
-                                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                             val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
-                                            intent.data = Uri.parse("package:com.alessiocameroni.revomusicplayer")
+                                            intent.data =
+                                                Uri.parse("package:com.alessiocameroni.revomusicplayer")
                                             context.startActivity(intent)
                                         }
                                     },
@@ -94,7 +95,9 @@ fun AppLanguageScreen(navController: NavController) {
                                 modifier = Modifier,
                                 stringText =
                                     stringResource(id = R.string.desc_infoAppLanguage) + "\n\n" +
-                                    stringResource(id = R.string.desc_infoSystemAppLanguage)
+                                    stringResource(id = R.string.desc_infoSystemAppLanguage),
+                                painterInfoIcon = painterResource(id = R.drawable.ic_outlined_info_24),
+                                descriptionInfoIcon = stringResource(id = R.string.desc_infoSystemAppLanguage)
                             )
                         }
                     }
