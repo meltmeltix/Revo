@@ -14,9 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.components.ActionButtonsItem
-import com.alessiocameroni.revomusicplayer.library.components.HeaderListItem
-import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,17 +23,6 @@ fun PlaylistViewScreen(
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-
-    /*val items by remember {
-        mutableStateOf(
-            (1..20).map {
-                LibrarySongData(
-                    stringTitle = "Song Title",
-                    stringSubtitle = "Song Artist"
-                )
-            }
-        )
-    }*/
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -61,16 +47,6 @@ fun PlaylistViewScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
-
-                        ViewsDropDownMenu(
-                            navController = navController,
-                            expanded = expanded,
-                            itemSortBy = true,
-                            itemGridType = true,
-                            itemRename = true,
-                            itemDelete = true,
-                            itemSettings = true
-                        )
                     }
                 },
                 scrollBehavior = scrollBehavior
@@ -84,52 +60,7 @@ fun PlaylistViewScreen(
                 columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
-                item {
-                    HeaderListItem(
-                        modifier = Modifier
-                            .padding(bottom = 12.dp)
-                            .fillMaxWidth(),
-                        stringTopInfo = null,
-                        stringBottomInfo = "20 songs · 12:34 minutes",
-                        displayIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
-                        unitAlbumImage = null
-                    )
-                }
 
-                item {
-                    ActionButtonsItem(modifier = Modifier.height(50.dp))
-                }
-
-                /*items(items.size) { i ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(22.dp))
-                            .clickable { },
-                    ) {
-                        LibraryListItem(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            unitAlbumImage = null,
-                            stringTitleItem = items[i].stringTitle,
-                            stringSubtitleItem = items[i].stringSubtitle,
-                            unitMenuItems = {
-                                DropdownMenuItem(
-                                    text = {
-                                        Text(text = stringResource(id = R.string.str_addtoplaylist))
-                                    },
-                                    onClick = {  },
-                                    leadingIcon = {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                                            contentDescription = stringResource(id = R.string.desc_addtoplaylist)
-                                        )
-                                    }
-                                )
-                            }
-                        )
-                    }
-                }*/
             }
         }
     )

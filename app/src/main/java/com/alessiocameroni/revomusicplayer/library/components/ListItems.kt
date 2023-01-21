@@ -2,8 +2,6 @@ package com.alessiocameroni.revomusicplayer.library.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -238,115 +236,6 @@ fun LibraryIconListItem(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun ActionButtonsItem(
-    modifier: Modifier
-) {
-    LazyVerticalGrid(
-        modifier = modifier,
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        item {
-            OutlinedButton(
-                modifier = Modifier.height(45.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(end = 8.dp),
-                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.str_play)
-                )
-
-                Text(
-                    text = stringResource(id = R.string.str_play)
-                )
-            }
-        }
-
-        item {
-            FilledTonalButton(
-                modifier = Modifier.height(45.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(end = 8.dp),
-                    painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                    contentDescription = stringResource(id = R.string.str_shuffle)
-                )
-
-                Text(text = stringResource(id = R.string.str_shuffle))
-            }
-        }
-    }
-}
-
-@Composable
-fun HeaderListItem(
-    modifier: Modifier,
-    stringTopInfo: String?,
-    stringBottomInfo: String,
-    displayIcon: Painter,
-    unitAlbumImage: @Composable (() -> Unit)?,
-) {
-    Card( modifier = modifier.padding(horizontal = 16.dp) ) {
-        Column( modifier = Modifier.fillMaxWidth() ) {
-            if (unitAlbumImage != null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                        .clip(MaterialTheme.shapes.large)
-                        .height(220.dp)
-                        .background(MaterialTheme.colorScheme.primary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    unitAlbumImage()
-                }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                        .clip(MaterialTheme.shapes.large)
-                        .height(110.dp)
-                        .background(MaterialTheme.colorScheme.primary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp),
-                        painter = displayIcon,
-                        contentDescription = stringResource(id = R.string.str_icon),
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            }
-
-            if(stringTopInfo != null) {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    text = stringTopInfo,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-
-            Text(
-                modifier = Modifier
-                    .padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 16.dp)
-                    .fillMaxWidth(),
-                text = stringBottomInfo,
-                style = MaterialTheme.typography.titleMedium
-            )
         }
     }
 }

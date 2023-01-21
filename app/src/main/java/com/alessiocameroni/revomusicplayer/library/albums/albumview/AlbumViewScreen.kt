@@ -16,9 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.library.components.ActionButtonsItem
-import com.alessiocameroni.revomusicplayer.library.components.HeaderListItem
-import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,16 +49,6 @@ fun AlbumViewScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
-
-                        ViewsDropDownMenu(
-                            navController = navController,
-                            expanded = expanded,
-                            itemSortBy = true,
-                            itemGridType = true,
-                            itemRename = false,
-                            itemDelete = true,
-                            itemSettings = true
-                        )
                     }
                 }, scrollBehavior = scrollBehavior
             )
@@ -74,21 +61,7 @@ fun AlbumViewScreen(
                 columns = GridCells.Fixed(1),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ){
-                item {
-                    HeaderListItem(
-                        modifier = Modifier
-                            .padding(bottom = 12.dp)
-                            .fillMaxWidth(),
-                        stringTopInfo = "Album Artist",
-                        stringBottomInfo = "2022 · 8 songs · 12:34",
-                        displayIcon = painterResource(id = R.drawable.ic_outlined_album_24),
-                        unitAlbumImage = null
-                    )
-                }
 
-                item { 
-                    ActionButtonsItem(modifier = Modifier.height(50.dp))
-                }
             }
         }
     )

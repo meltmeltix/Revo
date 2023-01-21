@@ -23,7 +23,6 @@ import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryTopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.LibraryIconListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +33,6 @@ fun ArtistsScreen(
     viewModel: ArtistsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
-    val expandedNestedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryArtists = viewModel.libraryArtists
     val context = LocalContext.current
@@ -62,16 +60,6 @@ fun ArtistsScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
-
-                        LibraryTopBarDropDownMenu(
-                            navController = navController,
-                            expandedMenu = expandedMenu,
-                            expandedNestedMenu = expandedNestedMenu,
-                            itemSortBy = true,
-                            itemGridType = true,
-                            itemOpenSpotify = false,
-                            itemSettings = true
-                        )
                     }
                 }, scrollBehavior = scrollBehavior
             )

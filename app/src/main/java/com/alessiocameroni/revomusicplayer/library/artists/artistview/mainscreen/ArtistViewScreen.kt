@@ -19,7 +19,6 @@ import com.alessiocameroni.revomusicplayer.data.modifiers.pagerTabIndicatorOffse
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistalbums.ArtistTabAlbums
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.artistsongs.ArtistTabSongs
 import com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen.data.tabs.ArtistTabsItemData
-import com.alessiocameroni.revomusicplayer.library.components.ViewsDropDownMenu
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -88,16 +87,6 @@ fun ArtistViewScreen(
                                         contentDescription = stringResource(id = R.string.str_settings)
                                     )
                                 }
-
-                                ViewsDropDownMenu(
-                                    navController = navController,
-                                    expanded = expanded,
-                                    itemSortBy = true,
-                                    itemGridType = true,
-                                    itemRename = false,
-                                    itemDelete = true,
-                                    itemSettings = true
-                                )
                             }
                         },
                         scrollBehavior = scrollBehavior,
