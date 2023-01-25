@@ -50,9 +50,9 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
-                                stringHeadlineText = stringResource(id = R.string.str_library),
-                                stringSupportingText = stringResource(id = R.string.desc_library),
-                                leadingUnit = {
+                                headlineTextString = stringResource(id = R.string.str_library),
+                                supportingTextString = stringResource(id = R.string.desc_library),
+                                leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_library_music_24),
                                         contentDescription = stringResource(id = R.string.desc_library)
@@ -66,9 +66,9 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
-                                stringHeadlineText = stringResource(id = R.string.str_customization),
-                                stringSupportingText = stringResource(id = R.string.desc_customization),
-                                leadingUnit = {
+                                headlineTextString = stringResource(id = R.string.str_customization),
+                                supportingTextString = stringResource(id = R.string.desc_customization),
+                                leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_palette_24), 
                                         contentDescription = stringResource(id = R.string.desc_customization)
@@ -82,9 +82,9 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
-                                stringHeadlineText = stringResource(id = R.string.str_other),
-                                stringSupportingText = stringResource(id = R.string.desc_other),
-                                leadingUnit = {
+                                headlineTextString = stringResource(id = R.string.str_other),
+                                supportingTextString = stringResource(id = R.string.desc_other),
+                                leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_interests_24),
                                         contentDescription = stringResource(id = R.string.desc_other)
@@ -98,9 +98,9 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
-                                stringHeadlineText = stringResource(id = R.string.str_about),
-                                stringSupportingText = stringResource(id = R.string.desc_about),
-                                leadingUnit = {
+                                headlineTextString = stringResource(id = R.string.str_about),
+                                supportingTextString = stringResource(id = R.string.desc_about),
+                                leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_info_24), 
                                         contentDescription = stringResource(id = R.string.desc_about)

@@ -78,8 +78,8 @@ fun AppLanguageScreen(navController: NavController) {
                                             context.startActivity(intent)
                                         }
                                     },
-                                stringHeadlineText = stringResource(id = R.string.app_launguage),
-                                trailingUnit = {
+                                headlineTextString = stringResource(id = R.string.app_launguage),
+                                trailingContent = {
                                     if(changeLanguageEnabled) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),

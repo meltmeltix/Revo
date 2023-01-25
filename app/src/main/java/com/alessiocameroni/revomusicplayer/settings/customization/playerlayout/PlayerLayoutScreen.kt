@@ -122,8 +122,8 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                                 ) {
                                     PixelyListItem(
                                         modifier = Modifier,
-                                        stringHeadlineText = text,
-                                        leadingUnit = {
+                                        headlineTextString = text,
+                                        leadingContent = {
                                             RadioButton(
                                                 selected = (text == selectedOption),
                                                 onClick = null

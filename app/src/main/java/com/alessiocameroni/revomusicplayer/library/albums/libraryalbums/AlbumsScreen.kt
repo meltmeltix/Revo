@@ -18,15 +18,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
-import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,7 +80,7 @@ fun AlbumsScreen(
                                 navControllerBottomBar.navigate(AlbumsScreens.AlbumViewScreen.route)
                             },
                     ) {
-                        LibraryListItem(
+                        /*LibraryListItem(
                             modifier = Modifier,
                             navControllerBottomBar = navControllerBottomBar,
                             painterPlaceholder = painterResource(id = R.drawable.ic_outlined_album_24),
@@ -106,7 +102,7 @@ fun AlbumsScreen(
                                     "/${item.artistId}" +
                                     "/${item.artist}",
                             itemAddToPlaylist = false
-                        )
+                        )*/
                     }
                 }
             }

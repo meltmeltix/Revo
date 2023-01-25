@@ -17,13 +17,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
-import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
-import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
-import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.AlbumImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,28 +80,37 @@ fun SongsScreen(
                             .clickableRowItem()
                             .clickable { },
                     ) {
-                        LibraryListItem(
+                        PixelyListItem(
                             modifier = Modifier,
-                            navControllerBottomBar = navControllerBottomBar,
-                            painterPlaceholder = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            stringMainTitle = item.songTitle,
-                            stringSubtitle = item.artist,
-                            leadingUnit = {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.albumCoverUri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = stringResource(id = R.string.desc_albumImage)
+                            headlineTextString = item.songTitle,
+                            maxHeadlineLines = 1,
+                            largeHeadline = false,
+                            supportingTextString = item.artist,
+                            maxSupportingLines = 1,
+                            leadingContent = {
+                                AlbumImage(
+                                    modifier = Modifier.padding(horizontal = 5.dp),
+                                    painterPlaceholder =
+                                        painterResource(id = R.drawable.ic_baseline_music_note_24),
+                                    leadingUnit = {
+                                        AsyncImage(
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data(item.albumCoverUri)
+                                                .crossfade(true)
+                                                .build(),
+                                            contentDescription = stringResource(id = R.string.desc_albumImage)
+                                        )
+                                    }
                                 )
                             },
-                            menuEnabled = true,
-                            stringViewAlbumRoute = AlbumsScreens.AlbumViewScreen.route,
-                            stringViewArtistRoute =
-                                ArtistsScreens.ArtistViewScreen.route +
-                                    "/${item.artistId}" +
-                                    "/${item.artist}",
-                            itemAddToPlaylist = true
+                            trailingContent = {
+                                IconButton(onClick = {  }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                        contentDescription = stringResource(id = R.string.str_moreOptions)
+                                    )
+                                }
+                            }
                         )
                     }
                 }

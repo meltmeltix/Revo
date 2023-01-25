@@ -67,7 +67,7 @@ fun CustomizationScreen(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { }, 
-                                stringHeadlineText = stringResource(id = R.string.str_appTheme)
+                                headlineTextString = stringResource(id = R.string.str_appTheme)
                             )
                         }
 
@@ -76,7 +76,7 @@ fun CustomizationScreen(
                                 modifier = Modifier
                                     .clickableRowItem()
                                     .clickable { },
-                                stringHeadlineText = stringResource(id = R.string.str_colorScheme)
+                                headlineTextString = stringResource(id = R.string.str_colorScheme)
                             )
                         }
                         
@@ -96,8 +96,8 @@ fun CustomizationScreen(
                                             CustomizationSettingsScreens.PlayerLayoutScreen.route
                                         )
                                     },
-                                stringHeadlineText = stringResource(id = R.string.str_layoutPlayer),
-                                stringSupportingText = stringResource(id = R.string.desc_layoutPlayer)
+                                headlineTextString = stringResource(id = R.string.str_layoutPlayer),
+                                supportingTextString = stringResource(id = R.string.desc_layoutPlayer)
                                 /*TODO(Put "dynamic" string here with layout, and both strings)*/
                             )
                         }

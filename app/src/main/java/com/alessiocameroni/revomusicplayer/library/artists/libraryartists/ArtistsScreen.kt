@@ -23,7 +23,6 @@ import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryIconListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,7 +82,7 @@ fun ArtistsScreen(
                                 )
                             },
                     ) {
-                        LibraryIconListItem(
+                        /*LibraryIconListItem(
                             modifier = Modifier,
                             stringMainTitle = item.artist,
                             stringSubtitle = "PH",
@@ -95,7 +94,7 @@ fun ArtistsScreen(
                             },
                             unitMenuItems = {  },
                             menuEnabled = false
-                        )
+                        )*/
                     }
                 }
             }

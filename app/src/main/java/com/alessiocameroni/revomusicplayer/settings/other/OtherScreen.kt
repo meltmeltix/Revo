@@ -73,8 +73,8 @@ fun OtherScreen(navController: NavController) {
                                                 OtherSettingsScreens.AppLanguageScreen.route
                                             )
                                     },
-                                stringHeadlineText = stringResource(id = R.string.str_appLanguage),
-                                stringSupportingText = stringResource(id = R.string.app_launguage)
+                                headlineTextString = stringResource(id = R.string.str_appLanguage),
+                                supportingTextString = stringResource(id = R.string.app_launguage)
                             )
                         }
                     }

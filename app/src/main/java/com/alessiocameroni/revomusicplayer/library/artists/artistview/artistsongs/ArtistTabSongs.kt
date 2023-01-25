@@ -11,16 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistSongsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.LibraryListItem
 
 @Composable
 fun ArtistTabSongs(
@@ -44,7 +38,7 @@ fun ArtistTabSongs(
                     .clickableRowItem()
                     .clickable { },
             ) {
-                LibraryListItem(
+                /*LibraryListItem(
                     modifier = Modifier,
                     navControllerBottomBar = navControllerBottomBar,
                     painterPlaceholder = painterResource(id = R.drawable.ic_baseline_music_note_24),
@@ -63,7 +57,7 @@ fun ArtistTabSongs(
                     stringViewAlbumRoute = null,
                     stringViewArtistRoute = null,
                     itemAddToPlaylist = true
-                )
+                )*/
             }
         }
     }
