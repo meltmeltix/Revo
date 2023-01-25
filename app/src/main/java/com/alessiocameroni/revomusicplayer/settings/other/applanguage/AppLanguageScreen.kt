@@ -22,7 +22,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,10 +66,7 @@ fun AppLanguageScreen(navController: NavController) {
                         item {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
-                                    .clickable(
-                                        enabled = changeLanguageEnabled
-                                    ) {
+                                    .clickable(enabled = changeLanguageEnabled) {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                                             val intent = Intent(Settings.ACTION_APP_LOCALE_SETTINGS)
                                             intent.data =

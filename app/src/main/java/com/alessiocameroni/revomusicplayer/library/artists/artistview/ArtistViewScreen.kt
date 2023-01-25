@@ -1,30 +1,25 @@
-package com.alessiocameroni.revomusicplayer.library.albums.albumview
+package com.alessiocameroni.revomusicplayer.library.artists.artistview
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlbumViewScreen(
+fun ArtistViewScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    albumId: Long?,
-    albumTitle: String?,
+    artistId: Long?,
+    artist: String?,
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -34,14 +29,14 @@ fun AlbumViewScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    if (albumTitle != null) {
+                    if (artist != null) {
                         Text(
-                            text = albumTitle,
+                            text = artist,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                     } else {
-                        Text(text = "Album")
+                        Text(text = "Artist")
                     }
                 },
                 navigationIcon = {
@@ -63,17 +58,16 @@ fun AlbumViewScreen(
                             )
                         }
                     }
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior
             )
         },
         content = { padding ->
-            LazyVerticalGrid(
+            Column(
                 modifier = Modifier
+                    .fillMaxSize()
                     .padding(padding)
-                    .fillMaxSize(),
-                columns = GridCells.Fixed(1),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ){
+            ) {
 
             }
         }

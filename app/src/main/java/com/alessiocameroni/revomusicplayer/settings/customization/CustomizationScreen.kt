@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.CustomizationSettingsScreens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -65,7 +64,6 @@ fun CustomizationScreen(
                         item { 
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { }, 
                                 headlineTextString = stringResource(id = R.string.str_appTheme)
                             )
@@ -74,7 +72,6 @@ fun CustomizationScreen(
                         item {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { },
                                 headlineTextString = stringResource(id = R.string.str_colorScheme)
                             )
@@ -90,7 +87,6 @@ fun CustomizationScreen(
                         item {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable {
                                         navController.navigate(
                                             CustomizationSettingsScreens.PlayerLayoutScreen.route

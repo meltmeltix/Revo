@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.OtherSettingsScreens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -66,7 +65,6 @@ fun OtherScreen(navController: NavController) {
                         item {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable {
                                         navController
                                             .navigate(

@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.library.albums.albumview.AlbumViewScreen
 import com.alessiocameroni.revomusicplayer.library.albums.libraryalbums.AlbumsScreen
-import com.alessiocameroni.revomusicplayer.library.artists.artistview.mainscreen.ArtistViewScreen
+import com.alessiocameroni.revomusicplayer.library.artists.artistview.ArtistViewScreen
 import com.alessiocameroni.revomusicplayer.library.artists.libraryartists.ArtistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.library.playlists.playlistview.PlaylistViewScreen
@@ -484,7 +484,7 @@ fun NavigationBottomNavBar(
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
 
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTile}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -556,7 +556,7 @@ fun NavigationBottomNavBar(
 
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTile}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -581,7 +581,7 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTile}" ->
                         slideOutVertically (
                             targetOffsetY = { -30 },
                             animationSpec = tween( 210 )
@@ -592,7 +592,7 @@ fun NavigationBottomNavBar(
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTile}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -609,7 +609,7 @@ fun NavigationBottomNavBar(
 
         // Album SubScreens
         composable(
-            route = AlbumsScreens.AlbumViewScreen.route,
+            route = "album_view_screen/{albumId}/{albumTitle}",
             enterTransition = {
                 when(initialState.destination.route) {
                     "albums" ->
@@ -651,10 +651,15 @@ fun NavigationBottomNavBar(
                     else -> null
                 }
             }
-        ) {
+        ) { navBackStack ->
+            val albumId = navBackStack.arguments?.getString("albumId")?.toLong()
+            val albumTitle = navBackStack.arguments?.getString("albumTitle")
+
             AlbumViewScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerBottomBar,
+                albumId = albumId,
+                albumTitle = albumTitle
             )
         }
 
@@ -691,7 +696,7 @@ fun NavigationBottomNavBar(
 
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTitle}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -835,7 +840,7 @@ fun NavigationBottomNavBar(
                         ) + fadeIn(animationSpec = tween( 210 ))
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTitle}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -968,7 +973,7 @@ fun NavigationBottomNavBar(
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
 
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}/{albumTitle}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )

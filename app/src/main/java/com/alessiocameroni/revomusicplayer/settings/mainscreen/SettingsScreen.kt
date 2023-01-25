@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
@@ -48,7 +47,6 @@ fun SettingsScreen(navController: NavController) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_library),
                                 supportingTextString = stringResource(id = R.string.desc_library),
@@ -64,7 +62,6 @@ fun SettingsScreen(navController: NavController) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_customization),
                                 supportingTextString = stringResource(id = R.string.desc_customization),
@@ -80,7 +77,6 @@ fun SettingsScreen(navController: NavController) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_other),
                                 supportingTextString = stringResource(id = R.string.desc_other),
@@ -96,7 +92,6 @@ fun SettingsScreen(navController: NavController) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             PixelyListItem(
                                 modifier = Modifier
-                                    .clickableRowItem()
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_about),
                                 supportingTextString = stringResource(id = R.string.desc_about),

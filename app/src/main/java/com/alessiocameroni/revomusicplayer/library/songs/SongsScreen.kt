@@ -19,10 +19,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.AlbumImage
+import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,18 +76,17 @@ fun SongsScreen(
                 itemsIndexed(items = librarySongs) { _, item ->
                     Row(
                         modifier = Modifier
-                            .clickableRowItem()
                             .clickable { },
                     ) {
                         PixelyListItem(
                             modifier = Modifier,
                             headlineTextString = item.songTitle,
-                            maxHeadlineLines = 1,
                             largeHeadline = false,
+                            maxHeadlineLines = 1,
                             supportingTextString = item.artist,
                             maxSupportingLines = 1,
                             leadingContent = {
-                                AlbumImage(
+                                SmallImageContainer(
                                     modifier = Modifier.padding(horizontal = 5.dp),
                                     painterPlaceholder =
                                         painterResource(id = R.drawable.ic_baseline_music_note_24),

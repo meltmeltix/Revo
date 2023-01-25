@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.alessiocameroni.revomusicplayer.R
 
 @Composable
-fun AlbumImage(
+fun SmallImageContainer(
     modifier: Modifier,
     painterPlaceholder: Painter,
     leadingUnit: @Composable () -> Unit?,
@@ -24,7 +24,7 @@ fun AlbumImage(
     Box(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .aspectRatio(1f)
             .size(60.dp),
         contentAlignment = Alignment.Center
@@ -32,7 +32,7 @@ fun AlbumImage(
         Icon(
             painter = painterPlaceholder,
             contentDescription = stringResource(id = R.string.desc_albumImage),
-            tint = MaterialTheme.colorScheme.onPrimary
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         leadingUnit()

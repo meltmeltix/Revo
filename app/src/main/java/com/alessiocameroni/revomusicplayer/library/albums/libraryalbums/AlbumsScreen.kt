@@ -18,11 +18,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,11 +78,47 @@ fun AlbumsScreen(
                 itemsIndexed(libraryAlbums) { _, item ->
                     Row(
                         modifier = Modifier
-                            .clickableRowItem()
                             .clickable {
-                                navControllerBottomBar.navigate(AlbumsScreens.AlbumViewScreen.route)
+                                navControllerBottomBar.navigate(
+                                    AlbumsScreens.AlbumViewScreen.route +
+                                            "/${item.albumId}" +
+                                            "/${item.albumTitle}"
+                                )
                             },
                     ) {
+                        PixelyListItem(
+                            modifier = Modifier,
+                            headlineTextString = item.albumTitle,
+                            largeHeadline = false,
+                            maxHeadlineLines = 1,
+                            supportingTextString = item.artist,
+                            maxSupportingLines = 1,
+                            leadingContent = {
+                                SmallImageContainer(
+                                    modifier = Modifier.padding(horizontal = 5.dp),
+                                    painterPlaceholder =
+                                        painterResource(id = R.drawable.ic_outlined_album_24),
+                                    leadingUnit = {
+                                        AsyncImage(
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data(item.albumCoverUri)
+                                                .crossfade(true)
+                                                .build(),
+                                            contentDescription = stringResource(id = R.string.desc_albumImage)
+                                        )
+                                    },
+                                )
+                            },
+                            trailingContent = {
+                                IconButton(onClick = {  }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                        contentDescription = stringResource(id = R.string.str_moreOptions)
+                                    )
+                                }
+                            }
+                        )
+
                         /*LibraryListItem(
                             modifier = Modifier,
                             navControllerBottomBar = navControllerBottomBar,

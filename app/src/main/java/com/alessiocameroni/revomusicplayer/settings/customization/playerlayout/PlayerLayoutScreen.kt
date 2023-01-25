@@ -22,7 +22,6 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.modifiers.clickableRowItem
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,7 +111,6 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                             radioOptions.forEach { text ->
                                 Row(
                                     modifier = Modifier
-                                        .clickableRowItem()
                                         .selectable(
                                             selected = (text == selectedOption),
                                             onClick = { onOptionSelected(text) },
