@@ -80,9 +80,7 @@ fun AlbumsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    AlbumsScreens.AlbumViewScreen.route +
-                                            "/${item.albumId}" +
-                                            "/${item.albumTitle}"
+                                    AlbumsScreens.AlbumViewScreen.route
                                 )
                             },
                     ) {

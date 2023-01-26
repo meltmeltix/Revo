@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
@@ -18,8 +17,6 @@ import com.alessiocameroni.revomusicplayer.R
 fun ArtistViewScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    artistId: Long?,
-    artist: String?,
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -29,15 +26,7 @@ fun ArtistViewScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    if (artist != null) {
-                        Text(
-                            text = artist,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    } else {
-                        Text(text = "Artist")
-                    }
+                    Text(text = "Artist Name")
                 },
                 navigationIcon = {
                     IconButton(

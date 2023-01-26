@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -23,8 +22,6 @@ import com.alessiocameroni.revomusicplayer.R
 fun AlbumViewScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    albumId: Long?,
-    albumTitle: String?,
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -34,15 +31,7 @@ fun AlbumViewScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    if (albumTitle != null) {
-                        Text(
-                            text = albumTitle,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    } else {
-                        Text(text = "Album")
-                    }
+                        Text(text = "Album Title")
                 },
                 navigationIcon = {
                     IconButton(

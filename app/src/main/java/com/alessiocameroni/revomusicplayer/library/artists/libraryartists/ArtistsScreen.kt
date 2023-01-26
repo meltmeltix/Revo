@@ -78,9 +78,7 @@ fun ArtistsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    ArtistsScreens.ArtistViewScreen.route +
-                                            "/${item.artistId}" +
-                                            "/${item.artist}"
+                                    ArtistsScreens.ArtistViewScreen.route
                                 )
                             },
                     ) {
