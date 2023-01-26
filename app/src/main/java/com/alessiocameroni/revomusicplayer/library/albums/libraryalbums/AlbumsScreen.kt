@@ -25,7 +25,9 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.AlbumsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.ItemDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.library.components.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,6 +66,11 @@ fun AlbumsScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
+
+                        TopBarDropDownMenu(
+                            expanded = expandedMenu,
+                            navController = navController
+                        )
                     }
                 }, scrollBehavior = scrollBehavior
             )
@@ -108,38 +115,23 @@ fun AlbumsScreen(
                                 )
                             },
                             trailingContent = {
-                                IconButton(onClick = {  }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                        contentDescription = stringResource(id = R.string.str_moreOptions)
+                                val expandedItemMenu = remember { mutableStateOf(false) }
+
+                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                    IconButton(onClick = { expandedItemMenu.value = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                            contentDescription = stringResource(id = R.string.str_moreOptions)
+                                        )
+                                    }
+
+                                    ItemDropDownMenu(
+                                        expanded = expandedItemMenu,
+                                        navController = navController
                                     )
                                 }
                             }
                         )
-
-                        /*LibraryListItem(
-                            modifier = Modifier,
-                            navControllerBottomBar = navControllerBottomBar,
-                            painterPlaceholder = painterResource(id = R.drawable.ic_outlined_album_24),
-                            stringMainTitle = item.albumTitle,
-                            stringSubtitle = item.artist,
-                            leadingUnit = {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.albumCoverUri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = stringResource(id = R.string.desc_albumImage)
-                                )
-                            },
-                            menuEnabled = true,
-                            stringViewAlbumRoute = null,
-                            stringViewArtistRoute =
-                                ArtistsScreens.ArtistViewScreen.route +
-                                    "/${item.artistId}" +
-                                    "/${item.artist}",
-                            itemAddToPlaylist = false
-                        )*/
                     }
                 }
             }

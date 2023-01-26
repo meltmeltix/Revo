@@ -21,7 +21,9 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
+import com.alessiocameroni.revomusicplayer.library.components.ItemDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.library.components.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,16 +34,13 @@ fun SongsScreen(
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
     val librarySongs = viewModel.librarySongs
-
     val context = LocalContext.current
 
     LaunchedEffect(Unit) { viewModel.initializeSongList(context) }
 
     Scaffold(
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_songs)) },
@@ -61,6 +60,11 @@ fun SongsScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
+
+                        TopBarDropDownMenu(
+                            expanded = expandedMenu,
+                            navController = navController
+                        )
                     }
                 },
                 scrollBehavior = scrollBehavior,
@@ -102,10 +106,19 @@ fun SongsScreen(
                                 )
                             },
                             trailingContent = {
-                                IconButton(onClick = {  }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                        contentDescription = stringResource(id = R.string.str_moreOptions)
+                                val expandedItemMenu = remember { mutableStateOf(false) }
+
+                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                    IconButton(onClick = { expandedItemMenu.value = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                            contentDescription = stringResource(id = R.string.str_moreOptions)
+                                        )
+                                    }
+
+                                    ItemDropDownMenu(
+                                        expanded = expandedItemMenu,
+                                        navController = navController
                                     )
                                 }
                             }

@@ -27,6 +27,7 @@ fun checkPermissions(): Boolean {
             permissionsList[0] -> {
                 when { !it.status.isGranted -> return false }
             }
+            else -> return true
         }
     }
     return true
