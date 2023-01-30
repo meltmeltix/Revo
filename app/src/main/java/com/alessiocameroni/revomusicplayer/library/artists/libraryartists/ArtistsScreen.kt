@@ -25,7 +25,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
-import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

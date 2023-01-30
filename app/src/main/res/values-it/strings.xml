@@ -33,17 +33,11 @@
     <string name="str_cancel">Annulla</string>
     <string name="str_layoutPlayer">Layout player</string>
     <string name="desc_layoutPlayer">Scegli la disposizione dei bottoni nel pannello musicale a schermo pieno</string>
-    <string name="str_madeWithLoveBy">Fatto con &#9829; da</string>
-    <string name="bio_AlessioCameroni">Sono uno studente universitario che aspira ad essere uno sviluppatore software.\nAdoro lavorare a grandi progetti, studiare UI e Design.</string>
-    <string name="str_developer">Sviluppatore</string>
-    <string name="str_specialThanks">Speciali saluti</string>
-    <string name="desc_arigata9">Traduzioni tedesche</string>
     <string name="str_lc_tracks">traccie</string>
     <string name="str_lc_minutes">minuti</string>
     <string name="desc_addToPlaylist">Aggiungi canzone alla playlist</string>
     <string name="str_addToPlaylist">Aggiungi a playlist</string>
     <string name="str_userIcon">Icona utente</string>
-    <string name="bio_arigata9">Sviluppatore come hobby, programmo principalmente in Node.JS per divertimento.\nGrande fan di tastiere meccaniche.</string>
     <string name="str_delete">Elimina</string>
     <string name="desc_deletePlaylist">Elimina playlist corrente</string>
     <string name="str_rename">Rinomina</string>

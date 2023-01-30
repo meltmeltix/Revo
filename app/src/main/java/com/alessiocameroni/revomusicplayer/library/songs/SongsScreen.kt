@@ -22,7 +22,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.SongsViewModel
 import com.alessiocameroni.revomusicplayer.library.components.ItemDropDownMenu
-import com.alessiocameroni.revomusicplayer.library.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.library.components.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
