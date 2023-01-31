@@ -26,6 +26,7 @@ import com.alessiocameroni.revomusicplayer.data.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
 import com.alessiocameroni.revomusicplayer.data.viewmodels.ArtistsViewModel
 import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.library.components.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +63,11 @@ fun ArtistsScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
+
+                        TopBarDropDownMenu(
+                            expanded = expandedMenu,
+                            navController = navController
+                        )
                     }
                 }, scrollBehavior = scrollBehavior
             )

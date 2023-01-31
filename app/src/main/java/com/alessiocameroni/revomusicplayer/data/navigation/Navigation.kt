@@ -884,7 +884,7 @@ fun NavigationBottomNavBar(
 
         // Playlist SubScreens
         composable(
-            route = PlaylistsScreens.PlaylistViewScreen.route,
+            route = "playlist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
                     "playlists" ->
@@ -926,7 +926,8 @@ fun NavigationBottomNavBar(
                     else -> null
                 }
             }
-        ) { PlaylistViewScreen(
+        ) {
+            PlaylistViewScreen(
                 navController = navControllerApp,
                 navControllerBottomBar = navControllerBottomBar
             )

@@ -1,8 +1,8 @@
 package com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -15,8 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.navigation.PlaylistsScreens
 import com.alessiocameroni.revomusicplayer.data.navigation.Screens
+import com.alessiocameroni.revomusicplayer.library.components.ItemDropDownMenu
+import com.alessiocameroni.revomusicplayer.library.components.TopBarDropDownMenu
 import com.alessiocameroni.revomusicplayer.library.playlists.libraryplaylists.components.AddPlaylistDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +56,11 @@ fun PlaylistsScreen(
                                 contentDescription = stringResource(id = R.string.str_settings)
                             )
                         }
+
+                        TopBarDropDownMenu(
+                            expanded = expandedMenu,
+                            navController = navController
+                        )
                     }
                 }, scrollBehavior = scrollBehavior
             )
@@ -76,15 +85,56 @@ fun PlaylistsScreen(
                 )
             }
 
-            LazyVerticalGrid(
+            LazyColumn(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
-                columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(bottom = 128.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
-            ){
+            ) {
+                items(5) {
+                    Row(
+                        modifier = Modifier
+                            .clickable {
+                                navControllerBottomBar.navigate(
+                                    PlaylistsScreens.PlaylistViewScreen.route
+                                )
+                            }
+                    ) {
+                        PixelyListItem(
+                            modifier = Modifier,
+                            headlineTextString = "Placeholder Playlist",
+                            largeHeadline = false,
+                            maxHeadlineLines = 1,
+                            supportingTextString = "Placeholder Song Number and Time",
+                            maxSupportingLines = 1,
+                            leadingContent = {
+                                Icon(
+                                    painter =
+                                    painterResource(id = R.drawable.ic_baseline_playlist_play_24),
+                                    contentDescription =
+                                    stringResource(id = R.string.str_playlists)
+                                )
+                            },
+                            trailingContent = {
+                                val expandedItemMenu = remember { mutableStateOf(false) }
 
+                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                    IconButton(onClick = { expandedItemMenu.value = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                            contentDescription = stringResource(id = R.string.str_moreOptions)
+                                        )
+                                    }
+
+                                    ItemDropDownMenu(
+                                        expanded = expandedItemMenu,
+                                        navController = navController
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
     )
