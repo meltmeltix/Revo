@@ -21,9 +21,9 @@ import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.navigation.NavigationBottomNavBar
-import com.alessiocameroni.revomusicplayer.data.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.mainscreen.data.bottomnav.BottomNavigationItemData
+import com.alessiocameroni.revomusicplayer.navigation.NavigationBottomNavBar
+import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.ui.screens.MainScreenNavigationItemData
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
@@ -51,31 +51,31 @@ fun MainScreen(navController: NavController) {
                         BottomNavigationBar(
                             modifier = Modifier,
                             items = listOf(
-                                BottomNavigationItemData(
+                                MainScreenNavigationItemData(
                                     name = stringResource(id = R.string.str_songs),
                                     route = "songs",
                                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                                 ),
-                                BottomNavigationItemData(
+                                MainScreenNavigationItemData(
                                     name = stringResource(id = R.string.str_albums),
                                     route = "albums",
                                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                                 ),
-                                BottomNavigationItemData(
+                                MainScreenNavigationItemData(
                                     name = stringResource(id = R.string.str_artists),
                                     route = "artists",
                                     iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
                                     iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                                 ),
-                                BottomNavigationItemData(
+                                MainScreenNavigationItemData(
                                     name = stringResource(id = R.string.str_playlists),
                                     route = "playlists",
                                     iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                                 ),
-                                BottomNavigationItemData(
+                                MainScreenNavigationItemData(
                                     name = stringResource(id = R.string.str_spotify),
                                     route = "spotify",
                                     iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
@@ -202,9 +202,9 @@ fun BottomMiniPlayer(
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    items: List<BottomNavigationItemData>,
+    items: List<MainScreenNavigationItemData>,
     navController: NavController,
-    onItemClick: (BottomNavigationItemData) -> Unit
+    onItemClick: (MainScreenNavigationItemData) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
