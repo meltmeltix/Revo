@@ -14,22 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
-import com.alessiocameroni.revomusicplayer.util.permissions.checkPermissions
 import com.alessiocameroni.revomusicplayer.ui.permissionsList
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+import com.alessiocameroni.revomusicplayer.util.permissions.checkPermissions
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -66,58 +61,14 @@ fun WelcomeScreen(navController: NavHostController) {
         ) {
             Scaffold(
                 modifier = Modifier.fillMaxSize(),
-                topBar = {
-                    LargeTopAppBar(
-                        title = {
-                            Column(
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                val stringRevo = stringResource(id = R.string.app_name)
-
-                                Text(text = stringResource(id = R.string.str_heyThere))
-                                Text(
-                                    buildAnnotatedString {
-                                        append(stringResource(id = R.string.str_welcome))
-                                        withStyle(
-                                            style = SpanStyle(
-                                                color = MaterialTheme.colorScheme.primary
-                                            )
-                                        ) {
-                                            append(" $stringRevo")
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    )
-                },
+                topBar = { LargeTopAppBar(title = { WelcomeHeader() }) },
                 bottomBar = {
                     BottomAppBar(
                         content = {
-                            Button(
-                                onClick = {
-                                    navController.navigate(Screens.MainScreen.route) {
-                                        popUpTo(Screens.WelcomeScreen.route) {
-                                            inclusive = true
-                                        }
-                                    }
-                                },
-                                modifier = Modifier
-                                    .padding(horizontal = 15.dp)
-                                    .fillMaxWidth(),
-                                enabled = buttonForwardEnabled
-                            ) {
-                                Icon(
-                                    painter =
-                                    painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
-                                    contentDescription = stringResource(id = R.string.str_letsGo),
-                                    modifier = Modifier
-                                        .padding(horizontal = 8.dp)
-                                        .size(ButtonDefaults.IconSize)
-                                )
-
-                                Text(text = stringResource(id = R.string.str_letsGo))
-                            }
+                            ForwardAppButton(
+                                enabledState = buttonForwardEnabled,
+                                navController = navController
+                            )
                         }
                     )
                 },
@@ -130,7 +81,7 @@ fun WelcomeScreen(navController: NavHostController) {
                     ) {
                         Divider()
 
-                        WelcomePermissionRow(
+                        ListPermissionRow(
                             modifier = Modifier,
                             number = 1,
                             stringMainTitle = stringResource(id = R.string.str_storageAccess),

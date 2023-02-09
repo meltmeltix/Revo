@@ -1,8 +1,11 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.player
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -13,10 +16,132 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
+import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun TopActionBar(navController: NavController) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    TopAppBar(
+        title = { Text(text = "") },
+        modifier = Modifier.clickable(
+            interactionSource = interactionSource,
+            indication = null
+        ) { navController.navigateUp() },
+        navigationIcon = {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 4.dp)
+                    .size(40.dp)
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_down_24),
+                    contentDescription = stringResource(id = R.string.desc_closeMusic)
+                )
+            }
+        }
+    )
+}
 
 @Composable
-fun CenterSongControls(
+internal fun BottomActionBar(
+    navController: NavController,
+    boolShuffleChecked: Boolean,
+    boolRepeatChecked: Boolean,
+    openBottomSheet: MutableState<Boolean>
+) {
+    var shuffleChecked by rememberSaveable { mutableStateOf(boolShuffleChecked) }
+    var repeatChecked by rememberSaveable { mutableStateOf(boolRepeatChecked) }
+    val expanded = rememberSaveable { mutableStateOf(false) }
+
+    BottomAppBar(
+        actions = {
+            BottomAppBarDropDownMenu(
+                expanded = expanded,
+                navController = navController
+            )
+
+            IconToggleButton(
+                checked = shuffleChecked,
+                onCheckedChange = { shuffleChecked = it },
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
+                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                )
+            }
+
+            IconToggleButton(
+                checked = repeatChecked,
+                onCheckedChange = { repeatChecked = it }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
+                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                )
+            }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { openBottomSheet.value = true },
+                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_queue_music_24),
+                    contentDescription = stringResource(id = R.string.str_queue)
+                )
+            }
+        }
+    )
+}
+
+@Composable
+internal fun BottomAppBarDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController,
+) {
+    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+        IconButton(onClick = { expanded.value = true }) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                contentDescription = stringResource(id = R.string.str_moreOptions)
+            )
+        }
+
+        MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+            DropdownMenu(
+                modifier = Modifier.width(180.dp),
+                expanded = expanded.value,
+                onDismissRequest = { expanded.value = false }
+            ) {
+                Divider()
+                DropdownMenuItem(
+                    text = { Text(text = stringResource(id = R.string.str_settings)) },
+                    onClick = {
+                        navController.navigate(Screens.SettingsScreen.route)
+                        expanded.value = false
+                    },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                            contentDescription = stringResource(id = R.string.desc_settings)
+                        )
+                    }
+                )
+            }
+        }
+    }
+}
+
+// Song Controls
+@Composable
+internal fun CenterSongControls(
     modifier: Modifier,
     floatSliderPosition: Float
 ) {
@@ -180,7 +305,7 @@ fun CenterSongControls(
 }
 
 @Composable
-fun LeftSongControls(
+internal fun LeftSongControls(
     modifier: Modifier,
     floatSliderPosition: Float
 ) {
@@ -346,7 +471,7 @@ fun LeftSongControls(
 }
 
 @Composable
-fun RightSongControls(
+internal fun RightSongControls(
     modifier: Modifier,
     floatSliderPosition: Float
 ) {

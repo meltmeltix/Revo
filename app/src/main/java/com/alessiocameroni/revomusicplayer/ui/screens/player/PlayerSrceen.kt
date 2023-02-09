@@ -1,8 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.player
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -99,126 +96,7 @@ fun PlayerScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopActionBar(navController: NavController) {
-    val interactionSource = remember { MutableInteractionSource() }
-
-    TopAppBar(
-        title = { Text(text = "") },
-        modifier = Modifier.clickable(
-            interactionSource = interactionSource,
-            indication = null
-        ) { navController.navigateUp() },
-        navigationIcon = {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 4.dp)
-                    .size(40.dp)
-                    .aspectRatio(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_down_24),
-                    contentDescription = stringResource(id = R.string.desc_closeMusic)
-                )
-            }
-        }
-    )
-}
-
-@Composable
-private fun BottomActionBar(
-    navController: NavController,
-    boolShuffleChecked: Boolean,
-    boolRepeatChecked: Boolean,
-    openBottomSheet: MutableState<Boolean>
-) {
-    var shuffleChecked by rememberSaveable { mutableStateOf(boolShuffleChecked) }
-    var repeatChecked by rememberSaveable { mutableStateOf(boolRepeatChecked) }
-    val expanded = rememberSaveable { mutableStateOf(false) }
-
-    BottomAppBar(
-        actions = {
-            BottomAppBarDropDownMenu(
-                expanded = expanded,
-                navController = navController
-            )
-
-            IconToggleButton(
-                checked = shuffleChecked,
-                onCheckedChange = { shuffleChecked = it },
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                    contentDescription = stringResource(id = R.string.str_moreOptions)
-                )
-            }
-
-            IconToggleButton(
-                checked = repeatChecked,
-                onCheckedChange = { repeatChecked = it }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_repeat_24),
-                    contentDescription = stringResource(id = R.string.str_moreOptions)
-                )
-            }
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { openBottomSheet.value = true },
-                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
-                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_queue_music_24), 
-                    contentDescription = stringResource(id = R.string.str_queue)
-                )
-            }
-        }
-    )
-}
-
-@Composable
-private fun BottomAppBarDropDownMenu(
-    expanded: MutableState<Boolean>,
-    navController: NavController,
-) {
-    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-        IconButton(onClick = { expanded.value = true }) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                contentDescription = stringResource(id = R.string.str_moreOptions)
-            )
-        }
-
-        MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-            DropdownMenu(
-                modifier = Modifier.width(180.dp),
-                expanded = expanded.value,
-                onDismissRequest = { expanded.value = false }
-            ) {
-                Divider()
-                DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.str_settings)) },
-                    onClick = {
-                        navController.navigate(Screens.SettingsScreen.route)
-                        expanded.value = false
-                    },
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                            contentDescription = stringResource(id = R.string.desc_settings)
-                        )
-                    }
-                )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
+internal fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
     val skipHalfExpanded by remember { mutableStateOf(true) }
     val bottomSheetState = rememberSheetState(skipHalfExpanded = skipHalfExpanded)
 
@@ -229,7 +107,17 @@ private fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
                 .fillMaxSize(),
             sheetState = bottomSheetState
         ) {
+            Scaffold() { padding ->
+                Column(
+                    modifier = Modifier
+                        .padding(
+                            top = padding.calculateTopPadding(),
+                            bottom = padding.calculateBottomPadding()
+                        )
+                ) {
 
+                }
+            }
         }
     }
 }

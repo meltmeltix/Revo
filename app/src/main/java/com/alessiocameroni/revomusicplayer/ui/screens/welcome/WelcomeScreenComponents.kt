@@ -3,17 +3,47 @@ package com.alessiocameroni.revomusicplayer.ui.screens.welcome
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
-fun WelcomePermissionRow(
+internal fun WelcomeHeader() {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        val stringRevo = stringResource(id = R.string.app_name)
+
+        Text(text = stringResource(id = R.string.str_heyThere))
+        Text(
+            buildAnnotatedString {
+                append(stringResource(id = R.string.str_welcome))
+                withStyle(
+                    style = SpanStyle(
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    append(" $stringRevo")
+                }
+            }
+        )
+    }
+}
+
+@Composable
+internal fun ListPermissionRow(
     modifier: Modifier,
     number: Int,
     stringMainTitle: String,
@@ -65,5 +95,36 @@ fun WelcomePermissionRow(
 
             unitButton()
         }
+    }
+}
+
+@Composable
+internal fun ForwardAppButton(
+    navController: NavController,
+    enabledState: Boolean
+) {
+    Button(
+        onClick = {
+            navController.navigate(Screens.MainScreen.route) {
+                popUpTo(Screens.WelcomeScreen.route) {
+                    inclusive = true
+                }
+            }
+        },
+        modifier = Modifier
+            .padding(horizontal = 15.dp)
+            .fillMaxWidth(),
+        enabled = enabledState
+    ) {
+        Icon(
+            painter =
+            painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
+            contentDescription = stringResource(id = R.string.str_letsGo),
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .size(ButtonDefaults.IconSize)
+        )
+
+        Text(text = stringResource(id = R.string.str_letsGo))
     }
 }
