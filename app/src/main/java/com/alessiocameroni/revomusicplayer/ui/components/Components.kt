@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.data.components
+package com.alessiocameroni.revomusicplayer.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

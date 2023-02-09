@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.settings.about.components
+package com.alessiocameroni.revomusicplayer.ui.screens.settings.about
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 
 @Composable
 fun AppLogoItem() {

@@ -21,9 +21,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
-import com.alessiocameroni.revomusicplayer.permissions.checkPermissions
-import com.alessiocameroni.revomusicplayer.permissionsList
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.util.permissions.checkPermissions
+import com.alessiocameroni.revomusicplayer.ui.permissionsList
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState

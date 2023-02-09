@@ -18,9 +18,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.*
 import com.alessiocameroni.revomusicplayer.BuildConfig
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
-import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.components.AppLogoItem
-import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.components.CenterCreditItem
+import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.library.components
+package com.alessiocameroni.revomusicplayer.ui.screens.library
 
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.*
@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
 fun TopBarDropDownMenu(

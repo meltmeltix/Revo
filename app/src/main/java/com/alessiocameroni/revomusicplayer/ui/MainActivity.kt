@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer
+package com.alessiocameroni.revomusicplayer.ui
 
 import android.os.Build
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.alessiocameroni.revomusicplayer.permissions.SetContentByPermission
+import com.alessiocameroni.revomusicplayer.util.permissions.SetContentByPermission
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 val permissionsList = listOf(

@@ -1,9 +1,12 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.player
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -12,16 +15,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.player.components.CenterSongControls
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerScreen(navController: NavController) {
-    val sliderPosition by remember { mutableStateOf(0.5f) }
-    val shuffleChecked by remember { mutableStateOf(false) }
-    val repeatChecked by remember { mutableStateOf(false) }
+    val sliderPosition by rememberSaveable { mutableStateOf(0.5f) }
+    val shuffleChecked by rememberSaveable { mutableStateOf(false) }
+    val repeatChecked by rememberSaveable { mutableStateOf(false) }
+    val openBottomSheet = rememberSaveable { mutableStateOf(false) }
 
     RevoMusicPlayerTheme {
         Surface(
@@ -32,9 +35,10 @@ fun PlayerScreen(navController: NavController) {
                 topBar = { TopActionBar(navController) },
                 bottomBar = {
                     BottomActionBar(
-                        navController,
-                        shuffleChecked,
-                        repeatChecked
+                        navController = navController,
+                        boolShuffleChecked = shuffleChecked,
+                        boolRepeatChecked = repeatChecked,
+                        openBottomSheet = openBottomSheet
                     )
                 },
                 content = { padding ->
@@ -85,6 +89,8 @@ fun PlayerScreen(navController: NavController) {
                             )
                         }
                     }
+
+                    QueueModalBottomSheet(openBottomSheet = openBottomSheet)
                 }
             )
         }
@@ -93,17 +99,26 @@ fun PlayerScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopActionBar(navController: NavController) {
-    TopAppBar(title = { Text(text = "") },
+private fun TopActionBar(navController: NavController) {
+    val interactionSource = remember { MutableInteractionSource() }
+
+    TopAppBar(
+        title = { Text(text = "") },
+        modifier = Modifier.clickable(
+            interactionSource = interactionSource,
+            indication = null
+        ) { navController.navigateUp() },
         navigationIcon = {
-            IconButton(onClick = { navController.navigateUp() }) {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 4.dp)
+                    .size(40.dp)
+                    .aspectRatio(1f),
+                contentAlignment = Alignment.Center
+            ) {
                 Icon(
-                    painter = painterResource(
-                        id = R.drawable.ic_baseline_keyboard_arrow_down_24
-                    ),
-                    contentDescription = stringResource(
-                        id = R.string.desc_closeMusic
-                    )
+                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_down_24),
+                    contentDescription = stringResource(id = R.string.desc_closeMusic)
                 )
             }
         }
@@ -111,40 +126,22 @@ fun TopActionBar(navController: NavController) {
 }
 
 @Composable
-fun BottomActionBar(
+private fun BottomActionBar(
     navController: NavController,
     boolShuffleChecked: Boolean,
-    boolRepeatChecked: Boolean
+    boolRepeatChecked: Boolean,
+    openBottomSheet: MutableState<Boolean>
 ) {
-    var shuffleChecked by remember { mutableStateOf(boolShuffleChecked) }
-    var repeatChecked by remember { mutableStateOf(boolRepeatChecked) }
-    val expanded = remember { mutableStateOf(false) }
+    var shuffleChecked by rememberSaveable { mutableStateOf(boolShuffleChecked) }
+    var repeatChecked by rememberSaveable { mutableStateOf(boolRepeatChecked) }
+    val expanded = rememberSaveable { mutableStateOf(false) }
 
     BottomAppBar(
         actions = {
-            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(
-                    onClick = { expanded.value = true }
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_moreOptions)
-                    )
-                }
-
-                MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-                    DropdownMenu(
-                        modifier = Modifier.width(180.dp),
-                        expanded = expanded.value,
-                        onDismissRequest = { expanded.value = false }
-                    ) {
-                        PlayerMenuItems(
-                            navController = navController,
-                            expanded = expanded
-                        )
-                    }
-                }
-            }
+            BottomAppBarDropDownMenu(
+                expanded = expanded,
+                navController = navController
+            )
 
             IconToggleButton(
                 checked = shuffleChecked,
@@ -168,7 +165,7 @@ fun BottomActionBar(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* TODO */ },
+                onClick = { openBottomSheet.value = true },
                 containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                 elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation()
             ) {
@@ -182,22 +179,57 @@ fun BottomActionBar(
 }
 
 @Composable
-fun PlayerMenuItems(
+private fun BottomAppBarDropDownMenu(
+    expanded: MutableState<Boolean>,
     navController: NavController,
-    expanded: MutableState<Boolean>
 ) {
-    Divider()
-    DropdownMenuItem(
-        text = { Text(text = stringResource(id = R.string.str_settings)) },
-        onClick = {
-            navController.navigate(Screens.SettingsScreen.route)
-            expanded.value = false
-        },
-        leadingIcon = {
+    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+        IconButton(onClick = { expanded.value = true }) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                contentDescription = stringResource(id = R.string.desc_settings)
+                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                contentDescription = stringResource(id = R.string.str_moreOptions)
             )
         }
-    )
+
+        MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+            DropdownMenu(
+                modifier = Modifier.width(180.dp),
+                expanded = expanded.value,
+                onDismissRequest = { expanded.value = false }
+            ) {
+                Divider()
+                DropdownMenuItem(
+                    text = { Text(text = stringResource(id = R.string.str_settings)) },
+                    onClick = {
+                        navController.navigate(Screens.SettingsScreen.route)
+                        expanded.value = false
+                    },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                            contentDescription = stringResource(id = R.string.desc_settings)
+                        )
+                    }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
+    val skipHalfExpanded by remember { mutableStateOf(true) }
+    val bottomSheetState = rememberSheetState(skipHalfExpanded = skipHalfExpanded)
+
+    if (openBottomSheet.value) {
+        ModalBottomSheet(
+            onDismissRequest = { openBottomSheet.value = false },
+            modifier = Modifier
+                .fillMaxSize(),
+            sheetState = bottomSheetState
+        ) {
+
+        }
+    }
 }

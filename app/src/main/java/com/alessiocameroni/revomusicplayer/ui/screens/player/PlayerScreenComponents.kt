@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.player.components
+package com.alessiocameroni.revomusicplayer.ui.screens.player
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

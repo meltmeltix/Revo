@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.navigation
+package com.alessiocameroni.revomusicplayer.ui.navigation
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen.AlbumViewScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumListScreen.AlbumsScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.AlbumsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.artistViewScreen.ArtistViewScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.libraryartist.ArtistsScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.libraryplaylists.PlaylistsScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.ArtistsScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.playlistViewScreen.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen.SongsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.spotifyScreen.SpotifyFavoritesScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.mainscreen.MainScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.MainScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.AboutScreen

@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.libraryplaylists.components
+package com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*

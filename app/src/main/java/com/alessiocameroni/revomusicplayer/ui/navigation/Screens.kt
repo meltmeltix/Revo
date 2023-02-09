@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.navigation
+package com.alessiocameroni.revomusicplayer.ui.navigation
 
 open class Screens(val route: String) {
     object WelcomeScreen : Screens("welcome_screen")

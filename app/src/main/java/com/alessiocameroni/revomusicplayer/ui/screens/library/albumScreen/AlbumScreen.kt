@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumListScreen
+package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,12 +22,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.navigation.AlbumsScreens
-import com.alessiocameroni.revomusicplayer.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.AlbumViewModel
-import com.alessiocameroni.revomusicplayer.ui.screens.library.components.ItemDropDownMenu
-import com.alessiocameroni.revomusicplayer.data.components.SmallImageContainer
-import com.alessiocameroni.revomusicplayer.ui.screens.library.components.TopBarDropDownMenu
+import com.alessiocameroni.revomusicplayer.ui.navigation.AlbumsScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
+import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

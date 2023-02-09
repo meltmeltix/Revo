@@ -1,9 +1,9 @@
-package com.alessiocameroni.revomusicplayer.permissions
+package com.alessiocameroni.revomusicplayer.util.permissions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.alessiocameroni.revomusicplayer.navigation.Navigation
-import com.alessiocameroni.revomusicplayer.permissionsList
+import com.alessiocameroni.revomusicplayer.ui.navigation.Navigation
+import com.alessiocameroni.revomusicplayer.ui.permissionsList
 import com.google.accompanist.permissions.*
 
 @Composable
