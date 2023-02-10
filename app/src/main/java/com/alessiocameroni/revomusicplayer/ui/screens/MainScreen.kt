@@ -15,9 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
@@ -101,24 +99,6 @@ fun MainScreen(navController: NavController) {
             )
         }
     }
-}
-
-@OptIn(ExperimentalAnimationApi::class)
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    val navController = rememberAnimatedNavController()
-
-    BottomMiniPlayer(
-        navController = navController,
-        modifier = Modifier
-            .layoutId("MiniPlayer")
-            .fillMaxWidth()
-            .height(64.dp)
-            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)),
-        songNameString = "SongName",
-        artistNameString = "ArtistName"
-    )
 }
 
 // UI Elements

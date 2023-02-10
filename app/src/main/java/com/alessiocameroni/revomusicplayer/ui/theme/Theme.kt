@@ -88,9 +88,9 @@ fun RevoMusicPlayerTheme(
 
     when {
         !darkTheme -> systemUiController
-            .setStatusBarColor(color = Color.Transparent, darkIcons = true)
+            .setSystemBarsColor(color = Color.Transparent, darkIcons = true)
         else -> systemUiController
-            .setStatusBarColor(color = Color.Transparent, darkIcons = false)
+            .setSystemBarsColor(color = Color.Transparent, darkIcons = false)
     }
 
     MaterialTheme(

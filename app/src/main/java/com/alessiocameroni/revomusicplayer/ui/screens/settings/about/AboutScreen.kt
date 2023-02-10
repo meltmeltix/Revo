@@ -169,6 +169,28 @@ fun AboutScreen(navController: NavController) {
                                         )
                                     )
                                 }
+
+                                PixelySegmentedRow(modifier = Modifier) {
+                                    PixelyListItem(
+                                        modifier = Modifier,
+                                        headlineTextString =
+                                            stringResource(id = R.string.str_openSourceLicenses),
+                                        supportingTextString =
+                                            stringResource(id = R.string.desc_openSourceLicenses),
+                                        leadingContent = {
+                                            Icon(
+                                                painter =
+                                                    painterResource(id = R.drawable.ic_outlined_workspace_premium_24),
+                                                contentDescription =
+                                                    stringResource(id = R.string.str_openSourceLicenses)
+                                            )
+                                        },
+                                        colors = PixelyListItemDefaults.colors(
+                                            containerColor =
+                                            MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+                                        )
+                                    )
+                                }
                                 
                                 PixelySegmentedRow(modifier = Modifier) {
                                     PixelyListItem(

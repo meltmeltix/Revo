@@ -107,17 +107,7 @@ internal fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
                 .fillMaxSize(),
             sheetState = bottomSheetState
         ) {
-            Scaffold() { padding ->
-                Column(
-                    modifier = Modifier
-                        .padding(
-                            top = padding.calculateTopPadding(),
-                            bottom = padding.calculateBottomPadding()
-                        )
-                ) {
 
-                }
-            }
         }
     }
 }

@@ -20,7 +20,7 @@ import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.CustomizationScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout.PlayerLayoutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.library.LibrarySettingsScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.settings.mainScreen.SettingsScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.settings.SettingsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.OtherScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.appLanguage.AppLanguageScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.welcome.WelcomeScreen
