@@ -88,7 +88,6 @@ fun ArtistsScreen(
                             },
                     ) {
                         PixelyListItem(
-                            modifier = Modifier,
                             headlineTextString = item.artist,
                             largeHeadline = false,
                             maxHeadlineLines = 1,

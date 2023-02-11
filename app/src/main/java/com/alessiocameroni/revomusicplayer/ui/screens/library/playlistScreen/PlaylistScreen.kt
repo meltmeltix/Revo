@@ -88,9 +88,10 @@ fun PlaylistsScreen(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                contentPadding = PaddingValues(bottom = 128.dp),
             ) {
-                items(5) {
+                items(10) {
                     Row(
                         modifier = Modifier
                             .clickable {
@@ -100,7 +101,6 @@ fun PlaylistsScreen(
                             }
                     ) {
                         PixelyListItem(
-                            modifier = Modifier,
                             headlineTextString = "Placeholder Playlist",
                             largeHeadline = false,
                             maxHeadlineLines = 1,

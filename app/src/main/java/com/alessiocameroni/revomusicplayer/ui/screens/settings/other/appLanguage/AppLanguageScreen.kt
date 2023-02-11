@@ -88,7 +88,6 @@ fun AppLanguageScreen(navController: NavController) {
 
                         item {
                             PixelySupportInfoText(
-                                modifier = Modifier,
                                 stringText =
                                     stringResource(id = R.string.desc_infoAppLanguage) + "\n\n" +
                                     stringResource(id = R.string.desc_infoSystemAppLanguage),

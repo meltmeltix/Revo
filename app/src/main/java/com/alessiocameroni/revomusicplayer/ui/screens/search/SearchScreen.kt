@@ -20,7 +20,7 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 @Composable
 fun SearchScreen(navController: NavController) {
     val text by rememberSaveable { mutableStateOf("") }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     RevoMusicPlayerTheme {
         Surface(

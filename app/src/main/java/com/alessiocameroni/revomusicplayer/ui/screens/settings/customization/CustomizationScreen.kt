@@ -56,7 +56,6 @@ fun CustomizationScreen(
                     ) {
                         item {
                             PixelySectionTitle(
-                                modifier = Modifier,
                                 stringTitle = stringResource(id = R.string.str_theme)
                             )
                         }
@@ -79,7 +78,6 @@ fun CustomizationScreen(
                         
                         item {
                             PixelySectionTitle(
-                                modifier = Modifier,
                                 stringTitle = stringResource(id = R.string.str_interface)
                             )
                         }

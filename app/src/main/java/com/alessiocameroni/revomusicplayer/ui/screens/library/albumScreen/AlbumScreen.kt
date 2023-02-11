@@ -36,7 +36,7 @@ fun AlbumsScreen(
     viewModel: AlbumViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryAlbums = viewModel.libraryAlbums
     val context = LocalContext.current
 
@@ -91,7 +91,6 @@ fun AlbumsScreen(
                             },
                     ) {
                         PixelyListItem(
-                            modifier = Modifier,
                             headlineTextString = item.albumTitle,
                             largeHeadline = false,
                             maxHeadlineLines = 1,

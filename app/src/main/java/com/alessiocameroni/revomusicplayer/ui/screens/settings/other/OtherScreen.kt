@@ -3,7 +3,6 @@ package com.alessiocameroni.revomusicplayer.ui.screens.settings.other
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
@@ -57,7 +56,6 @@ fun OtherScreen(navController: NavController) {
                     ) {
                         item {
                             PixelySectionTitle(
-                                modifier = Modifier.fillMaxWidth(),
                                 stringTitle = stringResource(id = R.string.str_generalPrefs)
                             )
                         }

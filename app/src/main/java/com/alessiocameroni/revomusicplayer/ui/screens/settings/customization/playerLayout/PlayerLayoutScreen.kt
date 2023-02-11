@@ -96,7 +96,6 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             PixelySupportInfoText(
-                                modifier = Modifier,
                                 stringText = stringResource(id = R.string.desc_layoutPlayer)
                             )
                         }
@@ -119,7 +118,6 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     PixelyListItem(
-                                        modifier = Modifier,
                                         headlineTextString = text,
                                         leadingContent = {
                                             RadioButton(

@@ -63,13 +63,12 @@ fun AboutScreen(navController: NavController) {
 
                         item {
                             PixelySectionTitle(
-                                modifier = Modifier, 
                                 stringTitle = stringResource(id = R.string.str_membersAndContributors)
                             )
                         }
                         
                         item {
-                            PixelySegmentedColumn(modifier = Modifier) {
+                            PixelySegmentedColumn {
                                 PixelySegmentedRow(
                                     modifier = Modifier
                                         .clickable {
@@ -100,7 +99,6 @@ fun AboutScreen(navController: NavController) {
                                         }
                                 ) {
                                     PixelyListItem(
-                                        modifier = Modifier,
                                         headlineTextString =
                                             stringResource(id = R.string.str_arigata9),
                                         supportingTextString =
@@ -134,13 +132,12 @@ fun AboutScreen(navController: NavController) {
 
                         item {
                             PixelySectionTitle(
-                                modifier = Modifier,
                                 stringTitle = stringResource(id = R.string.str_other)
                             )
                         }
 
                         item {
-                            PixelySegmentedColumn(modifier = Modifier) {
+                            PixelySegmentedColumn {
                                 PixelySegmentedRow(
                                     modifier = Modifier
                                         .clickable {
@@ -150,7 +147,6 @@ fun AboutScreen(navController: NavController) {
                                         }
                                 ) {
                                     PixelyListItem(
-                                        modifier = Modifier, 
                                         headlineTextString = 
                                             stringResource(id = R.string.str_github),
                                         supportingTextString = 
@@ -170,9 +166,8 @@ fun AboutScreen(navController: NavController) {
                                     )
                                 }
 
-                                PixelySegmentedRow(modifier = Modifier) {
+                                PixelySegmentedRow {
                                     PixelyListItem(
-                                        modifier = Modifier,
                                         headlineTextString =
                                             stringResource(id = R.string.str_openSourceLicenses),
                                         supportingTextString =
@@ -192,9 +187,8 @@ fun AboutScreen(navController: NavController) {
                                     )
                                 }
                                 
-                                PixelySegmentedRow(modifier = Modifier) {
+                                PixelySegmentedRow {
                                     PixelyListItem(
-                                        modifier = Modifier,
                                         headlineTextString =
                                             stringResource(id = R.string.str_appVersion),
                                         supportingTextString = BuildConfig.VERSION_NAME,

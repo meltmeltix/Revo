@@ -82,7 +82,6 @@ fun SongsScreen(
                             .clickable { },
                     ) {
                         PixelyListItem(
-                            modifier = Modifier,
                             headlineTextString = item.songTitle,
                             largeHeadline = false,
                             maxHeadlineLines = 1,
