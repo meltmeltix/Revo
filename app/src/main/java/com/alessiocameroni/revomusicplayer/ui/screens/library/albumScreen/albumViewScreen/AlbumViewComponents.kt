@@ -1,9 +1,13 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -12,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 
 /**
@@ -19,13 +24,14 @@ import com.alessiocameroni.revomusicplayer.R
  */
 @Composable
 internal fun AlbumViewHeader(
-    headlineTextString: String? = null,
-    supportingTextString: String? = null,
+    albumTitleString: String? = null,
+    albumArtistString: String? = null,
+    albumInfoString: String? = null,
     leadingUnit: @Composable () -> Unit?,
 ) {
     Column(
         modifier = Modifier,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         Box(
             modifier = Modifier
@@ -51,8 +57,9 @@ internal fun AlbumViewHeader(
             )
 
             HeaderText(
-                headlineTextString = headlineTextString,
-                supportingTextString = supportingTextString
+                albumTitleString = albumTitleString,
+                albumArtistString = albumArtistString,
+                albumInfoString = albumInfoString
             )
 
             leadingUnit()
@@ -64,11 +71,13 @@ internal fun AlbumViewHeader(
 
 @Composable
 private fun HeaderText(
-    headlineTextString: String?,
-    supportingTextString: String?
+    albumTitleString: String?,
+    albumArtistString: String?,
+    albumInfoString: String?
 ) {
-    val headline: String = headlineTextString ?: "Album Title"
-    val supporting: String = supportingTextString ?: "0 Songs - 00:00 Minutes"
+    val albumTitle: String = albumTitleString ?: "Album Title"
+    val artistName: String = albumArtistString ?: "Artist Name"
+    val albumInfo: String = albumInfoString ?: "0 Songs - 00:00 Minutes"
 
     Row(
         modifier = Modifier
@@ -80,16 +89,25 @@ private fun HeaderText(
             modifier = Modifier.weight(1f)
         ) {
             Text(
+                text = albumTitle,
                 modifier = Modifier,
-                text = headline,
                 style = MaterialTheme.typography.headlineMedium,
-                color = Color.White
+                color = Color.White,
+                maxLines = 2,
             )
 
             Text(
+                text = artistName,
                 modifier = Modifier,
-                text = supporting,
-                color = Color.White
+                color = Color.White,
+                maxLines = 1,
+            )
+
+            Text(
+                text = albumInfo,
+                modifier = Modifier,
+                color = Color.White,
+                maxLines = 1,
             )
         }
     }
@@ -100,7 +118,7 @@ private fun HeaderButtons() {
     Row(
         modifier = Modifier
             .padding(horizontal = 15.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         FilledTonalButton(
             onClick = { /*TODO*/ },
@@ -140,10 +158,59 @@ private fun HeaderButtons() {
 
 
 /**
- * List components
+ * Screen components
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SectionTitleBar(
+internal fun TopActionBar(
+    navControllerBottomBar: NavHostController,
+    scrollBehavior: TopAppBarScrollBehavior,
+
+    textVisibility: State<Boolean>,
+    albumTitleString: String
+) {
+    val expanded = remember { mutableStateOf(false) }
+
+    TopAppBar(
+        title = {
+            AnimatedVisibility(
+                visible = textVisibility.value,
+                enter = fadeIn(
+                    animationSpec = tween(100)
+                ),
+                exit = fadeOut(
+                    animationSpec = tween(100)
+                )
+            ) {
+                Text(text = "Album Title")
+            }
+        },
+        navigationIcon = {
+            IconButton(
+                onClick = { navControllerBottomBar.navigateUp() }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                    contentDescription = stringResource(id = R.string.desc_back)
+                )
+            }
+        },
+        actions = {
+            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                IconButton(onClick = { expanded.value = true }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                        contentDescription = stringResource(id = R.string.str_settings)
+                    )
+                }
+            }
+        },
+        scrollBehavior = scrollBehavior
+    )
+}
+
+@Composable
+internal fun AlbumViewSectionTitle(
     stringTitle: String,
     modifier: Modifier = Modifier
 ) {

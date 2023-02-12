@@ -484,7 +484,7 @@ fun NavigationBottomNavBar(
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
 
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -556,7 +556,7 @@ fun NavigationBottomNavBar(
 
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -581,7 +581,7 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideOutVertically (
                             targetOffsetY = { -30 },
                             animationSpec = tween( 210 )
@@ -592,7 +592,7 @@ fun NavigationBottomNavBar(
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -609,7 +609,7 @@ fun NavigationBottomNavBar(
 
         // Album SubScreens
         composable(
-            route = "album_view_screen",
+            route = "album_view_screen/{albumId}",
             enterTransition = {
                 when(initialState.destination.route) {
                     "albums" ->
@@ -651,11 +651,16 @@ fun NavigationBottomNavBar(
                     else -> null
                 }
             }
-        ) {
-            AlbumViewScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
-            )
+        ) {backStackEntry ->
+            val albumId = backStackEntry.arguments?.getString("albumId")?.toLong()
+
+            if (albumId != null) {
+                AlbumViewScreen(
+                    albumId = albumId,
+                    navController = navControllerApp,
+                    navControllerBottomBar = navControllerBottomBar
+                )
+            }
         }
 
 
@@ -691,7 +696,7 @@ fun NavigationBottomNavBar(
 
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -830,7 +835,7 @@ fun NavigationBottomNavBar(
                         ) + fadeIn(animationSpec = tween( 210 ))
 
                     //From screen
-                    "album_view_screen" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )
@@ -964,7 +969,7 @@ fun NavigationBottomNavBar(
                             animationSpec = tween( 210 )
                         ) + fadeIn(animationSpec = tween( 210 ))
 
-                    "album_view_screen}" ->
+                    "album_view_screen/{albumId}" ->
                         slideInVertically (
                             initialOffsetY = { 30 },
                             animationSpec = tween( 210 )

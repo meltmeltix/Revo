@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -87,7 +86,8 @@ fun AlbumsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    AlbumsScreens.AlbumViewScreen.route
+                                    AlbumsScreens.AlbumViewScreen.route +
+                                            "/${item.albumId}"
                                 )
                             },
                     ) {
@@ -108,10 +108,7 @@ fun AlbumsScreen(
                                                 .data(item.albumCoverUri)
                                                 .crossfade(true)
                                                 .build(),
-                                            contentDescription = stringResource(id = R.string.desc_albumImage),
-                                            onError = {
-                                                Log.d("AlbumScreen/AsyncImage", "Image not loaded")
-                                            }
+                                            contentDescription = stringResource(id = R.string.desc_albumImage)
                                         )
                                     },
                                 )
