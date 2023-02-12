@@ -2,9 +2,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.album
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,18 +10,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.alessiocameroni.revomusicplayer.R
 
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-    AlbumViewHeader(
-        leadingUnit = {  }
-    )
-}
-
+/**
+ * Header components
+ */
 @Composable
 internal fun AlbumViewHeader(
     headlineTextString: String? = null,
@@ -32,13 +25,12 @@ internal fun AlbumViewHeader(
 ) {
     Column(
         modifier = Modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         Box(
             modifier = Modifier
-                .padding(horizontal = 25.dp)
-                .padding(bottom = 25.dp)
-                .clip(MaterialTheme.shapes.medium)
+                .padding(horizontal = 15.dp)
+                .clip(MaterialTheme.shapes.extraLarge)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .aspectRatio(1f),
@@ -65,6 +57,8 @@ internal fun AlbumViewHeader(
 
             leadingUnit()
         }
+
+        HeaderButtons()
     }
 }
 
@@ -78,7 +72,7 @@ private fun HeaderText(
 
     Row(
         modifier = Modifier
-            .padding(20.dp)
+            .padding(25.dp)
             .fillMaxSize(),
         verticalAlignment = Alignment.Bottom
     ) {
@@ -102,8 +96,69 @@ private fun HeaderText(
 }
 
 @Composable
-private fun HeaderButtons(
+private fun HeaderButtons() {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 15.dp),
+        horizontalArrangement = Arrangement.spacedBy(20.dp)
+    ) {
+        FilledTonalButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .weight(0.5f)
+                .height(45.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24), 
+                contentDescription = stringResource(id = R.string.str_play),
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .size(18.dp)
+            )
 
+            Text(text = stringResource(id = R.string.str_play))
+        }
+        
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .weight(0.5f)
+                .height(45.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
+                contentDescription = stringResource(id = R.string.str_shuffle),
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .size(18.dp)
+            )
+
+            Text(text = stringResource(id = R.string.str_shuffle))
+        }
+    }
+}
+
+
+/**
+ * List components
+ */
+@Composable
+internal fun SectionTitleBar(
+    stringTitle: String,
+    modifier: Modifier = Modifier
 ) {
-
+    Row(
+        modifier = modifier
+            .padding(horizontal = 15.dp)
+            .padding(top = 20.dp)
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            color = MaterialTheme.colorScheme.primary,
+            text = stringTitle,
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
 }

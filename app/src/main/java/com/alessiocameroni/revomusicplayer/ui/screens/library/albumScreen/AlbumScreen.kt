@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,10 +23,10 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.AlbumsScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
-import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -107,7 +108,10 @@ fun AlbumsScreen(
                                                 .data(item.albumCoverUri)
                                                 .crossfade(true)
                                                 .build(),
-                                            contentDescription = stringResource(id = R.string.desc_albumImage)
+                                            contentDescription = stringResource(id = R.string.desc_albumImage),
+                                            onError = {
+                                                Log.d("AlbumScreen/AsyncImage", "Image not loaded")
+                                            }
                                         )
                                     },
                                 )

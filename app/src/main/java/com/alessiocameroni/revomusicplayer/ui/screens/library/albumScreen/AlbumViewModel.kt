@@ -66,6 +66,4 @@ class AlbumViewModel: ViewModel() {
         }
         initialized = true
     }
-
-
 }
