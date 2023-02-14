@@ -33,21 +33,6 @@ fun MainScreen(navController: NavController) {
                     )
                 },
                 content = { padding ->
-                    Box(
-                        modifier = Modifier
-                            .padding(
-                                bottom =
-                                padding.calculateBottomPadding() -
-                                        systemBarsPadding.calculateBottomPadding() * 2 -
-                                        80.dp
-                            )
-                    ) {
-                        NavigationBottomNavBar(
-                            navControllerApp = navController,
-                            navControllerBottomBar = navControllerBottomBar
-                        )
-                    }
-
                     Column(modifier = Modifier
                         .padding(
                             bottom =
@@ -56,7 +41,10 @@ fun MainScreen(navController: NavController) {
                                 80.dp
                         )
                     ){
-
+                        NavigationBottomNavBar(
+                            navControllerApp = navController,
+                            navControllerBottomBar = navControllerBottomBar
+                        )
                     }
                 }
             )

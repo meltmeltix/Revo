@@ -38,11 +38,7 @@ fun Navigation(startDestination: String) {
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "main_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "main_screen" -> horExitScreenTransition()
                     else -> null
                 }
             }
@@ -53,47 +49,19 @@ fun Navigation(startDestination: String) {
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "search_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "player_screen" ->
-                        slideOutVertically(
-                            targetOffsetY = { -200 },
-                            animationSpec = tween( 240 )
-                        ) + fadeOut(animationSpec = tween( 260 ))
+                    "search_screen" -> horExitScreenTransition()
+                    "settings_screen" -> horExitScreenTransition()
+                    "player_screen" ->horExitPlayerTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "welcome_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "search_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "player_screen" ->
-                        slideInVertically(
-                            initialOffsetY = { -200 },
-                            animationSpec = tween( 240 )
-                        ) + fadeIn(animationSpec = tween( 260 ))
+                    "welcome_screen" -> horEnterScreenTransition()
+                    "search_screen" -> horEnterScreenTransition()
+                    "settings_screen" -> horEnterScreenTransition()
+                    "player_screen" -> horEnterPlayerTransition()
                     else -> null
                 }
             }
@@ -122,22 +90,14 @@ fun Navigation(startDestination: String) {
                         ) + fadeOut(animationSpec = tween( 260 ))
 
                     // From screen
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "settings_screen" -> horExitScreenTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // To screen
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "settings_screen" -> horEnterScreenTransition()
                     else -> null
                 }
             }
@@ -202,52 +162,20 @@ fun Navigation(startDestination: String) {
                         ) + fadeOut(animationSpec = tween( 210 ))
 
                     // From screen
-                    "library_settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "customization_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "other_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "about_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "library_settings_screen" -> horExitScreenTransition()
+                    "customization_screen" -> horExitScreenTransition()
+                    "other_screen" -> horExitScreenTransition()
+                    "about_screen" -> horExitScreenTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     //From screen
-                    "library_settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "customization_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "other_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "about_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "library_settings_screen" -> horEnterScreenTransition()
+                    "customization_screen" -> horEnterScreenTransition()
+                    "other_screen" -> horEnterScreenTransition()
+                    "about_screen" -> horEnterScreenTransition()
                     else -> null
                 }
             }
@@ -306,22 +234,14 @@ fun Navigation(startDestination: String) {
                         ) + fadeOut(animationSpec = tween( 210 ))
 
                     // From screen
-                    "player_layout_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "player_layout_screen" -> horExitScreenTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "player_layout_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "player_layout_screen" -> horEnterScreenTransition()
                     else -> null
                 }
             }
@@ -381,11 +301,7 @@ fun Navigation(startDestination: String) {
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "app_language_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { -100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "app_language_screen" -> horEnterScreenTransition()
                     else -> null
                 }
             }
@@ -458,47 +374,15 @@ fun NavigationBottomNavBar(
             route = "songs",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "albums" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
+                    "playlists" -> verEnterFragmentTransition()
+                    "spotify" -> verEnterFragmentTransition()
 
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
@@ -509,11 +393,7 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "artist_view_screen" ->
-                        slideOutVertically (
-                            targetOffsetY = { -30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "artist_view_screen" -> verExitFragmentTransition()
                     else -> null
                 }
             }
@@ -528,49 +408,17 @@ fun NavigationBottomNavBar(
             route = "albums",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "albums" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
+                    "playlists" -> verEnterFragmentTransition()
+                    "spotify" -> verEnterFragmentTransition()
 
 
                     //From screen
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
@@ -581,22 +429,14 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "album_view_screen/{albumId}" ->
-                        slideOutVertically (
-                            targetOffsetY = { -30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verExitFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
                     else -> null
                 }
             }
@@ -612,42 +452,18 @@ fun NavigationBottomNavBar(
             route = "album_view_screen/{albumId}",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "albums" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "albums" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "artists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "playlists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "spotify" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
+                    "songs" ->verExitFragmentTransition()
+                    "albums" ->verExitFragmentTransition()
+                    "artists" ->verExitFragmentTransition()
+                    "playlists" ->verExitFragmentTransition()
+                    "spotify" ->verExitFragmentTransition()
                     else -> null
                 }
             }
@@ -668,49 +484,17 @@ fun NavigationBottomNavBar(
             route = "artists",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "albums" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
+                    "playlists" -> verEnterFragmentTransition()
+                    "spotify" -> verEnterFragmentTransition()
 
 
                     //From screen
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
@@ -721,22 +505,14 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "artist_view_screen" ->
-                        slideOutVertically (
-                            targetOffsetY = { -30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "artist_view_screen" -> verExitFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "artist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             }
@@ -752,47 +528,19 @@ fun NavigationBottomNavBar(
             route = "artist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "albums" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "artists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "playlists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "spotify" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
+                    "songs" ->verExitFragmentTransition()
+                    "albums" ->verExitFragmentTransition()
+                    "artists" ->verExitFragmentTransition()
+                    "playlists" ->verExitFragmentTransition()
+                    "spotify" ->verExitFragmentTransition()
                     else -> null
                 }
             }
@@ -808,48 +556,16 @@ fun NavigationBottomNavBar(
             enterTransition = {
                 when(initialState.destination.route) {
                     // To screen
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "albums" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
+                    "playlists" -> verEnterFragmentTransition()
+                    "spotify" -> verEnterFragmentTransition()
 
                     //From screen
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
@@ -861,22 +577,14 @@ fun NavigationBottomNavBar(
                     "artists" -> fadeOut(animationSpec = tween( 100 ))
                     "playlists" -> fadeOut(animationSpec = tween( 100 ))
                     "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlist_view_screen" ->
-                        slideOutVertically (
-                            targetOffsetY = { -30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "playlist_view_screen" -> verExitFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             }
@@ -892,42 +600,18 @@ fun NavigationBottomNavBar(
             route = "playlist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "playlists" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "albums" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "artists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "playlists" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
-                    "spotify" ->
-                        slideOutVertically(
-                            targetOffsetY = { -30 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
+                    "songs" -> verExitFragmentTransition()
+                    "albums" -> verExitFragmentTransition()
+                    "artists" -> verExitFragmentTransition()
+                    "playlists" -> verExitFragmentTransition()
+                    "spotify" -> verExitFragmentTransition()
                     else -> null
                 }
             }
@@ -943,47 +627,15 @@ fun NavigationBottomNavBar(
             route = "spotify",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "albums" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlists" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "spotify" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "songs" -> verEnterFragmentTransition()
+                    "albums" -> verEnterFragmentTransition()
+                    "artists" -> verEnterFragmentTransition()
+                    "playlists" -> verEnterFragmentTransition()
+                    "spotify" -> verEnterFragmentTransition()
 
-                    "album_view_screen/{albumId}" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "artist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "playlist_view_screen" ->
-                        slideInVertically (
-                            initialOffsetY = { 30 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verEnterFragmentTransition()
                     else -> null
                 }
             },
