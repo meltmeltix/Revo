@@ -105,4 +105,17 @@
     <string name="str_checkOnGithub">Check out the project on Github</string>
     <string name="str_openSourceLicenses">Open source licenses</string>
     <string name="desc_openSourceLicenses">License list of open source libraries used</string>
+    <plurals name="str_songAmount">
+        <item quantity="one">song</item>
+        <item quantity="other">songs</item>
+    </plurals>
+    <plurals name="str_hourAmountAbbr">
+        <item quantity="one">hr</item>
+        <item quantity="other">hrs</item>
+    </plurals>
+    <plurals name="str_minutesAmountAbbr">
+        <item quantity="one">min</item>
+        <item quantity="other">mins</item>
+    </plurals>
+    <string name="str_secondsAmountAbbr">sec</string>
 </resources>

@@ -5,7 +5,7 @@ import android.net.Uri
 data class AlbumSongData(
     var songId: Long,
     var contentUri: Uri,
-    var track: String,
+    var track: String? = "-",
     var songTitle: String,
-    var duration: Int,
+    var duration: Int
 )

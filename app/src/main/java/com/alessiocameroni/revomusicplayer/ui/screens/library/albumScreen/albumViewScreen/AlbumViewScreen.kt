@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
@@ -48,8 +50,9 @@ fun AlbumViewScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopActionBar(
+                navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
-                albumTitleString = viewModel.albumTitle.toString(),
+                albumTitleString = viewModel.albumTitle.value,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -66,15 +69,19 @@ fun AlbumViewScreen(
                     AlbumViewHeader(
                         albumTitleString = viewModel.albumTitle.value,
                         albumArtistString = viewModel.artist.value,
-                        albumInfoString = null,
+                        albumSongAmount = viewModel.albumSongAmount.value,
+                        albumHoursAmount = viewModel.albumHoursAmount.value,
+                        albumMinutesAmount = viewModel.albumMinutesAmount.value,
+                        albumSecondsAmount = viewModel.albumSecondsAmount.value,
                         leadingUnit = {
-                            /*AsyncImage(
+                            AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
-                                    .data(viewModel.albumCoverUri)
+                                    .data(viewModel.albumCoverUri.value)
                                     .crossfade(true)
                                     .build(),
-                                contentDescription = stringResource(id = R.string.desc_albumImage)
-                            )*/
+                                contentDescription = stringResource(id = R.string.desc_albumImage),
+                                modifier = Modifier.fillMaxSize()
+                            )
                         }
                     )
                 }
@@ -88,7 +95,7 @@ fun AlbumViewScreen(
                 itemsIndexed(items = albumSongs) { _, item ->
                     Row(
                         modifier = Modifier
-                            .clickable { },
+                            .clickable {  },
                     ) {
                         PixelyListItem(
                             headlineTextString = item.songTitle,
@@ -96,11 +103,12 @@ fun AlbumViewScreen(
                             maxHeadlineLines = 1,
                             leadingContent = {
                                 Text(
-                                    text = item.track,
+                                    text = item.track ?: "-",
                                     modifier = Modifier
                                         .widthIn(max = 40.dp),
                                     maxLines = 1,
-                                    overflow = TextOverflow.Clip
+                                    overflow = TextOverflow.Clip,
+                                    style = MaterialTheme.typography.titleMedium
                                 )
                             },
                             trailingContent = {

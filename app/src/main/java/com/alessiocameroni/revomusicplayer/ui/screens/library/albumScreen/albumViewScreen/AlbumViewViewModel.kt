@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.album
 
 import android.content.ContentUris
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -13,26 +14,35 @@ import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
 
 class AlbumViewViewModel: ViewModel() {
     val albumSongs = mutableListOf<AlbumSongData>()
+    private var albumSongsInitialized = false
+    private var albumInfoRetrieved = false
 
+    private val _albumCoverUri = MutableLiveData<Uri>()
     private val _albumTitle = MutableLiveData("")
-    var albumTitle: LiveData<String> = _albumTitle
-
-    var artistId: Long = 0
-
     private val _artist = MutableLiveData("")
+    private val _albumSongAmount = MutableLiveData(0)
+    private val _albumHoursAmount = MutableLiveData(0)
+    private val _albumMinutesAmount = MutableLiveData(0)
+    private val _albumSecondsAmount = MutableLiveData(0)
+
+    var albumCoverUri: LiveData<Uri> = _albumCoverUri
+    var albumTitle: LiveData<String> = _albumTitle
+    var artistId: Long = 0
     var artist: LiveData<String> = _artist
-
-    lateinit var albumCoverUri: Uri
-
-    private var initialized = false
-
-    /*val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
-    val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)*/
+    var albumSongAmount: LiveData<Int> = _albumSongAmount
+    var albumHoursAmount: LiveData<Int> = _albumHoursAmount
+    var albumMinutesAmount: LiveData<Int> = _albumMinutesAmount
+    var albumSecondsAmount: LiveData<Int> = _albumSecondsAmount
 
     fun initializeAlbumSongsList(
         context: Context,
         albumId: Long,
     ) {
+        if (albumSongsInitialized) return
+
+        val _totalDuration = MutableLiveData(0)
+        val totalDuration: LiveData<Int> = _totalDuration
+
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
@@ -79,12 +89,13 @@ class AlbumViewViewModel: ViewModel() {
                 val track = cursor.getString(trackColumn)
                 val duration = cursor.getInt(durationColumn)
 
-                _albumTitle.value = cursor.getString(albumTitleColumn)
-                artistId = cursor.getLong(artistIdColumn)
-                _artist.value = cursor.getString(artistColumn)
-
-                /*val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
-                albumCoverUri = ContentUris.withAppendedId(albumCover, albumId)*/
+                retrieveAlbumInfo(
+                    albumId,
+                    cursor,
+                    albumTitleColumn,
+                    artistIdColumn,
+                    artistColumn
+                )
 
                 albumSongs.add(
                     AlbumSongData(
@@ -95,8 +106,44 @@ class AlbumViewViewModel: ViewModel() {
                         duration
                     )
                 )
+
+                _albumSongAmount.value = _albumSongAmount.value?.plus(1)
+                _totalDuration.value = _totalDuration.value?.plus(duration)
             }
+
+            calculateAlbumDuration(totalDuration.value)
         }
-        initialized = true
+        albumSongsInitialized = true
+    }
+
+    private fun retrieveAlbumInfo(
+        albumId: Long,
+        cursor: Cursor,
+        albumTitleColumn: Int,
+        artistIdColumn: Int,
+        artistColumn: Int
+    ) {
+        if (albumInfoRetrieved) return
+
+        _albumTitle.value = cursor.getString(albumTitleColumn)
+        artistId = cursor.getLong(artistIdColumn)
+        _artist.value = cursor.getString(artistColumn)
+
+        val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
+        _albumCoverUri.value = ContentUris.withAppendedId(albumCover, albumId)
+
+        albumInfoRetrieved = true
+    }
+
+    private fun calculateAlbumDuration(duration: Int?) {
+        val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
+
+        val hours: Double = fixedDuration / 3600
+        val minutes: Double = (hours - hours.toInt()) * 60
+        val seconds: Double = (minutes - minutes.toInt()) * 60
+
+        _albumHoursAmount.value = hours.toInt()
+        _albumMinutesAmount.value = minutes.toInt()
+        _albumSecondsAmount.value = seconds.toInt()
     }
 }

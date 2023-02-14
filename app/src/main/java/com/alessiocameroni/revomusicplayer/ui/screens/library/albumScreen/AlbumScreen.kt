@@ -24,9 +24,7 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.AlbumsScreens
-import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
-import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +33,6 @@ fun AlbumsScreen(
     navControllerBottomBar: NavHostController,
     viewModel: AlbumViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
-    val expandedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryAlbums = viewModel.libraryAlbums
     val context = LocalContext.current
@@ -45,33 +42,9 @@ fun AlbumsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_albums)) },
-                navigationIcon = {
-                    IconButton(
-                        onClick = { navController.navigate(Screens.SearchScreen.route) }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                            contentDescription = stringResource(id = R.string.desc_searchMenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expandedMenu.value = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-
-                        TopBarDropDownMenu(
-                            expanded = expandedMenu,
-                            navController = navController
-                        )
-                    }
-                }, scrollBehavior = scrollBehavior
+            TopActionBar(
+                navController,
+                scrollBehavior
             )
         },
         content = { padding ->

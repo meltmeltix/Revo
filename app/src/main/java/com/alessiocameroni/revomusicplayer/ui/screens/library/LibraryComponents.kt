@@ -43,6 +43,36 @@ internal fun TopBarDropDownMenu(
 }
 
 @Composable
+internal fun ViewsTopBarDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController
+) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+        DropdownMenu(
+            modifier = Modifier.widthIn(min = 180.dp),
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            DropdownMenuItem(
+                text = {
+                    Text(text = stringResource(id = R.string.str_settings))
+                },
+                onClick = {
+                    navController.navigate(Screens.SettingsScreen.route)
+                    expanded.value = false
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                        contentDescription = stringResource(id = R.string.desc_settings)
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Composable
 internal fun ItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
