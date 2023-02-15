@@ -8,7 +8,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -37,8 +36,7 @@ fun MainScreen(navController: NavController) {
                         .padding(
                             bottom =
                                 padding.calculateBottomPadding() -
-                                systemBarsPadding.calculateBottomPadding() * 2 -
-                                80.dp
+                                systemBarsPadding.calculateBottomPadding()
                         )
                     ){
                         NavigationBottomNavBar(
