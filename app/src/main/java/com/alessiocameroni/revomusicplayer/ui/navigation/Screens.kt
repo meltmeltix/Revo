@@ -22,15 +22,12 @@ open class PlaylistsScreens(val route: String) {
 
 open class SettingsScreens(val route: String) {
     object LibrarySettingsScreen : SettingsScreens("library_settings_screen")
+
     object CustomizationScreen : SettingsScreens("customization_screen")
+        object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
+
     object OtherScreen : SettingsScreens("other_screen")
+        object AppLanguageScreen : SettingsScreens("app_language_screen")
+
     object AboutScreen : SettingsScreens("about_screen")
-}
-
-open class CustomizationSettingsScreens(val route: String) {
-    object PlayerLayoutScreen : CustomizationSettingsScreens("player_layout_screen")
-}
-
-open class OtherSettingsScreens(val route: String) {
-    object AppLanguageScreen : OtherSettingsScreens("app_language_screen")
 }

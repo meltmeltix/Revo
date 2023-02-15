@@ -16,7 +16,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.OtherSettingsScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +66,7 @@ fun OtherScreen(navController: NavController) {
                                     .clickable {
                                         navController
                                             .navigate(
-                                                OtherSettingsScreens.AppLanguageScreen.route
+                                                SettingsScreens.AppLanguageScreen.route
                                             )
                                     },
                                 headlineTextString = stringResource(id = R.string.str_appLanguage),

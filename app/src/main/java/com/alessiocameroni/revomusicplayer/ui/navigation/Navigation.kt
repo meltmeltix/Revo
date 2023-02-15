@@ -1,7 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.navigation
 
 import androidx.compose.animation.*
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -37,8 +36,7 @@ fun Navigation(startDestination: String) {
             route = Screens.WelcomeScreen.route,
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "main_screen" -> horExitScreenTransition()
+                    "main_screen" -> horSlideExitToScreen()
                     else -> null
                 }
             }
@@ -46,22 +44,25 @@ fun Navigation(startDestination: String) {
 
         composable(
             route = Screens.MainScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "welcome_screen" -> horSlideEnterFromScreen()
+                    else -> null
+                }
+            },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "search_screen" -> horExitScreenTransition()
-                    "settings_screen" -> horExitScreenTransition()
-                    "player_screen" ->horExitPlayerTransition()
+                    "search_screen" -> horSlideExitToScreen()
+                    "settings_screen" -> horSlideExitToScreen()
+                    "player_screen" -> verSlidePopExitFromPlayer()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "welcome_screen" -> horEnterScreenTransition()
-                    "search_screen" -> horEnterScreenTransition()
-                    "settings_screen" -> horEnterScreenTransition()
-                    "player_screen" -> horEnterPlayerTransition()
+                    "search_screen" -> horSlidePopEnterFromScreen()
+                    "settings_screen" -> horSlidePopEnterFromScreen()
+                    "player_screen" -> verSlidePopEnterFromPlayer()
                     else -> null
                 }
             }
@@ -71,33 +72,21 @@ fun Navigation(startDestination: String) {
             route = Screens.PlayerScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "main_screen" ->
-                        slideInVertically(
-                            initialOffsetY = { 200 },
-                            animationSpec = tween( 240 )
-                        ) + fadeIn(animationSpec = tween( 260 ))
+                    "main_screen" -> verSlideEnterToPlayer()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "main_screen" ->
-                        slideOutVertically (
-                            targetOffsetY = { 200 },
-                            animationSpec = tween( 240 )
-                        ) + fadeOut(animationSpec = tween( 260 ))
-
-                    // From screen
-                    "settings_screen" -> horExitScreenTransition()
+                    "main_screen" -> verSlideExitFromPlayer()
+                    "settings_screen" -> horSlideExitToScreen()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // To screen
-                    "settings_screen" -> horEnterScreenTransition()
+                    "main_screen" -> verSlideEnterToPlayer()
+                    "settings_screen" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             }
@@ -107,22 +96,13 @@ fun Navigation(startDestination: String) {
             route = Screens.SearchScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    "main_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "main_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "main_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween(210)
-                        ) + fadeOut(animationSpec = tween(210))
+                    "main_screen" -> horSlidePopExitToScreen()
                     else -> null
                 }
             },
@@ -133,49 +113,28 @@ fun Navigation(startDestination: String) {
             route = Screens.SettingsScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "main_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
-                    "player_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "main_screen" -> horSlideEnterFromScreen()
+                    "player_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "main_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-                    "player_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-
-                    // From screen
-                    "library_settings_screen" -> horExitScreenTransition()
-                    "customization_screen" -> horExitScreenTransition()
-                    "other_screen" -> horExitScreenTransition()
-                    "about_screen" -> horExitScreenTransition()
+                    "main_screen" -> horSlidePopExitToScreen()
+                    "player_screen" -> horSlidePopExitToScreen()
+                    "library_settings_screen" -> horSlideExitToScreen()
+                    "customization_screen" -> horSlideExitToScreen()
+                    "other_screen" -> horSlideExitToScreen()
+                    "about_screen" -> horSlideExitToScreen()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    //From screen
-                    "library_settings_screen" -> horEnterScreenTransition()
-                    "customization_screen" -> horEnterScreenTransition()
-                    "other_screen" -> horEnterScreenTransition()
-                    "about_screen" -> horEnterScreenTransition()
+                    "library_settings_screen" -> horSlidePopEnterFromScreen()
+                    "customization_screen" -> horSlidePopEnterFromScreen()
+                    "other_screen" -> horSlidePopEnterFromScreen()
+                    "about_screen" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             }
@@ -187,23 +146,13 @@ fun Navigation(startDestination: String) {
             route = SettingsScreens.LibrarySettingsScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    //From screen
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    //To screen
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlidePopExitToScreen()
                     else -> null
                 }
             },
@@ -215,59 +164,36 @@ fun Navigation(startDestination: String) {
             route = SettingsScreens.CustomizationScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    //From screen
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
-
-                    // From screen
-                    "player_layout_screen" -> horExitScreenTransition()
+                    "settings_screen" -> horSlidePopExitToScreen()
+                    "player_layout_screen" -> horSlideExitToScreen()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "player_layout_screen" -> horEnterScreenTransition()
+                    "player_layout_screen" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             }
         ) { CustomizationScreen(navController = navController) }
 
         composable(
-            route = CustomizationSettingsScreens.PlayerLayoutScreen.route,
+            route = SettingsScreens.PlayerLayoutScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "customization_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 200 )
-                        ) + fadeIn(animationSpec = tween( 200 ))
+                    "customization_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "customization_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "customization_screen" -> horSlidePopExitToScreen()
                     else -> null
                 }
             }
@@ -278,83 +204,53 @@ fun Navigation(startDestination: String) {
             route = SettingsScreens.OtherScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    //From screen
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeIn(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    //To screen
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlidePopExitToScreen()
+                    "app_language_screen"-> horSlideExitToScreen()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "app_language_screen" -> horEnterScreenTransition()
+                    "app_language_screen" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             }
         ) { OtherScreen(navController = navController) }
 
         composable(
-            route = OtherSettingsScreens.AppLanguageScreen.route,
+            route = SettingsScreens.AppLanguageScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "other_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 200 )
-                        ) + fadeIn(animationSpec = tween( 200 ))
+                    "other_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "other_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "other_screen" -> horSlidePopExitToScreen()
                     else -> null
                 }
             }
         ) { AppLanguageScreen(navController = navController) }
-        
+
 
         composable(
             route = SettingsScreens.AboutScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "settings_screen" ->
-                        slideInHorizontally(
-                            initialOffsetX = { 100 },
-                            animationSpec = tween( 200 )
-                        ) + fadeIn(animationSpec = tween( 200 ))
+                    "settings_screen" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "settings_screen" ->
-                        slideOutHorizontally(
-                            targetOffsetX = { 100 },
-                            animationSpec = tween( 210 )
-                        ) + fadeOut(animationSpec = tween( 210 ))
+                    "settings_screen" -> horSlidePopExitToScreen()
                     else -> null
                 }
             }
@@ -374,26 +270,26 @@ fun NavigationBottomNavBar(
             route = "songs",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verEnterFragmentTransition()
-                    "albums" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
-                    "playlists" -> verEnterFragmentTransition()
-                    "spotify" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    "spotify" -> verSlideEnterFromFragmentTransition()
 
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
-                    "artist_view_screen" -> verEnterFragmentTransition()
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "artists" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "artist_view_screen" -> verExitFragmentTransition()
+                    "songs" -> fadeExitToFragmentTransition()
+                    "albums" -> fadeExitToFragmentTransition()
+                    "artists" -> fadeExitToFragmentTransition()
+                    "playlists" -> fadeExitToFragmentTransition()
+                    "spotify" -> fadeExitToFragmentTransition()
+                    "artist_view_screen" -> verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             }
@@ -408,35 +304,35 @@ fun NavigationBottomNavBar(
             route = "albums",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verEnterFragmentTransition()
-                    "albums" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
-                    "playlists" -> verEnterFragmentTransition()
-                    "spotify" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    "spotify" -> verSlideEnterFromFragmentTransition()
 
 
                     //From screen
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
-                    "artist_view_screen" -> verEnterFragmentTransition()
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "artists" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "album_view_screen/{albumId}" -> verExitFragmentTransition()
+                    "songs" -> fadeExitToFragmentTransition()
+                    "albums" -> fadeExitToFragmentTransition()
+                    "artists" -> fadeExitToFragmentTransition()
+                    "playlists" -> fadeExitToFragmentTransition()
+                    "spotify" -> fadeExitToFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             }
@@ -452,18 +348,18 @@ fun NavigationBottomNavBar(
             route = "album_view_screen/{albumId}",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "albums" -> verEnterFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" ->verExitFragmentTransition()
-                    "albums" ->verExitFragmentTransition()
-                    "artists" ->verExitFragmentTransition()
-                    "playlists" ->verExitFragmentTransition()
-                    "spotify" ->verExitFragmentTransition()
+                    "songs" ->verSlideExitFromSubFragmentTransition()
+                    "albums" ->verSlideExitFromSubFragmentTransition()
+                    "artists" ->verSlideExitFromSubFragmentTransition()
+                    "playlists" ->verSlideExitFromSubFragmentTransition()
+                    "spotify" ->verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             }
@@ -484,35 +380,35 @@ fun NavigationBottomNavBar(
             route = "artists",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verEnterFragmentTransition()
-                    "albums" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
-                    "playlists" -> verEnterFragmentTransition()
-                    "spotify" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    "spotify" -> verSlideEnterFromFragmentTransition()
 
 
                     //From screen
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
-                    "artist_view_screen" -> verEnterFragmentTransition()
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "artists" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "artist_view_screen" -> verExitFragmentTransition()
+                    "songs" -> fadeExitToFragmentTransition()
+                    "albums" -> fadeExitToFragmentTransition()
+                    "artists" -> fadeExitToFragmentTransition()
+                    "playlists" -> fadeExitToFragmentTransition()
+                    "spotify" -> fadeExitToFragmentTransition()
+                    "artist_view_screen" -> verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "artist_view_screen" -> verEnterFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             }
@@ -528,19 +424,19 @@ fun NavigationBottomNavBar(
             route = "artist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" ->verExitFragmentTransition()
-                    "albums" ->verExitFragmentTransition()
-                    "artists" ->verExitFragmentTransition()
-                    "playlists" ->verExitFragmentTransition()
-                    "spotify" ->verExitFragmentTransition()
+                    "songs" ->verSlideExitFromSubFragmentTransition()
+                    "albums" ->verSlideExitFromSubFragmentTransition()
+                    "artists" ->verSlideExitFromSubFragmentTransition()
+                    "playlists" ->verSlideExitFromSubFragmentTransition()
+                    "spotify" ->verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             }
@@ -556,35 +452,35 @@ fun NavigationBottomNavBar(
             enterTransition = {
                 when(initialState.destination.route) {
                     // To screen
-                    "songs" -> verEnterFragmentTransition()
-                    "albums" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
-                    "playlists" -> verEnterFragmentTransition()
-                    "spotify" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    "spotify" -> verSlideEnterFromFragmentTransition()
 
                     //From screen
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
-                    "artist_view_screen" -> verEnterFragmentTransition()
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "artists" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlist_view_screen" -> verExitFragmentTransition()
+                    "songs" -> fadeExitToFragmentTransition()
+                    "albums" -> fadeExitToFragmentTransition()
+                    "artists" -> fadeExitToFragmentTransition()
+                    "playlists" -> fadeExitToFragmentTransition()
+                    "spotify" -> fadeExitToFragmentTransition()
+                    "playlist_view_screen" -> verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
                     // From screen
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             }
@@ -600,18 +496,18 @@ fun NavigationBottomNavBar(
             route = "playlist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "playlists" -> verEnterFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
                     // To screen
-                    "songs" -> verExitFragmentTransition()
-                    "albums" -> verExitFragmentTransition()
-                    "artists" -> verExitFragmentTransition()
-                    "playlists" -> verExitFragmentTransition()
-                    "spotify" -> verExitFragmentTransition()
+                    "songs" -> verSlideExitFromSubFragmentTransition()
+                    "albums" -> verSlideExitFromSubFragmentTransition()
+                    "artists" -> verSlideExitFromSubFragmentTransition()
+                    "playlists" -> verSlideExitFromSubFragmentTransition()
+                    "spotify" -> verSlideExitFromSubFragmentTransition()
                     else -> null
                 }
             }
@@ -627,25 +523,25 @@ fun NavigationBottomNavBar(
             route = "spotify",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verEnterFragmentTransition()
-                    "albums" -> verEnterFragmentTransition()
-                    "artists" -> verEnterFragmentTransition()
-                    "playlists" -> verEnterFragmentTransition()
-                    "spotify" -> verEnterFragmentTransition()
+                    "songs" -> verSlideEnterFromFragmentTransition()
+                    "albums" -> verSlideEnterFromFragmentTransition()
+                    "artists" -> verSlideEnterFromFragmentTransition()
+                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    "spotify" -> verSlideEnterFromFragmentTransition()
 
-                    "album_view_screen/{albumId}" -> verEnterFragmentTransition()
-                    "artist_view_screen" -> verEnterFragmentTransition()
-                    "playlist_view_screen" -> verEnterFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeOut(animationSpec = tween( 100 ))
-                    "albums" -> fadeOut(animationSpec = tween( 100 ))
-                    "artists" -> fadeOut(animationSpec = tween( 100 ))
-                    "playlists" -> fadeOut(animationSpec = tween( 100 ))
-                    "spotify" -> fadeOut(animationSpec = tween( 100 ))
+                    "songs" -> fadeExitToFragmentTransition()
+                    "albums" -> fadeExitToFragmentTransition()
+                    "artists" -> fadeExitToFragmentTransition()
+                    "playlists" -> fadeExitToFragmentTransition()
+                    "spotify" -> fadeExitToFragmentTransition()
                     else -> null
                 }
             }

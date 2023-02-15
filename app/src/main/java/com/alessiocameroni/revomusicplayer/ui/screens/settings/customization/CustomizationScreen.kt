@@ -14,7 +14,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.CustomizationSettingsScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.SettingsScreens
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,7 +87,7 @@ fun CustomizationScreen(
                                 modifier = Modifier
                                     .clickable {
                                         navController.navigate(
-                                            CustomizationSettingsScreens.PlayerLayoutScreen.route
+                                            SettingsScreens.PlayerLayoutScreen.route
                                         )
                                     },
                                 headlineTextString = stringResource(id = R.string.str_layoutPlayer),
