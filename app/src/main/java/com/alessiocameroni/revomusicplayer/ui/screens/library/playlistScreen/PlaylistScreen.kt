@@ -39,7 +39,8 @@ fun PlaylistsScreen(
         },
         floatingActionButton = {
             LargeFloatingActionButton(
-                onClick = { openDialog.value = true }
+                onClick = { openDialog.value = true },
+                modifier = Modifier.offset(y = (-80).dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
@@ -62,7 +63,7 @@ fun PlaylistsScreen(
                     .padding(padding)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
-                contentPadding = PaddingValues(bottom = 128.dp),
+                contentPadding = PaddingValues(bottom = 128.dp + 80.dp),
             ) {
                 items(10) {
                     Row(

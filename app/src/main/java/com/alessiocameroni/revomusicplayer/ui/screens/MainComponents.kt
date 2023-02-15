@@ -1,12 +1,13 @@
 package com.alessiocameroni.revomusicplayer.ui.screens
 
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -14,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -26,8 +28,25 @@ fun BottomContent(
     navController: NavController,
     navControllerBottomBar: NavHostController
 ) {
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
+    val contentExpanded = remember { mutableStateOf(true) }
+    val transition = updateTransition(targetState = contentExpanded, label = "")
+    val columnOffset by transition.animateDp(label = "") {
+        when(it.value) {
+            true -> 0.dp
+            false -> 80.dp
+        }
+    }
+    val navBarOffset by transition.animateDp(label = "") {
+        when(it.value) {
+            true -> 0.dp
+            false -> systemBarsPadding.calculateBottomPadding()
+        }
+    }
+
     Column(
         modifier = Modifier
+            .offset(y = columnOffset)
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
     ) {
@@ -74,6 +93,8 @@ fun BottomContent(
             ),
             navController = navControllerBottomBar,
             onItemClick = { navControllerBottomBar.navigate(it.route) },
+            contentExpanded = contentExpanded,
+            offset = navBarOffset
         )
     }
 }
@@ -160,11 +181,23 @@ fun BottomNavigationBar(
     items: List<MainScreenNavigationItemData>,
     navController: NavController,
     onItemClick: (MainScreenNavigationItemData) -> Unit,
+    contentExpanded: MutableState<Boolean>,
+    offset: Dp,
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
+    when(backStackEntry.value?.destination?.route) {
+        "songs" -> contentExpanded.value = true
+        "albums" -> contentExpanded.value = true
+        "artists" -> contentExpanded.value = true
+        "playlists" -> contentExpanded.value = true
+        "spotify" -> contentExpanded.value = true
+        else -> contentExpanded.value = false
+    }
+
     NavigationBar(
-        modifier = modifier,
+        modifier = modifier
+            .offset(y = offset),
     ) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route

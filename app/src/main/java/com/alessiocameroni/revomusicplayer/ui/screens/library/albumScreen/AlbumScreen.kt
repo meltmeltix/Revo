@@ -52,7 +52,8 @@ fun AlbumsScreen(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                contentPadding = PaddingValues(bottom = 80.dp)
             ) {
                 itemsIndexed(libraryAlbums) { _, item ->
                     Row(

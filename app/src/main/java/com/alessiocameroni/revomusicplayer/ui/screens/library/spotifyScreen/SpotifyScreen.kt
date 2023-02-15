@@ -1,8 +1,7 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.spotifyScreen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,12 +23,12 @@ fun SpotifyFavoritesScreen(navController: NavController) {
             )
         },
         content = { padding ->
-            LazyVerticalGrid(
+            LazyColumn(
                 modifier = Modifier
                     .padding(padding)
                     .fillMaxSize(),
-                columns = GridCells.Fixed(1),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                verticalArrangement = Arrangement.spacedBy(2.dp),
+                contentPadding = PaddingValues(bottom = 80.dp)
             ){
 
             }
