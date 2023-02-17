@@ -1,5 +1,10 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.artistViewScreen
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -40,6 +45,7 @@ fun ArtistViewScreen(
         remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val artistAlbums = viewModel.artistAlbums
     val artistSongs = viewModel.artistSongs
+    val albumRowVisibility = viewModel.albumAmountCheck
 
     LaunchedEffect(Unit) {
         viewModel.initializeArtistAlbumList(context, artistId)
@@ -86,16 +92,25 @@ fun ArtistViewScreen(
                 }
 
                 item {
-                    ArtistViewSectionTitle(
-                        stringTitle = stringResource(id = R.string.str_albums)
-                    )
-                }
+                    Log.d("ArtistViewScreen", "$albumRowVisibility")
 
-                item {
-                    RowAlbumList(
-                        artistAlbums,
-                        navControllerBottomBar
-                    )
+                    AnimatedVisibility(
+                        visible = albumRowVisibility.value ?: false,
+                        enter = fadeIn()
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(2.dp),
+                        ) {
+                            ArtistViewSectionTitle(
+                                stringTitle = stringResource(id = R.string.str_albums)
+                            )
+
+                            RowAlbumList(
+                                artistAlbums,
+                                navControllerBottomBar
+                            )
+                        }
+                    }
                 }
                 
                 item {
@@ -127,7 +142,7 @@ fun RowAlbumList(
                     .clickable {
                         navControllerBottomBar.navigate(
                             NavigationScreens.AlbumViewScreen.route +
-                                "/${item.albumId}"
+                                    "/${item.albumId}"
                         )
                     },
             ) {

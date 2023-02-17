@@ -2,12 +2,12 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.arti
 
 import android.content.ContentUris
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,11 +27,13 @@ class ArtistViewViewModel: ViewModel() {
     private val _artistPictureUri = MutableLiveData<Uri>()
     private val _artistSongAmount = MutableLiveData(0)
     private val _artistAlbumAmount = MutableLiveData(0)
+    private val _albumAmountCheck = MutableLiveData(false)
 
     var artist: LiveData<String> = _artist
     var artistPictureUri: LiveData<Uri> = _artistPictureUri
     var artistSongAmount: LiveData<Int> = _artistSongAmount
     var artistAlbumAmount: LiveData<Int> = _artistAlbumAmount
+    var albumAmountCheck: LiveData<Boolean> = _albumAmountCheck
 
     fun initializeArtistAlbumList(
         context: Context,
@@ -78,6 +80,7 @@ class ArtistViewViewModel: ViewModel() {
             }
         }
 
+        _albumAmountCheck.value = _artistAlbumAmount.value!! != 0
         artistAlbumListInitialized = true
     }
 
@@ -132,11 +135,10 @@ class ArtistViewViewModel: ViewModel() {
                 val fixedDuration = calculateSongDuration(duration)
                 val albumId = cursor.getLong(albumIdColumn)
                 val album = cursor.getString(albumColumn)
-
-                retrieveArtistInfo(
-                    cursor,
-                    artistColumn
-                )
+                if (!artistInfoRetrieved) {
+                    _artist.value = cursor.getString(artistColumn)
+                    artistInfoRetrieved = true
+                }
 
                 artistSongs.add(
                     ArtistSongData(
@@ -156,17 +158,6 @@ class ArtistViewViewModel: ViewModel() {
         }
 
         artistSongListInitialized = true
-    }
-
-    private fun retrieveArtistInfo(
-        cursor: Cursor,
-        artistColumn: Int,
-    ) {
-        if (artistInfoRetrieved) return
-
-        _artist.value = cursor.getString(artistColumn)
-
-        artistInfoRetrieved = true
     }
 
     private fun calculateSongDuration(duration: Int?): String {

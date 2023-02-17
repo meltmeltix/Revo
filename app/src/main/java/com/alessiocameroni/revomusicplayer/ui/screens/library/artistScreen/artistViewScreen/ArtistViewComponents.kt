@@ -165,7 +165,7 @@ private fun HeaderButtons() {
         horizontalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         FilledTonalButton(
-            onClick = { /*TODO*/ },
+            onClick = {  },
             modifier = Modifier
                 .weight(0.5f)
                 .height(45.dp)
@@ -182,7 +182,7 @@ private fun HeaderButtons() {
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {  },
             modifier = Modifier
                 .weight(0.5f)
                 .height(45.dp)
@@ -217,16 +217,16 @@ private fun ArtistInfoText(
 
     val artistInfo =
         "$albumAmount " +
-                pluralStringResource(
-                    id = R.plurals.str_albumAmount,
-                    count = albumAmount
-                ) +
-                " · " +
-                "$songAmount " +
-                pluralStringResource(
-                    id = R.plurals.str_songAmount,
-                    count = songAmount
-                )
+        pluralStringResource(
+            id = R.plurals.str_albumAmount,
+            count = albumAmount
+        ) +
+        " · " +
+        "$songAmount " +
+        pluralStringResource(
+            id = R.plurals.str_songAmount,
+            count = songAmount
+        )
 
     if(largeText) {
         Column(
