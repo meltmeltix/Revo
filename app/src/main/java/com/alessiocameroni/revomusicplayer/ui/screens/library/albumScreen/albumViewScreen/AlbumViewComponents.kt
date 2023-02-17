@@ -5,6 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -139,10 +141,12 @@ internal fun AlbumViewTopBarDropDownMenu(
  */
 @Composable
 internal fun AlbumViewHeader(
+    navControllerBottomBar: NavHostController,
     albumTitleString: String? = null,
+    albumArtistId: Long,
     albumArtistString: String? = null,
     albumSongAmount: Int?,
-    albumHoursAmount: Int? =  null,
+    albumHoursAmount: Int? = null,
     albumMinutesAmount: Int? = null,
     albumSecondsAmount: Int? = null,
     leadingUnit: @Composable () -> Unit?,
@@ -177,7 +181,9 @@ internal fun AlbumViewHeader(
             )
 
             HeaderText(
+                navControllerBottomBar = navControllerBottomBar,
                 albumTitleString = albumTitleString,
+                albumArtistId = albumArtistId,
                 albumArtistString = albumArtistString,
                 albumSongAmount = albumSongAmount,
                 albumHoursAmount = albumHoursAmount,
@@ -192,13 +198,16 @@ internal fun AlbumViewHeader(
 
 @Composable
 private fun HeaderText(
+    navControllerBottomBar: NavHostController,
     albumTitleString: String?,
+    albumArtistId: Long,
     albumArtistString: String?,
     albumSongAmount: Int?,
     albumHoursAmount: Int?,
     albumMinutesAmount: Int?,
     albumSecondsAmount: Int?,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
     val albumTitle: String = albumTitleString ?: "Album Title"
     val artistName: String = albumArtistString ?: "Artist Name"
     val songAmount: Int = albumSongAmount ?: 0
@@ -245,7 +254,16 @@ private fun HeaderText(
 
             Text(
                 text = artistName,
-                modifier = Modifier,
+                modifier = Modifier
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null
+                    ) {
+                        navControllerBottomBar.navigate(
+                            NavigationScreens.ArtistViewScreen.route +
+                                "/$albumArtistId"
+                        )
+                    },
                 color = Color.White,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

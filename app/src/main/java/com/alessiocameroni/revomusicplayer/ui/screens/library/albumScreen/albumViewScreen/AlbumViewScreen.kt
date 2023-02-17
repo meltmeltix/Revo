@@ -66,7 +66,9 @@ fun AlbumViewScreen(
             ) {
                 item {
                     AlbumViewHeader(
+                        navControllerBottomBar = navControllerBottomBar,
                         albumTitleString = viewModel.albumTitle.value,
+                        albumArtistId = viewModel.artistId,
                         albumArtistString = viewModel.artist.value,
                         albumSongAmount = viewModel.albumSongAmount.value,
                         albumHoursAmount = viewModel.albumHoursAmount.value,
