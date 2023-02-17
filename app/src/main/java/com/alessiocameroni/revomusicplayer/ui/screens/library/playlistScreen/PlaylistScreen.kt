@@ -63,7 +63,7 @@ fun PlaylistsScreen(
                     .padding(padding)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
-                contentPadding = PaddingValues(bottom = 128.dp + 80.dp),
+                contentPadding = PaddingValues(bottom = 128.dp + 70.dp),
             ) {
                 items(10) {
                     Row(

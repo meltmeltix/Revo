@@ -7,20 +7,22 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 /**
  * Scaffold components
@@ -28,12 +30,16 @@ import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ArtistViewTopActionBar(
-    modifier: Modifier,
+    navController: NavController,
     navControllerBottomBar: NavHostController,
-    expanded: MutableState<Boolean>,
+    artistName: String?,
+    artistAlbumAmount: LiveData<Int>,
+    artistSongAmount: LiveData<Int>,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
 ) {
+    val expandedMenu = remember { mutableStateOf(false) }
+
     TopAppBar(
         title = {
             AnimatedVisibility(
@@ -41,26 +47,14 @@ internal fun ArtistViewTopActionBar(
                 enter = fadeIn(animationSpec = tween(100)),
                 exit = fadeOut(animationSpec = tween(100))
             ) {
-                Column {
-                    Text(
-                        text = "Artist name",
-                        modifier = Modifier,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                    Text(
-                        text = "Artist info",
-                        modifier = Modifier,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
+                ArtistInfoText(
+                    largeText = false,
+                    artistName = artistName,
+                    artistAlbumAmount = artistAlbumAmount,
+                    artistSongAmount = artistSongAmount
+                )
             }
         },
-        modifier = modifier,
         navigationIcon = {
             IconButton(
                 onClick = { navControllerBottomBar.navigateUp() }
@@ -73,16 +67,51 @@ internal fun ArtistViewTopActionBar(
         },
         actions = {
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { expanded.value = true }) {
+                IconButton(onClick = { expandedMenu.value = true }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                         contentDescription = stringResource(id = R.string.str_settings)
                     )
                 }
+
+                ArtistViewDropDownMenu(
+                    expanded = expandedMenu,
+                    navController = navController,
+                )
             }
         },
         scrollBehavior = scrollBehavior,
     )
+}
+
+@Composable
+private fun ArtistViewDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController,
+) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+        DropdownMenu(
+            modifier = Modifier.widthIn(min = 180.dp),
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            Divider()
+
+            DropdownMenuItem(
+                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                onClick = {
+                    navController.navigate(Screens.SettingsScreen.route)
+                    expanded.value = false
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                        contentDescription = stringResource(id = R.string.desc_settings)
+                    )
+                }
+            )
+        }
+    }
 }
 
 
@@ -90,7 +119,12 @@ internal fun ArtistViewTopActionBar(
  * Header components
  */
 @Composable
-internal fun ArtistViewHeader() {
+internal fun ArtistViewHeader(
+    artistName: String?,
+    artistAlbumAmount: LiveData<Int>,
+    artistSongAmount: LiveData<Int>,
+    leadingUnit: @Composable () -> Unit,
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
@@ -108,29 +142,15 @@ internal fun ArtistViewHeader() {
                     .clip(CircleShape),
                 painterPlaceholder = painterResource(id = R.drawable.ic_outlined_artist_24)
             ) {
-
+                leadingUnit()
             }
 
-            Column(
-                modifier = Modifier
-                    .padding(start = 15.dp)
-                    .weight(1f)
-            ) {
-                Text(
-                    text = "Artist name",
-                    modifier = Modifier,
-                    style = MaterialTheme.typography.headlineMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Text(
-                    text = "Artist info",
-                    modifier = Modifier,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            ArtistInfoText(
+                largeText = true,
+                artistName,
+                artistAlbumAmount,
+                artistSongAmount
+            )
         }
 
         HeaderButtons()
@@ -176,6 +196,74 @@ private fun HeaderButtons() {
             )
 
             Text(text = stringResource(id = R.string.str_shuffle))
+        }
+    }
+}
+
+
+/**
+ * Text components
+ */
+@Composable
+private fun ArtistInfoText(
+    largeText: Boolean,
+    artistName: String?,
+    artistAlbumAmount: LiveData<Int>,
+    artistSongAmount: LiveData<Int>
+) {
+    val nameString: String = artistName ?: "Artist Name"
+    val albumAmount: Int = artistAlbumAmount.value ?: 0
+    val songAmount: Int = artistSongAmount.value ?: 0
+
+    val artistInfo =
+        "$albumAmount " +
+                pluralStringResource(
+                    id = R.plurals.str_albumAmount,
+                    count = albumAmount
+                ) +
+                " · " +
+                "$songAmount " +
+                pluralStringResource(
+                    id = R.plurals.str_songAmount,
+                    count = songAmount
+                )
+
+    if(largeText) {
+        Column(
+            modifier = Modifier.padding(start = 15.dp)
+        ) {
+            Text(
+                text = nameString,
+                modifier = Modifier,
+                style = MaterialTheme.typography.headlineMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = artistInfo,
+                modifier = Modifier,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    } else {
+        Column {
+            Text(
+                text = nameString,
+                modifier = Modifier,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+
+            Text(
+                text = artistInfo,
+                modifier = Modifier,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.bodyMedium
+            )
         }
     }
 }

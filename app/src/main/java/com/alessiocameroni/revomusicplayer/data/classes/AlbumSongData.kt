@@ -7,5 +7,6 @@ data class AlbumSongData(
     var contentUri: Uri,
     var track: String? = "-",
     var songTitle: String,
-    var duration: Int
+    var duration: Int,
+    val fixedDuration: String? = "00:00",
 )

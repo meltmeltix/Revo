@@ -38,7 +38,7 @@ fun MainScreen(navController: NavController) {
                             bottom =
                                 padding.calculateBottomPadding() -
                                 systemBarsPadding.calculateBottomPadding() -
-                                80.dp
+                                70.dp
                         )
                     ){
                         NavigationBottomNavBar(

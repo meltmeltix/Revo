@@ -49,7 +49,7 @@ fun SongsScreen(
                     .padding(padding)
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
-                contentPadding = PaddingValues(bottom = 80.dp)
+                contentPadding = PaddingValues(bottom = 70.dp)
             ) {
                 itemsIndexed(items = librarySongs) { _, item ->
                     Row(

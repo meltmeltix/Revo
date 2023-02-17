@@ -11,6 +11,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
+import java.util.*
+import kotlin.math.roundToInt
 
 class AlbumViewViewModel: ViewModel() {
     val albumSongs = mutableListOf<AlbumSongData>()
@@ -52,7 +54,6 @@ class AlbumViewViewModel: ViewModel() {
 
         val projection = arrayOf(
             Media._ID,
-            Media.DISPLAY_NAME,
             Media.DURATION,
             Media.TITLE,
             Media.TRACK,
@@ -88,6 +89,7 @@ class AlbumViewViewModel: ViewModel() {
                 val title = cursor.getString(titleColumn)
                 val track = cursor.getString(trackColumn)
                 val duration = cursor.getInt(durationColumn)
+                val fixedDuration = calculateSongDuration(duration)
 
                 retrieveAlbumInfo(
                     albumId,
@@ -103,7 +105,8 @@ class AlbumViewViewModel: ViewModel() {
                         contentUri,
                         track,
                         title,
-                        duration
+                        duration,
+                        fixedDuration
                     )
                 )
 
@@ -133,6 +136,21 @@ class AlbumViewViewModel: ViewModel() {
         _albumCoverUri.value = ContentUris.withAppendedId(albumCover, albumId)
 
         albumInfoRetrieved = true
+    }
+
+    private fun calculateSongDuration(duration: Int?): String {
+        val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
+
+        val minutes: Double = fixedDuration / 60
+        var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
+        seconds = if (seconds == 60) 0 else seconds
+
+        return String.format(
+            Locale.US,
+            "%02d:%02d",
+            minutes.roundToInt(),
+            seconds
+        )
     }
 
     private fun calculateAlbumDuration(duration: Int?) {

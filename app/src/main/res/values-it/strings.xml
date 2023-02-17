@@ -67,8 +67,8 @@
     <string name="desc_closeNewPlaylistDialog">Chiudi il popup di creazione nuova playlist</string>
     <string name="str_create">Crea</string>
     <string name="str_playlistTitle">Titolo playlist</string>
-    <string name="str_viewArtist">Mostra artista</string>
-    <string name="str_viewAlbumm">Mostra album</string>
+    <string name="str_goToArtist">Mostra artista</string>
+    <string name="str_goToAlbum">Mostra album</string>
     <string name="str_storageAccess">Accesso Archivio</string>
     <string name="desc_storageAccess">Revo ha bisogno del consenso per accedere all\'archivio del tuo dispositivo</string>
     <string name="str_grant">Consenti</string>

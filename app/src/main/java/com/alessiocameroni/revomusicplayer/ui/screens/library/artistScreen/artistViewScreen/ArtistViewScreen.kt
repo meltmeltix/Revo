@@ -2,10 +2,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.arti
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,6 +12,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -24,9 +22,8 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumData
-import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongData
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,25 +33,28 @@ fun ArtistViewScreen(
     navControllerBottomBar: NavHostController,
     viewModel: ArtistViewViewModel = viewModel()
 ) {
-    val content = LocalContext.current
-    val expanded = remember { mutableStateOf(false) }
+    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility =
         remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val artistAlbums = viewModel.artistAlbums
+    val artistSongs = viewModel.artistSongs
 
     LaunchedEffect(Unit) {
-        viewModel.initializeArtistLists(content, artistId)
+        viewModel.initializeArtistAlbumList(context, artistId)
+        viewModel.initializeArtistSongList(context, artistId)
     }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             ArtistViewTopActionBar(
-                modifier = Modifier,
+                navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
-                expanded = expanded,
+                artistName = viewModel.artist.value,
+                artistAlbumAmount = viewModel.artistAlbumAmount,
+                artistSongAmount = viewModel.artistSongAmount,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -68,7 +68,21 @@ fun ArtistViewScreen(
                 state = scrollState
             ) {
                 item {
-                    ArtistViewHeader()
+                    ArtistViewHeader(
+                        artistName = viewModel.artist.value,
+                        artistAlbumAmount = viewModel.artistAlbumAmount,
+                        artistSongAmount = viewModel.artistSongAmount,
+                        leadingUnit = {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(viewModel.artistPictureUri.value)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = stringResource(id = R.string.desc_albumImage),
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    )
                 }
 
                 item {
@@ -90,47 +104,9 @@ fun ArtistViewScreen(
                     )
                 }
 
-                items(20) {
-                    PixelyListItem(
-                        headlineTextString = "songTitle",
-                        largeHeadline = false,
-                        maxHeadlineLines = 1,
-                        supportingTextString = "artist",
-                        maxSupportingLines = 1,
-                        leadingContent = {
-                            SmallImageContainer(
-                                modifier = Modifier.padding(horizontal = 5.dp),
-                                painterPlaceholder =
-                                painterResource(id = R.drawable.ic_baseline_music_note_24),
-                                leadingUnit = {
-                                    AsyncImage(
-                                        model = ImageRequest.Builder(LocalContext.current)
-                                            .crossfade(true)
-                                            .build(),
-                                        contentDescription = stringResource(id = R.string.desc_albumImage)
-                                    )
-                                }
-                            )
-                        },
-                        trailingContent = {
-                            val expandedItemMenu = remember { mutableStateOf(false) }
-
-                            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                IconButton(onClick = { expandedItemMenu.value = true }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                        contentDescription = stringResource(id = R.string.str_moreOptions)
-                                    )
-                                }
-
-                                ItemDropDownMenu(
-                                    expanded = expandedItemMenu,
-                                    navController = navController
-                                )
-                            }
-                        }
-                    )
-                }
+                artistSongList(
+                    artistSongs
+                )
             }
         }
     )
@@ -172,9 +148,54 @@ fun RowAlbumList(
     }
 }
 
-/*
-private fun LazyListScope.albumList() {
-    items(20) {
-        ArtistViewHorizontalListItem()
+private fun LazyListScope.artistSongList(
+    artistSongs: MutableList<ArtistSongData>
+) {
+    itemsIndexed(items = artistSongs) { _, item ->
+        Row(
+            modifier = Modifier
+                .clickable {  },
+        ) {
+            PixelyListItem(
+                headlineTextString = item.songTitle,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                supportingTextString = item.album,
+                maxSupportingLines = 1,
+                leadingContent = {
+                    Text(
+                        text = item.track ?: "-",
+                        modifier = Modifier
+                            .widthIn(max = 40.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                },
+                trailingContent = {
+                    val expandedItemMenu = remember { mutableStateOf(false) }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = item.fixedDuration ?: "00:00",
+                            maxLines = 1,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                            IconButton(onClick = { expandedItemMenu.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                                )
+                            }
+                        }
+                    }
+                }
+            )
+        }
     }
-}*/
+}

@@ -98,7 +98,7 @@ internal fun AlbumViewTopBarDropDownMenu(
             onDismissRequest = { expanded.value = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_viewArtist)) },
+                text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
                 onClick = {
                     navControllerBottomBar.navigate(
                         NavigationScreens.ArtistViewScreen.route +
@@ -109,7 +109,7 @@ internal fun AlbumViewTopBarDropDownMenu(
                 leadingIcon = { 
                     Icon(
                         painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24), 
-                        contentDescription = stringResource(id = R.string.str_viewArtist)
+                        contentDescription = stringResource(id = R.string.str_goToArtist)
                     )
                 }
             )
@@ -207,22 +207,22 @@ private fun HeaderText(
     val secondsAmount: Int = albumSecondsAmount ?: 0
     val albumInfo =
         "$songAmount " +
-                pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
-                " · " +
-                when {
-                    hoursAmount > 0 -> {
-                        "$hoursAmount " +
-                                pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = hoursAmount) +
-                                " $minutesAmount " +
-                                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount)
-                    }
-                    else -> {
-                        "$minutesAmount " +
-                                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount) +
-                                " $secondsAmount " +
-                                stringResource(id = R.string.str_secondsAmountAbbr)
-                    }
-                }
+        pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
+        " · " +
+        when {
+            hoursAmount > 0 -> {
+                "$hoursAmount " +
+                        pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = hoursAmount) +
+                        " $minutesAmount " +
+                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount)
+            }
+            else -> {
+                "$minutesAmount " +
+                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount) +
+                        " $secondsAmount " +
+                        stringResource(id = R.string.str_secondsAmountAbbr)
+            }
+        }
 
     Row(
         modifier = Modifier

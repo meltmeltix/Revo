@@ -62,31 +62,31 @@ fun BottomContent(
         BottomNavigationBar(
             modifier = Modifier,
             items = listOf(
-                MainScreenNavigationItemData(
+                MainNavigationItemData(
                     name = stringResource(id = R.string.str_songs),
                     route = NavigationScreens.SongScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                 ),
-                MainScreenNavigationItemData(
+                MainNavigationItemData(
                     name = stringResource(id = R.string.str_albums),
                     route = NavigationScreens.AlbumScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                 ),
-                MainScreenNavigationItemData(
+                MainNavigationItemData(
                     name = stringResource(id = R.string.str_artists),
                     route = NavigationScreens.ArtistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                 ),
-                MainScreenNavigationItemData(
+                MainNavigationItemData(
                     name = stringResource(id = R.string.str_playlists),
                     route = NavigationScreens.PlaylistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                 ),
-                MainScreenNavigationItemData(
+                MainNavigationItemData(
                     name = stringResource(id = R.string.str_spotify),
                     route = NavigationScreens.SpotifyScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
@@ -180,9 +180,9 @@ fun BottomMiniPlayer(
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    items: List<MainScreenNavigationItemData>,
+    items: List<MainNavigationItemData>,
     navController: NavController,
-    onItemClick: (MainScreenNavigationItemData) -> Unit,
+    onItemClick: (MainNavigationItemData) -> Unit,
     contentExpanded: MutableState<Boolean>,
     offset: Dp,
 ) {

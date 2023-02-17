@@ -77,8 +77,8 @@
     <string name="desc_closeNewPlaylistDialog">Close the new playlist dialog</string>
     <string name="str_create">Create</string>
     <string name="str_playlistTitle">Playlist title</string>
-    <string name="str_viewArtist">View artist</string>
-    <string name="str_viewAlbumm">View album</string>
+    <string name="str_goToArtist">Go to artist</string>
+    <string name="str_goToAlbum">Go to album</string>
     <string name="str_storageAccess">Storage Access</string>
     <string name="desc_storageAccess">Revo needs permission to access your device storage to find and play your tunes.</string>
     <string name="str_accessGranted">Access granted</string>

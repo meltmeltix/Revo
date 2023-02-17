@@ -348,16 +348,26 @@ fun NavigationBottomNavBar(
             enterTransition = {
                 when(initialState.destination.route) {
                     NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+
+                    "artist_view_screen/{artistId}" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    NavigationScreens.SongScreen.route ->verSlideExitFromSubFragment()
-                    NavigationScreens.AlbumScreen.route ->verSlideExitFromSubFragment()
-                    NavigationScreens.ArtistScreen.route ->verSlideExitFromSubFragment()
-                    NavigationScreens.PlaylistScreen.route ->verSlideExitFromSubFragment()
-                    NavigationScreens.SpotifyScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.SongScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideExitFromSubFragment()
+
+                    "artist_view_screen/{artistId}" -> horSlideExitToScreen()
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    "artist_view_screen/{artistId}" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
             }
@@ -422,6 +432,8 @@ fun NavigationBottomNavBar(
                 when(initialState.destination.route) {
                     NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
                     NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+
+                    "album_view_screen/{albumId}" -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
@@ -432,6 +444,14 @@ fun NavigationBottomNavBar(
                     NavigationScreens.ArtistScreen.route ->verSlideExitFromSubFragment()
                     NavigationScreens.PlaylistScreen.route ->verSlideExitFromSubFragment()
                     NavigationScreens.SpotifyScreen.route ->verSlideExitFromSubFragment()
+
+                    "album_view_screen/{albumId}" -> horSlidePopExitToScreen()
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when(initialState.destination.route) {
+                    "album_view_screen/{albumId}" -> horSlideEnterFromScreen()
                     else -> null
                 }
             }

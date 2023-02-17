@@ -23,6 +23,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -111,19 +112,30 @@ fun AlbumViewScreen(
                             },
                             trailingContent = {
                                 val expandedItemMenu = remember { mutableStateOf(false) }
+                                
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = item.fixedDuration ?: "00:00",
+                                        maxLines = 1,
+                                        style = MaterialTheme.typography.titleMedium
+                                    )
+                                    
+                                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                        IconButton(onClick = { expandedItemMenu.value = true }) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                                contentDescription = stringResource(id = R.string.str_moreOptions)
+                                            )
+                                        }
 
-                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                    IconButton(onClick = { expandedItemMenu.value = true }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                            contentDescription = stringResource(id = R.string.str_moreOptions)
+                                        ItemDropDownMenu(
+                                            expanded = expandedItemMenu,
+                                            navController = navController
                                         )
                                     }
-
-                                    ItemDropDownMenu(
-                                        expanded = expandedItemMenu,
-                                        navController = navController
-                                    )
                                 }
                             }
                         )

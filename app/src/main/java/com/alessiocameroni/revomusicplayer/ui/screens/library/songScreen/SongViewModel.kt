@@ -26,7 +26,6 @@ class SongViewModel: ViewModel() {
 
         val projection = arrayOf(
             Media._ID,
-            Media.DISPLAY_NAME,
             Media.DURATION,
             Media.TITLE,
             Media.ALBUM_ID,
