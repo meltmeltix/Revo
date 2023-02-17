@@ -35,11 +35,8 @@ fun AlbumViewScreen(
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
-    val textVisibility = remember {
-        derivedStateOf {
-            scrollState.firstVisibleItemIndex > 0
-        }
-    }
+    val textVisibility =
+        remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val albumSongs = viewModel.albumSongs
 
     LaunchedEffect(Unit) {
@@ -49,12 +46,13 @@ fun AlbumViewScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopActionBar(
+            AlbumViewTopActionBar(
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
                 albumTitleString = viewModel.albumTitle.value,
+                textVisibility = textVisibility,
+                artistId = viewModel.artistId,
                 scrollBehavior = scrollBehavior,
-                textVisibility = textVisibility
             )
         },
         content = { padding ->

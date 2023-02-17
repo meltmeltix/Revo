@@ -24,14 +24,39 @@ fun SmallImageContainer(
     Box(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
+            .size(60.dp)
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .aspectRatio(1f)
-            .size(60.dp),
+            .aspectRatio(1f),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterPlaceholder,
             contentDescription = stringResource(id = R.string.desc_albumImage),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        leadingUnit()
+    }
+}
+
+@Composable
+fun LargeImageContainer(
+    modifier: Modifier = Modifier,
+    painterPlaceholder: Painter,
+    leadingUnit: @Composable () -> Unit?,
+) {
+    Box(
+        modifier = modifier
+            .clip(MaterialTheme.shapes.medium)
+            .size(110.dp)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .aspectRatio(1f),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            painter = painterPlaceholder,
+            contentDescription = stringResource(id = R.string.desc_albumImage),
+            modifier = Modifier.size(35.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
 

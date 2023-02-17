@@ -1,8 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
-import android.content.ContentUris
 import android.content.Context
-import android.net.Uri
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
@@ -37,13 +35,11 @@ class ArtistViewModel: ViewModel() {
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
-                val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
                 val artist = cursor.getString(artistColumn)
 
                 libraryArtists.add(
                     ArtistData(
                         artistId = id,
-                        contentUri = contentUri,
                         artist = artist,
                         tracksNumber = null,
                         albumsNumber = null

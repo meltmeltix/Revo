@@ -20,7 +20,119 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.screens.library.ViewsTopBarDropDownMenu
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+
+/**
+ * Scaffold components
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun AlbumViewTopActionBar(
+    navController: NavController,
+    navControllerBottomBar: NavHostController,
+    scrollBehavior: TopAppBarScrollBehavior,
+    textVisibility: State<Boolean>,
+    artistId: Long,
+    albumTitleString: String?,
+) {
+    val expandedMenu = remember { mutableStateOf(false) }
+    val albumTitle: String = albumTitleString ?: "Album Title"
+
+    TopAppBar(
+        title = {
+            AnimatedVisibility(
+                visible = textVisibility.value,
+                enter = fadeIn(animationSpec = tween(100)),
+                exit = fadeOut(animationSpec = tween(100))
+            ) {
+                Text(
+                    text = albumTitle,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        },
+        navigationIcon = {
+            IconButton(
+                onClick = { navControllerBottomBar.navigateUp() }
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                    contentDescription = stringResource(id = R.string.desc_back)
+                )
+            }
+        },
+        actions = {
+            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                IconButton(onClick = { expandedMenu.value = true }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                        contentDescription = stringResource(id = R.string.str_settings)
+                    )
+                }
+
+                AlbumViewTopBarDropDownMenu(
+                    expanded = expandedMenu,
+                    navController = navController,
+                    navControllerBottomBar = navControllerBottomBar,
+                    artistId = artistId
+                )
+            }
+        },
+        scrollBehavior = scrollBehavior
+    )
+}
+
+@Composable
+internal fun AlbumViewTopBarDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController,
+    navControllerBottomBar: NavHostController,
+    artistId: Long
+) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+        DropdownMenu(
+            modifier = Modifier.widthIn(min = 180.dp),
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(text = stringResource(id = R.string.str_viewArtist)) },
+                onClick = {
+                    navControllerBottomBar.navigate(
+                        NavigationScreens.ArtistViewScreen.route +
+                            "/$artistId"
+                    )
+                    expanded.value = false
+                },
+                leadingIcon = { 
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24), 
+                        contentDescription = stringResource(id = R.string.str_viewArtist)
+                    )
+                }
+            )
+            
+            Divider()
+            
+            DropdownMenuItem(
+                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                onClick = {
+                    navController.navigate(Screens.SettingsScreen.route)
+                    expanded.value = false
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                        contentDescription = stringResource(id = R.string.desc_settings)
+                    )
+                }
+            )
+        }
+    }
+}
+
 
 /**
  * Header components
@@ -95,22 +207,22 @@ private fun HeaderText(
     val secondsAmount: Int = albumSecondsAmount ?: 0
     val albumInfo =
         "$songAmount " +
-        pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
-        " · " +
-        when {
-            hoursAmount > 0 -> {
-                "$hoursAmount " +
-                pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = hoursAmount) +
-                " $minutesAmount " +
-                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount)
-            }
-            else -> {
-                "$minutesAmount " +
-                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount) +
-                " $secondsAmount " +
-                stringResource(id = R.string.str_secondsAmountAbbr)
-            }
-        }
+                pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
+                " · " +
+                when {
+                    hoursAmount > 0 -> {
+                        "$hoursAmount " +
+                                pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = hoursAmount) +
+                                " $minutesAmount " +
+                                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount)
+                    }
+                    else -> {
+                        "$minutesAmount " +
+                                pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount) +
+                                " $secondsAmount " +
+                                stringResource(id = R.string.str_secondsAmountAbbr)
+                    }
+                }
 
     Row(
         modifier = Modifier
@@ -164,7 +276,7 @@ private fun HeaderButtons() {
                 .height(45.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24), 
+                painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
                 contentDescription = stringResource(id = R.string.str_play),
                 modifier = Modifier
                     .padding(end = 8.dp)
@@ -173,7 +285,7 @@ private fun HeaderButtons() {
 
             Text(text = stringResource(id = R.string.str_play))
         }
-        
+
         Button(
             onClick = { /*TODO*/ },
             modifier = Modifier
@@ -197,65 +309,6 @@ private fun HeaderButtons() {
 /**
  * Screen components
  */
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-internal fun TopActionBar(
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
-    scrollBehavior: TopAppBarScrollBehavior,
-    textVisibility: State<Boolean>,
-    albumTitleString: String?,
-) {
-    val expandedMenu = remember { mutableStateOf(false) }
-    val albumTitle: String = albumTitleString ?: "Album Title"
-
-    TopAppBar(
-        title = {
-            AnimatedVisibility(
-                visible = textVisibility.value,
-                enter = fadeIn(
-                    animationSpec = tween(100)
-                ),
-                exit = fadeOut(
-                    animationSpec = tween(100)
-                )
-            ) {
-                Text(
-                    text = albumTitle,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-        },
-        navigationIcon = {
-            IconButton(
-                onClick = { navControllerBottomBar.navigateUp() }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                    contentDescription = stringResource(id = R.string.desc_back)
-                )
-            }
-        },
-        actions = {
-            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { expandedMenu.value = true }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_settings)
-                    )
-                }
-
-                ViewsTopBarDropDownMenu(
-                    expanded = expandedMenu,
-                    navController = navController
-                )
-            }
-        },
-        scrollBehavior = scrollBehavior
-    )
-}
-
 @Composable
 internal fun AlbumViewSectionTitle(
     stringTitle: String,

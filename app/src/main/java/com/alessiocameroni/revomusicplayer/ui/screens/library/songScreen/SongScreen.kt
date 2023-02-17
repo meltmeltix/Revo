@@ -38,7 +38,7 @@ fun SongsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopActionBar(
+            SongTopActionBar(
                 navController,
                 scrollBehavior
             )

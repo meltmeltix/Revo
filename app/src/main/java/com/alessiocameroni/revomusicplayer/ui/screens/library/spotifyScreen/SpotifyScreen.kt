@@ -17,7 +17,7 @@ fun SpotifyFavoritesScreen(navController: NavController) {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopActionBar(
+            SpotifyTopActionBar(
                 navController,
                 scrollBehavior
             )

@@ -22,7 +22,7 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun TopActionBar(navController: NavController) {
+internal fun PlayerTopActionBar(navController: NavController) {
     val interactionSource = remember { MutableInteractionSource() }
 
     TopAppBar(

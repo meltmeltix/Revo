@@ -41,7 +41,6 @@ class AlbumViewModel: ViewModel() {
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
-                val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
 
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, id)
@@ -53,7 +52,6 @@ class AlbumViewModel: ViewModel() {
                 libraryAlbums.add(
                     AlbumData(
                         albumId = id,
-                        contentUri = contentUri,
                         albumTitle = title,
                         artistId = artistId,
                         artist = artist,

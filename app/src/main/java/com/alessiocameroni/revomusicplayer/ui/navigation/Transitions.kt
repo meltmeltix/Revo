@@ -76,7 +76,7 @@ internal fun verSlidePopExitFromPlayer(): ExitTransition {
 /**
  * Transition used when navigating between the main destinations
  * within the main screen.
- * [verSlideEnterFromFragmentTransition] and [fadeExitToFragmentTransition]
+ * [verSlideEnterFromFragment] and [fadeExitToFragment]
  * are applied to:
  * - `songs`
  * - `albums`
@@ -84,22 +84,22 @@ internal fun verSlidePopExitFromPlayer(): ExitTransition {
  * - `playlists`
  * - `spotify`
  *
- * Sub-screens listed below share [verSlideEnterFromFragmentTransition],
- * but they use [verSlideExitFromSubFragmentTransition] instead.
+ * Sub-screens listed below share [verSlideEnterFromFragment],
+ * but they use [verSlideExitFromSubFragment] instead.
  * - `album_view_screen`
  * - `artist_view_screen`
  * - `playlist_view_screen`
  */
-internal fun verSlideEnterFromFragmentTransition(): EnterTransition {
+internal fun verSlideEnterFromFragment(): EnterTransition {
     return slideInVertically (
         initialOffsetY = { 30 },
         animationSpec = tween( 210 )
     ) + fadeIn(animationSpec = tween( 210 ))
 }
-internal fun fadeExitToFragmentTransition(): ExitTransition {
+internal fun fadeExitToFragment(): ExitTransition {
     return fadeOut(animationSpec = tween( 100 ))
 }
-internal fun verSlideExitFromSubFragmentTransition(): ExitTransition {
+internal fun verSlideExitFromSubFragment(): ExitTransition {
     return slideOutVertically(
         targetOffsetY = { -30 },
         animationSpec = tween(210)

@@ -29,7 +29,7 @@ fun PlayerScreen(navController: NavController) {
             color = MaterialTheme.colorScheme.background
         ) {
             Scaffold(
-                topBar = { TopActionBar(navController) },
+                topBar = { PlayerTopActionBar(navController) },
                 bottomBar = {
                     BottomActionBar(
                         navController = navController,

@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
@@ -29,18 +31,18 @@ fun BottomContent(
     navControllerBottomBar: NavHostController
 ) {
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-    val contentExpanded = remember { mutableStateOf(true) }
+    val contentExpanded = rememberSaveable { mutableStateOf(true) }
     val transition = updateTransition(targetState = contentExpanded, label = "")
     val columnOffset by transition.animateDp(label = "") {
         when(it.value) {
             true -> 0.dp
-            false -> 80.dp
+            false -> 70.dp
         }
     }
     val navBarOffset by transition.animateDp(label = "") {
         when(it.value) {
             true -> 0.dp
-            false -> systemBarsPadding.calculateBottomPadding()
+            false -> systemBarsPadding.calculateBottomPadding() + 50.dp
         }
     }
 
@@ -62,31 +64,31 @@ fun BottomContent(
             items = listOf(
                 MainScreenNavigationItemData(
                     name = stringResource(id = R.string.str_songs),
-                    route = "songs",
+                    route = NavigationScreens.SongScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                 ),
                 MainScreenNavigationItemData(
                     name = stringResource(id = R.string.str_albums),
-                    route = "albums",
+                    route = NavigationScreens.AlbumScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                 ),
                 MainScreenNavigationItemData(
                     name = stringResource(id = R.string.str_artists),
-                    route = "artists",
+                    route = NavigationScreens.ArtistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                 ),
                 MainScreenNavigationItemData(
                     name = stringResource(id = R.string.str_playlists),
-                    route = "playlists",
+                    route = NavigationScreens.PlaylistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                 ),
                 MainScreenNavigationItemData(
                     name = stringResource(id = R.string.str_spotify),
-                    route = "spotify",
+                    route = NavigationScreens.SpotifyScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
                     painterResource(id = R.drawable.ic_filled_spotify_24)
                 ),
@@ -187,11 +189,11 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
 
     when(backStackEntry.value?.destination?.route) {
-        "songs" -> contentExpanded.value = true
-        "albums" -> contentExpanded.value = true
-        "artists" -> contentExpanded.value = true
-        "playlists" -> contentExpanded.value = true
-        "spotify" -> contentExpanded.value = true
+        NavigationScreens.SongScreen.route -> contentExpanded.value = true
+        NavigationScreens.AlbumScreen.route -> contentExpanded.value = true
+        NavigationScreens.ArtistScreen.route -> contentExpanded.value = true
+        NavigationScreens.PlaylistScreen.route -> contentExpanded.value = true
+        NavigationScreens.SpotifyScreen.route -> contentExpanded.value = true
         else -> contentExpanded.value = false
     }
 

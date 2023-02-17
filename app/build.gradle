@@ -69,7 +69,7 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-beta01'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0-beta01'
-    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-alpha04"
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta01"
 
     implementation 'androidx.compose.material3:material3:1.1.0-alpha06'
     implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha06'
@@ -78,7 +78,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
-    implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha06'
+    implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha07'
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 

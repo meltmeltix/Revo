@@ -4,22 +4,22 @@ import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen.AlbumViewScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.MainScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.AlbumsScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.artistViewScreen.ArtistViewScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen.AlbumViewScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.ArtistsScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.artistViewScreen.ArtistViewScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.PlaylistsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen.playlistViewScreen.PlaylistViewScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen.SongsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.spotifyScreen.SpotifyFavoritesScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.MainScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.player.PlayerScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.search.SearchScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.settings.SettingsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.CustomizationScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout.PlayerLayoutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.library.LibrarySettingsScreen
-import com.alessiocameroni.revomusicplayer.ui.screens.settings.SettingsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.OtherScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.appLanguage.AppLanguageScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.welcome.WelcomeScreen
@@ -265,31 +265,33 @@ fun NavigationBottomNavBar(
     navControllerBottomBar: NavHostController,
     navControllerApp: NavController
 ) {
-    AnimatedNavHost(navController = navControllerBottomBar, startDestination = "songs") {
+    AnimatedNavHost(navController = navControllerBottomBar, startDestination = NavigationScreens.SongScreen.route) {
         composable(
-            route = "songs",
+            route = NavigationScreens.SongScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "albums" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
-                    "playlists" -> verSlideEnterFromFragmentTransition()
-                    "spotify" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeExitToFragmentTransition()
-                    "albums" -> fadeExitToFragmentTransition()
-                    "artists" -> fadeExitToFragmentTransition()
-                    "playlists" -> fadeExitToFragmentTransition()
-                    "spotify" -> fadeExitToFragmentTransition()
-                    "artist_view_screen" -> verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route -> fadeExitToFragment()
+                    NavigationScreens.AlbumScreen.route -> fadeExitToFragment()
+                    NavigationScreens.ArtistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
+
+                    "album_view_screen/{albumId}" -> verSlideExitFromSubFragment()
+                    "artist_view_screen/{artistId}" -> verSlideExitFromSubFragment()
                     else -> null
                 }
             }
@@ -301,38 +303,35 @@ fun NavigationBottomNavBar(
         }
 
         composable(
-            route = "albums",
+            route = NavigationScreens.AlbumScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "albums" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
-                    "playlists" -> verSlideEnterFromFragmentTransition()
-                    "spotify" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
-
-                    //From screen
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeExitToFragmentTransition()
-                    "albums" -> fadeExitToFragmentTransition()
-                    "artists" -> fadeExitToFragmentTransition()
-                    "playlists" -> fadeExitToFragmentTransition()
-                    "spotify" -> fadeExitToFragmentTransition()
-                    "album_view_screen/{albumId}" -> verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route -> fadeExitToFragment()
+                    NavigationScreens.AlbumScreen.route -> fadeExitToFragment()
+                    NavigationScreens.ArtistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
+                    "album_view_screen/{albumId}" -> verSlideExitFromSubFragment()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
                     else -> null
                 }
             }
@@ -348,18 +347,17 @@ fun NavigationBottomNavBar(
             route = "album_view_screen/{albumId}",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "albums" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "songs" ->verSlideExitFromSubFragmentTransition()
-                    "albums" ->verSlideExitFromSubFragmentTransition()
-                    "artists" ->verSlideExitFromSubFragmentTransition()
-                    "playlists" ->verSlideExitFromSubFragmentTransition()
-                    "spotify" ->verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.AlbumScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.ArtistScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.PlaylistScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.SpotifyScreen.route ->verSlideExitFromSubFragment()
                     else -> null
                 }
             }
@@ -377,38 +375,36 @@ fun NavigationBottomNavBar(
 
 
         composable(
-            route = "artists",
+            route = NavigationScreens.ArtistScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "albums" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
-                    "playlists" -> verSlideEnterFromFragmentTransition()
-                    "spotify" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
-
-                    //From screen
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeExitToFragmentTransition()
-                    "albums" -> fadeExitToFragmentTransition()
-                    "artists" -> fadeExitToFragmentTransition()
-                    "playlists" -> fadeExitToFragmentTransition()
-                    "spotify" -> fadeExitToFragmentTransition()
-                    "artist_view_screen" -> verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route -> fadeExitToFragment()
+                    NavigationScreens.AlbumScreen.route -> fadeExitToFragment()
+                    NavigationScreens.ArtistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
+
+                    "artist_view_screen/{artistId}" -> verSlideExitFromSubFragment()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
                     else -> null
                 }
             }
@@ -421,66 +417,66 @@ fun NavigationBottomNavBar(
 
         // Artist SubScreens
         composable(
-            route = "artist_view_screen",
+            route = "artist_view_screen/{artistId}",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "songs" ->verSlideExitFromSubFragmentTransition()
-                    "albums" ->verSlideExitFromSubFragmentTransition()
-                    "artists" ->verSlideExitFromSubFragmentTransition()
-                    "playlists" ->verSlideExitFromSubFragmentTransition()
-                    "spotify" ->verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.AlbumScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.ArtistScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.PlaylistScreen.route ->verSlideExitFromSubFragment()
+                    NavigationScreens.SpotifyScreen.route ->verSlideExitFromSubFragment()
                     else -> null
                 }
             }
-        ) {
-            ArtistViewScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
-            )
+        ) {backStackEntry ->
+            val artistId = backStackEntry.arguments?.getString("artistId")?.toLong()
+
+            if (artistId != null) {
+                ArtistViewScreen(
+                    artistId = artistId,
+                    navController = navControllerApp,
+                    navControllerBottomBar = navControllerBottomBar
+                )
+            }
         }
 
         composable(
-            route = "playlists",
+            route = NavigationScreens.PlaylistScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    // To screen
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "albums" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
-                    "playlists" -> verSlideEnterFromFragmentTransition()
-                    "spotify" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
-                    //From screen
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "songs" -> fadeExitToFragmentTransition()
-                    "albums" -> fadeExitToFragmentTransition()
-                    "artists" -> fadeExitToFragmentTransition()
-                    "playlists" -> fadeExitToFragmentTransition()
-                    "spotify" -> fadeExitToFragmentTransition()
-                    "playlist_view_screen" -> verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route -> fadeExitToFragment()
+                    NavigationScreens.AlbumScreen.route -> fadeExitToFragment()
+                    NavigationScreens.ArtistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
+                    "playlist_view_screen" -> verSlideExitFromSubFragment()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
-                    // From screen
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             }
@@ -496,18 +492,17 @@ fun NavigationBottomNavBar(
             route = "playlist_view_screen",
             enterTransition = {
                 when(initialState.destination.route) {
-                    "playlists" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    // To screen
-                    "songs" -> verSlideExitFromSubFragmentTransition()
-                    "albums" -> verSlideExitFromSubFragmentTransition()
-                    "artists" -> verSlideExitFromSubFragmentTransition()
-                    "playlists" -> verSlideExitFromSubFragmentTransition()
-                    "spotify" -> verSlideExitFromSubFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideExitFromSubFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideExitFromSubFragment()
                     else -> null
                 }
             }
@@ -520,28 +515,28 @@ fun NavigationBottomNavBar(
 
 
         composable(
-            route = "spotify",
+            route = NavigationScreens.SpotifyScreen.route,
             enterTransition = {
                 when(initialState.destination.route) {
-                    "songs" -> verSlideEnterFromFragmentTransition()
-                    "albums" -> verSlideEnterFromFragmentTransition()
-                    "artists" -> verSlideEnterFromFragmentTransition()
-                    "playlists" -> verSlideEnterFromFragmentTransition()
-                    "spotify" -> verSlideEnterFromFragmentTransition()
+                    NavigationScreens.SongScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.AlbumScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.ArtistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
+                    NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
-                    "album_view_screen/{albumId}" -> verSlideEnterFromFragmentTransition()
-                    "artist_view_screen" -> verSlideEnterFromFragmentTransition()
-                    "playlist_view_screen" -> verSlideEnterFromFragmentTransition()
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
+                    "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
+                    "playlist_view_screen" -> verSlideEnterFromFragment()
                     else -> null
                 }
             },
             exitTransition = {
                 when(targetState.destination.route) {
-                    "songs" -> fadeExitToFragmentTransition()
-                    "albums" -> fadeExitToFragmentTransition()
-                    "artists" -> fadeExitToFragmentTransition()
-                    "playlists" -> fadeExitToFragmentTransition()
-                    "spotify" -> fadeExitToFragmentTransition()
+                    NavigationScreens.SongScreen.route -> fadeExitToFragment()
+                    NavigationScreens.AlbumScreen.route -> fadeExitToFragment()
+                    NavigationScreens.ArtistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
+                    NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
                     else -> null
                 }
             }

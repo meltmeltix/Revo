@@ -8,26 +8,29 @@ open class Screens(val route: String) {
     object SettingsScreen : Screens("settings_screen")
 }
 
-open class AlbumsScreens(val route: String) {
-    object AlbumViewScreen : AlbumsScreens("album_view_screen")
-}
+open class NavigationScreens(val route: String) {
+    object SongScreen : NavigationScreens("songs")
 
-open class ArtistsScreens(val route: String) {
-    object ArtistViewScreen : ArtistsScreens("artist_view_screen")
-}
+    object AlbumScreen : NavigationScreens("albums")
+    object AlbumViewScreen : NavigationScreens("album_view_screen")
 
-open class PlaylistsScreens(val route: String) {
-    object PlaylistViewScreen : PlaylistsScreens("playlist_view_screen")
+    object ArtistScreen : NavigationScreens("artists")
+    object ArtistViewScreen : NavigationScreens("artist_view_screen")
+
+    object PlaylistScreen : NavigationScreens("playlists")
+    object PlaylistViewScreen : NavigationScreens("playlist_view_screen")
+
+    object SpotifyScreen : NavigationScreens("spotify")
 }
 
 open class SettingsScreens(val route: String) {
     object LibrarySettingsScreen : SettingsScreens("library_settings_screen")
 
     object CustomizationScreen : SettingsScreens("customization_screen")
-        object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
+    object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
 
     object OtherScreen : SettingsScreens("other_screen")
-        object AppLanguageScreen : SettingsScreens("app_language_screen")
+    object AppLanguageScreen : SettingsScreens("app_language_screen")
 
     object AboutScreen : SettingsScreens("about_screen")
 }

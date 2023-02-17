@@ -22,9 +22,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.ArtistsScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,7 +84,8 @@ fun ArtistsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    ArtistsScreens.ArtistViewScreen.route
+                                    NavigationScreens.ArtistViewScreen.route +
+                                    "/${item.artistId}"
                                 )
                             },
                     ) {

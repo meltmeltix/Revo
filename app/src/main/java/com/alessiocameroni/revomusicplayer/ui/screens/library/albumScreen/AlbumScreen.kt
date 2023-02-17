@@ -23,7 +23,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
-import com.alessiocameroni.revomusicplayer.ui.navigation.AlbumsScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ fun AlbumsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopActionBar(
+            AlbumTopActionBar(
                 navController,
                 scrollBehavior
             )
@@ -60,7 +60,7 @@ fun AlbumsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    AlbumsScreens.AlbumViewScreen.route +
+                                    NavigationScreens.AlbumViewScreen.route +
                                             "/${item.albumId}"
                                 )
                             },

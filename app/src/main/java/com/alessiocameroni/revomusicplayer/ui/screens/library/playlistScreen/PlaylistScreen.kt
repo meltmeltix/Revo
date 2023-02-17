@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.PlaylistsScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +32,7 @@ fun PlaylistsScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopActionbar(
+            PlaylistTopActionbar(
                 navController,
                 scrollBehavior
             )
@@ -70,7 +70,7 @@ fun PlaylistsScreen(
                         modifier = Modifier
                             .clickable {
                                 navControllerBottomBar.navigate(
-                                    PlaylistsScreens.PlaylistViewScreen.route
+                                    NavigationScreens.PlaylistViewScreen.route
                                 )
                             }
                     ) {

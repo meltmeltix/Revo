@@ -109,6 +109,10 @@
         <item quantity="one">song</item>
         <item quantity="other">songs</item>
     </plurals>
+    <plurals name="str_albumAmount">
+        <item quantity="one">album</item>
+        <item quantity="other">albums</item>
+    </plurals>
     <plurals name="str_hourAmountAbbr">
         <item quantity="one">hr</item>
         <item quantity="other">hrs</item>
