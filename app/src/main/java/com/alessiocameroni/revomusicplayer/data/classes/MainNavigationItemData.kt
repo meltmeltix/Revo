@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens
+package com.alessiocameroni.revomusicplayer.data.classes
 
 import androidx.compose.ui.graphics.painter.Painter
 

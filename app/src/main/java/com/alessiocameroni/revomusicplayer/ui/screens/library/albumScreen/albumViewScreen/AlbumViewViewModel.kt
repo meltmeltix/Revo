@@ -7,12 +7,11 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
-import java.util.*
+import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 import kotlin.math.roundToInt
 
 class AlbumViewViewModel: ViewModel() {
@@ -137,28 +136,6 @@ class AlbumViewViewModel: ViewModel() {
         _albumCoverUri.value = ContentUris.withAppendedId(albumCover, albumId)
 
         albumInfoRetrieved = true
-    }
-
-    private fun calculateSongDuration(duration: Int?): String {
-        val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
-
-        Log.d("AlbumViewViewModel", "$fixedDuration")
-
-        var minutes: Double = fixedDuration / 60
-        var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
-        when(seconds) {
-            60 -> {
-                seconds = 0
-                minutes++
-            }
-        }
-
-        return String.format(
-            Locale.US,
-            "%02d:%02d",
-            minutes.toInt(),
-            seconds
-        )
     }
 
     private fun calculateAlbumDuration(duration: Int?) {

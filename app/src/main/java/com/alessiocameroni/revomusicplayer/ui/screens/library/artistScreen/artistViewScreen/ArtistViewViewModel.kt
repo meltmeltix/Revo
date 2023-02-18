@@ -7,14 +7,12 @@ import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumData
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongData
-import java.util.*
-import kotlin.math.roundToInt
+import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 
 class ArtistViewViewModel: ViewModel() {
     val artistSongs = mutableListOf<ArtistSongData>()
@@ -158,20 +156,5 @@ class ArtistViewViewModel: ViewModel() {
         }
 
         artistSongListInitialized = true
-    }
-
-    private fun calculateSongDuration(duration: Int?): String {
-        val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
-
-        val minutes: Double = fixedDuration / 60
-        var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
-        seconds = if (seconds == 60) 0 else seconds
-
-        return String.format(
-            Locale.US,
-            "%02d:%02d",
-            minutes.roundToInt(),
-            seconds
-        )
     }
 }
