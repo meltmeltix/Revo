@@ -39,15 +39,20 @@ class ArtistViewViewModel: ViewModel() {
     ) {
         if (artistAlbumListInitialized) return
 
+        val collection =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+            } else {
+                Media.EXTERNAL_CONTENT_URI
+            }
         val projection = arrayOf(
-            Media.ALBUM,
             Media.ALBUM_ID,
+            Media.ALBUM,
         )
-
         val selection = "${Media.ARTIST_ID} = $artistId"
-        val sortOrder = "${Media.ALBUM} ASC"
+        val sortOrder = "${Albums.ALBUM} ASC"
         val query = context.contentResolver.query(
-            Albums.EXTERNAL_CONTENT_URI,
+            collection,
             projection,
             selection,
             null,

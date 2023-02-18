@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
@@ -116,7 +118,16 @@ fun ArtistsScreen(
                                         .clip(CircleShape),
                                     painterPlaceholder =
                                         painterResource(id = R.drawable.ic_outlined_artist_24),
-                                    leadingUnit = {  }
+                                    leadingUnit = {
+                                        AsyncImage(
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data(item.artistPictureUri)
+                                                .crossfade(true)
+                                                .build(),
+                                            contentDescription = stringResource(id = R.string.desc_albumImage),
+                                            modifier = Modifier.fillMaxSize()
+                                        )
+                                    }
                                 )
                             }
                         )

@@ -18,9 +18,9 @@ class AlbumViewModel: ViewModel() {
 
         val projection = arrayOf(
             Albums._ID,
-            Media.ALBUM,
+            Albums.ALBUM,
             Media.ARTIST_ID,
-            Media.ARTIST
+            Albums.ARTIST
         )
 
         val selection = null
@@ -35,9 +35,9 @@ class AlbumViewModel: ViewModel() {
 
         query?.use { cursor ->
             val idColumn = cursor.getColumnIndexOrThrow(Albums._ID)
-            val titleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
+            val titleColumn = cursor.getColumnIndexOrThrow(Albums.ALBUM)
             val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
-            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
+            val artistColumn = cursor.getColumnIndexOrThrow(Albums.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
