@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -141,14 +142,21 @@ class AlbumViewViewModel: ViewModel() {
     private fun calculateSongDuration(duration: Int?): String {
         val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
 
-        val minutes: Double = fixedDuration / 60
+        Log.d("AlbumViewViewModel", "$fixedDuration")
+
+        var minutes: Double = fixedDuration / 60
         var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
-        seconds = if (seconds == 60) 0 else seconds
+        when(seconds) {
+            60 -> {
+                seconds = 0
+                minutes++
+            }
+        }
 
         return String.format(
             Locale.US,
             "%02d:%02d",
-            minutes.roundToInt(),
+            minutes.toInt(),
             seconds
         )
     }
@@ -157,11 +165,17 @@ class AlbumViewViewModel: ViewModel() {
         val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
 
         val hours: Double = fixedDuration / 3600
-        val minutes: Double = (hours - hours.toInt()) * 60
-        val seconds: Double = (minutes - minutes.toInt()) * 60
+        var minutes: Double = (hours - hours.toInt()) * 60
+        var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
+        when(seconds) {
+            60 -> {
+                seconds = 0
+                minutes++
+            }
+        }
 
         _albumHoursAmount.value = hours.toInt()
         _albumMinutesAmount.value = minutes.toInt()
-        _albumSecondsAmount.value = seconds.toInt()
+        _albumSecondsAmount.value = seconds
     }
 }
