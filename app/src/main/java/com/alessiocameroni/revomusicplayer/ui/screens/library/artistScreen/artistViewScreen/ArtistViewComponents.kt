@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 /**
@@ -272,6 +273,38 @@ private fun ArtistInfoText(
 /**
  * Screen components
  */
+@Composable
+internal fun ArtistViewItemDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navControllerBottomBar: NavController,
+    albumId: Long
+) {
+    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
+        DropdownMenu(
+            modifier = Modifier.widthIn(min = 180.dp),
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
+                onClick = {
+                    navControllerBottomBar.navigate(
+                        NavigationScreens.AlbumViewScreen.route +
+                            "/$albumId"
+                    )
+                    expanded.value = false
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24),
+                        contentDescription = stringResource(id = R.string.str_goToAlbum)
+                    )
+                }
+            )
+        }
+    }
+}
+
 @Composable
 internal fun ArtistViewSectionTitle(
     stringTitle: String,

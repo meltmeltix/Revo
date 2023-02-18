@@ -118,7 +118,8 @@ fun ArtistViewScreen(
                 }
 
                 artistSongList(
-                    artistSongs
+                    artistSongs,
+                    navControllerBottomBar
                 )
             }
         }
@@ -162,7 +163,8 @@ fun RowAlbumList(
 }
 
 private fun LazyListScope.artistSongList(
-    artistSongs: MutableList<ArtistSongData>
+    artistSongs: MutableList<ArtistSongData>,
+    navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(items = artistSongs) { _, item ->
         Row(
@@ -205,6 +207,12 @@ private fun LazyListScope.artistSongList(
                                     contentDescription = stringResource(id = R.string.str_moreOptions)
                                 )
                             }
+
+                            ArtistViewItemDropDownMenu(
+                                expanded = expandedItemMenu,
+                                navControllerBottomBar = navControllerBottomBar,
+                                albumId = item.albumId
+                            )
                         }
                     }
                 }
