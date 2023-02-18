@@ -217,16 +217,16 @@ private fun ArtistInfoText(
 
     val artistInfo =
         "$albumAmount " +
-        pluralStringResource(
-            id = R.plurals.str_albumAmount,
-            count = albumAmount
-        ) +
-        " · " +
-        "$songAmount " +
-        pluralStringResource(
-            id = R.plurals.str_songAmount,
-            count = songAmount
-        )
+                pluralStringResource(
+                    id = R.plurals.str_albumAmount,
+                    count = albumAmount
+                ) +
+                " · " +
+                "$songAmount " +
+                pluralStringResource(
+                    id = R.plurals.str_songAmount,
+                    count = songAmount
+                )
 
     if(largeText) {
         Column(
@@ -306,7 +306,7 @@ internal fun ArtistViewHorizontalListItem(
     ) {
         LargeImageContainer(
             painterPlaceholder =
-                painterResource(id = R.drawable.ic_outlined_album_24)
+            painterResource(id = R.drawable.ic_outlined_album_24)
         ) { leadingUnit() }
 
         Text(
@@ -318,4 +318,3 @@ internal fun ArtistViewHorizontalListItem(
         )
     }
 }
-

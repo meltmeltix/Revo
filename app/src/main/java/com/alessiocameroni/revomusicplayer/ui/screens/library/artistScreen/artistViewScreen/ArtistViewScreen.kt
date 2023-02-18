@@ -2,8 +2,6 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.arti
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -112,7 +110,7 @@ fun ArtistViewScreen(
                         }
                     }
                 }
-                
+
                 item {
                     ArtistViewSectionTitle(
                         stringTitle = stringResource(id = R.string.str_songs)
