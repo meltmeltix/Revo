@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -89,11 +90,24 @@ fun ArtistsScreen(
                                 )
                             },
                     ) {
+                        val artistInfo =
+                            "${item.albumsNumber} " +
+                            pluralStringResource(
+                                id = R.plurals.str_albumAmount,
+                                count = (item.albumsNumber ?: "0").toInt()
+                            ) +
+                            " · " +
+                            "${item.tracksNumber} " +
+                            pluralStringResource(
+                                id = R.plurals.str_songAmount,
+                                count = (item.tracksNumber ?: "0").toInt()
+                            )
+
                         PixelyListItem(
                             headlineTextString = item.artist,
                             largeHeadline = false,
                             maxHeadlineLines = 1,
-                            supportingTextString = "Placeholder",
+                            supportingTextString = artistInfo,
                             maxSupportingLines = 1,
                             leadingContent = {
                                 SmallImageContainer(
