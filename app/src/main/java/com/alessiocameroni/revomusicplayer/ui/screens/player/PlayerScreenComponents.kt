@@ -17,6 +17,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
@@ -114,27 +115,24 @@ internal fun BottomAppBarDropDownMenu(
             )
         }
 
-        MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-            DropdownMenu(
-                modifier = Modifier.width(180.dp),
-                expanded = expanded.value,
-                onDismissRequest = { expanded.value = false }
-            ) {
-                Divider()
-                DropdownMenuItem(
-                    text = { Text(text = stringResource(id = R.string.str_settings)) },
-                    onClick = {
-                        navController.navigate(Screens.SettingsScreen.route)
-                        expanded.value = false
-                    },
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                            contentDescription = stringResource(id = R.string.desc_settings)
-                        )
-                    }
-                )
-            }
+        RoundedDropDownMenu(
+            expanded = expanded.value,
+            onDismissRequest = { expanded.value = false }
+        ) {
+            Divider()
+            DropdownMenuItem(
+                text = { Text(text = stringResource(id = R.string.str_settings)) },
+                onClick = {
+                    navController.navigate(Screens.SettingsScreen.route)
+                    expanded.value = false
+                },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                        contentDescription = stringResource(id = R.string.desc_settings)
+                    )
+                }
+            )
         }
     }
 }

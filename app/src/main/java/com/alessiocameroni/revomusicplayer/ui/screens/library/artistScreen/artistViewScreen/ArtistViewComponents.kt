@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
@@ -89,28 +90,25 @@ private fun ArtistViewDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController,
 ) {
-    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-        DropdownMenu(
-            modifier = Modifier.widthIn(min = 180.dp),
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false }
-        ) {
-            Divider()
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        Divider()
 
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_settings)) },
-                onClick = {
-                    navController.navigate(Screens.SettingsScreen.route)
-                    expanded.value = false
-                },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                        contentDescription = stringResource(id = R.string.desc_settings)
-                    )
-                }
-            )
-        }
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_settings)) },
+            onClick = {
+                navController.navigate(Screens.SettingsScreen.route)
+                expanded.value = false
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                    contentDescription = stringResource(id = R.string.desc_settings)
+                )
+            }
+        )
     }
 }
 
@@ -275,29 +273,26 @@ internal fun ArtistViewItemDropDownMenu(
     navControllerBottomBar: NavController,
     albumId: Long
 ) {
-    MaterialTheme(shapes = MaterialTheme.shapes.copy(extraSmall = MaterialTheme.shapes.large)) {
-        DropdownMenu(
-            modifier = Modifier.widthIn(min = 180.dp),
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false }
-        ) {
-            DropdownMenuItem(
-                text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
-                onClick = {
-                    navControllerBottomBar.navigate(
-                        NavigationScreens.AlbumViewScreen.route +
-                            "/$albumId"
-                    )
-                    expanded.value = false
-                },
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24),
-                        contentDescription = stringResource(id = R.string.str_goToAlbum)
-                    )
-                }
-            )
-        }
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
+            onClick = {
+                navControllerBottomBar.navigate(
+                    NavigationScreens.AlbumViewScreen.route +
+                        "/$albumId"
+                )
+                expanded.value = false
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24),
+                    contentDescription = stringResource(id = R.string.str_goToAlbum)
+                )
+            }
+        )
     }
 }
 

@@ -24,7 +24,6 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,7 +97,7 @@ fun AlbumsScreen(
                                         )
                                     }
 
-                                    ItemDropDownMenu(
+                                    AlbumItemDropDownMenu(
                                         expanded = expandedItemMenu,
                                         navController = navController
                                     )

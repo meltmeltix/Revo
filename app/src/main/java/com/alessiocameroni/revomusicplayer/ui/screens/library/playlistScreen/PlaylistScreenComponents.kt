@@ -53,6 +53,14 @@ internal fun PlaylistTopActionbar(
     )
 }
 
+@Composable
+internal fun PlaylistItemDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController
+) {
+
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPlaylistDialog(

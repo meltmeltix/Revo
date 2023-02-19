@@ -22,7 +22,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.screens.library.ItemDropDownMenu
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -133,7 +132,7 @@ fun AlbumViewScreen(
                                             )
                                         }
 
-                                        ItemDropDownMenu(
+                                        AlbumViewItemDropDownMenu(
                                             expanded = expandedItemMenu,
                                             navController = navController
                                         )
