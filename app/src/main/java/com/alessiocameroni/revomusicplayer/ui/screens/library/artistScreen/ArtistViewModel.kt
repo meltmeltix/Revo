@@ -22,6 +22,13 @@ class ArtistViewModel: ViewModel() {
     fun initializeArtistList(context: Context) {
         if(initialized) return
 
+        val collection =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Artists.getContentUri(MediaStore.VOLUME_EXTERNAL)
+            } else {
+                Artists.EXTERNAL_CONTENT_URI
+            }
+
         val projection = arrayOf(
             Artists._ID,
             Artists.ARTIST,
@@ -29,9 +36,9 @@ class ArtistViewModel: ViewModel() {
             Artists.NUMBER_OF_TRACKS,
         )
         val selection = null
-        val sortOrder = "${Media.ARTIST} ASC"
+        val sortOrder = "${Artists.ARTIST} ASC"
         val query = context.contentResolver.query(
-            Artists.EXTERNAL_CONTENT_URI,
+            collection,
             projection,
             selection,
             null,
@@ -42,13 +49,13 @@ class ArtistViewModel: ViewModel() {
             val idColumn = cursor.getColumnIndexOrThrow(Artists._ID)
             val artistColumn = cursor.getColumnIndexOrThrow(Artists.ARTIST)
             val artistAlbumsNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_ALBUMS)
-            val artistSongsNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_TRACKS)
+            val artistTracksNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_TRACKS)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val artist = cursor.getString(artistColumn)
                 val albumNumber = cursor.getString(artistAlbumsNumberColumn)
-                val tracksNumber = cursor.getString(artistSongsNumberColumn)
+                val tracksNumber = cursor.getString(artistTracksNumberColumn)
 
                 retrieveAlbumImage(
                     context,
@@ -79,16 +86,16 @@ class ArtistViewModel: ViewModel() {
             } else {
                 Media.EXTERNAL_CONTENT_URI
             }
-        val projection = arrayOf(
-            Media.ALBUM_ID
-        )
+
+        val projection = arrayOf(Media.ALBUM_ID)
         val selection = "${Media.ARTIST_ID} = $artistId"
+        val sortOrder = "${Media.ALBUM} ASC"
         val query = context.contentResolver.query(
             collection,
             projection,
             selection,
             null,
-            null
+            sortOrder
         )
 
         query?.use { cursor ->

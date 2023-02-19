@@ -16,7 +16,6 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.revomusicplayer.R
@@ -34,8 +33,8 @@ internal fun ArtistViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
     artistName: String?,
-    artistAlbumAmount: LiveData<Int>,
-    artistSongAmount: LiveData<Int>,
+    artistAlbumsNumber: String?,
+    artistTracksNumber: String?,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
 ) {
@@ -51,8 +50,8 @@ internal fun ArtistViewTopActionBar(
                 ArtistInfoText(
                     largeText = false,
                     artistName = artistName,
-                    artistAlbumAmount = artistAlbumAmount,
-                    artistSongAmount = artistSongAmount
+                    artistAlbumsNumber = artistAlbumsNumber,
+                    artistTracksNumber = artistTracksNumber
                 )
             }
         },
@@ -122,8 +121,8 @@ private fun ArtistViewDropDownMenu(
 @Composable
 internal fun ArtistViewHeader(
     artistName: String?,
-    artistAlbumAmount: LiveData<Int>,
-    artistSongAmount: LiveData<Int>,
+    artistAlbumsNumber: String?,
+    artistTracksNumber: String?,
     leadingUnit: @Composable () -> Unit,
 ) {
     Column(
@@ -148,9 +147,9 @@ internal fun ArtistViewHeader(
 
             ArtistInfoText(
                 largeText = true,
-                artistName,
-                artistAlbumAmount,
-                artistSongAmount
+                artistName = artistName,
+                artistAlbumsNumber = artistAlbumsNumber,
+                artistTracksNumber = artistTracksNumber
             )
         }
 
@@ -209,24 +208,21 @@ private fun HeaderButtons() {
 private fun ArtistInfoText(
     largeText: Boolean,
     artistName: String?,
-    artistAlbumAmount: LiveData<Int>,
-    artistSongAmount: LiveData<Int>
+    artistAlbumsNumber: String?,
+    artistTracksNumber: String?,
 ) {
     val nameString: String = artistName ?: "Artist Name"
-    val albumAmount: Int = artistAlbumAmount.value ?: 0
-    val songAmount: Int = artistSongAmount.value ?: 0
-
     val artistInfo =
-        "$albumAmount " +
+        "$artistAlbumsNumber " +
                 pluralStringResource(
                     id = R.plurals.str_albumAmount,
-                    count = albumAmount
+                    count = (artistAlbumsNumber ?: "0").toInt()
                 ) +
                 " · " +
-                "$songAmount " +
+                "$artistTracksNumber " +
                 pluralStringResource(
                     id = R.plurals.str_songAmount,
-                    count = songAmount
+                    count = (artistTracksNumber ?: "0").toInt()
                 )
 
     if(largeText) {

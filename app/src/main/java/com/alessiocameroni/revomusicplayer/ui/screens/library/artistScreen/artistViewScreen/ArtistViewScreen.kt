@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.artistViewScreen
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.clickable
@@ -46,6 +45,7 @@ fun ArtistViewScreen(
     val albumRowVisibility = viewModel.albumAmountCheck
 
     LaunchedEffect(Unit) {
+        viewModel.initializeArtistInfo(context, artistId)
         viewModel.initializeArtistAlbumList(context, artistId)
         viewModel.initializeArtistSongList(context, artistId)
     }
@@ -57,8 +57,8 @@ fun ArtistViewScreen(
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
                 artistName = viewModel.artist.value,
-                artistAlbumAmount = viewModel.artistAlbumAmount,
-                artistSongAmount = viewModel.artistSongAmount,
+                artistAlbumsNumber = viewModel.artistAlbumsNumber.value,
+                artistTracksNumber = viewModel.artistTrackNumber.value,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -74,24 +74,21 @@ fun ArtistViewScreen(
                 item {
                     ArtistViewHeader(
                         artistName = viewModel.artist.value,
-                        artistAlbumAmount = viewModel.artistAlbumAmount,
-                        artistSongAmount = viewModel.artistSongAmount,
-                        leadingUnit = {
-                            AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(viewModel.artistPictureUri.value)
-                                    .crossfade(true)
-                                    .build(),
-                                contentDescription = stringResource(id = R.string.desc_albumImage),
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        }
-                    )
+                        artistAlbumsNumber = viewModel.artistAlbumsNumber.value,
+                        artistTracksNumber = viewModel.artistTrackNumber.value
+                    ) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(viewModel.artistPictureUri.value)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = stringResource(id = R.string.desc_albumImage),
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
 
                 item {
-                    Log.d("ArtistViewScreen", "$albumRowVisibility")
-
                     AnimatedVisibility(
                         visible = albumRowVisibility.value ?: false,
                         enter = fadeIn()
@@ -132,7 +129,7 @@ fun RowAlbumList(
     navControllerBottomBar: NavHostController
 ) {
     LazyRow(
-        contentPadding = PaddingValues(start = 5.dp)
+        contentPadding = PaddingValues(horizontal = 5.dp)
     ) {
         itemsIndexed(items = artistAlbums) { _, item ->
             Column(

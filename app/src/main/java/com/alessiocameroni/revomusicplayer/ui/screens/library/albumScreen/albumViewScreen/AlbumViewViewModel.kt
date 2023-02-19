@@ -78,7 +78,6 @@ class AlbumViewViewModel: ViewModel() {
             val trackColumn = cursor.getColumnIndexOrThrow(Media.TRACK)
             val titleColumn = cursor.getColumnIndexOrThrow(Media.TITLE)
             val durationColumn = cursor.getColumnIndexOrThrow(Media.DURATION)
-
             val albumTitleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
             val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
             val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)

@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.Albums
+import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,21 +23,64 @@ class ArtistViewViewModel: ViewModel() {
 
     private val _artist = MutableLiveData("")
     private val _artistPictureUri = MutableLiveData<Uri>()
-    private val _artistSongAmount = MutableLiveData(0)
-    private val _artistAlbumAmount = MutableLiveData(0)
+    private val _artistTracksNumber = MutableLiveData("0")
+    private val _artistAlbumsNumber = MutableLiveData("0")
     private val _albumAmountCheck = MutableLiveData(false)
 
     var artist: LiveData<String> = _artist
     var artistPictureUri: LiveData<Uri> = _artistPictureUri
-    var artistSongAmount: LiveData<Int> = _artistSongAmount
-    var artistAlbumAmount: LiveData<Int> = _artistAlbumAmount
+    var artistAlbumsNumber: LiveData<String> = _artistAlbumsNumber
+    var artistTrackNumber: LiveData<String> = _artistTracksNumber
     var albumAmountCheck: LiveData<Boolean> = _albumAmountCheck
+
+    fun initializeArtistInfo(
+        context: Context,
+        artistId: Long
+    ) {
+        if (artistInfoRetrieved) return
+
+        val collection =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Artists.getContentUri(MediaStore.VOLUME_EXTERNAL)
+            } else {
+                Artists.EXTERNAL_CONTENT_URI
+            }
+        val projection = arrayOf(
+            Artists.ARTIST,
+            Artists.NUMBER_OF_ALBUMS,
+            Artists.NUMBER_OF_TRACKS
+        )
+        val selection = "${Artists._ID} = $artistId"
+        val query = context.contentResolver.query(
+            collection,
+            projection,
+            selection,
+            null,
+            null
+        )
+
+        query?.use {  cursor ->
+            val artistColumn = cursor.getColumnIndexOrThrow(Artists.ARTIST)
+            val artistsAlbumsNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_ALBUMS)
+            val artistTracksNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_TRACKS)
+
+            cursor.moveToNext()
+
+            _artist.value = cursor.getString(artistColumn)
+            _artistAlbumsNumber.value = cursor.getString(artistsAlbumsNumberColumn)
+            _artistTracksNumber.value = cursor.getString(artistTracksNumberColumn)
+        }
+
+        artistInfoRetrieved = true
+    }
 
     fun initializeArtistAlbumList(
         context: Context,
         artistId: Long,
     ) {
         if (artistAlbumListInitialized) return
+
+        var retrievedArtistPicture = false
 
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -48,9 +91,10 @@ class ArtistViewViewModel: ViewModel() {
         val projection = arrayOf(
             Media.ALBUM_ID,
             Media.ALBUM,
+            Media.ARTIST_ID
         )
         val selection = "${Media.ARTIST_ID} = $artistId"
-        val sortOrder = "${Albums.ALBUM} ASC"
+        val sortOrder = "${Media.ALBUM} ASC"
         val query = context.contentResolver.query(
             collection,
             projection,
@@ -66,24 +110,24 @@ class ArtistViewViewModel: ViewModel() {
             while (cursor.moveToNext()) {
                 val albumId = cursor.getLong(albumIdColumn)
                 val albumTitle = cursor.getString(albumTitleColumn)
-
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
-                _artistPictureUri.value = albumCoverUri
+                if(!retrievedArtistPicture) {
+                    _artistPictureUri.value = albumCoverUri
+                    retrievedArtistPicture = true
+                }
 
-                artistAlbums.add(
-                    ArtistAlbumData(
-                        albumId = albumId,
-                        albumTitle = albumTitle,
-                        albumCoverUri = albumCoverUri
-                    )
-                )
-
-                _artistAlbumAmount.value = _artistAlbumAmount.value?.plus(1)
+                if(
+                    !artistAlbums
+                        .contains(ArtistAlbumData(albumId, albumTitle, albumCoverUri))
+                ) {
+                    artistAlbums
+                        .add(ArtistAlbumData(albumId, albumTitle, albumCoverUri))
+                }
             }
         }
 
-        _albumAmountCheck.value = _artistAlbumAmount.value!! != 0
+        _albumAmountCheck.value = artistAlbums.isNotEmpty()
         artistAlbumListInitialized = true
     }
 
@@ -107,7 +151,6 @@ class ArtistViewViewModel: ViewModel() {
             Media.TRACK,
             Media.ALBUM_ID,
             Media.ALBUM,
-            Media.ARTIST
         )
 
         val selection = "${Media.IS_MUSIC} != 0 AND ${Media.ARTIST_ID} = $artistId"
@@ -127,7 +170,6 @@ class ArtistViewViewModel: ViewModel() {
             val durationColumn = cursor.getColumnIndexOrThrow(Media.DURATION)
             val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
             val albumColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
-            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
@@ -138,10 +180,6 @@ class ArtistViewViewModel: ViewModel() {
                 val fixedDuration = calculateSongDuration(duration)
                 val albumId = cursor.getLong(albumIdColumn)
                 val album = cursor.getString(albumColumn)
-                if (!artistInfoRetrieved) {
-                    _artist.value = cursor.getString(artistColumn)
-                    artistInfoRetrieved = true
-                }
 
                 artistSongs.add(
                     ArtistSongData(
@@ -155,11 +193,8 @@ class ArtistViewViewModel: ViewModel() {
                         album,
                     )
                 )
-
-                _artistSongAmount.value = _artistSongAmount.value?.plus(1)
             }
         }
-
         artistSongListInitialized = true
     }
 }
