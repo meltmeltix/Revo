@@ -100,7 +100,7 @@
     <string name="str_membersAndContributors">Members and contributors</string>
     <string name="desc_AlessioCameroni">Lead Developer &amp; Designer</string>
     <string name="desc_arigata9">German Translator</string>
-    <string name="str_checkOnGithub">Check out the project on Github</string>
+    <string name="str_checkOnGithub">Check out the project on GitHub</string>
     <string name="str_openSourceLicenses">Open source licenses</string>
     <string name="desc_openSourceLicenses">License list of open source libraries used</string>
     <plurals name="str_songAmount">

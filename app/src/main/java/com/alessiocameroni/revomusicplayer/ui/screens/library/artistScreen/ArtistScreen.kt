@@ -38,7 +38,6 @@ fun ArtistsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryArtists = viewModel.libraryArtists
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
 

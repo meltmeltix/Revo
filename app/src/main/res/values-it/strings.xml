@@ -87,4 +87,28 @@
     <string name="str_dark">Scuro</string>
     <string name="str_systemDefault">Predefinito di sistema</string>
     <string name="str_colorScheme">Schema colori</string>
+    <string name="str_appVersion">Versione app</string>
+    <string name="str_membersAndContributors">Membri e contributori</string>
+    <string name="desc_AlessioCameroni">Sviluppatore Principale e Designer</string>
+    <string name="desc_arigata9">Traduttore Tedesco</string>
+    <string name="str_checkOnGithub">Dai un\'occhiata al progetto su GitHub</string>
+    <string name="str_openSourceLicenses">Licenze open source</string>
+    <string name="desc_openSourceLicenses">Lista delle licenze open source usate</string>
+    <plurals name="str_songAmount">
+        <item quantity="one">brano</item>
+        <item quantity="other">brani</item>
+    </plurals>
+    <plurals name="str_albumAmount">
+        <item quantity="one">album</item>
+        <item quantity="other">album</item>
+    </plurals>
+    <plurals name="str_hourAmountAbbr">
+        <item quantity="one">h</item>
+        <item quantity="other">h</item>
+    </plurals>
+    <plurals name="str_minutesAmountAbbr">
+        <item quantity="one">m</item>
+        <item quantity="other">m</item>
+    </plurals>
+    <string name="str_secondsAmountAbbr">s</string>
 </resources>
