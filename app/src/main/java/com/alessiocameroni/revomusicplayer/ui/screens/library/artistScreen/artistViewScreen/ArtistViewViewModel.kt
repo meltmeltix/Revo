@@ -64,7 +64,7 @@ class ArtistViewViewModel: ViewModel() {
             val artistsAlbumsNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_ALBUMS)
             val artistTracksNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_TRACKS)
 
-            cursor.moveToNext()
+            cursor.moveToFirst()
 
             _artist.value = cursor.getString(artistColumn)
             _artistAlbumsNumber.value = cursor.getString(artistsAlbumsNumberColumn)

@@ -5,11 +5,9 @@
     <string name="str_playlists">Playlist</string>
     <string name="desc_searchMenu">Cerca</string>
     <string name="str_settings">Impostazioni</string>
-    <string name="str_gridType">Tipo griglia</string>
     <string name="str_sortBy">Filtra</string>
     <string name="desc_settings">Impostazioni</string>
     <string name="desc_sortBy">Filtra</string>
-    <string name="desc_gridType">Seleziona tipo di griglia</string>
     <string name="str_openSpotify">Apri Spotify</string>
     <string name="desc_openSpotify">Apri Spotify</string>
     <string name="desc_addPlaylist">Aggiungi nuova playlist</string>

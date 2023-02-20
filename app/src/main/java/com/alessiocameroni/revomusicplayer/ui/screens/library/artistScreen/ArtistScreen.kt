@@ -6,10 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,9 +22,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,6 +38,7 @@ fun ArtistsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryArtists = viewModel.libraryArtists
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
 
@@ -83,6 +81,19 @@ fun ArtistsScreen(
                 contentPadding = PaddingValues(bottom = 70.dp)
             ) {
                 itemsIndexed(libraryArtists) { _, item ->
+                    val artistInfo =
+                        "${item.albumsNumber} " +
+                                pluralStringResource(
+                                    id = R.plurals.str_albumAmount,
+                                    count = (item.albumsNumber ?: "0").toInt()
+                                ) +
+                                " · " +
+                                "${item.tracksNumber} " +
+                                pluralStringResource(
+                                    id = R.plurals.str_songAmount,
+                                    count = (item.tracksNumber ?: "0").toInt()
+                                )
+
                     Row(
                         modifier = Modifier
                             .clickable {
@@ -92,19 +103,6 @@ fun ArtistsScreen(
                                 )
                             },
                     ) {
-                        val artistInfo =
-                            "${item.albumsNumber} " +
-                            pluralStringResource(
-                                id = R.plurals.str_albumAmount,
-                                count = (item.albumsNumber ?: "0").toInt()
-                            ) +
-                            " · " +
-                            "${item.tracksNumber} " +
-                            pluralStringResource(
-                                id = R.plurals.str_songAmount,
-                                count = (item.tracksNumber ?: "0").toInt()
-                            )
-
                         PixelyListItem(
                             headlineTextString = item.artist,
                             largeHeadline = false,
@@ -121,7 +119,12 @@ fun ArtistsScreen(
                                     leadingUnit = {
                                         AsyncImage(
                                             model = ImageRequest.Builder(LocalContext.current)
-                                                .data(item.artistPictureUri)
+                                                .data(
+                                                    viewModel.retrieveArtistAlbumImage(
+                                                        context,
+                                                        item.artistId
+                                                    )
+                                                )
                                                 .crossfade(true)
                                                 .build(),
                                             contentDescription = stringResource(id = R.string.desc_albumImage),

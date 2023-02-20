@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
@@ -15,9 +16,6 @@ import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
 class ArtistViewModel: ViewModel() {
     val libraryArtists = mutableStateListOf<ArtistData>()
     private var initialized = false
-
-    private val _artistPictureUri = MutableLiveData<Uri>()
-    private var artistPictureUri = _artistPictureUri
 
     fun initializeArtistList(context: Context) {
         if(initialized) return
@@ -57,18 +55,12 @@ class ArtistViewModel: ViewModel() {
                 val albumNumber = cursor.getString(artistAlbumsNumberColumn)
                 val tracksNumber = cursor.getString(artistTracksNumberColumn)
 
-                retrieveAlbumImage(
-                    context,
-                    id
-                )
-
                 libraryArtists.add(
                     ArtistData(
                         artistId = id,
                         artist = artist,
                         albumsNumber = albumNumber,
-                        tracksNumber = tracksNumber,
-                        artistPictureUri = artistPictureUri.value
+                        tracksNumber = tracksNumber
                     )
                 )
             }
@@ -76,10 +68,13 @@ class ArtistViewModel: ViewModel() {
         initialized = true
     }
 
-    private fun retrieveAlbumImage(
+    fun retrieveArtistAlbumImage(
         context: Context,
         artistId: Long
-    ) {
+    ): Uri? {
+        val _artistPictureUri = MutableLiveData<Uri>()
+        val artistPictureUri: LiveData<Uri> = _artistPictureUri
+
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
@@ -101,11 +96,13 @@ class ArtistViewModel: ViewModel() {
         query?.use { cursor ->
             val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
 
-            cursor.moveToNext()
+            cursor.moveToFirst()
 
             val albumId = cursor.getLong(albumIdColumn)
             val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
             _artistPictureUri.value = ContentUris.withAppendedId(albumCover, albumId)
         }
+
+        return artistPictureUri.value
     }
 }

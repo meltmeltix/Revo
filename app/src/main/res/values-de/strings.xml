@@ -3,11 +3,9 @@
     <string name="str_playlists">Playlists</string>
     <string name="desc_searchMenu">Öffne das Suchmenü</string>
     <string name="str_settings">Einstellungen</string>
-    <string name="str_gridType">Ansichtstyp</string>
     <string name="str_sortBy">Sortieren nach</string>
     <string name="desc_settings">Einstellungen</string>
     <string name="desc_sortBy">Sortieren nach Filter</string>
-    <string name="desc_gridType">Verändere die Anzahl an angezeigten Spalten und Elementen auf dem Bildschirm</string>
     <string name="str_openSpotify">Spotify öffnen</string>
     <string name="desc_openSpotify">Öffne Spotify</string>
     <string name="desc_addPlaylist">Neue Playlist erstellen</string>
