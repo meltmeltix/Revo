@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
@@ -56,7 +58,46 @@ internal fun SongTopActionBar(
 @Composable
 internal fun SongItemDropDownMenu(
     expanded: MutableState<Boolean>,
-    navController: NavController
+    navControllerBottomBar: NavController,
+    albumId: Long,
+    artistId: Long,
 ) {
+    RoundedDropDownMenu(
+        expanded = expanded.value, 
+        onDismissRequest = { expanded.value = false }
+    ) {
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
+            onClick = {
+                navControllerBottomBar.navigate(
+                    NavigationScreens.AlbumViewScreen.route + "/$albumId"
+                )
+                expanded.value = false
+            },
+            leadingIcon = { 
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24), 
+                    contentDescription = stringResource(id = R.string.str_goToAlbum)
+                )
+            }
+        )
 
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
+            onClick = {
+                navControllerBottomBar.navigate(
+                    NavigationScreens.ArtistViewScreen.route + "/$artistId"
+                )
+                expanded.value = false
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24),
+                    contentDescription = stringResource(id = R.string.str_goToArtist)
+                )
+            }
+        )
+    }
+    
+    
 }

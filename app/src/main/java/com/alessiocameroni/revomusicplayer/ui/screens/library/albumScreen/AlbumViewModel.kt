@@ -3,6 +3,8 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 import android.content.ContentUris
 import android.content.Context
 import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
@@ -16,6 +18,13 @@ class AlbumViewModel: ViewModel() {
     fun initializeAlbumList(context: Context) {
         if(initialized) return
 
+        val collection =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Albums.getContentUri(MediaStore.VOLUME_EXTERNAL)
+            } else {
+                Albums.EXTERNAL_CONTENT_URI
+            }
+
         val projection = arrayOf(
             Albums._ID,
             Albums.ALBUM,
@@ -26,7 +35,7 @@ class AlbumViewModel: ViewModel() {
         val selection = null
         val sortOrder = "${Media.ALBUM} ASC"
         val query = context.contentResolver.query(
-            Albums.EXTERNAL_CONTENT_URI,
+            collection,
             projection,
             selection,
             null,

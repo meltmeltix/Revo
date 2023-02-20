@@ -99,7 +99,8 @@ fun AlbumsScreen(
 
                                     AlbumItemDropDownMenu(
                                         expanded = expandedItemMenu,
-                                        navController = navController
+                                        navControllerBottomBar = navControllerBottomBar,
+                                        artistId = item.artistId
                                     )
                                 }
                             }

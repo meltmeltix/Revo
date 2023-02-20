@@ -90,7 +90,9 @@ fun SongsScreen(
 
                                     SongItemDropDownMenu(
                                         expanded = expandedItemMenu,
-                                        navController = navController
+                                        navControllerBottomBar = navControllerBottomBar,
+                                        albumId = item.albumId,
+                                        artistId = item.artistId
                                     )
                                 }
                             }
