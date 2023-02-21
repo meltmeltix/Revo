@@ -22,7 +22,7 @@ class ArtistViewModel: ViewModel() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
             } else {
-                Media.EXTERNAL_CONTENT_URI
+                Artists.EXTERNAL_CONTENT_URI
             }
 
         val projection = arrayOf(
@@ -31,7 +31,7 @@ class ArtistViewModel: ViewModel() {
             Media.ALBUM_ID
         )
         val selection = null
-        val sortOrder = "${Artists.ARTIST} ASC"
+        val sortOrder = "${Media.ARTIST} ASC"
         val query = context.contentResolver.query(
             collection,
             projection,
@@ -53,15 +53,12 @@ class ArtistViewModel: ViewModel() {
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
 
-                if(
-                    !libraryArtists.contains(
-                        ArtistData(id, artist, albumCoverUri)
-                    )
-                ) {
+                if(!libraryArtists.contains(ArtistData(id, artist))) {
                     libraryArtists.add(
-                        ArtistData(id, artist, albumCoverUri)
+                        ArtistData(id, artist)
                     )
                 }
+
             }
         }
         initialized = true

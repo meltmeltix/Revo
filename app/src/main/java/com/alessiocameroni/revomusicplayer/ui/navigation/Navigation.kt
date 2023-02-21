@@ -318,6 +318,7 @@ fun NavigationBottomNavBar(
                     NavigationScreens.PlaylistScreen.route -> verSlideEnterFromFragment()
                     NavigationScreens.SpotifyScreen.route -> verSlideEnterFromFragment()
 
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
                     "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
                     else -> null
                 }
@@ -330,12 +331,14 @@ fun NavigationBottomNavBar(
                     NavigationScreens.PlaylistScreen.route -> fadeExitToFragment()
                     NavigationScreens.SpotifyScreen.route -> fadeExitToFragment()
 
+                    "album_view_screen/{albumId}" -> verSlideExitFromSubFragment()
                     "artist_view_screen/{artistId}" -> verSlideExitFromSubFragment()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
+                    "album_view_screen/{albumId}" -> verSlideEnterFromFragment()
                     "artist_view_screen/{artistId}" -> verSlideEnterFromFragment()
                     else -> null
                 }
