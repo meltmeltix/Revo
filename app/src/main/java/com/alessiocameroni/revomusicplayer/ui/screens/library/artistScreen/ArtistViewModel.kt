@@ -53,9 +53,11 @@ class ArtistViewModel: ViewModel() {
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
 
-                if(!libraryArtists.contains(ArtistData(id, artist))) {
+                //!libraryArtists.contains(ArtistData(id, artist))
+
+                if(!libraryArtists.any { it.artistId == id && it.artist == artist } ) {
                     libraryArtists.add(
-                        ArtistData(id, artist)
+                        ArtistData(id, artist, albumCoverUri)
                     )
                 }
 
