@@ -8,8 +8,6 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
 
@@ -22,16 +20,15 @@ class ArtistViewModel: ViewModel() {
 
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                Artists.getContentUri(MediaStore.VOLUME_EXTERNAL)
+                Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
             } else {
-                Artists.EXTERNAL_CONTENT_URI
+                Media.EXTERNAL_CONTENT_URI
             }
 
         val projection = arrayOf(
-            Artists._ID,
-            Artists.ARTIST,
-            Artists.NUMBER_OF_ALBUMS,
-            Artists.NUMBER_OF_TRACKS,
+            Media.ARTIST_ID,
+            Media.ARTIST,
+            Media.ALBUM_ID
         )
         val selection = null
         val sortOrder = "${Artists.ARTIST} ASC"
@@ -44,65 +41,29 @@ class ArtistViewModel: ViewModel() {
         )
 
         query?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(Artists._ID)
-            val artistColumn = cursor.getColumnIndexOrThrow(Artists.ARTIST)
-            val artistAlbumsNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_ALBUMS)
-            val artistTracksNumberColumn = cursor.getColumnIndexOrThrow(Artists.NUMBER_OF_TRACKS)
+            val idColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
+            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
+            val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val artist = cursor.getString(artistColumn)
-                val albumNumber = cursor.getString(artistAlbumsNumberColumn)
-                val tracksNumber = cursor.getString(artistTracksNumberColumn)
+                val albumId = cursor.getLong(albumIdColumn)
 
-                libraryArtists.add(
-                    ArtistData(
-                        artistId = id,
-                        artist = artist,
-                        albumsNumber = albumNumber,
-                        tracksNumber = tracksNumber
+                val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
+                val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
+
+                if(
+                    !libraryArtists.contains(
+                        ArtistData(id, artist, albumCoverUri)
                     )
-                )
+                ) {
+                    libraryArtists.add(
+                        ArtistData(id, artist, albumCoverUri)
+                    )
+                }
             }
         }
         initialized = true
-    }
-
-    fun retrieveArtistAlbumImage(
-        context: Context,
-        artistId: Long
-    ): Uri? {
-        val _artistPictureUri = MutableLiveData<Uri>()
-        val artistPictureUri: LiveData<Uri> = _artistPictureUri
-
-        val collection =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
-            } else {
-                Media.EXTERNAL_CONTENT_URI
-            }
-
-        val projection = arrayOf(Media.ALBUM_ID)
-        val selection = "${Media.ARTIST_ID} = $artistId"
-        val sortOrder = "${Media.ALBUM} ASC"
-        val query = context.contentResolver.query(
-            collection,
-            projection,
-            selection,
-            null,
-            sortOrder
-        )
-
-        query?.use { cursor ->
-            val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
-
-            cursor.moveToFirst()
-
-            val albumId = cursor.getLong(albumIdColumn)
-            val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
-            _artistPictureUri.value = ContentUris.withAppendedId(albumCover, albumId)
-        }
-
-        return artistPictureUri.value
     }
 }

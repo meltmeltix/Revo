@@ -13,7 +13,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -80,19 +79,6 @@ fun ArtistsScreen(
                 contentPadding = PaddingValues(bottom = 70.dp)
             ) {
                 itemsIndexed(libraryArtists) { _, item ->
-                    val artistInfo =
-                        "${item.albumsNumber} " +
-                                pluralStringResource(
-                                    id = R.plurals.str_albumAmount,
-                                    count = (item.albumsNumber ?: "0").toInt()
-                                ) +
-                                " · " +
-                                "${item.tracksNumber} " +
-                                pluralStringResource(
-                                    id = R.plurals.str_songAmount,
-                                    count = (item.tracksNumber ?: "0").toInt()
-                                )
-
                     Row(
                         modifier = Modifier
                             .clickable {
@@ -103,11 +89,11 @@ fun ArtistsScreen(
                             },
                     ) {
                         PixelyListItem(
+                            modifier = Modifier
+                                .padding(vertical = 10.dp),
                             headlineTextString = item.artist,
                             largeHeadline = false,
                             maxHeadlineLines = 1,
-                            supportingTextString = artistInfo,
-                            maxSupportingLines = 1,
                             leadingContent = {
                                 SmallImageContainer(
                                     modifier = Modifier
@@ -118,12 +104,7 @@ fun ArtistsScreen(
                                     leadingUnit = {
                                         AsyncImage(
                                             model = ImageRequest.Builder(LocalContext.current)
-                                                .data(
-                                                    viewModel.retrieveArtistAlbumImage(
-                                                        context,
-                                                        item.artistId
-                                                    )
-                                                )
+                                                .data(item.albumCoverUri)
                                                 .crossfade(true)
                                                 .build(),
                                             contentDescription = stringResource(id = R.string.desc_albumImage),
