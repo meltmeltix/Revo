@@ -9,12 +9,14 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class CustomizationPrefsDataStore(val context: Context) {
+class CustomizationPrefsRepository(val context: Context) {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
         name = "customization_settings"
     )
 
     companion object {
+        private val APP_THEME = intPreferencesKey("app_theme")
+        private val COLOR_SCHEME = intPreferencesKey("color_scheme")
         private val PLAYER_LAYOUT = intPreferencesKey("player_layout")
     }
 

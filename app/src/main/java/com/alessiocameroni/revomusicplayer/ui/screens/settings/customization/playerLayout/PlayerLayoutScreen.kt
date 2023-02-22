@@ -1,23 +1,18 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.layoutId
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
@@ -26,7 +21,10 @@ import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerLayoutScreen(navController: NavHostController) {
+fun PlayerLayoutScreen(
+    navController: NavHostController,
+    viewModel: PlayerLayoutViewModel = viewModel()
+) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     val radioOptions = listOf(
@@ -69,42 +67,18 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                             .fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 25.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .clip(shape = RoundedCornerShape(12.dp))
-                                    .background(MaterialTheme.colorScheme.surfaceVariant)
-                                    .fillMaxWidth()
-                                    .height(250.dp),
-                                contentAlignment = Alignment.TopCenter
-                            ) {
-                                PlayerLayoutImagePreview(
-                                    modifier = Modifier
-                                        .layoutId("ImagePreview")
-                                        .width(240.dp)
-                                        .height(200.dp),
-                                    selectedOption = selectedOption
-                                )
-                            }
+                        Row( modifier = Modifier.padding(horizontal = 15.dp) ) {
+                            PlayerLayoutPreviewHeader(selectedOption = selectedOption)
                         }
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
+                        Row( modifier = Modifier ) {
                             PixelySupportInfoText(
                                 stringText = stringResource(id = R.string.desc_layoutPlayer)
                             )
                         }
                         
                         Column(
-                            modifier = Modifier
-                                .layoutId("ColumnSelection")
-                                .fillMaxWidth()
-                                .selectableGroup(),
+                            modifier = Modifier.selectableGroup(),
                             verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             radioOptions.forEach { text ->
@@ -112,7 +86,9 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                                     modifier = Modifier
                                         .selectable(
                                             selected = (text == selectedOption),
-                                            onClick = { onOptionSelected(text) },
+                                            onClick = {
+                                                onOptionSelected(text)
+                                            },
                                             role = Role.RadioButton
                                         ),
                                     verticalAlignment = Alignment.CenterVertically
@@ -131,59 +107,6 @@ fun PlayerLayoutScreen(navController: NavHostController) {
                         }
                     }
                 }
-            )
-        }
-    }
-}
-
-@Composable
-fun PlayerLayoutImagePreview(
-    modifier: Modifier,
-    selectedOption: String
-) {
-    val darkTheme = isSystemInDarkTheme()
-
-    when {
-        darkTheme && selectedOption == stringResource(id = R.string.str_left) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_left_player_controls),
-                contentDescription = "String"
-            )
-        }
-        darkTheme && selectedOption == stringResource(id = R.string.str_center) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_center_player_controls),
-                contentDescription = "String"
-            )
-        }
-        darkTheme && selectedOption == stringResource(id = R.string.str_right) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_dark_right_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == stringResource(id = R.string.str_left) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_left_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == stringResource(id = R.string.str_center) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_center_player_controls),
-                contentDescription = "String"
-            )
-        }
-        !darkTheme && selectedOption == stringResource(id = R.string.str_right) -> {
-            Image(
-                modifier = modifier,
-                painter = painterResource(id = R.drawable.ill_light_right_player_controls),
-                contentDescription = "String"
             )
         }
     }
