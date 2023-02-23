@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
@@ -58,7 +59,12 @@ internal fun PlaylistItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
 ) {
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
 
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

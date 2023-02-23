@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import com.alessiocameroni.revomusicplayer.util.permissions.SetContentByPermission
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 val permissionsList = listOf(
     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -19,6 +20,7 @@ val permissionsList = listOf(
     } else { android.Manifest.permission.READ_EXTERNAL_STORAGE },
 )
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {

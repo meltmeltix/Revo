@@ -8,43 +8,38 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.repositories.CustomizationPrefsRepository
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerLayoutScreen(
     navController: NavHostController,
-    viewModel: PlayerLayoutViewModel = viewModel(
-        factory = PlayerLayoutViewModelFactory(
-            CustomizationPrefsRepository(LocalContext.current)
-        )
-    )
+    viewModel: PlayerLayoutViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-
     val radioOptions = listOf(
         stringResource(id = R.string.str_left),
         stringResource(id = R.string.str_center),
         stringResource(id = R.string.str_right),
     )
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        viewModel.initializeDataStore()
+        viewModel.getPlayerLayout()
     }
 
     val (selectedOption, onOptionSelected) = remember {
-        mutableStateOf(radioOptions[viewModel.playerLayout.value ?: 0])
+        mutableStateOf(radioOptions[viewModel.playerLayout.value!!])
     }
 
     RevoMusicPlayerTheme {
@@ -98,6 +93,10 @@ fun PlayerLayoutScreen(
                                             selected = (text == selectedOption),
                                             onClick = {
                                                 onOptionSelected(text)
+
+                                                scope.launch {
+
+                                                }
                                             },
                                             role = Role.RadioButton
                                         ),

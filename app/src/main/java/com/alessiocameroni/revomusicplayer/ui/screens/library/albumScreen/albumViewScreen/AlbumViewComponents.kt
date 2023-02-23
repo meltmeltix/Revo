@@ -351,5 +351,10 @@ internal fun AlbumViewItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
 ) {
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
 
+    }
 }
