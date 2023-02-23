@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -17,13 +18,18 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.repositories.CustomizationPrefsRepository
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerLayoutScreen(
     navController: NavHostController,
-    viewModel: PlayerLayoutViewModel = viewModel()
+    viewModel: PlayerLayoutViewModel = viewModel(
+        factory = PlayerLayoutViewModelFactory(
+            CustomizationPrefsRepository(LocalContext.current)
+        )
+    )
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
@@ -33,8 +39,12 @@ fun PlayerLayoutScreen(
         stringResource(id = R.string.str_right),
     )
 
+    LaunchedEffect(Unit) {
+        viewModel.initializeDataStore()
+    }
+
     val (selectedOption, onOptionSelected) = remember {
-        mutableStateOf(radioOptions[1])
+        mutableStateOf(radioOptions[viewModel.playerLayout.value ?: 0])
     }
 
     RevoMusicPlayerTheme {

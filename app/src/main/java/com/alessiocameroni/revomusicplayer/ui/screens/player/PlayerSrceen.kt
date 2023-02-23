@@ -31,7 +31,7 @@ fun PlayerScreen(navController: NavController) {
             Scaffold(
                 topBar = { PlayerTopActionBar(navController) },
                 bottomBar = {
-                    BottomActionBar(
+                    PlayerBottomActionBar(
                         navController = navController,
                         boolShuffleChecked = shuffleChecked,
                         boolRepeatChecked = repeatChecked,
@@ -80,7 +80,7 @@ fun PlayerScreen(navController: NavController) {
                                 .height(246.dp),
                             horizontalArrangement = Arrangement.Center
                         ) {
-                            CenterSongControls(
+                            PlayerControls(
                                 modifier = Modifier,
                                 floatSliderPosition = sliderPosition
                             )

@@ -10,12 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.layoutId
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
@@ -50,7 +46,7 @@ internal fun PlayerTopActionBar(navController: NavController) {
 }
 
 @Composable
-internal fun BottomActionBar(
+internal fun PlayerBottomActionBar(
     navController: NavController,
     boolShuffleChecked: Boolean,
     boolRepeatChecked: Boolean,
@@ -62,7 +58,7 @@ internal fun BottomActionBar(
 
     BottomAppBar(
         actions = {
-            BottomAppBarDropDownMenu(
+            PlayerBottomAppBarDropDownMenu(
                 expanded = expanded,
                 navController = navController
             )
@@ -103,7 +99,7 @@ internal fun BottomActionBar(
 }
 
 @Composable
-internal fun BottomAppBarDropDownMenu(
+internal fun PlayerBottomAppBarDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController,
 ) {
@@ -137,45 +133,41 @@ internal fun BottomAppBarDropDownMenu(
     }
 }
 
-// Song Controls
+/**
+ * Player Controls
+ */
 @Composable
-internal fun CenterSongControls(
-    modifier: Modifier,
+internal fun PlayerControls(
+    modifier: Modifier = Modifier,
+    buttonsLayout: Int = 1,
     floatSliderPosition: Float
 ) {
     var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
     var favouriteChecked by remember { mutableStateOf(false) }
 
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
+                    modifier = Modifier.padding(vertical = 2.dp),
                     text = "SongName",
-                    textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.headlineSmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
+                    modifier = Modifier.padding(vertical = 2.dp),
                     text = "ArtistName",
-                    textAlign = TextAlign.Start,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -183,8 +175,6 @@ internal fun CenterSongControls(
             }
 
             IconToggleButton(
-                modifier = Modifier
-                    .padding(start = 15.dp),
                 checked = favouriteChecked,
                 onCheckedChange = { favouriteChecked = it }
             ) {
@@ -202,432 +192,110 @@ internal fun CenterSongControls(
             }
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterHorizontally)
-        ) {
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
-                )
+        when (buttonsLayout) {
+            0 -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.Start)
+                ) {
+                    PlayButton()
+                    PreviousButton()
+                    NextButton()
+                }
             }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(110.dp, 70.dp),
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                ),
-                shape = MaterialTheme.shapes.large,
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playSong)
-                )
+            1 -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterHorizontally)
+                ) {
+                    PreviousButton()
+                    PlayButton()
+                    NextButton()
+                }
             }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipNext)
-                )
+            2 -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.End)
+                ) {
+                    PreviousButton()
+                    NextButton()
+                    PlayButton()
+                }
             }
         }
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
+        Column(
+            modifier = Modifier.weight(1f)
         ) {
-            val constraints = ConstraintSet {
-                val textCurrentTime = createRefFor("TextCurrentTime")
-                val textSongTime = createRefFor("TextSongTime")
-                val progressBarSong = createRefFor("ProgressBarSong")
-
-                constrain(textCurrentTime) {
-                    start.linkTo(parent.start)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(textSongTime) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(progressBarSong) {
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                constraints,
-                modifier = Modifier.fillMaxWidth()
-            ) {
+            Row( modifier = Modifier.fillMaxWidth() ) {
                 Text(
-                    modifier = Modifier
-                        .layoutId("TextCurrentTime"),
+                    modifier = Modifier,
                     style = MaterialTheme.typography.labelSmall,
                     text = "02:00"
                 )
+                
+                Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    modifier = Modifier
-                        .layoutId("TextSongTime"),
+                    modifier = Modifier,
                     style = MaterialTheme.typography.labelSmall,
                     text = "04:00"
                 )
-
-                Slider(
-                    modifier = Modifier
-                        .layoutId("ProgressBarSong"),
-                    value = sliderPosition,
-                    onValueChange = { sliderPosition = it }
-                )
             }
+
+            Slider(
+                modifier = Modifier,
+                value = sliderPosition,
+                onValueChange = { sliderPosition = it }
+            )
         }
     }
 }
 
 @Composable
-internal fun LeftSongControls(
-    modifier: Modifier,
-    floatSliderPosition: Float
-) {
-    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
-    var favouriteChecked by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(25.dp)
+private fun PreviousButton() {
+    FilledTonalIconButton(
+        modifier = Modifier.size(70.dp),
+        onClick = { /*TODO*/ }
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
-                    text = "SongName",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.headlineSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
-                    text = "ArtistName",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            IconToggleButton(
-                modifier = Modifier
-                    .padding(start = 15.dp),
-                checked = favouriteChecked,
-                onCheckedChange = { favouriteChecked = it }
-            ) {
-                if(favouriteChecked) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
-                    )
-                }
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.Start)
-        ) {
-
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(110.dp, 70.dp),
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                ),
-                shape = MaterialTheme.shapes.large,
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playSong)
-                )
-            }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
-                )
-            }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipNext)
-                )
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            val constraints = ConstraintSet {
-                val textCurrentTime = createRefFor("TextCurrentTime")
-                val textSongTime = createRefFor("TextSongTime")
-                val progressBarSong = createRefFor("ProgressBarSong")
-
-                constrain(textCurrentTime) {
-                    start.linkTo(parent.start)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(textSongTime) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(progressBarSong) {
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                constraints,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    modifier = Modifier
-                        .layoutId("TextCurrentTime"),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = "02:00"
-                )
-
-                Text(
-                    modifier = Modifier
-                        .layoutId("TextSongTime"),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = "04:00"
-                )
-
-                Slider(
-                    modifier = Modifier
-                        .layoutId("ProgressBarSong"),
-                    value = sliderPosition,
-                    onValueChange = { sliderPosition = it }
-                )
-            }
-        }
+        Icon(
+            modifier = Modifier.size(30.dp),
+            painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
+            contentDescription = stringResource(id = R.string.desc_skipPrevious)
+        )
     }
 }
 
 @Composable
-internal fun RightSongControls(
-    modifier: Modifier,
-    floatSliderPosition: Float
-) {
-    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
-    var favouriteChecked by remember { mutableStateOf(false) }
-
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(25.dp)
+private fun PlayButton() {
+    FilledTonalIconButton(
+        modifier = Modifier.size(110.dp, 70.dp),
+        colors = IconButtonDefaults.filledTonalIconButtonColors(
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
+        shape = MaterialTheme.shapes.large,
+        onClick = { /*TODO*/ }
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
-                    text = "SongName",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.headlineSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+        Icon(
+            modifier = Modifier.size(30.dp),
+            painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+            contentDescription = stringResource(id = R.string.desc_playSong)
+        )
+    }
+}
 
-                Text(
-                    modifier = Modifier
-                        .padding(vertical = 2.dp)
-                        .fillMaxWidth(),
-                    text = "ArtistName",
-                    textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-
-            IconToggleButton(
-                modifier = Modifier
-                    .padding(start = 15.dp),
-                checked = favouriteChecked,
-                onCheckedChange = { favouriteChecked = it }
-            ) {
-                if(favouriteChecked) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
-                    )
-                }
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.End)
-        ) {
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-                    contentDescription = stringResource(id = R.string.desc_skipPrevious)
-                )
-            }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(70.dp),
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-                    contentDescription = stringResource(id = R.string.desc_skipNext)
-                )
-            }
-
-            FilledTonalIconButton(
-                modifier = Modifier
-                    .size(110.dp, 70.dp),
-                colors = IconButtonDefaults.filledTonalIconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                ),
-                shape = MaterialTheme.shapes.large,
-                onClick = { /*TODO*/ }
-            ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.desc_playSong)
-                )
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            val constraints = ConstraintSet {
-                val textCurrentTime = createRefFor("TextCurrentTime")
-                val textSongTime = createRefFor("TextSongTime")
-                val progressBarSong = createRefFor("ProgressBarSong")
-
-                constrain(textCurrentTime) {
-                    start.linkTo(parent.start)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(textSongTime) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(progressBarSong.top)
-                }
-
-                constrain(progressBarSong) {
-                    bottom.linkTo(parent.bottom)
-                }
-            }
-
-            ConstraintLayout(
-                constraints,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(
-                    modifier = Modifier
-                        .layoutId("TextCurrentTime"),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = "02:00"
-                )
-
-                Text(
-                    modifier = Modifier
-                        .layoutId("TextSongTime"),
-                    style = MaterialTheme.typography.labelSmall,
-                    text = "04:00"
-                )
-
-                Slider(
-                    modifier = Modifier
-                        .layoutId("ProgressBarSong"),
-                    value = sliderPosition,
-                    onValueChange = { sliderPosition = it }
-                )
-            }
-        }
+@Composable
+private fun NextButton() {
+    FilledTonalIconButton(
+        modifier = Modifier.size(70.dp),
+        onClick = { /*TODO*/ }
+    ) {
+        Icon(
+            modifier = Modifier.size(30.dp),
+            painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
+            contentDescription = stringResource(id = R.string.desc_skipNext)
+        )
     }
 }
