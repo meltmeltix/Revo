@@ -1,5 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
@@ -8,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -34,10 +34,6 @@ fun PlayerLayoutScreen(
     )
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit) {
-        viewModel.getPlayerLayout()
-    }
-
     val (selectedOption, onOptionSelected) = remember {
         mutableStateOf(radioOptions[viewModel.playerLayout.value!!])
     }
@@ -50,19 +46,9 @@ fun PlayerLayoutScreen(
             Scaffold(
                 modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
-                    LargeTopAppBar(
-                        title = { Text(text = stringResource(id = R.string.str_layoutPlayer)) },
-                        navigationIcon = {
-                            IconButton(
-                                onClick = { navController.navigateUp() }
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(id = R.string.desc_back)
-                                )
-                            }
-                        },
-                        scrollBehavior = scrollBehavior
+                    PlayerLayoutTopActionBar(
+                        navController,
+                        scrollBehavior
                     )
                 },
                 content = { padding ->
@@ -93,10 +79,21 @@ fun PlayerLayoutScreen(
                                             selected = (text == selectedOption),
                                             onClick = {
                                                 onOptionSelected(text)
-
                                                 scope.launch {
-
+                                                    viewModel.saveSelection(
+                                                        radioOptions.indexOf(selectedOption)
+                                                    )
                                                 }
+
+                                                Log.d(
+                                                    "PlayerLayoutScreen",
+                                                    "Index Option: " +
+                                                            "${radioOptions.indexOf(selectedOption)}\t" +
+                                                        "Viewmodel Value: " +
+                                                            "${viewModel.playerLayout.value}\t" +
+                                                        "OnOptionSelected value: " +
+                                                            "$onOptionSelected"
+                                                )
                                             },
                                             role = Role.RadioButton
                                         ),

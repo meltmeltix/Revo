@@ -1,7 +1,7 @@
 package com.alessiocameroni.revomusicplayer.di
 
 import android.content.Context
-import com.alessiocameroni.revomusicplayer.data.repository.CustomizationRepositoryImpl
+import com.alessiocameroni.revomusicplayer.data.repository.SettingsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +11,12 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object PlayerLayoutModule {
+object SettingsModule {
 
     @Provides
     @Singleton
-    fun provideCustomizationRepository(
+    fun provideSettingsRepository(
         @ApplicationContext context: Context
-    ) = CustomizationRepositoryImpl(context)
+    ) = SettingsRepositoryImpl(context)
 
 }

@@ -23,7 +23,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.MainNavigationItemData
-import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
+import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens.*
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
@@ -46,6 +46,7 @@ fun BottomContent(
             false -> systemBarsPadding.calculateBottomPadding() + 50.dp
         }
     }
+    val spotifyEnabled = false
 
     Column(
         modifier = Modifier
@@ -65,35 +66,30 @@ fun BottomContent(
             items = listOf(
                 MainNavigationItemData(
                     name = stringResource(id = R.string.str_songs),
-                    route = NavigationScreens.SongScreen.route,
+                    route = SongScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                 ),
                 MainNavigationItemData(
                     name = stringResource(id = R.string.str_albums),
-                    route = NavigationScreens.AlbumScreen.route,
+                    route = AlbumScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                 ),
                 MainNavigationItemData(
                     name = stringResource(id = R.string.str_artists),
-                    route = NavigationScreens.ArtistScreen.route,
+                    route = ArtistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                 ),
                 MainNavigationItemData(
                     name = stringResource(id = R.string.str_playlists),
-                    route = NavigationScreens.PlaylistScreen.route,
+                    route = PlaylistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                 ),
-                MainNavigationItemData(
-                    name = stringResource(id = R.string.str_spotify),
-                    route = NavigationScreens.SpotifyScreen.route,
-                    iconOutlined = painterResource(id = R.drawable.ic_outlined_spotify_24),
-                    painterResource(id = R.drawable.ic_filled_spotify_24)
-                ),
             ),
+            spotifyEnabled = spotifyEnabled,
             navController = navControllerBottomBar,
             onItemClick = { navControllerBottomBar.navigate(it.route) },
             contentExpanded = contentExpanded,
@@ -182,6 +178,7 @@ fun BottomMiniPlayer(
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
     items: List<MainNavigationItemData>,
+    spotifyEnabled: Boolean,
     navController: NavController,
     onItemClick: (MainNavigationItemData) -> Unit,
     contentExpanded: MutableState<Boolean>,
@@ -190,18 +187,15 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
 
     when(backStackEntry.value?.destination?.route) {
-        NavigationScreens.SongScreen.route -> contentExpanded.value = true
-        NavigationScreens.AlbumScreen.route -> contentExpanded.value = true
-        NavigationScreens.ArtistScreen.route -> contentExpanded.value = true
-        NavigationScreens.PlaylistScreen.route -> contentExpanded.value = true
-        NavigationScreens.SpotifyScreen.route -> contentExpanded.value = true
+        SongScreen.route -> contentExpanded.value = true
+        AlbumScreen.route -> contentExpanded.value = true
+        ArtistScreen.route -> contentExpanded.value = true
+        PlaylistScreen.route -> contentExpanded.value = true
+        SpotifyScreen.route -> contentExpanded.value = true
         else -> contentExpanded.value = false
     }
 
-    NavigationBar(
-        modifier = modifier
-            .offset(y = offset),
-    ) {
+    NavigationBar( modifier = modifier.offset(y = offset) ) {
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route
 
@@ -214,7 +208,26 @@ fun BottomNavigationBar(
                         contentDescription = item.name
                     )
                 },
-                label = { Text(text = item.name) }
+                label = { Text(text = item.name) },
+            )
+        }
+
+        if(spotifyEnabled) {
+            NavigationBarItem(
+                selected = SpotifyScreen.route == backStackEntry.value?.destination?.route,
+                onClick = { navController.navigate(SpotifyScreen.route) },
+                icon = {
+                    Icon(
+                        painter =
+                        when(SongScreen.route == backStackEntry.value?.destination?.route) {
+                            true -> painterResource(id = R.drawable.ic_outlined_spotify_24)
+                            false -> painterResource(id = R.drawable.ic_filled_spotify_24)
+                        },
+                        contentDescription = stringResource(id = R.string.str_songs)
+                    )
+
+                },
+                label = { Text(text = stringResource(id = R.string.str_spotify)) }
             )
         }
     }

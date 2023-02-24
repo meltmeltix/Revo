@@ -2,7 +2,7 @@ package com.alessiocameroni.revomusicplayer.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface CustomizationRepository {
+interface SettingsRepository {
     suspend fun getCustomizationData()
 
     suspend fun getPlayerLayout(): Flow<Int>

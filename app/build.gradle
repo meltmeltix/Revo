@@ -70,7 +70,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0-rc01'
     implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta01"
 
-    implementation 'com.github.alessiocameroni:pixely-components:2.1.1'
+    implementation 'com.github.alessiocameroni:pixely-components:2.1.2'
 
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"

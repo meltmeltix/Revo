@@ -120,4 +120,6 @@
         <item quantity="other">mins</item>
     </plurals>
     <string name="str_secondsAmountAbbr">sec</string>
+    <string name="str_showSpotifyIntegration">Show Spotify</string>
+    <string name="desc_showSpotifyIntegration">For those who don\'t need Spotify. Disable to hide Spotify from the navigation</string>
 </resources>
