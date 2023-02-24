@@ -1,12 +1,10 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -18,7 +16,6 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,10 +29,9 @@ fun PlayerLayoutScreen(
         stringResource(id = R.string.str_center),
         stringResource(id = R.string.str_right),
     )
-    val scope = rememberCoroutineScope()
 
     val (selectedOption, onOptionSelected) = remember {
-        mutableStateOf(radioOptions[viewModel.playerLayout.value!!])
+        mutableStateOf(radioOptions[viewModel.playerLayout.value])
     }
 
     RevoMusicPlayerTheme {
@@ -73,42 +69,26 @@ fun PlayerLayoutScreen(
                             verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             radioOptions.forEach { text ->
-                                Row(
+                                PixelyListItem(
                                     modifier = Modifier
                                         .selectable(
                                             selected = (text == selectedOption),
                                             onClick = {
                                                 onOptionSelected(text)
-                                                scope.launch {
-                                                    viewModel.saveSelection(
-                                                        radioOptions.indexOf(selectedOption)
-                                                    )
-                                                }
-
-                                                Log.d(
-                                                    "PlayerLayoutScreen",
-                                                    "Index Option: " +
-                                                            "${radioOptions.indexOf(selectedOption)}\t" +
-                                                        "Viewmodel Value: " +
-                                                            "${viewModel.playerLayout.value}\t" +
-                                                        "OnOptionSelected value: " +
-                                                            "$onOptionSelected"
+                                                viewModel.saveSelection(
+                                                    radioOptions.indexOf(text)
                                                 )
                                             },
                                             role = Role.RadioButton
                                         ),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    PixelyListItem(
-                                        headlineTextString = text,
-                                        leadingContent = {
-                                            RadioButton(
-                                                selected = (text == selectedOption),
-                                                onClick = null
-                                            )
-                                        }
-                                    )
-                                }
+                                    headlineTextString = text,
+                                    leadingContent = {
+                                        RadioButton(
+                                            selected = (text == selectedOption),
+                                            onClick = null
+                                        )
+                                    }
+                                )
                             }
                         }
                     }

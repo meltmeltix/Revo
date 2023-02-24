@@ -1,6 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.repository.SettingsRepositoryImpl
@@ -12,13 +12,12 @@ import javax.inject.Inject
 class PlayerLayoutViewModel @Inject constructor(
     private val settingsRepositoryImpl: SettingsRepositoryImpl
 ): ViewModel() {
-    private val _playerLayout = MutableLiveData(1)
-    val playerLayout = _playerLayout
+    val playerLayout = mutableStateOf(0)
 
     init {
         viewModelScope.launch {
             settingsRepositoryImpl.getPlayerLayout().collect {
-                _playerLayout.value = it
+                playerLayout.value = it
             }
         }
     }
