@@ -22,50 +22,50 @@ import androidx.compose.animation.core.tween
  * - `search_screen` and relative sub-screens
  * - `settings_screen` and relative sub-screens
  */
-internal fun horSlideEnterFromScreen(): EnterTransition {
+fun horSlideEnterFromScreen(): EnterTransition {
     return slideInHorizontally(
         initialOffsetX = { 100 },
         animationSpec = tween( 210 )
     ) + fadeIn(animationSpec = tween( 210 ))
 }
-internal fun horSlideExitToScreen(): ExitTransition {
+fun horSlideExitToScreen(): ExitTransition {
     return slideOutHorizontally(
         targetOffsetX = { -100 },
         animationSpec = tween( 210 )
     ) + fadeOut(animationSpec = tween( 210 ))
 }
-internal fun horSlidePopEnterFromScreen(): EnterTransition {
+fun horSlidePopEnterFromScreen(): EnterTransition {
     return slideInHorizontally(
         initialOffsetX = { -100 },
         animationSpec = tween( 210 )
     ) + fadeIn(animationSpec = tween( 210 ))
 }
-internal fun horSlidePopExitToScreen(): ExitTransition {
+fun horSlidePopExitToScreen(): ExitTransition {
     return slideOutHorizontally(
         targetOffsetX = { 100 },
         animationSpec = tween( 210 )
     ) + fadeOut(animationSpec = tween( 210 ))
 }
 
-internal fun verSlideEnterToPlayer(): EnterTransition {
+fun verSlideEnterToPlayer(): EnterTransition {
     return slideInVertically(
         initialOffsetY = { 200 },
         animationSpec = tween( 240 )
     ) + fadeIn(animationSpec = tween( 260 ))
 }
-internal fun verSlideExitFromPlayer(): ExitTransition {
+fun verSlideExitFromPlayer(): ExitTransition {
     return slideOutVertically(
         targetOffsetY = { 200 },
         animationSpec = tween( 240 )
     ) + fadeOut(animationSpec = tween( 260 ))
 }
-internal fun verSlidePopEnterFromPlayer(): EnterTransition {
+fun verSlidePopEnterFromPlayer(): EnterTransition {
     return slideInVertically(
         initialOffsetY = { -200 },
         animationSpec = tween( 240 )
     ) + fadeIn(animationSpec = tween( 260 ))
 }
-internal fun verSlidePopExitFromPlayer(): ExitTransition {
+fun verSlidePopExitFromPlayer(): ExitTransition {
     return slideOutVertically(
         targetOffsetY = { -200 },
         animationSpec = tween( 240 )
@@ -90,16 +90,16 @@ internal fun verSlidePopExitFromPlayer(): ExitTransition {
  * - `artist_view_screen`
  * - `playlist_view_screen`
  */
-internal fun verSlideEnterFromFragment(): EnterTransition {
+fun verSlideEnterFromFragment(): EnterTransition {
     return slideInVertically (
         initialOffsetY = { 30 },
         animationSpec = tween( 210 )
     ) + fadeIn(animationSpec = tween( 210 ))
 }
-internal fun fadeExitToFragment(): ExitTransition {
+fun fadeExitToFragment(): ExitTransition {
     return fadeOut(animationSpec = tween( 100 ))
 }
-internal fun verSlideExitFromSubFragment(): ExitTransition {
+fun verSlideExitFromSubFragment(): ExitTransition {
     return slideOutVertically(
         targetOffsetY = { -30 },
         animationSpec = tween(210)

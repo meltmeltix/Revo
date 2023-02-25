@@ -21,7 +21,7 @@ import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AlbumTopActionBar(
+fun AlbumTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
@@ -58,7 +58,7 @@ internal fun AlbumTopActionBar(
 }
 
 @Composable
-internal fun AlbumItemDropDownMenu(
+fun AlbumItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navControllerBottomBar: NavHostController,
     artistId: Long

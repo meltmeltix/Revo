@@ -13,7 +13,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
-internal fun TopBarDropDownMenu(
+fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
 ) {

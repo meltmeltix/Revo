@@ -20,7 +20,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @Composable
-internal fun WelcomeHeader() {
+fun WelcomeHeader() {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -43,7 +43,7 @@ internal fun WelcomeHeader() {
 }
 
 @Composable
-internal fun ListPermissionRow(
+fun ListPermissionRow(
     modifier: Modifier,
     number: Int,
     stringMainTitle: String,
@@ -99,7 +99,7 @@ internal fun ListPermissionRow(
 }
 
 @Composable
-internal fun ForwardAppButton(
+fun ForwardAppButton(
     navController: NavController,
     enabledState: Boolean
 ) {

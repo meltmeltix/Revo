@@ -100,7 +100,7 @@ fun PlayerScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
+fun QueueModalBottomSheet(openBottomSheet: MutableState<Boolean>) {
     val skipHalfExpanded by remember { mutableStateOf(true) }
     val bottomSheetState = rememberSheetState(skipHalfExpanded = skipHalfExpanded)
 

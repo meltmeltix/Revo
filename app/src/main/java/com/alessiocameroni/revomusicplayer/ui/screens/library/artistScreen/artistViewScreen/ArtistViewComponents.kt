@@ -30,7 +30,7 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun ArtistViewTopActionBar(
+fun ArtistViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
     artistName: String?,
@@ -117,7 +117,7 @@ private fun ArtistViewDropDownMenu(
  * Header components
  */
 @Composable
-internal fun ArtistViewHeader(
+fun ArtistViewHeader(
     artistName: String?,
     artistAlbumsNumber: String?,
     artistTracksNumber: String?,
@@ -268,7 +268,7 @@ private fun ArtistInfoText(
  * Screen components
  */
 @Composable
-internal fun ArtistViewItemDropDownMenu(
+fun ArtistViewItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navControllerBottomBar: NavController,
     albumId: Long
@@ -297,7 +297,7 @@ internal fun ArtistViewItemDropDownMenu(
 }
 
 @Composable
-internal fun ArtistViewSectionTitle(
+fun ArtistViewSectionTitle(
     stringTitle: String,
     modifier: Modifier = Modifier
 ) {
@@ -318,7 +318,7 @@ internal fun ArtistViewSectionTitle(
 }
 
 @Composable
-internal fun ArtistViewHorizontalListItem(
+fun ArtistViewHorizontalListItem(
     albumTitle: String,
     leadingUnit: @Composable () -> Unit,
 ) {

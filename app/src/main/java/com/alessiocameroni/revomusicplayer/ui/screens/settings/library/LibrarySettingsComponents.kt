@@ -12,7 +12,7 @@ import com.alessiocameroni.revomusicplayer.R
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun LibrarySettingsTopActionBar(
+fun LibrarySettingsTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
@@ -35,3 +35,7 @@ internal fun LibrarySettingsTopActionBar(
 /**
  * Screen Components
  */
+@Composable
+fun SpotifyVisibilitySelection() {
+
+}

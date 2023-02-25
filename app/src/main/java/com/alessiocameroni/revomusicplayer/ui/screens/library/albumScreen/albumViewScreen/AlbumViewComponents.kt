@@ -31,7 +31,7 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun AlbumViewTopActionBar(
+fun AlbumViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior,
@@ -88,7 +88,7 @@ internal fun AlbumViewTopActionBar(
 }
 
 @Composable
-internal fun AlbumViewTopBarDropDownMenu(
+fun AlbumViewTopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController,
     navControllerBottomBar: NavHostController,
@@ -138,7 +138,7 @@ internal fun AlbumViewTopBarDropDownMenu(
  * Header components
  */
 @Composable
-internal fun AlbumViewHeader(
+fun AlbumViewHeader(
     navControllerBottomBar: NavHostController,
     albumTitleString: String? = null,
     albumArtistId: Long,
@@ -326,7 +326,7 @@ private fun HeaderButtons() {
  * Screen components
  */
 @Composable
-internal fun AlbumViewSectionTitle(
+fun AlbumViewSectionTitle(
     stringTitle: String,
     modifier: Modifier = Modifier
 ) {
@@ -347,7 +347,7 @@ internal fun AlbumViewSectionTitle(
 }
 
 @Composable
-internal fun AlbumViewItemDropDownMenu(
+fun AlbumViewItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
 ) {

@@ -28,7 +28,7 @@ import com.alessiocameroni.revomusicplayer.R
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun PlayerLayoutTopActionBar(
+fun PlayerLayoutTopActionBar(
     navController: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
@@ -52,7 +52,7 @@ internal fun PlayerLayoutTopActionBar(
  * Screen Components
  */
 @Composable
-internal fun PlayerLayoutPreviewHeader(
+fun PlayerLayoutPreviewHeader(
     modifier: Modifier = Modifier,
     selectedOption: String,
 ) {
