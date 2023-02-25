@@ -33,9 +33,14 @@ class SettingsRepositoryImpl(
         val PLAYER_LAYOUT = intPreferencesKey("player_layout")
     }
 
-    override suspend fun getCustomizationData() {
+    override suspend fun getSettingsData() {
 
     }
+
+    override suspend fun getSpotifyEnabledState() = context.dataStore.data
+        .map { preferences ->
+            preferences[SPOTIFY_ENABLED] ?: true
+        }
 
     override suspend fun getPlayerLayout() = context.dataStore.data
         .map { preferences ->

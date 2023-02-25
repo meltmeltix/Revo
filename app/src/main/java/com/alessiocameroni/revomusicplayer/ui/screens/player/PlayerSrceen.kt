@@ -11,13 +11,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerScreen(navController: NavController) {
+fun PlayerScreen(
+    navController: NavController,
+    viewModel: PlayerViewModel = hiltViewModel()
+) {
     val sliderPosition by rememberSaveable { mutableStateOf(0.5f) }
     val shuffleChecked by rememberSaveable { mutableStateOf(false) }
     val repeatChecked by rememberSaveable { mutableStateOf(false) }
@@ -82,6 +85,7 @@ fun PlayerScreen(navController: NavController) {
                         ) {
                             PlayerControls(
                                 modifier = Modifier,
+                                buttonsLayout = viewModel.playerLayout.value,
                                 floatSliderPosition = sliderPosition
                             )
                         }

@@ -1,18 +1,15 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
@@ -68,28 +65,12 @@ fun PlayerLayoutScreen(
                             modifier = Modifier.selectableGroup(),
                             verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
-                            radioOptions.forEach { text ->
-                                PixelyListItem(
-                                    modifier = Modifier
-                                        .selectable(
-                                            selected = (text == selectedOption),
-                                            onClick = {
-                                                onOptionSelected(text)
-                                                viewModel.saveSelection(
-                                                    radioOptions.indexOf(text)
-                                                )
-                                            },
-                                            role = Role.RadioButton
-                                        ),
-                                    headlineTextString = text,
-                                    leadingContent = {
-                                        RadioButton(
-                                            selected = (text == selectedOption),
-                                            onClick = null
-                                        )
-                                    }
-                                )
-                            }
+                            LayoutSelector(
+                                options = radioOptions,
+                                selected = selectedOption,
+                                onSelected = onOptionSelected,
+                                viewModel = viewModel
+                            )
                         }
                     }
                 }
