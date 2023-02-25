@@ -26,7 +26,6 @@ fun PlayerLayoutScreen(
         stringResource(id = R.string.str_center),
         stringResource(id = R.string.str_right),
     )
-
     var selectedLayout by remember { viewModel.playerLayout }
 
     RevoMusicPlayerTheme {

@@ -29,7 +29,8 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 @Composable
 fun BottomContent(
     navController: NavController,
-    navControllerBottomBar: NavHostController
+    navControllerBottomBar: NavHostController,
+    spotifyVisibilityState: Boolean
 ) {
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val contentExpanded = rememberSaveable { mutableStateOf(true) }
@@ -88,6 +89,7 @@ fun BottomContent(
                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                 ),
             ),
+            spotifyVisibilityState = spotifyVisibilityState,
             navController = navControllerBottomBar,
             onItemClick = { navControllerBottomBar.navigate(it.route) },
             contentExpanded = contentExpanded,
@@ -176,6 +178,7 @@ fun BottomMiniPlayer(
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
     items: List<MainNavigationItemData>,
+    spotifyVisibilityState: Boolean,
     navController: NavController,
     onItemClick: (MainNavigationItemData) -> Unit,
     contentExpanded: MutableState<Boolean>,
@@ -209,16 +212,19 @@ fun BottomNavigationBar(
             )
         }
 
-        if(false) {
+        if(spotifyVisibilityState) {
+            val selected = SpotifyScreen.route == backStackEntry.value?.destination?.route
+
             NavigationBarItem(
-                selected = SpotifyScreen.route == backStackEntry.value?.destination?.route,
+                selected =  selected,
                 onClick = { navController.navigate(SpotifyScreen.route) },
                 icon = {
                     Icon(
                         painter =
-                        when(SongScreen.route == backStackEntry.value?.destination?.route) {
-                            true -> painterResource(id = R.drawable.ic_outlined_spotify_24)
-                            false -> painterResource(id = R.drawable.ic_filled_spotify_24)
+                        if(selected) {
+                            painterResource(id = R.drawable.ic_filled_spotify_24)
+                        } else {
+                            painterResource(id = R.drawable.ic_outlined_spotify_24)
                         },
                         contentDescription = stringResource(id = R.string.str_songs)
                     )

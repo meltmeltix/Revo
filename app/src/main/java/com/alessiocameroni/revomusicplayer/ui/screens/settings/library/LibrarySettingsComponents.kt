@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 
 /**
@@ -36,6 +37,25 @@ fun LibrarySettingsTopActionBar(
  * Screen Components
  */
 @Composable
-fun SpotifyVisibilitySelection() {
-
+fun SpotifyVisibilitySelection(
+    checked: Boolean,
+    onChecked: (Boolean) -> Unit,
+    viewModel: LibrarySettingsViewModel
+) {
+    PixelyListItem(
+        headlineTextString = stringResource(id = R.string.str_showSpotifyIntegration),
+        supportingTextString = stringResource(id = R.string.desc_showSpotifyIntegration),
+        trailingContent = {
+            Switch(
+                checked = checked,
+                onCheckedChange = {
+                    onChecked(!checked)
+                    viewModel.saveSpotifyVisibility(
+                        !checked
+                    )
+                }
+            )
+        },
+        trailingContentDivider = true
+    )
 }
