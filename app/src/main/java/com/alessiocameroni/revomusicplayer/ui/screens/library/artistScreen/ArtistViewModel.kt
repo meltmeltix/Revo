@@ -30,7 +30,7 @@ class ArtistViewModel: ViewModel() {
             Media.ARTIST,
             Media.ALBUM_ID
         )
-        val selection = null
+        val selection = "${Media.IS_MUSIC} != 0"
         val sortOrder = "${Media.ARTIST} ASC"
         val query = context.contentResolver.query(
             collection,

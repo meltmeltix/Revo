@@ -46,7 +46,6 @@ fun BottomContent(
             false -> systemBarsPadding.calculateBottomPadding() + 50.dp
         }
     }
-    val spotifyEnabled = false
 
     Column(
         modifier = Modifier
@@ -89,7 +88,6 @@ fun BottomContent(
                     iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
                 ),
             ),
-            spotifyEnabled = spotifyEnabled,
             navController = navControllerBottomBar,
             onItemClick = { navControllerBottomBar.navigate(it.route) },
             contentExpanded = contentExpanded,
@@ -178,7 +176,6 @@ fun BottomMiniPlayer(
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
     items: List<MainNavigationItemData>,
-    spotifyEnabled: Boolean,
     navController: NavController,
     onItemClick: (MainNavigationItemData) -> Unit,
     contentExpanded: MutableState<Boolean>,
@@ -212,7 +209,7 @@ fun BottomNavigationBar(
             )
         }
 
-        if(spotifyEnabled) {
+        if(false) {
             NavigationBarItem(
                 selected = SpotifyScreen.route == backStackEntry.value?.destination?.route,
                 onClick = { navController.navigate(SpotifyScreen.route) },

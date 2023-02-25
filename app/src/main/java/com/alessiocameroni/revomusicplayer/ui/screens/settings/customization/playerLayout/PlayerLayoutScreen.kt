@@ -27,9 +27,7 @@ fun PlayerLayoutScreen(
         stringResource(id = R.string.str_right),
     )
 
-    val (selectedOption, onOptionSelected) = remember {
-        mutableStateOf(radioOptions[viewModel.playerLayout.value])
-    }
+    var selectedLayout by remember { viewModel.playerLayout }
 
     RevoMusicPlayerTheme {
         Surface(
@@ -52,7 +50,7 @@ fun PlayerLayoutScreen(
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         Row( modifier = Modifier.padding(horizontal = 15.dp) ) {
-                            PlayerLayoutPreviewHeader(selectedOption = selectedOption)
+                            PlayerLayoutPreviewHeader(selectedOption = radioOptions[selectedLayout])
                         }
 
                         Row( modifier = Modifier ) {
@@ -67,8 +65,8 @@ fun PlayerLayoutScreen(
                         ) {
                             LayoutSelector(
                                 options = radioOptions,
-                                selected = selectedOption,
-                                onSelected = onOptionSelected,
+                                selected = radioOptions[selectedLayout],
+                                onSelected = { selectedLayout = radioOptions.indexOf(it) },
                                 viewModel = viewModel
                             )
                         }
