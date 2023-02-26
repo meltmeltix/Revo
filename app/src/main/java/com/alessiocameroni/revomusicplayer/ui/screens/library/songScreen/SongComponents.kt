@@ -16,8 +16,10 @@ import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
+/**
+ * Scaffold components
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SongTopActionBar(
@@ -45,9 +47,9 @@ fun SongTopActionBar(
                     )
                 }
 
-                TopBarDropDownMenu(
-                    expanded = expandedMenu,
-                    navController = navController
+                SongTopBarDropDownMenu(
+                    expandedMenu,
+                    navController
                 )
             }
         },
@@ -55,6 +57,53 @@ fun SongTopActionBar(
     )
 }
 
+@Composable
+fun SongTopBarDropDownMenu(
+    expanded: MutableState<Boolean>, 
+    navController: NavController
+) {
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_sortBy)) }, 
+            onClick = { /*TODO*/ },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_sort_24), 
+                    contentDescription = stringResource(id = R.string.desc_sortBy)
+                )
+            },
+            trailingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24), 
+                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                )
+            }
+        )
+        
+        Divider()
+        
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_settings)) },
+            onClick = {
+                navController.navigate(Screens.SettingsScreen.route)
+                expanded.value = false
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                    contentDescription = stringResource(id = R.string.desc_settings)
+                )
+            }
+        )
+    }
+}
+
+/**
+ * Screen components
+ */
 @Composable
 fun SongItemDropDownMenu(
     expanded: MutableState<Boolean>,

@@ -11,7 +11,7 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 
 /**
- * Scaffold Components
+ * Scaffold components
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

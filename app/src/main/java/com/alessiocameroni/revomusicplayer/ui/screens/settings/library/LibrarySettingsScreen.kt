@@ -21,7 +21,6 @@ fun LibrarySettingsScreen(
     viewModel: LibrarySettingsViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    var spotifyVisibilityState by remember { viewModel.spotifyEnabledState }
 
     RevoMusicPlayerTheme{
         Surface(
@@ -48,9 +47,11 @@ fun LibrarySettingsScreen(
                         }
 
                         item {
+                            var checkedState by remember { viewModel.spotifyEnabledState }
+
                             SpotifyVisibilitySelection(
-                                checked = spotifyVisibilityState,
-                                onChecked = { spotifyVisibilityState = it },
+                                checked = checkedState,
+                                onChecked = { checkedState = it },
                                 viewModel = viewModel
                             )
                         }

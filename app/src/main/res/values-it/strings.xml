@@ -58,8 +58,6 @@
     <string name="str_library">Libreria</string>
     <string name="desc_library">Gestisci la tua libreria e il suo comportamento</string>
     <string name="desc_openGridTypeMenu">Apri il menu di selezione griglia</string>
-    <string name="desc_1_playerLayout">Il player userà il layout</string>
-    <string name="desc_2_playerLayout">per mostrare i pulsanti Riproduci e salta</string>
     <string name="desc_albumImage">Immagine album</string>
     <string name="str_newPlaylist">Nuova playlist</string>
     <string name="desc_closeNewPlaylistDialog">Chiudi il popup di creazione nuova playlist</string>
@@ -111,4 +109,7 @@
         <item quantity="other">m</item>
     </plurals>
     <string name="str_secondsAmountAbbr">s</string>
+    <string name="str_showSpotifyIntegration">Mostra Spotify</string>
+    <string name="desc_showSpotifyIntegration">Per coloro che non hanno bisogno di Spotidy. Disabilita per nascondere Spotify dalla navigazione</string>
+    <string name="str_dynamic">Dinamico</string>
 </resources>
