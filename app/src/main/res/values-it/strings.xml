@@ -112,4 +112,13 @@
     <string name="str_showSpotifyIntegration">Mostra Spotify</string>
     <string name="desc_showSpotifyIntegration">Per coloro che non hanno bisogno di Spotidy. Disabilita per nascondere Spotify dalla navigazione</string>
     <string name="str_dynamic">Dinamico</string>
+    <string name="str_sortType">Tipo</string>
+    <string name="str_name">Nome</string>
+    <string name="str_artist">Artista</string>
+    <string name="str_album">Album</string>
+    <string name="str_duration">Durata</string>
+    <string name="str_dateAdded">Data di aggiunta</string>
+    <string name="str_sortOrder">Ordine</string>
+    <string name="str_ascending">Ascendente</string>
+    <string name="str_descending">Discendente</string>
 </resources>
