@@ -120,4 +120,13 @@
     <string name="str_secondsAmountAbbr">sec</string>
     <string name="str_showSpotifyIntegration">Show Spotify</string>
     <string name="desc_showSpotifyIntegration">For those who don\'t need Spotify. Disable to hide Spotify from the navigation</string>
+    <string name="str_sortType">Type</string>
+    <string name="str_name">Name</string>
+    <string name="str_artist">Artist</string>
+    <string name="str_album">Album</string>
+    <string name="str_duration">Duration</string>
+    <string name="str_dateAdded">Date added</string>
+    <string name="str_sortOrder">Order</string>
+    <string name="str_ascending">Ascending</string>
+    <string name="str_descending">Descending</string>
 </resources>

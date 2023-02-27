@@ -1,17 +1,18 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
@@ -25,8 +26,10 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 fun SongTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
+    viewModel: SongViewModel,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
+    val expandedSortMenu = remember { mutableStateOf(false) }
 
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.str_songs)) },
@@ -47,9 +50,14 @@ fun SongTopActionBar(
                     )
                 }
 
-                SongTopBarDropDownMenu(
+                TopBarDropDownMenu(
                     expandedMenu,
+                    expandedSortMenu,
                     navController
+                )
+                SortDropDownMenu(
+                    expandedSortMenu,
+                    viewModel
                 )
             }
         },
@@ -58,8 +66,9 @@ fun SongTopActionBar(
 }
 
 @Composable
-fun SongTopBarDropDownMenu(
-    expanded: MutableState<Boolean>, 
+private fun TopBarDropDownMenu(
+    expanded: MutableState<Boolean>,
+    expandedSortMenu: MutableState<Boolean>,
     navController: NavController
 ) {
     RoundedDropDownMenu(
@@ -68,7 +77,10 @@ fun SongTopBarDropDownMenu(
     ) {
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_sortBy)) }, 
-            onClick = { /*TODO*/ },
+            onClick = {
+                expanded.value = false
+                expandedSortMenu.value = true
+            },
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_sort_24), 
@@ -95,6 +107,108 @@ fun SongTopBarDropDownMenu(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_outlined_settings_24),
                     contentDescription = stringResource(id = R.string.desc_settings)
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun SortDropDownMenu(
+    expanded: MutableState<Boolean>,
+    viewModel: SongViewModel
+) {
+    val sortTypeList = listOf(
+        stringResource(id = R.string.str_name),
+        stringResource(id = R.string.str_artist),
+        stringResource(id = R.string.str_album),
+        stringResource(id = R.string.str_duration),
+        stringResource(id = R.string.str_dateAdded),
+    )
+    val sortOrderList = listOf(
+        stringResource(id = R.string.str_ascending),
+        stringResource(id = R.string.str_descending)
+    )
+    var selectedSortType by remember { viewModel.sortingType }
+    var selectedSortOrder by remember { viewModel.sortingOrder }
+
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        PixelyDropdownMenuTitle(
+            modifier = Modifier.padding(top = 5.dp),
+            stringTitle = stringResource(id = R.string.str_sortType)
+        )
+        SortTypeSelector(
+            options = sortTypeList,
+            selected = sortTypeList[selectedSortType],
+            onSelected = { selectedSortType = sortTypeList.indexOf(it) },
+            viewModel = viewModel
+        )
+        
+        Divider()
+        
+        PixelyDropdownMenuTitle(
+            modifier = Modifier.padding(top = 5.dp),
+            stringTitle = stringResource(id = R.string.str_sortOrder)
+        )
+        SortOrderSelector(
+            options = sortOrderList,
+            selected = sortOrderList[selectedSortOrder],
+            onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
+            viewModel = viewModel
+        )
+    }
+}
+
+@Composable
+private fun SortTypeSelector(
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: SongViewModel
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.saveSortTypeSelection(
+                    options.indexOf(text)
+                )
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun SortOrderSelector(
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: SongViewModel
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.saveSortOrderSelection(
+                    options.indexOf(text)
+                )
+                Log.d("SongComponents", "${options.indexOf(text)}")
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
                 )
             }
         )
@@ -147,6 +261,4 @@ fun SongItemDropDownMenu(
             }
         )
     }
-    
-    
 }

@@ -9,6 +9,8 @@ data class SongData(
     var artistId: Long,
     var artist: String,
     var albumId: Long,
+    val album: String,
     val albumCoverUri: Uri,
     var duration: Int,
+    val dateAdded: Long,
 )

@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -26,7 +26,7 @@ import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 fun SongsScreen(
     navController: NavController,
     navControllerBottomBar: NavController,
-    viewModel: SongViewModel = viewModel(),
+    viewModel: SongViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val librarySongs = viewModel.librarySongs
@@ -39,7 +39,8 @@ fun SongsScreen(
         topBar = {
             SongTopActionBar(
                 navController,
-                scrollBehavior
+                scrollBehavior,
+                viewModel
             )
         },
         content = { padding ->
