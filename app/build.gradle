@@ -68,7 +68,8 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.6.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0-rc01'
-    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta01"
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta02"
+    implementation 'androidx.core:core-splashscreen:1.0.0'
 
     implementation 'com.github.alessiocameroni:pixely-components:2.1.3'
 

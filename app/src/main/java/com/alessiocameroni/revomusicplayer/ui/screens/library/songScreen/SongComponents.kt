@@ -141,6 +141,7 @@ private fun SortDropDownMenu(
             stringTitle = stringResource(id = R.string.str_sortType)
         )
         SortTypeSelector(
+            expanded = expanded,
             options = sortTypeList,
             selected = sortTypeList[selectedSortType],
             onSelected = { selectedSortType = sortTypeList.indexOf(it) },
@@ -154,6 +155,7 @@ private fun SortDropDownMenu(
             stringTitle = stringResource(id = R.string.str_sortOrder)
         )
         SortOrderSelector(
+            expanded = expanded,
             options = sortOrderList,
             selected = sortOrderList[selectedSortOrder],
             onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
@@ -164,10 +166,11 @@ private fun SortDropDownMenu(
 
 @Composable
 private fun SortTypeSelector(
+    expanded: MutableState<Boolean>,
     options: List<String>,
     selected: String,
     onSelected: (String) -> Unit,
-    viewModel: SongViewModel
+    viewModel: SongViewModel,
 ) {
     options.forEach { text ->
         DropdownMenuItem(
@@ -177,6 +180,7 @@ private fun SortTypeSelector(
                 viewModel.saveSortTypeSelection(
                     options.indexOf(text)
                 )
+                expanded.value = false
             },
             trailingIcon = {
                 RadioButton(
@@ -190,10 +194,11 @@ private fun SortTypeSelector(
 
 @Composable
 private fun SortOrderSelector(
+    expanded: MutableState<Boolean>,
     options: List<String>,
     selected: String,
     onSelected: (String) -> Unit,
-    viewModel: SongViewModel
+    viewModel: SongViewModel,
 ) {
     options.forEach { text ->
         DropdownMenuItem(
@@ -203,7 +208,7 @@ private fun SortOrderSelector(
                 viewModel.saveSortOrderSelection(
                     options.indexOf(text)
                 )
-                Log.d("SongComponents", "${options.indexOf(text)}")
+                expanded.value = false
             },
             trailingIcon = {
                 RadioButton(
