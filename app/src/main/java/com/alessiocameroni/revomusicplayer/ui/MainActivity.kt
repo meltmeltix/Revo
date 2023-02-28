@@ -11,8 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.alessiocameroni.revomusicplayer.util.permissions.SetContentByPermission
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
+import com.alessiocameroni.revomusicplayer.util.permissions.SetContentByPermission
 import dagger.hilt.android.AndroidEntryPoint
 
 val permissionsList = listOf(

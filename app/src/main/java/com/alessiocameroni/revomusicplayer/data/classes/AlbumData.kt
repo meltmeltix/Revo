@@ -8,6 +8,6 @@ data class AlbumData(
     var artistId: Long,
     var artist: String,
     val albumCoverUri: Uri,
-    var tracksNumber: Long?,
-    var duration: Int?,
+    val year: Long,
+    var numberOfSongs: Long,
 )

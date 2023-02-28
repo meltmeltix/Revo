@@ -116,27 +116,27 @@ fun SongsScreen(
 }
 
 private fun listSort(
-    librarySongs: SnapshotStateList<SongData>,
-    selectedSortOrder: Int,
-    selectedSortType: Int
+    songs: SnapshotStateList<SongData>,
+    sortOrder: Int,
+    sortType: Int
 ) {
-    when(selectedSortOrder) {
+    when(sortOrder) {
         0 -> {
-            when(selectedSortType) {
-                0 -> librarySongs.sortBy { it.songTitle }
-                1 -> librarySongs.sortBy { it.artist }
-                2 -> librarySongs.sortBy { it.album }
-                3 -> librarySongs.sortBy { it.duration }
-                4 -> librarySongs.sortBy { it.dateAdded }
+            when(sortType) {
+                0 -> songs.sortBy { it.songTitle }
+                1 -> songs.sortBy { it.artist }
+                2 -> songs.sortBy { it.album }
+                3 -> songs.sortBy { it.duration }
+                4 -> songs.sortBy { it.dateAdded }
             }
         }
         1 -> {
-            when(selectedSortType) {
-                0 -> librarySongs.sortByDescending { it.songTitle }
-                1 -> librarySongs.sortByDescending { it.artist }
-                2 -> librarySongs.sortByDescending { it.album }
-                3 -> librarySongs.sortByDescending { it.duration }
-                4 -> librarySongs.sortByDescending { it.dateAdded }
+            when(sortType) {
+                0 -> songs.sortByDescending { it.songTitle }
+                1 -> songs.sortByDescending { it.artist }
+                2 -> songs.sortByDescending { it.album }
+                3 -> songs.sortByDescending { it.duration }
+                4 -> songs.sortByDescending { it.dateAdded }
             }
         }
     }

@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -16,12 +14,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
@@ -30,20 +30,30 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 fun AlbumsScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: AlbumViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryAlbums = viewModel.libraryAlbums
     val context = LocalContext.current
 
+    val selectedSortType by remember { viewModel.sortingType }
+    val selectedSortOrder by remember { viewModel.sortingOrder }
+
     LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
+
+    listSort(
+        libraryAlbums,
+        selectedSortOrder,
+        selectedSortType
+    )
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             AlbumTopActionBar(
                 navController,
-                scrollBehavior
+                scrollBehavior,
+                viewModel
             )
         },
         content = { padding ->
@@ -110,4 +120,29 @@ fun AlbumsScreen(
             }
         }
     )
+}
+
+fun listSort(
+    albums: SnapshotStateList<AlbumData>,
+    sortOrder: Int,
+    sortType: Int
+) {
+    when(sortOrder) {
+        0 -> {
+            when(sortType) {
+                0 -> albums.sortBy { it.albumTitle }
+                1 -> albums.sortBy { it.artist }
+                2 -> albums.sortBy { it.year }
+                3 -> albums.sortBy { it.numberOfSongs }
+            }
+        }
+        1 -> {
+            when(sortType) {
+                0 -> albums.sortByDescending { it.albumTitle }
+                1 -> albums.sortByDescending { it.artist }
+                2 -> albums.sortByDescending { it.year }
+                3 -> albums.sortByDescending { it.numberOfSongs }
+            }
+        }
+    }
 }

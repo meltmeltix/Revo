@@ -127,6 +127,8 @@
     <string name="str_duration">Duration</string>
     <string name="str_dateAdded">Date added</string>
     <string name="str_sortOrder">Order</string>
+    <string name="str_year">Year</string>
+    <string name="str_songNumber">Song number</string>
     <string name="str_ascending">Ascending</string>
     <string name="str_descending">Descending</string>
 </resources>
