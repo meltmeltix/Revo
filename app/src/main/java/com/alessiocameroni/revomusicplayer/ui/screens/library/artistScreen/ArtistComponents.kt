@@ -153,9 +153,7 @@ private fun SortOrderSelector(
             text = { Text(text = text) },
             onClick = {
                 onSelected(text)
-                viewModel.saveSortOrderSelection(
-                    options.indexOf(text)
-                )
+                viewModel.setSortData(options.indexOf(text))
                 expanded.value = false
             },
             trailingIcon = {

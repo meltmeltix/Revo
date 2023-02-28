@@ -144,7 +144,8 @@ private fun SortDropDownMenu(
             options = sortTypeList,
             selected = sortTypeList[selectedSortType],
             onSelected = { selectedSortType = sortTypeList.indexOf(it) },
-            viewModel = viewModel
+            viewModel = viewModel,
+            orderSelection = selectedSortOrder
         )
         
         Divider()
@@ -158,7 +159,8 @@ private fun SortDropDownMenu(
             options = sortOrderList,
             selected = sortOrderList[selectedSortOrder],
             onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
-            viewModel = viewModel
+            viewModel = viewModel,
+            typeSelection = selectedSortType
         )
     }
 }
@@ -170,15 +172,14 @@ private fun SortTypeSelector(
     selected: String,
     onSelected: (String) -> Unit,
     viewModel: SongViewModel,
+    orderSelection: Int,
 ) {
     options.forEach { text ->
         DropdownMenuItem(
             text = { Text(text = text) },
             onClick = {
                 onSelected(text)
-                viewModel.saveSortTypeSelection(
-                    options.indexOf(text)
-                )
+                viewModel.setSortData(options.indexOf(text), orderSelection)
                 expanded.value = false
             },
             trailingIcon = {
@@ -198,15 +199,14 @@ private fun SortOrderSelector(
     selected: String,
     onSelected: (String) -> Unit,
     viewModel: SongViewModel,
+    typeSelection: Int,
 ) {
     options.forEach { text ->
         DropdownMenuItem(
             text = { Text(text = text) },
             onClick = {
                 onSelected(text)
-                viewModel.saveSortOrderSelection(
-                    options.indexOf(text)
-                )
+                viewModel.setSortData(typeSelection, options.indexOf(text))
                 expanded.value = false
             },
             trailingIcon = {

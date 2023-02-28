@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
+import com.alessiocameroni.revomusicplayer.data.classes.SortData
 import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -29,10 +30,10 @@ class AlbumViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sortingRepositoryImpl.getAlbumSortingType().collect { sortingType.value = it }
-        }
-        viewModelScope.launch {
-            sortingRepositoryImpl.getAlbumSortingOrder().collect { sortingOrder.value = it }
+            sortingRepositoryImpl.getAlbumSorting().collect {
+                sortingType.value = it.type
+                sortingOrder.value = it.order
+            }
         }
     }
 
@@ -107,15 +108,9 @@ class AlbumViewModel @Inject constructor(
     /**
      * Preferences management
      */
-    fun saveSortTypeSelection(selection: Int) {
+    fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
-            sortingRepositoryImpl.setAlbumSortingType(selection)
-        }
-    }
-
-    fun saveSortOrderSelection(selection: Int) {
-        viewModelScope.launch {
-            sortingRepositoryImpl.setAlbumSortingOrder(selection)
+            sortingRepositoryImpl.setAlbumSorting(SortData(type, order))
         }
     }
 }
