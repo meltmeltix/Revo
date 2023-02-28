@@ -7,9 +7,11 @@ interface SortingRepository {
     suspend fun getSongSortingOrder(): Flow<Int>
     suspend fun getAlbumSortingType(): Flow<Int>
     suspend fun getAlbumSortingOrder(): Flow<Int>
+    suspend fun getArtistSortingOrder(): Flow<Int>
 
     suspend fun setSongSortingType(sortingValue: Int)
     suspend fun setSongSortingOrder(sortingValue: Int)
     suspend fun setAlbumSortingType(sortingValue: Int)
     suspend fun setAlbumSortingOrder(sortingValue: Int)
+    suspend fun setArtistSortingOrder(sortingValue: Int)
 }

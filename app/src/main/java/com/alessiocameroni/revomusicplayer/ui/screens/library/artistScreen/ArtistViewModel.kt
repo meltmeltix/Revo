@@ -8,13 +8,33 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
+import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ArtistViewModel: ViewModel() {
+@HiltViewModel
+class ArtistViewModel @Inject constructor(
+    private val sortingRepositoryImpl: SortingRepositoryImpl
+): ViewModel() {
     val libraryArtists = mutableStateListOf<ArtistData>()
     private var initialized = false
 
+    val sortingOrder = mutableStateOf(0)
+
+    init {
+        viewModelScope.launch {
+            sortingRepositoryImpl.getArtistSortingOrder().collect { sortingOrder.value = it }
+        }
+    }
+
+    /**
+     * Artist fetching
+     */
     fun initializeArtistList(context: Context) {
         if(initialized) return
 
@@ -28,7 +48,7 @@ class ArtistViewModel: ViewModel() {
         val projection = arrayOf(
             Media.ARTIST_ID,
             Media.ARTIST,
-            Media.ALBUM_ID
+            Media.ALBUM_ID,
         )
         val selection = "${Media.IS_MUSIC} != 0"
         val sortOrder = "${Media.ARTIST} ASC"
@@ -53,8 +73,6 @@ class ArtistViewModel: ViewModel() {
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
 
-                //!libraryArtists.contains(ArtistData(id, artist))
-
                 if(!libraryArtists.any { it.artistId == id && it.artist == artist } ) {
                     libraryArtists.add(
                         ArtistData(id, artist, albumCoverUri)
@@ -64,5 +82,14 @@ class ArtistViewModel: ViewModel() {
             }
         }
         initialized = true
+    }
+
+    /**
+     * Preferences management
+     */
+    fun saveSortOrderSelection(selection: Int) {
+        viewModelScope.launch {
+            sortingRepositoryImpl.setArtistSortingOrder(selection)
+        }
     }
 }

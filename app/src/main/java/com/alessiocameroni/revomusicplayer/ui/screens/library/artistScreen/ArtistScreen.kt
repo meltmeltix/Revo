@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -15,59 +15,44 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
-import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistsScreen(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: ArtistViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    viewModel: ArtistViewModel = hiltViewModel()
 ) {
-    val expandedMenu = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val libraryArtists = viewModel.libraryArtists
     val context = LocalContext.current
+
+    val selectedSortOrder by remember { viewModel.sortingOrder }
+
+    listSort(
+        libraryArtists,
+        selectedSortOrder
+    )
 
     LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(id = R.string.str_artists)) },
-                navigationIcon = {
-                    IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                            contentDescription = stringResource(id = R.string.desc_searchMenu)
-                        )
-                    }
-                },
-                actions = {
-                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                        IconButton(onClick = { expandedMenu.value = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                contentDescription = stringResource(id = R.string.str_settings)
-                            )
-                        }
-
-                        TopBarDropDownMenu(
-                            expanded = expandedMenu,
-                            navController = navController
-                        )
-                    }
-                }, scrollBehavior = scrollBehavior
+            ArtistTopActionBar(
+                navController,
+                scrollBehavior,
+                viewModel
             )
         },
         content = { padding ->
@@ -119,4 +104,14 @@ fun ArtistsScreen(
             }
         }
     )
+}
+
+private fun listSort(
+    artists: SnapshotStateList<ArtistData>,
+    sortOrder: Int,
+) {
+    when(sortOrder) {
+        0 -> { artists.sortBy { it.artist } }
+        1 -> { artists.sortByDescending { it.artist } }
+    }
 }

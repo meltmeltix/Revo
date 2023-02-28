@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
+package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 /**
@@ -22,16 +21,16 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SongTopActionBar(
+fun ArtistTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
-    viewModel: SongViewModel,
+    viewModel: ArtistViewModel
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
 
     TopAppBar(
-        title = { Text(text = stringResource(id = R.string.str_songs)) },
+        title = { Text(text = stringResource(id = R.string.str_artists)) },
         navigationIcon = {
             IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
                 Icon(
@@ -60,7 +59,7 @@ fun SongTopActionBar(
                 )
             }
         },
-        scrollBehavior = scrollBehavior,
+        scrollBehavior = scrollBehavior
     )
 }
 
@@ -75,27 +74,27 @@ private fun TopBarDropDownMenu(
         onDismissRequest = { expanded.value = false }
     ) {
         DropdownMenuItem(
-            text = { Text(text = stringResource(id = R.string.str_sortBy)) }, 
+            text = { Text(text = stringResource(id = R.string.str_sortBy)) },
             onClick = {
                 expanded.value = false
                 expandedSortMenu.value = true
             },
             leadingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_sort_24), 
+                    painter = painterResource(id = R.drawable.ic_baseline_sort_24),
                     contentDescription = stringResource(id = R.string.desc_sortBy)
                 )
             },
             trailingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24), 
+                    painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24),
                     contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
             }
         )
-        
+
         Divider()
-        
+
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
@@ -115,40 +114,18 @@ private fun TopBarDropDownMenu(
 @Composable
 private fun SortDropDownMenu(
     expanded: MutableState<Boolean>,
-    viewModel: SongViewModel
+    viewModel: ArtistViewModel
 ) {
-    val sortTypeList = listOf(
-        stringResource(id = R.string.str_name),
-        stringResource(id = R.string.str_artist),
-        stringResource(id = R.string.str_album),
-        stringResource(id = R.string.str_duration),
-        stringResource(id = R.string.str_dateAdded),
-    )
     val sortOrderList = listOf(
         stringResource(id = R.string.str_ascending),
         stringResource(id = R.string.str_descending)
     )
-    var selectedSortType by remember { viewModel.sortingType }
     var selectedSortOrder by remember { viewModel.sortingOrder }
 
     RoundedDropDownMenu(
         expanded = expanded.value,
         onDismissRequest = { expanded.value = false }
     ) {
-        PixelyDropdownMenuTitle(
-            modifier = Modifier.padding(top = 5.dp),
-            stringTitle = stringResource(id = R.string.str_sortType)
-        )
-        SortTypeSelector(
-            expanded = expanded,
-            options = sortTypeList,
-            selected = sortTypeList[selectedSortType],
-            onSelected = { selectedSortType = sortTypeList.indexOf(it) },
-            viewModel = viewModel
-        )
-        
-        Divider()
-        
         PixelyDropdownMenuTitle(
             modifier = Modifier.padding(top = 5.dp),
             stringTitle = stringResource(id = R.string.str_sortOrder)
@@ -164,40 +141,12 @@ private fun SortDropDownMenu(
 }
 
 @Composable
-private fun SortTypeSelector(
-    expanded: MutableState<Boolean>,
-    options: List<String>,
-    selected: String,
-    onSelected: (String) -> Unit,
-    viewModel: SongViewModel,
-) {
-    options.forEach { text ->
-        DropdownMenuItem(
-            text = { Text(text = text) },
-            onClick = {
-                onSelected(text)
-                viewModel.saveSortTypeSelection(
-                    options.indexOf(text)
-                )
-                expanded.value = false
-            },
-            trailingIcon = {
-                RadioButton(
-                    selected = (text == selected),
-                    onClick = null
-                )
-            }
-        )
-    }
-}
-
-@Composable
 private fun SortOrderSelector(
     expanded: MutableState<Boolean>,
     options: List<String>,
     selected: String,
     onSelected: (String) -> Unit,
-    viewModel: SongViewModel,
+    viewModel: ArtistViewModel,
 ) {
     options.forEach { text ->
         DropdownMenuItem(
@@ -219,50 +168,3 @@ private fun SortOrderSelector(
     }
 }
 
-/**
- * Screen components
- */
-@Composable
-fun SongItemDropDownMenu(
-    expanded: MutableState<Boolean>,
-    navControllerBottomBar: NavController,
-    albumId: Long,
-    artistId: Long,
-) {
-    RoundedDropDownMenu(
-        expanded = expanded.value, 
-        onDismissRequest = { expanded.value = false }
-    ) {
-        DropdownMenuItem(
-            text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
-            onClick = {
-                navControllerBottomBar.navigate(
-                    NavigationScreens.AlbumViewScreen.route + "/$albumId"
-                )
-                expanded.value = false
-            },
-            leadingIcon = { 
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24), 
-                    contentDescription = stringResource(id = R.string.str_goToAlbum)
-                )
-            }
-        )
-
-        DropdownMenuItem(
-            text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
-            onClick = {
-                navControllerBottomBar.navigate(
-                    NavigationScreens.ArtistViewScreen.route + "/$artistId"
-                )
-                expanded.value = false
-            },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24),
-                    contentDescription = stringResource(id = R.string.str_goToArtist)
-                )
-            }
-        )
-    }
-}
