@@ -131,7 +131,7 @@ fun LayoutSelector(
                         selected = (text == selected),
                         onClick = {
                             onSelected(text)
-                            viewModel.saveSelection(
+                            viewModel.setLayout(
                                 options.indexOf(text)
                             )
                         },

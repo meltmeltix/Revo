@@ -22,7 +22,7 @@ class PlayerLayoutViewModel @Inject constructor(
         }
     }
 
-    fun saveSelection(selectionIndex: Int) {
+    fun setLayout(selectionIndex: Int) {
         viewModelScope.launch {
             settingsRepositoryImpl.setPlayerLayout(
                 selectionIndex

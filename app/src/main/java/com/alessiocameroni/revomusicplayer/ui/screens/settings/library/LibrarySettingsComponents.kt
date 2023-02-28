@@ -50,7 +50,7 @@ fun SpotifyVisibilitySelection(
                 selected = checked,
                 onClick = {
                     onChecked(!checked)
-                    viewModel.saveSpotifyVisibility(
+                    viewModel.setSpotifyVisibility(
                         !checked
                     )
                 }
