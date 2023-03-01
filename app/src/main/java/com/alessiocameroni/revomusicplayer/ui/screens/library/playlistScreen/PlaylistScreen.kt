@@ -43,7 +43,7 @@ fun PlaylistsScreen(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.desc_addPlaylist),
+                    contentDescription = stringResource(id = R.string.str_newPlaylist),
                     modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
                 )
             }

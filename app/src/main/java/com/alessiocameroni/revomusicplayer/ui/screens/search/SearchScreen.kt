@@ -35,7 +35,7 @@ fun SearchScreen(navController: NavController) {
                                 stringText = text,
                                 stringPlaceHolder = stringResource(id = R.string.str_search),
                                 clearTrailingIcon = painterResource(id = R.drawable.ic_baseline_close_24),
-                                descriptionTrailingIcon = stringResource(id = R.string.desc_searchMenu),
+                                descriptionTrailingIcon = stringResource(id = R.string.str_search),
                                 onSearch = {  }
                             )
                         },
@@ -43,7 +43,7 @@ fun SearchScreen(navController: NavController) {
                             IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(id = R.string.desc_back)
+                                    contentDescription = stringResource(id = R.string.str_back)
                                 )
                             }
                         },

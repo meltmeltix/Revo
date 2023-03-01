@@ -49,7 +49,7 @@ fun AppLanguageScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(id = R.string.desc_back)
+                                    contentDescription = stringResource(id = R.string.str_back)
                                 )
                             }
                         },
@@ -79,7 +79,7 @@ fun AppLanguageScreen(navController: NavController) {
                                     if(changeLanguageEnabled) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
-                                            contentDescription = stringResource(id = R.string.desc_appLanguage)
+                                            contentDescription = stringResource(id = R.string.info_appLanguage)
                                         )
                                     }
                                 }
@@ -89,10 +89,9 @@ fun AppLanguageScreen(navController: NavController) {
                         item {
                             PixelySupportInfoText(
                                 stringText =
-                                    stringResource(id = R.string.desc_infoAppLanguage) + "\n\n" +
-                                    stringResource(id = R.string.desc_infoSystemAppLanguage),
+                                    stringResource(id = R.string.info_helpAppLanguage),
                                 painterInfoIcon = painterResource(id = R.drawable.ic_outlined_info_24),
-                                descriptionInfoIcon = stringResource(id = R.string.desc_infoSystemAppLanguage)
+                                descriptionInfoIcon = stringResource(id = R.string.info_helpAppLanguage)
                             )
                         }
                     }

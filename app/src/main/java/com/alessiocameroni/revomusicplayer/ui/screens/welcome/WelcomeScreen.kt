@@ -85,7 +85,7 @@ fun WelcomeScreen(navController: NavHostController) {
                             modifier = Modifier,
                             number = 1,
                             stringMainTitle = stringResource(id = R.string.str_storageAccess),
-                            stringSubtitle = stringResource(id = R.string.desc_storageAccess),
+                            stringSubtitle = stringResource(id = R.string.info_storageAccess),
                             unitButton = {
                                 FilledTonalButton(
                                     onClick = {
@@ -98,7 +98,7 @@ fun WelcomeScreen(navController: NavHostController) {
                                     Box {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_outlined_sd_card_24),
-                                            contentDescription = stringResource(id = R.string.desc_grantAccess),
+                                            contentDescription = stringResource(id = R.string.str_grantAccess),
                                             modifier = Modifier
                                                 .padding(end = 8.dp)
                                                 .size(ButtonDefaults.IconSize)

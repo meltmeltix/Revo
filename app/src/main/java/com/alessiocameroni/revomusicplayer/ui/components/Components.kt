@@ -31,7 +31,7 @@ fun SmallImageContainer(
     ) {
         Icon(
             painter = painterPlaceholder,
-            contentDescription = stringResource(id = R.string.desc_albumImage),
+            contentDescription = stringResource(id = R.string.str_albumImage),
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
@@ -55,7 +55,7 @@ fun LargeImageContainer(
     ) {
         Icon(
             painter = painterPlaceholder,
-            contentDescription = stringResource(id = R.string.desc_albumImage),
+            contentDescription = stringResource(id = R.string.str_albumImage),
             modifier = Modifier.size(35.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant
         )

@@ -43,7 +43,7 @@ fun AboutScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(id = R.string.desc_back)
+                                    contentDescription = stringResource(id = R.string.str_back)
                                 )
                             }
                         },
@@ -79,7 +79,7 @@ fun AboutScreen(navController: NavController) {
                                 ) {
                                     CenterCreditItem(
                                         titleText = stringResource(id = R.string.str_AlessioCameroni),
-                                        subText = stringResource(id = R.string.desc_AlessioCameroni)
+                                        subText = stringResource(id = R.string.info_AlessioCameroni)
                                     ) {
                                         Image(
                                             painter =
@@ -102,7 +102,7 @@ fun AboutScreen(navController: NavController) {
                                         headlineTextString =
                                             stringResource(id = R.string.str_arigata9),
                                         supportingTextString =
-                                            stringResource(id = R.string.desc_arigata9),
+                                            stringResource(id = R.string.info_arigata9),
                                         leadingContent = {
                                             SmallImageContainer(
                                                 modifier = Modifier
@@ -171,7 +171,7 @@ fun AboutScreen(navController: NavController) {
                                         headlineTextString =
                                             stringResource(id = R.string.str_openSourceLicenses),
                                         supportingTextString =
-                                            stringResource(id = R.string.desc_openSourceLicenses),
+                                            stringResource(id = R.string.info_openSourceLicenses),
                                         leadingContent = {
                                             Icon(
                                                 painter =

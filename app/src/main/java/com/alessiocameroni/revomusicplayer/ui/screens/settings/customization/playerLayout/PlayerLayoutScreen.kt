@@ -54,7 +54,7 @@ fun PlayerLayoutScreen(
 
                         Row( modifier = Modifier ) {
                             PixelySupportInfoText(
-                                stringText = stringResource(id = R.string.desc_layoutPlayer)
+                                stringText = stringResource(id = R.string.info_layoutPlayer)
                             )
                         }
                         

@@ -24,7 +24,7 @@ fun CustomizationTopActionBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                    contentDescription = stringResource(id = R.string.desc_back)
+                    contentDescription = stringResource(id = R.string.str_back)
                 )
             }
         },

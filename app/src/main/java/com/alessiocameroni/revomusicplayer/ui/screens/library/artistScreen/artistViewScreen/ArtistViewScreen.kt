@@ -83,7 +83,7 @@ fun ArtistViewScreen(
                                 .data(viewModel.artistPictureUri.value)
                                 .crossfade(true)
                                 .build(),
-                            contentDescription = stringResource(id = R.string.desc_albumImage),
+                            contentDescription = stringResource(id = R.string.str_albumImage),
                             modifier = Modifier.fillMaxSize()
                         )
                     }
@@ -153,7 +153,7 @@ fun RowAlbumList(
                             .data(item.albumCoverUri)
                             .crossfade(true)
                             .build(),
-                        contentDescription = stringResource(id = R.string.desc_albumImage),
+                        contentDescription = stringResource(id = R.string.str_albumImage),
                         modifier = Modifier.fillMaxSize()
                     )
                 }

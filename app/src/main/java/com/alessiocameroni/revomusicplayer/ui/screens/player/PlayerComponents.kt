@@ -38,7 +38,7 @@ internal fun PlayerTopActionBar(navController: NavController) {
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_down_24),
-                    contentDescription = stringResource(id = R.string.desc_closeMusic)
+                    contentDescription = stringResource(id = R.string.str_closePlayer)
                 )
             }
         }
@@ -125,7 +125,7 @@ internal fun PlayerBottomAppBarDropDownMenu(
                 leadingIcon = {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                        contentDescription = stringResource(id = R.string.desc_settings)
+                        contentDescription = stringResource(id = R.string.str_settings)
                     )
                 }
             )
@@ -181,12 +181,12 @@ internal fun PlayerControls(
                 if(favouriteChecked) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_filled_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
+                        contentDescription = stringResource(id = R.string.str_addToFavorites)
                     )
                 } else {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_outlined_favorite_24),
-                        contentDescription = stringResource(id = R.string.desc_favorite)
+                        contentDescription = stringResource(id = R.string.str_addToFavorites)
                     )
                 }
             }
@@ -262,7 +262,7 @@ private fun PreviousButton() {
         Icon(
             modifier = Modifier.size(30.dp),
             painter = painterResource(id = R.drawable.ic_filled_skip_previous_24),
-            contentDescription = stringResource(id = R.string.desc_skipPrevious)
+            contentDescription = stringResource(id = R.string.str_previous)
         )
     }
 }
@@ -281,7 +281,7 @@ private fun PlayButton() {
         Icon(
             modifier = Modifier.size(30.dp),
             painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-            contentDescription = stringResource(id = R.string.desc_playSong)
+            contentDescription = stringResource(id = R.string.str_play)
         )
     }
 }
@@ -295,7 +295,7 @@ private fun NextButton() {
         Icon(
             modifier = Modifier.size(30.dp),
             painter = painterResource(id = R.drawable.ic_filled_skip_next_24),
-            contentDescription = stringResource(id = R.string.desc_skipNext)
+            contentDescription = stringResource(id = R.string.str_next)
         )
     }
 }

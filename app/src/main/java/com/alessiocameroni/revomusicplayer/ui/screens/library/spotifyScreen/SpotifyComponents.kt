@@ -35,7 +35,7 @@ fun SpotifyTopActionBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                    contentDescription = stringResource(id = R.string.desc_searchMenu)
+                    contentDescription = stringResource(id = R.string.str_search)
                 )
             }
 
@@ -76,7 +76,7 @@ private fun TopBarDropDownMenu(
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                    contentDescription = stringResource(id = R.string.desc_settings)
+                    contentDescription = stringResource(id = R.string.str_settings)
                 )
             }
         )

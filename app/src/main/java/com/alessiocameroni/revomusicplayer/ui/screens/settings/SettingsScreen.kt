@@ -31,7 +31,7 @@ fun SettingsScreen(navController: NavController) {
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(id = R.string.desc_back)
+                                    contentDescription = stringResource(id = R.string.str_back)
                                 )
                             }
                         }
@@ -49,11 +49,11 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_library),
-                                supportingTextString = stringResource(id = R.string.desc_library),
+                                supportingTextString = stringResource(id = R.string.info_library),
                                 leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_library_music_24),
-                                        contentDescription = stringResource(id = R.string.desc_library)
+                                        contentDescription = stringResource(id = R.string.info_library)
                                     )
                                 }
                             )
@@ -64,11 +64,11 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_customization),
-                                supportingTextString = stringResource(id = R.string.desc_customization),
+                                supportingTextString = stringResource(id = R.string.info_customization),
                                 leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_palette_24), 
-                                        contentDescription = stringResource(id = R.string.desc_customization)
+                                        contentDescription = stringResource(id = R.string.info_customization)
                                     )
                                 }
                             )
@@ -79,11 +79,11 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_other),
-                                supportingTextString = stringResource(id = R.string.desc_other),
+                                supportingTextString = stringResource(id = R.string.info_other),
                                 leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_interests_24),
-                                        contentDescription = stringResource(id = R.string.desc_other)
+                                        contentDescription = stringResource(id = R.string.info_other)
                                     )
                                 }
                             )
@@ -94,11 +94,11 @@ fun SettingsScreen(navController: NavController) {
                                 modifier = Modifier
                                     .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
                                 headlineTextString = stringResource(id = R.string.str_about),
-                                supportingTextString = stringResource(id = R.string.desc_about),
+                                supportingTextString = stringResource(id = R.string.info_about),
                                 leadingContent = {
                                     Icon(
                                         painter = painterResource(id = R.drawable.ic_outlined_info_24), 
-                                        contentDescription = stringResource(id = R.string.desc_about)
+                                        contentDescription = stringResource(id = R.string.info_about)
                                     )
                                 }
                             )

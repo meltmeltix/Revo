@@ -80,7 +80,7 @@ fun AlbumViewScreen(
                                     .data(viewModel.albumCoverUri.value)
                                     .crossfade(true)
                                     .build(),
-                                contentDescription = stringResource(id = R.string.desc_albumImage),
+                                contentDescription = stringResource(id = R.string.str_albumImage),
                                 modifier = Modifier.fillMaxSize()
                             )
                         }

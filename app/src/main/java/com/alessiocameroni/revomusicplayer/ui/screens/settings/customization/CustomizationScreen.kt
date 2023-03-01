@@ -80,7 +80,7 @@ fun CustomizationScreen(
                                         )
                                     },
                                 headlineTextString = stringResource(id = R.string.str_layoutPlayer),
-                                supportingTextString = stringResource(id = R.string.desc_layoutPlayer)
+                                supportingTextString = stringResource(id = R.string.info_layoutPlayer)
                             )
                         }
                     }

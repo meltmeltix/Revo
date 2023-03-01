@@ -62,11 +62,20 @@ fun AlbumViewTopActionBar(
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                    contentDescription = stringResource(id = R.string.desc_back)
+                    contentDescription = stringResource(id = R.string.str_back)
                 )
             }
         },
         actions = {
+            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                        contentDescription = stringResource(id = R.string.str_sortBy)
+                    )
+                }
+            }
+
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
                 IconButton(onClick = { expandedMenu.value = true }) {
                     Icon(
@@ -126,7 +135,7 @@ fun AlbumViewTopBarDropDownMenu(
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_outlined_settings_24),
-                    contentDescription = stringResource(id = R.string.desc_settings)
+                    contentDescription = stringResource(id = R.string.str_settings)
                 )
             }
         )
@@ -166,7 +175,7 @@ fun AlbumViewHeader(
                 modifier = Modifier
                     .size(120.dp),
                 painter = painterResource(id = R.drawable.ic_outlined_album_24),
-                contentDescription = stringResource(id = R.string.desc_albumImage),
+                contentDescription = stringResource(id = R.string.str_albumImage),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
