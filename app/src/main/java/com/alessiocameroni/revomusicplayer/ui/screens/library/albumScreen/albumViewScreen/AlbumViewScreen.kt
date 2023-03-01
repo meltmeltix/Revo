@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -23,6 +23,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,14 +32,22 @@ fun AlbumViewScreen(
     albumId: Long,
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: AlbumViewViewModel = viewModel(),
+    viewModel: AlbumViewViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
-    val textVisibility =
-        remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
+    val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val albumSongs = viewModel.albumSongs
+
+    val selectedSortType by remember { viewModel.sortingType }
+    val selectedSortOrder by remember { viewModel.sortingOrder }
+
+    listSort(
+        albumSongs,
+        selectedSortOrder,
+        selectedSortType
+    )
 
     LaunchedEffect(Unit) {
         viewModel.initializeAlbumSongsList(context, albumId)
@@ -50,9 +59,8 @@ fun AlbumViewScreen(
             AlbumViewTopActionBar(
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
-                albumTitleString = viewModel.albumTitle.value,
+                viewModel = viewModel,
                 textVisibility = textVisibility,
-                artistId = viewModel.artistId,
                 scrollBehavior = scrollBehavior,
             )
         },
@@ -67,13 +75,7 @@ fun AlbumViewScreen(
                 item {
                     AlbumViewHeader(
                         navControllerBottomBar = navControllerBottomBar,
-                        albumTitleString = viewModel.albumTitle.value,
-                        albumArtistId = viewModel.artistId,
-                        albumArtistString = viewModel.artist.value,
-                        albumSongAmount = viewModel.albumSongAmount.value,
-                        albumHoursAmount = viewModel.albumHoursAmount.value,
-                        albumMinutesAmount = viewModel.albumMinutesAmount.value,
-                        albumSecondsAmount = viewModel.albumSecondsAmount.value,
+                        viewModel = viewModel,
                         leadingUnit = {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
@@ -105,7 +107,7 @@ fun AlbumViewScreen(
                             maxHeadlineLines = 1,
                             leadingContent = {
                                 Text(
-                                    text = item.track ?: "-",
+                                    text = if(item.track == 0) "-" else item.track.toString(),
                                     modifier = Modifier
                                         .widthIn(max = 40.dp),
                                     maxLines = 1,
@@ -146,4 +148,27 @@ fun AlbumViewScreen(
             }
         }
     )
+}
+
+private fun listSort(
+    songs: MutableList<AlbumSongData>,
+    sortOrder: Int,
+    sortType: Int
+) {
+    when(sortOrder) {
+        0 -> {
+            when(sortType) {
+                0 -> songs.sortBy { it.track }
+                1 -> songs.sortBy { it.songTitle }
+                2 -> songs.sortBy { it.duration }
+            }
+        }
+        1 -> {
+            when(sortType) {
+                0 -> songs.sortByDescending { it.track }
+                1 -> songs.sortByDescending { it.songTitle }
+                2 -> songs.sortByDescending { it.duration }
+            }
+        }
+    }
 }

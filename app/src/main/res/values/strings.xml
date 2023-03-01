@@ -118,4 +118,5 @@
     <string name="str_openPlayer">Open player</string>
     <string name="str_closePlayer">Close player</string>
     <string name="str_addToFavorites">Add to favorites</string>
+    <string name="str_trackNumber">Track number</string>
 </resources>

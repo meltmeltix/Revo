@@ -94,4 +94,21 @@
     <string name="str_openPlayer">Apri player</string>
     <string name="str_closePlayer">Chiudi player</string>
     <string name="str_addToFavorites">Aggiungi ai preferiti</string>
+    <plurals name="str_songAmount">
+        <item quantity="one">brani</item>
+        <item quantity="other">brani</item>
+    </plurals>
+    <plurals name="str_albumAmount">
+        <item quantity="one">album</item>
+        <item quantity="other">album</item>
+    </plurals>
+    <plurals name="str_hourAmountAbbr">
+        <item quantity="one">h</item>
+        <item quantity="other">h</item>
+    </plurals>
+    <plurals name="str_minutesAmountAbbr">
+        <item quantity="one">min</item>
+        <item quantity="other">min</item>
+    </plurals>
+    <string name="str_trackNumber">Numero traccia</string>
 </resources>

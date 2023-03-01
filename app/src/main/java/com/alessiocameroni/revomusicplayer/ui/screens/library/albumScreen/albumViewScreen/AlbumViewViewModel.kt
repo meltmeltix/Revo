@@ -7,43 +7,57 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
+import com.alessiocameroni.revomusicplayer.data.classes.SortData
+import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class AlbumViewViewModel: ViewModel() {
+@HiltViewModel
+class AlbumViewViewModel @Inject constructor(
+    private val sortingRepositoryImpl: SortingRepositoryImpl
+): ViewModel() {
     val albumSongs = mutableListOf<AlbumSongData>()
     private var albumSongsInitialized = false
     private var albumInfoRetrieved = false
 
-    private val _albumCoverUri = MutableLiveData<Uri>()
-    private val _albumTitle = MutableLiveData("")
-    private val _artist = MutableLiveData("")
-    private val _albumSongAmount = MutableLiveData(0)
-    private val _albumHoursAmount = MutableLiveData(0)
-    private val _albumMinutesAmount = MutableLiveData(0)
-    private val _albumSecondsAmount = MutableLiveData(0)
+    var albumCoverUri = mutableStateOf<Uri?>(null)
+    var albumTitle = mutableStateOf("Album Title")
+    var artistId = mutableStateOf<Long>(0)
+    var artist = mutableStateOf("Artist Name")
+    var albumSongAmount = mutableStateOf(0)
+    var albumHoursAmount = mutableStateOf(0)
+    var albumMinutesAmount = mutableStateOf(0)
+    var albumSecondsAmount = mutableStateOf(0)
 
-    var albumCoverUri: LiveData<Uri> = _albumCoverUri
-    var albumTitle: LiveData<String> = _albumTitle
-    var artistId: Long = 0
-    var artist: LiveData<String> = _artist
-    var albumSongAmount: LiveData<Int> = _albumSongAmount
-    var albumHoursAmount: LiveData<Int> = _albumHoursAmount
-    var albumMinutesAmount: LiveData<Int> = _albumMinutesAmount
-    var albumSecondsAmount: LiveData<Int> = _albumSecondsAmount
+    var sortingType = mutableStateOf(0)
+    var sortingOrder = mutableStateOf(0)
 
+    init {
+        viewModelScope.launch {
+            sortingRepositoryImpl.getAlbumSongsSorting().collect {
+                sortingType.value = it.type
+                sortingOrder.value = it.order
+            }
+        }
+    }
+
+    /**
+     * Album fetching
+     */
     fun initializeAlbumSongsList(
         context: Context,
         albumId: Long,
     ) {
         if (albumSongsInitialized) return
 
-        val _totalDuration = MutableLiveData(0)
-        val totalDuration: LiveData<Int> = _totalDuration
+        val totalDuration = mutableStateOf(0)
 
         val collection =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -64,7 +78,7 @@ class AlbumViewViewModel: ViewModel() {
 
         val selection =
             "${Media.IS_MUSIC} != 0 AND ${Media.ALBUM_ID} = $albumId"
-        val sortOrder = "${Media.TRACK} ASC"
+        val sortOrder = "${Media.TITLE} ASC"
         val query = context.contentResolver.query(
             collection,
             projection,
@@ -86,7 +100,7 @@ class AlbumViewViewModel: ViewModel() {
                 val id = cursor.getLong(idColumn)
                 val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
                 val title = cursor.getString(titleColumn)
-                val track = cursor.getString(trackColumn)
+                val track = cursor.getInt(trackColumn)
                 val duration = cursor.getInt(durationColumn)
                 val fixedDuration = calculateSongDuration(duration)
 
@@ -109,8 +123,8 @@ class AlbumViewViewModel: ViewModel() {
                     )
                 )
 
-                _albumSongAmount.value = _albumSongAmount.value?.plus(1)
-                _totalDuration.value = _totalDuration.value?.plus(duration)
+                albumSongAmount.value = albumSongAmount.value.plus(1)
+                totalDuration.value = totalDuration.value.plus(duration)
             }
 
             calculateAlbumDuration(totalDuration.value)
@@ -127,12 +141,12 @@ class AlbumViewViewModel: ViewModel() {
     ) {
         if (albumInfoRetrieved) return
 
-        _albumTitle.value = cursor.getString(albumTitleColumn)
-        artistId = cursor.getLong(artistIdColumn)
-        _artist.value = cursor.getString(artistColumn)
+        albumTitle.value = cursor.getString(albumTitleColumn)
+        artistId.value = cursor.getLong(artistIdColumn)
+        artist.value = cursor.getString(artistColumn)
 
         val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
-        _albumCoverUri.value = ContentUris.withAppendedId(albumCover, albumId)
+        albumCoverUri.value = ContentUris.withAppendedId(albumCover, albumId)
 
         albumInfoRetrieved = true
     }
@@ -150,8 +164,17 @@ class AlbumViewViewModel: ViewModel() {
             }
         }
 
-        _albumHoursAmount.value = hours.toInt()
-        _albumMinutesAmount.value = minutes.toInt()
-        _albumSecondsAmount.value = seconds
+        albumHoursAmount.value = hours.toInt()
+        albumMinutesAmount.value = minutes.toInt()
+        albumSecondsAmount.value = seconds
+    }
+
+    /**
+     * Preferences management
+     */
+    fun setSortData(type: Int, order: Int) {
+        viewModelScope.launch {
+            sortingRepositoryImpl.setAlbumSongsSorting(SortData(type, order))
+        }
     }
 }

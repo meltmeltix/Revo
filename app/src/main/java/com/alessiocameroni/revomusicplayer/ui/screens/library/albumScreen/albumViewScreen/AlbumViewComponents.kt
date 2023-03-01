@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
@@ -34,13 +35,14 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 fun AlbumViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
+    viewModel: AlbumViewViewModel,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
-    artistId: Long,
-    albumTitleString: String?,
 ) {
+    val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-    val albumTitle: String = albumTitleString ?: "Album Title"
+    val artistId by remember { viewModel.artistId }
+    val albumTitle by remember { viewModel.albumTitle }
 
     TopAppBar(
         title = {
@@ -68,12 +70,17 @@ fun AlbumViewTopActionBar(
         },
         actions = {
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { expandedSortMenu.value = true }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_sort_24),
                         contentDescription = stringResource(id = R.string.str_sortBy)
                     )
                 }
+
+                SortDropDownMenu(
+                    expandedSortMenu,
+                    viewModel
+                )
             }
 
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
@@ -84,7 +91,7 @@ fun AlbumViewTopActionBar(
                     )
                 }
 
-                AlbumViewTopBarDropDownMenu(
+                TopBarDropDownMenu(
                     expanded = expandedMenu,
                     navController = navController,
                     navControllerBottomBar = navControllerBottomBar,
@@ -97,7 +104,7 @@ fun AlbumViewTopActionBar(
 }
 
 @Composable
-fun AlbumViewTopBarDropDownMenu(
+private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController,
     navControllerBottomBar: NavHostController,
@@ -142,6 +149,110 @@ fun AlbumViewTopBarDropDownMenu(
     }
 }
 
+@Composable
+private fun SortDropDownMenu(
+    expanded: MutableState<Boolean>,
+    viewModel: AlbumViewViewModel
+) {
+    val sortTypeList = listOf(
+        stringResource(id = R.string.str_trackNumber),
+        stringResource(id = R.string.str_name),
+        stringResource(id = R.string.str_duration)
+    )
+    val sortOrderList = listOf(
+        stringResource(id = R.string.str_ascending),
+        stringResource(id = R.string.str_descending)
+    )
+    var selectedSortType by remember { viewModel.sortingType }
+    var selectedSortOrder by remember { viewModel.sortingOrder }
+
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        PixelyDropdownMenuTitle(
+            stringTitle = stringResource(id = R.string.str_sortType)
+        )
+
+        SortTypeSelector(
+            expanded = expanded,
+            options = sortTypeList,
+            selected = sortTypeList[selectedSortType],
+            onSelected = { selectedSortType = sortTypeList.indexOf(it) },
+            viewModel = viewModel,
+            orderSelection = selectedSortOrder
+        )
+
+        Divider()
+
+        PixelyDropdownMenuTitle(
+            stringTitle = stringResource(id = R.string.str_sortOrder)
+        )
+
+        SortOrderSelector(
+            expanded = expanded,
+            options = sortOrderList,
+            selected = sortOrderList[selectedSortOrder],
+            onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
+            viewModel = viewModel,
+            typeSelection = selectedSortType
+        )
+    }
+}
+
+@Composable
+private fun SortTypeSelector(
+    expanded: MutableState<Boolean>,
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: AlbumViewViewModel,
+    orderSelection: Int
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.setSortData(options.indexOf(text), orderSelection)
+                expanded.value = false
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun SortOrderSelector(
+    expanded: MutableState<Boolean>,
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: AlbumViewViewModel,
+    typeSelection: Int
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.setSortData(typeSelection, options.indexOf(text))
+                expanded.value = false
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
+                )
+            }
+        )
+    }
+}
 
 /**
  * Header components
@@ -149,13 +260,7 @@ fun AlbumViewTopBarDropDownMenu(
 @Composable
 fun AlbumViewHeader(
     navControllerBottomBar: NavHostController,
-    albumTitleString: String? = null,
-    albumArtistId: Long,
-    albumArtistString: String? = null,
-    albumSongAmount: Int?,
-    albumHoursAmount: Int? = null,
-    albumMinutesAmount: Int? = null,
-    albumSecondsAmount: Int? = null,
+    viewModel: AlbumViewViewModel,
     leadingUnit: @Composable () -> Unit?,
 ) {
     Column(
@@ -189,13 +294,7 @@ fun AlbumViewHeader(
 
             HeaderText(
                 navControllerBottomBar = navControllerBottomBar,
-                albumTitleString = albumTitleString,
-                albumArtistId = albumArtistId,
-                albumArtistString = albumArtistString,
-                albumSongAmount = albumSongAmount,
-                albumHoursAmount = albumHoursAmount,
-                albumMinutesAmount = albumMinutesAmount,
-                albumSecondsAmount = albumSecondsAmount
+                viewModel = viewModel,
             )
         }
 
@@ -206,21 +305,15 @@ fun AlbumViewHeader(
 @Composable
 private fun HeaderText(
     navControllerBottomBar: NavHostController,
-    albumTitleString: String?,
-    albumArtistId: Long,
-    albumArtistString: String?,
-    albumSongAmount: Int?,
-    albumHoursAmount: Int?,
-    albumMinutesAmount: Int?,
-    albumSecondsAmount: Int?,
+    viewModel: AlbumViewViewModel,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val albumTitle: String = albumTitleString ?: "Album Title"
-    val artistName: String = albumArtistString ?: "Artist Name"
-    val songAmount: Int = albumSongAmount ?: 0
-    val hoursAmount: Int = albumHoursAmount ?: 0
-    val minutesAmount: Int = albumMinutesAmount ?: 0
-    val secondsAmount: Int = albumSecondsAmount ?: 0
+    val albumTitle: String = viewModel.albumTitle.value
+    val artistName: String = viewModel.artist.value
+    val songAmount: Int = viewModel.albumSongAmount.value
+    val hoursAmount: Int = viewModel.albumHoursAmount.value
+    val minutesAmount: Int = viewModel.albumMinutesAmount.value
+    val secondsAmount: Int = viewModel.albumSecondsAmount.value
     val albumInfo =
         "$songAmount " +
         pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
@@ -268,7 +361,7 @@ private fun HeaderText(
                     ) {
                         navControllerBottomBar.navigate(
                             NavigationScreens.ArtistViewScreen.route +
-                                "/$albumArtistId"
+                                "/${viewModel.artistId}"
                         )
                     },
                 color = Color.White,

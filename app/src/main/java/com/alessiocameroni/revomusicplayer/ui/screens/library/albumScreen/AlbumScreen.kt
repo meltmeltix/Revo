@@ -122,7 +122,7 @@ fun AlbumsScreen(
     )
 }
 
-fun listSort(
+private fun listSort(
     albums: SnapshotStateList<AlbumData>,
     sortOrder: Int,
     sortType: Int
