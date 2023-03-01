@@ -9,7 +9,7 @@
 ## 🤔 About
 Revo is a local music player aiming to be clean and consistent, with a modern user interface and an essential feature set. Revo also allows to connect Spotify music library, making your listening experience comfortable and easier by listing your liked songs beside your own local library.
 
-I primarly built Revo for myself as a solo project, helping me learn Android Development.
+I primarily built Revo for myself as a solo project, helping me learn Android Development.
 
 <br>
 

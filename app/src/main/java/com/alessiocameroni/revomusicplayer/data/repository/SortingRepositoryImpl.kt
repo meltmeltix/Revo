@@ -23,9 +23,15 @@ class SortingRepositoryImpl(
     private companion object {
         val SONG_SORTING_TYPE = intPreferencesKey("song_sorting_type")
         val SONG_SORTING_ORDER = intPreferencesKey("song_sorting_order")
+
         val ALBUM_SORTING_TYPE = intPreferencesKey("album_sorting_type")
         val ALBUM_SORTING_ORDER = intPreferencesKey("album_sorting_order")
+        val ALBUM_SONGS_SORTING_TYPE = intPreferencesKey("album_songs_sorting_type")
+        val ALBUM_SONGS_SORTING_ORDER = intPreferencesKey("album_songs_sorting_order")
+
         val ARTIST_SORTING_ORDER = intPreferencesKey("artist_sorting_order")
+        val ARTIST_SONGS_SORTING_TYPE = intPreferencesKey("artist_songs_sorting_type")
+        val ARTIST_SONGS_SORTING_ORDER = intPreferencesKey("artist_songs_sorting_order")
     }
 
     /**
@@ -47,11 +53,27 @@ class SortingRepositoryImpl(
             )
         }
 
+    override suspend fun getAlbumSongsSorting(): Flow<SortData> = context.dataStore.data
+        .map { preferences ->
+            SortData(
+                type = preferences[ALBUM_SONGS_SORTING_TYPE] ?: 0,
+                order = preferences[ALBUM_SONGS_SORTING_ORDER] ?: 0
+            )
+        }
+
     override suspend fun getArtistSorting(): Flow<SortData> = context.dataStore.data
         .map { preferences ->
             SortData(
                 type = 0,
                 order = preferences[ARTIST_SORTING_ORDER] ?: 0
+            )
+        }
+
+    override suspend fun getArtistSongsSorting(): Flow<SortData> = context.dataStore.data
+        .map { preferences ->
+            SortData(
+                type = preferences[ARTIST_SONGS_SORTING_TYPE] ?: 0,
+                order = preferences[ARTIST_SONGS_SORTING_ORDER] ?: 0
             )
         }
 
@@ -72,9 +94,23 @@ class SortingRepositoryImpl(
         }
     }
 
+    override suspend fun setAlbumSongsSorting(sortData: SortData) {
+        context.dataStore.edit { preferences ->
+            preferences[ALBUM_SONGS_SORTING_TYPE] = sortData.type
+            preferences[ALBUM_SONGS_SORTING_ORDER] = sortData.order
+        }
+    }
+
     override suspend fun setArtistSorting(sortData: SortData) {
         context.dataStore.edit { preferences ->
             preferences[ARTIST_SORTING_ORDER] = sortData.order
+        }
+    }
+
+    override suspend fun setArtistSongsSorting(sortData: SortData) {
+        context.dataStore.edit { preferences ->
+            preferences[ARTIST_SONGS_SORTING_TYPE] = sortData.type
+            preferences[ARTIST_SONGS_SORTING_ORDER] = sortData.order
         }
     }
 }

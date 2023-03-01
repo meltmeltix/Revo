@@ -74,7 +74,7 @@ fun AppLanguageScreen(navController: NavController) {
                                             context.startActivity(intent)
                                         }
                                     },
-                                headlineTextString = stringResource(id = R.string.app_launguage),
+                                headlineTextString = stringResource(id = R.string.app_language),
                                 trailingContent = {
                                     if(changeLanguageEnabled) {
                                         Icon(

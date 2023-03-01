@@ -70,7 +70,7 @@ fun OtherScreen(navController: NavController) {
                                             )
                                     },
                                 headlineTextString = stringResource(id = R.string.str_appLanguage),
-                                supportingTextString = stringResource(id = R.string.app_launguage)
+                                supportingTextString = stringResource(id = R.string.app_language)
                             )
                         }
                     }

@@ -32,15 +32,14 @@ fun SongTopActionBar(
 
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.str_songs)) },
-        navigationIcon = {
+        actions = {
             IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_search_24),
                     contentDescription = stringResource(id = R.string.desc_searchMenu)
                 )
             }
-        },
-        actions = {
+
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
                 IconButton(onClick = { expandedMenu.value = true }) {
                     Icon(
@@ -240,12 +239,6 @@ fun SongItemDropDownMenu(
                     NavigationScreens.AlbumViewScreen.route + "/$albumId"
                 )
                 expanded.value = false
-            },
-            leadingIcon = { 
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24), 
-                    contentDescription = stringResource(id = R.string.str_goToAlbum)
-                )
             }
         )
 
@@ -256,12 +249,6 @@ fun SongItemDropDownMenu(
                     NavigationScreens.ArtistViewScreen.route + "/$artistId"
                 )
                 expanded.value = false
-            },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24),
-                    contentDescription = stringResource(id = R.string.str_goToArtist)
-                )
             }
         )
     }

@@ -285,12 +285,6 @@ fun ArtistViewItemDropDownMenu(
                         "/$albumId"
                 )
                 expanded.value = false
-            },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_album_24),
-                    contentDescription = stringResource(id = R.string.str_goToAlbum)
-                )
             }
         )
     }
@@ -308,8 +302,7 @@ fun ArtistViewHorizontalListItem(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         LargeImageContainer(
-            painterPlaceholder =
-            painterResource(id = R.drawable.ic_outlined_album_24)
+            painterPlaceholder = painterResource(id = R.drawable.ic_outlined_album_24)
         ) { leadingUnit() }
 
         Text(

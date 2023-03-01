@@ -109,7 +109,7 @@ fun AlbumViewTopBarDropDownMenu(
             },
             leadingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24),
+                    painter = painterResource(id = R.drawable.ic_outlined_go_to_artist_24), 
                     contentDescription = stringResource(id = R.string.str_goToArtist)
                 )
             }
@@ -327,8 +327,7 @@ private fun HeaderButtons() {
  */
 @Composable
 fun AlbumViewItemDropDownMenu(
-    expanded: MutableState<Boolean>,
-    navController: NavController
+    expanded: MutableState<Boolean>
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,

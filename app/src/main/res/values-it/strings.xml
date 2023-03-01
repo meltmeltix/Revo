@@ -72,7 +72,7 @@
     <string name="str_permStorageDenied">Permesso per accedere all\'archivio negato.</string>
     <string name="str_other">Altro</string>
     <string name="desc_other">Altre funzionalità avanzate</string>
-    <string name="app_launguage">Italiano</string>
+    <string name="app_language">Italiano</string>
     <string name="str_generalPrefs">Preferenze generali</string>
     <string name="str_appLanguage">Lingua app</string>
     <string name="desc_appLanguage">Cambia il linguaggio dell\'app nelle impostazioni di sistema</string>

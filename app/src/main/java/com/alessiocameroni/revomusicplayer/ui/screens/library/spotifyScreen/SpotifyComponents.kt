@@ -29,7 +29,7 @@ fun SpotifyTopActionBar(
 
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.str_spotify)) },
-        navigationIcon = {
+        actions = {
             IconButton(
                 onClick = { navController.navigate(Screens.SearchScreen.route) }
             ) {
@@ -38,8 +38,7 @@ fun SpotifyTopActionBar(
                     contentDescription = stringResource(id = R.string.desc_searchMenu)
                 )
             }
-        },
-        actions = {
+
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
                 IconButton(onClick = { expandedMenu.value = true }) {
                     Icon(

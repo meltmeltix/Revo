@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -97,6 +98,22 @@ fun ArtistsScreen(
                                         )
                                     }
                                 )
+                            },
+                            trailingContent = {
+                                val expandedItemMenu = remember { mutableStateOf(false) }
+
+                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                                    IconButton(onClick = { expandedItemMenu.value = true }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                            contentDescription = stringResource(id = R.string.str_moreOptions)
+                                        )
+                                    }
+
+                                    ArtistItemDropDownMenu(
+                                        expanded = expandedItemMenu
+                                    )
+                                }
                             }
                         )
                     }

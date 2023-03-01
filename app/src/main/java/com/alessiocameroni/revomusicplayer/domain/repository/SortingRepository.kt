@@ -6,9 +6,13 @@ import kotlinx.coroutines.flow.Flow
 interface SortingRepository {
     suspend fun getSongSorting(): Flow<SortData>
     suspend fun getAlbumSorting(): Flow<SortData>
+    suspend fun getAlbumSongsSorting(): Flow<SortData>
     suspend fun getArtistSorting(): Flow<SortData>
+    suspend fun getArtistSongsSorting(): Flow<SortData>
 
     suspend fun setSongSorting(sortData: SortData)
     suspend fun setAlbumSorting(sortData: SortData)
+    suspend fun setAlbumSongsSorting(sortData: SortData)
     suspend fun setArtistSorting(sortData: SortData)
+    suspend fun setArtistSongsSorting(sortData: SortData)
 }

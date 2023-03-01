@@ -25,7 +25,7 @@ fun PlaylistTopActionbar(
 
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.str_playlists)) },
-        navigationIcon = {
+        actions = {
             IconButton(
                 onClick = { navController.navigate(Screens.SearchScreen.route) }
             ) {
@@ -34,8 +34,7 @@ fun PlaylistTopActionbar(
                     contentDescription = stringResource(id = R.string.desc_searchMenu)
                 )
             }
-        },
-        actions = {
+
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
                 IconButton(onClick = { expandedMenu.value = true }) {
                     Icon(
@@ -85,8 +84,7 @@ private fun TopBarDropDownMenu(
  */
 @Composable
 fun PlaylistItemDropDownMenu(
-    expanded: MutableState<Boolean>,
-    navController: NavController
+    expanded: MutableState<Boolean>
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,
