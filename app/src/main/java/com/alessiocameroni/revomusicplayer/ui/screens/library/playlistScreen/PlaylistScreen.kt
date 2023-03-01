@@ -99,8 +99,7 @@ fun PlaylistsScreen(
                                     }
 
                                     PlaylistItemDropDownMenu(
-                                        expanded = expandedItemMenu,
-                                        navController = navController
+                                        expanded = expandedItemMenu
                                     )
                                 }
                             }

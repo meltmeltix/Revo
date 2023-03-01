@@ -135,8 +135,7 @@ fun AlbumViewScreen(
                                         }
 
                                         AlbumViewItemDropDownMenu(
-                                            expanded = expandedItemMenu,
-                                            navController = navController
+                                            expanded = expandedItemMenu
                                         )
                                     }
                                 }
