@@ -41,7 +41,7 @@ fun AlbumViewTopActionBar(
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-    val artistId by remember { viewModel.artistId }
+    val artistId = viewModel.artistId
     val albumTitle by remember { viewModel.albumTitle }
 
     TopAppBar(

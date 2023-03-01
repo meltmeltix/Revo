@@ -29,7 +29,7 @@ class AlbumViewViewModel @Inject constructor(
 
     var albumCoverUri = mutableStateOf<Uri?>(null)
     var albumTitle = mutableStateOf("Album Title")
-    var artistId = mutableStateOf<Long>(0)
+    var artistId: Long = 0
     var artist = mutableStateOf("Artist Name")
     var albumSongAmount = mutableStateOf(0)
     var albumHoursAmount = mutableStateOf(0)
@@ -142,7 +142,7 @@ class AlbumViewViewModel @Inject constructor(
         if (albumInfoRetrieved) return
 
         albumTitle.value = cursor.getString(albumTitleColumn)
-        artistId.value = cursor.getLong(artistIdColumn)
+        artistId = cursor.getLong(artistIdColumn)
         artist.value = cursor.getString(artistColumn)
 
         val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
