@@ -297,27 +297,6 @@ fun ArtistViewItemDropDownMenu(
 }
 
 @Composable
-fun ArtistViewSectionTitle(
-    stringTitle: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .padding(horizontal = 15.dp)
-            .padding(top = 20.dp)
-    ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            color = MaterialTheme.colorScheme.primary,
-            text = stringTitle,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
-
-@Composable
 fun ArtistViewHorizontalListItem(
     albumTitle: String,
     leadingUnit: @Composable () -> Unit,

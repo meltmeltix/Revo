@@ -14,7 +14,6 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
-import com.alessiocameroni.revomusicplayer.ui.screens.library.TopBarDropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,6 +54,36 @@ fun PlaylistTopActionbar(
 }
 
 @Composable
+private fun TopBarDropDownMenu(
+    expanded: MutableState<Boolean>,
+    navController: NavController
+) {
+    RoundedDropDownMenu(
+        expanded = expanded.value,
+        onDismissRequest = { expanded.value = false }
+    ) {
+        Divider()
+
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_settings)) },
+            onClick = {
+                navController.navigate(Screens.SettingsScreen.route)
+                expanded.value = false
+            },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_outlined_settings_24),
+                    contentDescription = stringResource(id = R.string.desc_settings)
+                )
+            }
+        )
+    }
+}
+
+/**
+ * Screen components
+ */
+@Composable
 fun PlaylistItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
@@ -67,7 +96,6 @@ fun PlaylistItemDropDownMenu(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPlaylistDialog(
     modifier: Modifier,

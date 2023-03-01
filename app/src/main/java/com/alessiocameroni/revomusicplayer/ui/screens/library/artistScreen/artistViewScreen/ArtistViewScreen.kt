@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumData
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongData
@@ -96,8 +97,9 @@ fun ArtistViewScreen(
                         Column(
                             verticalArrangement = Arrangement.spacedBy(2.dp),
                         ) {
-                            ArtistViewSectionTitle(
-                                stringTitle = stringResource(id = R.string.str_albums)
+                            PixelySectionTitle(
+                                stringTitle = stringResource(id = R.string.str_albums),
+                                horizontalContentPadding = 15.dp
                             )
 
                             RowAlbumList(
@@ -109,8 +111,9 @@ fun ArtistViewScreen(
                 }
 
                 item {
-                    ArtistViewSectionTitle(
-                        stringTitle = stringResource(id = R.string.str_songs)
+                    PixelySectionTitle(
+                        stringTitle = stringResource(id = R.string.str_songs),
+                        horizontalContentPadding = 15.dp
                     )
                 }
 

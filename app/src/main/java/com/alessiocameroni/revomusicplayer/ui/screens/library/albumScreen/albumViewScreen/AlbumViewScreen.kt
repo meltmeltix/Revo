@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import java.util.*
 
@@ -87,8 +88,9 @@ fun AlbumViewScreen(
                 }
 
                 item {
-                    AlbumViewSectionTitle(
-                        stringTitle = stringResource(id = R.string.str_songs)
+                    PixelySectionTitle(
+                        stringTitle = stringResource(id = R.string.str_songs),
+                        horizontalContentPadding = 15.dp
                     )
                 }
 

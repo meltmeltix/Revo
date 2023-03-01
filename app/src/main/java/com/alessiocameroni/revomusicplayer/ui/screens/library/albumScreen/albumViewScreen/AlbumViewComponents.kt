@@ -326,27 +326,6 @@ private fun HeaderButtons() {
  * Screen components
  */
 @Composable
-fun AlbumViewSectionTitle(
-    stringTitle: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .padding(horizontal = 15.dp)
-            .padding(top = 20.dp)
-    ) {
-        Text(
-            modifier = Modifier.weight(1f),
-            color = MaterialTheme.colorScheme.primary,
-            text = stringTitle,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-    }
-}
-
-@Composable
 fun AlbumViewItemDropDownMenu(
     expanded: MutableState<Boolean>,
     navController: NavController
