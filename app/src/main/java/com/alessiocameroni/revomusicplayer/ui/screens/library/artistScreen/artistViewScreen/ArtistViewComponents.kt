@@ -18,6 +18,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
+import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
@@ -33,13 +35,14 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 fun ArtistViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    artistName: String?,
-    artistAlbumsNumber: String?,
-    artistTracksNumber: String?,
+    viewModel: ArtistViewViewModel,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
+    val artistName by remember { viewModel.artist }
+    val artistAlbumsNumber by remember { viewModel.artistAlbumsNumber }
+    val artistTracksNumber by remember { viewModel.artistTracksNumber }
 
     TopAppBar(
         title = {
@@ -118,11 +121,13 @@ private fun ArtistViewDropDownMenu(
  */
 @Composable
 fun ArtistViewHeader(
-    artistName: String?,
-    artistAlbumsNumber: String?,
-    artistTracksNumber: String?,
+    viewModel: ArtistViewViewModel,
     leadingUnit: @Composable () -> Unit,
 ) {
+    val artistName by remember { viewModel.artist }
+    val artistAlbumsNumber by remember { viewModel.artistAlbumsNumber }
+    val artistTracksNumber by remember { viewModel.artistTracksNumber }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
@@ -206,21 +211,21 @@ private fun HeaderButtons() {
 private fun ArtistInfoText(
     largeText: Boolean,
     artistName: String?,
-    artistAlbumsNumber: String?,
-    artistTracksNumber: String?,
+    artistAlbumsNumber: Int,
+    artistTracksNumber: Int,
 ) {
     val nameString: String = artistName ?: "Artist Name"
     val artistInfo =
         "$artistAlbumsNumber " +
                 pluralStringResource(
                     id = R.plurals.str_albumAmount,
-                    count = (artistAlbumsNumber ?: "0").toInt()
+                    count = artistAlbumsNumber
                 ) +
                 " · " +
                 "$artistTracksNumber " +
                 pluralStringResource(
                     id = R.plurals.str_songAmount,
-                    count = (artistTracksNumber ?: "0").toInt()
+                    count = artistTracksNumber
                 )
 
     if(largeText) {
@@ -267,6 +272,125 @@ private fun ArtistInfoText(
 /**
  * Screen components
  */
+@Composable
+fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
+    val sortTypeList = listOf(
+        stringResource(id = R.string.str_name),
+        stringResource(id = R.string.str_trackNumber),
+        stringResource(id = R.string.str_duration),
+        stringResource(id = R.string.str_album)
+    )
+    val sortOrderList = listOf(
+        stringResource(id = R.string.str_ascending),
+        stringResource(id = R.string.str_descending)
+    )
+    val expanded = remember { mutableStateOf(false) }
+    var selectedSortType by remember { viewModel.sortingType }
+    var selectedSortOrder by remember { viewModel.sortingOrder }
+
+    PixelySectionTitle(
+        stringTitle = stringResource(id = R.string.str_songs),
+        horizontalContentPadding = 15.dp,
+        trailingUnit = {
+            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                IconButton(onClick = { expanded.value = true }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                        contentDescription = stringResource(id = R.string.str_sortBy)
+                    )
+                }
+
+                RoundedDropDownMenu(
+                    expanded = expanded.value,
+                    onDismissRequest = { expanded.value = false }
+                ) {
+                    PixelyDropdownMenuTitle(
+                        stringTitle = stringResource(id = R.string.str_sortType)
+                    )
+
+                    SortTypeSelector(
+                        expanded = expanded,
+                        options = sortTypeList,
+                        selected = sortTypeList[selectedSortType],
+                        onSelected = { selectedSortType = sortTypeList.indexOf(it) },
+                        viewModel = viewModel,
+                        orderSelection = selectedSortOrder
+                    )
+
+                    Divider()
+
+                    PixelyDropdownMenuTitle(
+                        stringTitle = stringResource(id = R.string.str_sortOrder)
+                    )
+
+                    SortOrderSelector(
+                        expanded = expanded,
+                        options = sortOrderList,
+                        selected = sortOrderList[selectedSortOrder],
+                        onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
+                        viewModel = viewModel,
+                        typeSelection = selectedSortType
+                    )
+                }
+            }
+        }
+    )
+}
+
+@Composable
+private fun SortTypeSelector(
+    expanded: MutableState<Boolean>,
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: ArtistViewViewModel,
+    orderSelection: Int
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.setSortData(options.indexOf(text), orderSelection)
+                expanded.value = false
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
+                )
+            }
+        )
+    }
+}
+
+@Composable
+private fun SortOrderSelector(
+    expanded: MutableState<Boolean>,
+    options: List<String>,
+    selected: String,
+    onSelected: (String) -> Unit,
+    viewModel: ArtistViewViewModel,
+    typeSelection: Int
+) {
+    options.forEach { text ->
+        DropdownMenuItem(
+            text = { Text(text = text) },
+            onClick = {
+                onSelected(text)
+                viewModel.setSortData(typeSelection, options.indexOf(text))
+                expanded.value = false
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = (text == selected),
+                    onClick = null
+                )
+            }
+        )
+    }
+}
+
 @Composable
 fun ArtistViewItemDropDownMenu(
     expanded: MutableState<Boolean>,

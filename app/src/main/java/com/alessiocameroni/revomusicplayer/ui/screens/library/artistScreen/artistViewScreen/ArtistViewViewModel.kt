@@ -7,32 +7,49 @@ import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumData
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongData
+import com.alessiocameroni.revomusicplayer.data.classes.SortData
+import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ArtistViewViewModel: ViewModel() {
+@HiltViewModel
+class ArtistViewViewModel @Inject constructor(
+    private val sortingRepositoryImpl: SortingRepositoryImpl
+): ViewModel() {
     val artistSongs = mutableListOf<ArtistSongData>()
     val artistAlbums = mutableListOf<ArtistAlbumData>()
     private var artistAlbumListInitialized = false
     private var artistSongListInitialized = false
     private var artistInfoRetrieved = false
 
-    private val _artist = MutableLiveData("")
-    private val _artistPictureUri = MutableLiveData<Uri>()
-    private val _artistTracksNumber = MutableLiveData("0")
-    private val _artistAlbumsNumber = MutableLiveData("0")
-    private val _albumAmountCheck = MutableLiveData(false)
+    var artist = mutableStateOf("Artist Name")
+    var artistPictureUri = mutableStateOf<Uri?>(null)
+    var artistAlbumsNumber = mutableStateOf(0)
+    var artistTracksNumber = mutableStateOf(0)
+    var albumAmountCheck = mutableStateOf(false)
 
-    var artist: LiveData<String> = _artist
-    var artistPictureUri: LiveData<Uri> = _artistPictureUri
-    var artistAlbumsNumber: LiveData<String> = _artistAlbumsNumber
-    var artistTrackNumber: LiveData<String> = _artistTracksNumber
-    var albumAmountCheck: LiveData<Boolean> = _albumAmountCheck
+    var sortingType = mutableStateOf(0)
+    var sortingOrder = mutableStateOf(0)
 
+    init {
+        viewModelScope.launch {
+            sortingRepositoryImpl.getArtistSongsSorting().collect {
+                sortingType.value = it.type
+                sortingOrder.value = it.order
+            }
+        }
+    }
+
+    /**
+     * Artist, album, song fetching
+     */
     fun initializeArtistInfo(
         context: Context,
         artistId: Long
@@ -66,9 +83,9 @@ class ArtistViewViewModel: ViewModel() {
 
             cursor.moveToFirst()
 
-            _artist.value = cursor.getString(artistColumn)
-            _artistAlbumsNumber.value = cursor.getString(artistsAlbumsNumberColumn)
-            _artistTracksNumber.value = cursor.getString(artistTracksNumberColumn)
+            artist.value = cursor.getString(artistColumn)
+            artistAlbumsNumber.value = cursor.getInt(artistsAlbumsNumberColumn)
+            artistTracksNumber.value = cursor.getInt(artistTracksNumberColumn)
         }
 
         artistInfoRetrieved = true
@@ -113,7 +130,7 @@ class ArtistViewViewModel: ViewModel() {
                 val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
                 if(!retrievedArtistPicture) {
-                    _artistPictureUri.value = albumCoverUri
+                    artistPictureUri.value = albumCoverUri
                     retrievedArtistPicture = true
                 }
 
@@ -127,7 +144,7 @@ class ArtistViewViewModel: ViewModel() {
             }
         }
 
-        _albumAmountCheck.value = artistAlbums.isNotEmpty()
+        albumAmountCheck.value = artistAlbums.isNotEmpty()
         artistAlbumListInitialized = true
     }
 
@@ -196,5 +213,14 @@ class ArtistViewViewModel: ViewModel() {
             }
         }
         artistSongListInitialized = true
+    }
+
+    /**
+     * Preferences management
+     */
+    fun setSortData(type: Int, order: Int) {
+        viewModelScope.launch {
+            sortingRepositoryImpl.setArtistSongsSorting(SortData(type, order))
+        }
     }
 }

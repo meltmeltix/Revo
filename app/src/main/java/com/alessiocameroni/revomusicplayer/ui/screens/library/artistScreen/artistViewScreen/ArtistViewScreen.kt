@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -34,16 +34,24 @@ fun ArtistViewScreen(
     artistId: Long,
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: ArtistViewViewModel = viewModel()
+    viewModel: ArtistViewViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
-    val textVisibility =
-        remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
+    val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val artistAlbums = viewModel.artistAlbums
     val artistSongs = viewModel.artistSongs
     val albumRowVisibility = viewModel.albumAmountCheck
+
+    val selectedSortType by remember { viewModel.sortingType }
+    val selectedSortOrder by remember { viewModel.sortingOrder }
+
+    listSort(
+        artistSongs,
+        selectedSortOrder,
+        selectedSortType
+    )
 
     LaunchedEffect(Unit) {
         viewModel.initializeArtistInfo(context, artistId)
@@ -57,9 +65,7 @@ fun ArtistViewScreen(
             ArtistViewTopActionBar(
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
-                artistName = viewModel.artist.value,
-                artistAlbumsNumber = viewModel.artistAlbumsNumber.value,
-                artistTracksNumber = viewModel.artistTrackNumber.value,
+                viewModel = viewModel,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -73,11 +79,7 @@ fun ArtistViewScreen(
                 state = scrollState
             ) {
                 item {
-                    ArtistViewHeader(
-                        artistName = viewModel.artist.value,
-                        artistAlbumsNumber = viewModel.artistAlbumsNumber.value,
-                        artistTracksNumber = viewModel.artistTrackNumber.value
-                    ) {
+                    ArtistViewHeader(viewModel = viewModel) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(viewModel.artistPictureUri.value)
@@ -91,7 +93,7 @@ fun ArtistViewScreen(
 
                 item {
                     AnimatedVisibility(
-                        visible = albumRowVisibility.value ?: false,
+                        visible = albumRowVisibility.value,
                         enter = fadeIn()
                     ) {
                         Column(
@@ -99,7 +101,7 @@ fun ArtistViewScreen(
                         ) {
                             PixelySectionTitle(
                                 stringTitle = stringResource(id = R.string.str_albums),
-                                horizontalContentPadding = 15.dp
+                                horizontalContentPadding = 15.dp,
                             )
 
                             RowAlbumList(
@@ -111,9 +113,8 @@ fun ArtistViewScreen(
                 }
 
                 item {
-                    PixelySectionTitle(
-                        stringTitle = stringResource(id = R.string.str_songs),
-                        horizontalContentPadding = 15.dp
+                    ArtistViewSongSectionTitle(
+                        viewModel = viewModel
                     )
                 }
 
@@ -127,7 +128,7 @@ fun ArtistViewScreen(
 }
 
 @Composable
-fun RowAlbumList(
+private fun RowAlbumList(
     artistAlbums: MutableList<ArtistAlbumData>,
     navControllerBottomBar: NavHostController
 ) {
@@ -217,6 +218,31 @@ private fun LazyListScope.artistSongList(
                     }
                 }
             )
+        }
+    }
+}
+
+private fun listSort(
+    songs: MutableList<ArtistSongData>,
+    sortOrder: Int,
+    sortType: Int
+) {
+    when(sortOrder) {
+        0 -> {
+            when(sortType) {
+                0 -> songs.sortBy { it.songTitle }
+                1 -> songs.sortBy { it.track }
+                2 -> songs.sortBy { it.duration }
+                3 -> songs.sortBy { it.album }
+            }
+        }
+        1 -> {
+            when(sortType) {
+                0 -> songs.sortByDescending { it.songTitle }
+                1 -> songs.sortByDescending { it.track }
+                2 -> songs.sortByDescending { it.duration }
+                3 -> songs.sortByDescending { it.album }
+            }
         }
     }
 }
