@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -38,22 +39,11 @@ fun SongsScreen(
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
     LaunchedEffect(Unit) { viewModel.initializeSongList(context) }
-
-    listSort(
-        librarySongs,
-        selectedSortOrder,
-        selectedSortType,
-    )
+    listSort(librarySongs, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            SongTopActionBar(
-                navController,
-                scrollBehavior,
-                viewModel,
-            )
-        },
+        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
             LazyColumn(
                 modifier = Modifier
@@ -61,58 +51,63 @@ fun SongsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) {
-                itemsIndexed(items = librarySongs) { key, item ->
-                    key(key) {
-                        Row(modifier = Modifier.clickable{ }) {
-                            PixelyListItem(
-                                headlineTextString = item.songTitle,
-                                largeHeadline = false,
-                                maxHeadlineLines = 1,
-                                supportingTextString = item.artist,
-                                maxSupportingLines = 1,
-                                leadingContent = {
-                                    SmallImageContainer(
-                                        modifier = Modifier.padding(horizontal = 5.dp),
-                                        painterPlaceholder =
-                                        painterResource(id = R.drawable.ic_baseline_music_note_24),
-                                        leadingUnit = {
-                                            AsyncImage(
-                                                model = ImageRequest.Builder(LocalContext.current)
-                                                    .data(item.albumCoverUri)
-                                                    .crossfade(true)
-                                                    .build(),
-                                                contentDescription = stringResource(id = R.string.str_albumImage)
-                                            )
-                                        }
-                                    )
-                                },
-                                trailingContent = {
-                                    val expandedItemMenu = remember { mutableStateOf(false) }
+            ) { songList(librarySongs, navControllerBottomBar) }
+        }
+    )
+}
 
-                                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                        IconButton(onClick = { expandedItemMenu.value = true }) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                                contentDescription = stringResource(id = R.string.str_moreOptions)
-                                            )
-                                        }
+private fun LazyListScope.songList(
+    librarySongs: SnapshotStateList<SongData>,
+    navControllerBottomBar: NavController
+) {
+    itemsIndexed(items = librarySongs) { key, item ->
+        key(key) {
+            Row(modifier = Modifier.clickable{ }) {
+                PixelyListItem(
+                    headlineTextString = item.songTitle,
+                    largeHeadline = false,
+                    maxHeadlineLines = 1,
+                    supportingTextString = item.artist,
+                    maxSupportingLines = 1,
+                    leadingContent = {
+                        SmallImageContainer(
+                            modifier = Modifier.padding(horizontal = 5.dp),
+                            painterPlaceholder =
+                            painterResource(id = R.drawable.ic_baseline_music_note_24),
+                            leadingUnit = {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(item.albumCoverUri)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = stringResource(id = R.string.str_albumImage)
+                                )
+                            }
+                        )
+                    },
+                    trailingContent = {
+                        val expandedItemMenu = remember { mutableStateOf(false) }
 
-                                        SongItemDropDownMenu(
-                                            expanded = expandedItemMenu,
-                                            navControllerBottomBar = navControllerBottomBar,
-                                            albumId = item.albumId,
-                                            artistId = item.artistId
-                                        )
-                                    }
-                                }
+                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                            IconButton(onClick = { expandedItemMenu.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                                )
+                            }
+
+                            SongItemDropDownMenu(
+                                expanded = expandedItemMenu,
+                                navControllerBottomBar = navControllerBottomBar,
+                                albumId = item.albumId,
+                                artistId = item.artistId
                             )
                         }
                     }
-                }
+                )
             }
         }
-    )
+    }
 }
 
 private fun listSort(

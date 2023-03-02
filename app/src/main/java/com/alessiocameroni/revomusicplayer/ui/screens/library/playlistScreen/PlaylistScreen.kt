@@ -30,24 +30,8 @@ fun PlaylistsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            PlaylistTopActionbar(
-                navController,
-                scrollBehavior
-            )
-        },
-        floatingActionButton = {
-            LargeFloatingActionButton(
-                onClick = { openDialog.value = true },
-                modifier = Modifier.offset(y = (-80).dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
-                    contentDescription = stringResource(id = R.string.str_newPlaylist),
-                    modifier = Modifier.size(FloatingActionButtonDefaults.LargeIconSize),
-                )
-            }
-        },
+        topBar = { PlaylistTopActionbar(navController, scrollBehavior) },
+        floatingActionButton = { AddPlaylistFAB(openDialog) },
         floatingActionButtonPosition = FabPosition.Center,
         content = { padding ->
             if(openDialog.value) {
@@ -98,9 +82,7 @@ fun PlaylistsScreen(
                                         )
                                     }
 
-                                    PlaylistItemDropDownMenu(
-                                        expanded = expandedItemMenu
-                                    )
+                                    PlaylistItemDropDownMenu(expanded = expandedItemMenu)
                                 }
                             }
                         )

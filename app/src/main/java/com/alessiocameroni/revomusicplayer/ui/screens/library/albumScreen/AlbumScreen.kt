@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -40,22 +41,11 @@ fun AlbumsScreen(
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
     LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
-
-    listSort(
-        libraryAlbums,
-        selectedSortOrder,
-        selectedSortType
-    )
+    listSort(libraryAlbums, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            AlbumTopActionBar(
-                navController,
-                scrollBehavior,
-                viewModel
-            )
-        },
+        topBar = { AlbumTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
             LazyColumn(
                 modifier = Modifier
@@ -63,63 +53,68 @@ fun AlbumsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) {
-                itemsIndexed(libraryAlbums) { _, item ->
-                    Row(
-                        modifier = Modifier
-                            .clickable {
-                                navControllerBottomBar.navigate(
-                                    NavigationScreens.AlbumViewScreen.route +
-                                            "/${item.albumId}"
-                                )
-                            },
-                    ) {
-                        PixelyListItem(
-                            headlineTextString = item.albumTitle,
-                            largeHeadline = false,
-                            maxHeadlineLines = 1,
-                            supportingTextString = item.artist,
-                            maxSupportingLines = 1,
-                            leadingContent = {
-                                SmallImageContainer(
-                                    modifier = Modifier.padding(horizontal = 5.dp),
-                                    painterPlaceholder =
-                                        painterResource(id = R.drawable.ic_outlined_album_24),
-                                    leadingUnit = {
-                                        AsyncImage(
-                                            model = ImageRequest.Builder(LocalContext.current)
-                                                .data(item.albumCoverUri)
-                                                .crossfade(true)
-                                                .build(),
-                                            contentDescription = stringResource(id = R.string.str_albumImage)
-                                        )
-                                    },
-                                )
-                            },
-                            trailingContent = {
-                                val expandedItemMenu = remember { mutableStateOf(false) }
+            ) { albumList(libraryAlbums, navControllerBottomBar) }
+        }
+    )
+}
 
-                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                    IconButton(onClick = { expandedItemMenu.value = true }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                            contentDescription = stringResource(id = R.string.str_moreOptions)
-                                        )
-                                    }
+private fun LazyListScope.albumList(
+    libraryAlbums: SnapshotStateList<AlbumData>,
+    navControllerBottomBar: NavHostController
+) {
+    itemsIndexed(libraryAlbums) { _, item ->
+        Row(
+            modifier = Modifier
+                .clickable {
+                    navControllerBottomBar.navigate(
+                        NavigationScreens.AlbumViewScreen.route +
+                                "/${item.albumId}"
+                    )
+                },
+        ) {
+            PixelyListItem(
+                headlineTextString = item.albumTitle,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                supportingTextString = item.artist,
+                maxSupportingLines = 1,
+                leadingContent = {
+                    SmallImageContainer(
+                        modifier = Modifier.padding(horizontal = 5.dp),
+                        painterPlaceholder =
+                        painterResource(id = R.drawable.ic_outlined_album_24),
+                        leadingUnit = {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(item.albumCoverUri)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = stringResource(id = R.string.str_albumImage)
+                            )
+                        },
+                    )
+                },
+                trailingContent = {
+                    val expandedItemMenu = remember { mutableStateOf(false) }
 
-                                    AlbumItemDropDownMenu(
-                                        expanded = expandedItemMenu,
-                                        navControllerBottomBar = navControllerBottomBar,
-                                        artistId = item.artistId
-                                    )
-                                }
-                            }
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expandedItemMenu.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                contentDescription = stringResource(id = R.string.str_moreOptions)
+                            )
+                        }
+
+                        AlbumItemDropDownMenu(
+                            expanded = expandedItemMenu,
+                            navControllerBottomBar = navControllerBottomBar,
+                            artistId = item.artistId
                         )
                     }
                 }
-            }
+            )
         }
-    )
+    }
 }
 
 private fun listSort(

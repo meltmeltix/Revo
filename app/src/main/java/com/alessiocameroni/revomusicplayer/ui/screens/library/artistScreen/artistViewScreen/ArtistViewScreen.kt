@@ -47,17 +47,12 @@ fun ArtistViewScreen(
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    listSort(
-        artistSongs,
-        selectedSortOrder,
-        selectedSortType
-    )
-
     LaunchedEffect(Unit) {
         viewModel.initializeArtistInfo(context, artistId)
         viewModel.initializeArtistAlbumList(context, artistId)
         viewModel.initializeArtistSongList(context, artistId)
     }
+    listSort(artistSongs, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -104,19 +99,12 @@ fun ArtistViewScreen(
                                 horizontalContentPadding = 15.dp,
                             )
 
-                            RowAlbumList(
-                                artistAlbums,
-                                navControllerBottomBar
-                            )
+                            RowArtistAlbumList(artistAlbums, navControllerBottomBar)
                         }
                     }
                 }
 
-                item {
-                    ArtistViewSongSectionTitle(
-                        viewModel = viewModel
-                    )
-                }
+                item { ArtistViewSongSectionTitle(viewModel = viewModel) }
 
                 artistSongList(
                     artistSongs,
@@ -128,7 +116,7 @@ fun ArtistViewScreen(
 }
 
 @Composable
-private fun RowAlbumList(
+private fun RowArtistAlbumList(
     artistAlbums: MutableList<ArtistAlbumData>,
     navControllerBottomBar: NavHostController
 ) {

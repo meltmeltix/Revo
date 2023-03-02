@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
@@ -40,22 +41,12 @@ fun ArtistsScreen(
 
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    listSort(
-        libraryArtists,
-        selectedSortOrder
-    )
-
     LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
+    listSort(libraryArtists, selectedSortOrder)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            ArtistTopActionBar(
-                navController,
-                scrollBehavior,
-                viewModel
-            )
-        },
+        topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
             LazyColumn(
                 modifier = Modifier
@@ -63,64 +54,69 @@ fun ArtistsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) {
-                itemsIndexed(libraryArtists) { _, item ->
-                    Row(
+            ) { artistList(libraryArtists, navControllerBottomBar) }
+        }
+    )
+}
+
+private fun LazyListScope.artistList(
+    libraryArtists: SnapshotStateList<ArtistData>,
+    navControllerBottomBar: NavHostController
+) {
+    itemsIndexed(libraryArtists) { _, item ->
+        Row(
+            modifier = Modifier
+                .clickable {
+                    navControllerBottomBar.navigate(
+                        NavigationScreens.ArtistViewScreen.route +
+                                "/${item.artistId}"
+                    )
+                },
+        ) {
+            PixelyListItem(
+                modifier = Modifier
+                    .padding(vertical = 10.dp),
+                headlineTextString = item.artist,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                leadingContent = {
+                    SmallImageContainer(
                         modifier = Modifier
-                            .clickable {
-                                navControllerBottomBar.navigate(
-                                    NavigationScreens.ArtistViewScreen.route +
-                                    "/${item.artistId}"
-                                )
-                            },
-                    ) {
-                        PixelyListItem(
-                            modifier = Modifier
-                                .padding(vertical = 10.dp),
-                            headlineTextString = item.artist,
-                            largeHeadline = false,
-                            maxHeadlineLines = 1,
-                            leadingContent = {
-                                SmallImageContainer(
-                                    modifier = Modifier
-                                        .padding(horizontal = 5.dp)
-                                        .clip(CircleShape),
-                                    painterPlaceholder =
-                                        painterResource(id = R.drawable.ic_outlined_artist_24),
-                                    leadingUnit = {
-                                        AsyncImage(
-                                            model = ImageRequest.Builder(LocalContext.current)
-                                                .data(item.albumCoverUri)
-                                                .crossfade(true)
-                                                .build(),
-                                            contentDescription = stringResource(id = R.string.str_albumImage),
-                                            modifier = Modifier.fillMaxSize()
-                                        )
-                                    }
-                                )
-                            },
-                            trailingContent = {
-                                val expandedItemMenu = remember { mutableStateOf(false) }
+                            .padding(horizontal = 5.dp)
+                            .clip(CircleShape),
+                        painterPlaceholder =
+                        painterResource(id = R.drawable.ic_outlined_artist_24),
+                        leadingUnit = {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(item.albumCoverUri)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = stringResource(id = R.string.str_albumImage),
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
+                    )
+                },
+                trailingContent = {
+                    val expandedItemMenu = remember { mutableStateOf(false) }
 
-                                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                    IconButton(onClick = { expandedItemMenu.value = true }) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                            contentDescription = stringResource(id = R.string.str_moreOptions)
-                                        )
-                                    }
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expandedItemMenu.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                contentDescription = stringResource(id = R.string.str_moreOptions)
+                            )
+                        }
 
-                                    ArtistItemDropDownMenu(
-                                        expanded = expandedItemMenu
-                                    )
-                                }
-                            }
+                        ArtistItemDropDownMenu(
+                            expanded = expandedItemMenu
                         )
                     }
                 }
-            }
+            )
         }
-    )
+    }
 }
 
 private fun listSort(

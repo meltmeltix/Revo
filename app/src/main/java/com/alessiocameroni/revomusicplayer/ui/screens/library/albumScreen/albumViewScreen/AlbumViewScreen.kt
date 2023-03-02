@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.album
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
@@ -43,15 +44,8 @@ fun AlbumViewScreen(
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    listSort(
-        albumSongs,
-        selectedSortOrder,
-        selectedSortType
-    )
-
-    LaunchedEffect(Unit) {
-        viewModel.initializeAlbumSongsList(context, albumId)
-    }
+    LaunchedEffect(Unit) { viewModel.initializeAlbumSongsList(context, albumId) }
+    listSort(albumSongs, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -96,58 +90,64 @@ fun AlbumViewScreen(
                     )
                 }
 
-                itemsIndexed(items = albumSongs) { _, item ->
-                    Row(
-                        modifier = Modifier
-                            .clickable {  },
-                    ) {
-                        PixelyListItem(
-                            headlineTextString = item.songTitle,
-                            largeHeadline = false,
-                            maxHeadlineLines = 1,
-                            leadingContent = {
-                                Text(
-                                    text = if(item.track == 0) "-" else item.track.toString(),
-                                    modifier = Modifier
-                                        .widthIn(max = 40.dp),
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Clip,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                            },
-                            trailingContent = {
-                                val expandedItemMenu = remember { mutableStateOf(false) }
-                                
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(2.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(
-                                        text = item.fixedDuration ?: "00:00",
-                                        maxLines = 1,
-                                        style = MaterialTheme.typography.titleMedium
-                                    )
-                                    
-                                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                                        IconButton(onClick = { expandedItemMenu.value = true }) {
-                                            Icon(
-                                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                                contentDescription = stringResource(id = R.string.str_moreOptions)
-                                            )
-                                        }
-
-                                        AlbumViewItemDropDownMenu(
-                                            expanded = expandedItemMenu
-                                        )
-                                    }
-                                }
-                            }
-                        )
-                    }
-                }
+                albumSongsList(albumSongs)
             }
         }
     )
+}
+
+private fun LazyListScope.albumSongsList(
+    albumSongs: MutableList<AlbumSongData>
+) {
+    itemsIndexed(items = albumSongs) { _, item ->
+        Row(
+            modifier = Modifier
+                .clickable {  },
+        ) {
+            PixelyListItem(
+                headlineTextString = item.songTitle,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                leadingContent = {
+                    Text(
+                        text = if(item.track == 0) "-" else item.track.toString(),
+                        modifier = Modifier
+                            .widthIn(max = 40.dp),
+                        maxLines = 1,
+                        overflow = TextOverflow.Clip,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                },
+                trailingContent = {
+                    val expandedItemMenu = remember { mutableStateOf(false) }
+
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = item.fixedDuration ?: "00:00",
+                            maxLines = 1,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+
+                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                            IconButton(onClick = { expandedItemMenu.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                    contentDescription = stringResource(id = R.string.str_moreOptions)
+                                )
+                            }
+
+                            AlbumViewItemDropDownMenu(
+                                expanded = expandedItemMenu
+                            )
+                        }
+                    }
+                }
+            )
+        }
+    }
 }
 
 private fun listSort(
