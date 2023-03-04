@@ -62,6 +62,7 @@ ktlint {
 }
 
 dependencies {
+    // App core
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
@@ -71,27 +72,35 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata:1.4.0-beta02"
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
+    // Component libraries
+    implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
+    implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha07'
     implementation 'com.github.alessiocameroni:pixely-components:2.1.5'
 
+    // Dependency Injection
     implementation 'com.google.dagger:hilt-android:2.45'
     kapt 'com.google.dagger:hilt-compiler:2.45'
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0-alpha01'
 
-    implementation 'androidx.compose.material3:material3:1.1.0-alpha07'
-    implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha07'
-
+    // Accompanist
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
     implementation "com.google.accompanist:accompanist-permissions:$accompanist_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
+    // Database libraries
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
+    // Image processing
+    implementation("io.coil-kt:coil-compose:2.2.2")
+
+    // Media player
     implementation 'com.google.android.exoplayer:exoplayer:2.18.3'
 
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation files('lib/spotify-app-remote-release-0.7.2.aar')
-
-    implementation("io.coil-kt:coil-compose:2.2.2")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

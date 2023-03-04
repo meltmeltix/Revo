@@ -63,7 +63,8 @@ fun AboutScreen(navController: NavController) {
 
                         item {
                             PixelySectionTitle(
-                                stringTitle = stringResource(id = R.string.str_membersAndContributors)
+                                stringTitle = stringResource(id = R.string.str_membersAndContributors),
+                                horizontalContentPadding = 15.dp
                             )
                         }
                         
@@ -132,7 +133,8 @@ fun AboutScreen(navController: NavController) {
 
                         item {
                             PixelySectionTitle(
-                                stringTitle = stringResource(id = R.string.str_other)
+                                stringTitle = stringResource(id = R.string.str_other),
+                                horizontalContentPadding = 15.dp
                             )
                         }
 
