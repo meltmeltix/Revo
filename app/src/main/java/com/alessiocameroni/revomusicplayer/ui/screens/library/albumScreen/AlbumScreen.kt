@@ -25,6 +25,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
+import androidx.compose.runtime.getValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,13 +35,13 @@ fun AlbumsScreen(
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val libraryAlbums = viewModel.libraryAlbums
-    val context = LocalContext.current
+//    val context = LocalContext.current
 
+    val libraryAlbums = remember { viewModel.libraryAlbums }
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
+//    LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
     listSort(libraryAlbums, selectedSortOrder, selectedSortType)
 
     Scaffold(
