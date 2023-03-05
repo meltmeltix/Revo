@@ -30,7 +30,7 @@ class AlbumViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            albumsRepositoryImpl.fetchAlbumRepository().collect {
+            albumsRepositoryImpl.fetchAlbumsRepository().collect {
                 libraryAlbums = it
             }
         }

@@ -35,13 +35,11 @@ fun AlbumsScreen(
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-//    val context = LocalContext.current
 
     val libraryAlbums = remember { viewModel.libraryAlbums }
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-//    LaunchedEffect(Unit) { viewModel.initializeAlbumList(context) }
     listSort(libraryAlbums, selectedSortOrder, selectedSortType)
 
     Scaffold(

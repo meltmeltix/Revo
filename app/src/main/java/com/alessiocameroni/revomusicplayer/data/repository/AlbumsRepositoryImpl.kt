@@ -21,14 +21,12 @@ class AlbumsRepositoryImpl(
 ): AlbumsRepository {
     private companion object {
         var mCursor: Cursor? = null
-
         val collection: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Albums.getContentUri(MediaStore.VOLUME_EXTERNAL)
             } else {
                 Albums.EXTERNAL_CONTENT_URI
             }
-
         val projection = arrayOf(
             Albums._ID,
             Albums.ALBUM,
@@ -37,9 +35,8 @@ class AlbumsRepositoryImpl(
             Albums.FIRST_YEAR,
             Albums.NUMBER_OF_SONGS,
         )
-
         val selection = null
-        val sortOrder = "${Media.ALBUM} ASC"
+        const val sortOrder = "${Media.ALBUM} ASC"
     }
 
     @WorkerThread
@@ -91,7 +88,7 @@ class AlbumsRepositoryImpl(
         return albumList
     }
 
-    override suspend fun fetchAlbumRepository(): Flow<SnapshotStateList<AlbumData>> =
+    override suspend fun fetchAlbumsRepository(): Flow<SnapshotStateList<AlbumData>> =
         flow {
             val list: SnapshotStateList<AlbumData> = albumContentResolver()
             emit(list)

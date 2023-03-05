@@ -32,13 +32,11 @@ fun SongsScreen(
     viewModel: SongViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val librarySongs = viewModel.librarySongs
-    val context = LocalContext.current
 
+    val librarySongs = remember { viewModel.librarySongs }
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    LaunchedEffect(Unit) { viewModel.initializeSongList(context) }
     listSort(librarySongs, selectedSortOrder, selectedSortType)
 
     Scaffold(
