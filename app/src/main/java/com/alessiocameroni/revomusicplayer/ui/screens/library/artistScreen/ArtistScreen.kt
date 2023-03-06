@@ -36,12 +36,10 @@ fun ArtistsScreen(
     viewModel: ArtistViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val libraryArtists = viewModel.libraryArtists
-    val context = LocalContext.current
 
     val selectedSortOrder by remember { viewModel.sortingOrder }
+    val libraryArtists = viewModel.libraryArtists
 
-    LaunchedEffect(Unit) { viewModel.initializeArtistList(context) }
     listSort(libraryArtists, selectedSortOrder)
 
     Scaffold(

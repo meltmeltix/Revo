@@ -17,9 +17,9 @@ class AlbumViewModel @Inject constructor(
     private val sortingRepositoryImpl: SortingRepositoryImpl,
     private val albumsRepositoryImpl: AlbumsRepositoryImpl
 ): ViewModel() {
-    var libraryAlbums = mutableStateListOf<AlbumData>()
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
+    var libraryAlbums = mutableStateListOf<AlbumData>()
 
     init {
         viewModelScope.launch {

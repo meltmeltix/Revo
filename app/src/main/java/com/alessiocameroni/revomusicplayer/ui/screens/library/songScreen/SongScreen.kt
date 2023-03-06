@@ -33,9 +33,9 @@ fun SongsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    val librarySongs = remember { viewModel.librarySongs }
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
+    val librarySongs = remember { viewModel.librarySongs }
 
     listSort(librarySongs, selectedSortOrder, selectedSortType)
 

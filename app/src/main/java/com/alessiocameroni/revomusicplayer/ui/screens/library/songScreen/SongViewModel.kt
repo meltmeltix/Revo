@@ -17,9 +17,9 @@ class SongViewModel @Inject constructor(
     private val sortingRepositoryImpl: SortingRepositoryImpl,
     private val songsRepositoryImpl: SongsRepositoryImpl
 ): ViewModel() {
-    var librarySongs = mutableStateListOf<SongData>()
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
+    var librarySongs = mutableStateListOf<SongData>()
 
     init {
         viewModelScope.launch {
