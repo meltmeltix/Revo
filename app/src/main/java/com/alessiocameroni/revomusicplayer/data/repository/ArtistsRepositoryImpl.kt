@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.provider.MediaStore.Audio.*
 import androidx.annotation.WorkerThread
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -21,17 +22,17 @@ class ArtistsRepositoryImpl(
         var mCursor: Cursor? = null
         val collection: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+                Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
             } else {
-                MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI
+                Artists.EXTERNAL_CONTENT_URI
             }
         val projection = arrayOf(
-            MediaStore.Audio.Media.ARTIST_ID,
-            MediaStore.Audio.Media.ARTIST,
-            MediaStore.Audio.Media.ALBUM_ID,
+            Media.ARTIST_ID,
+            Media.ARTIST,
+            Media.ALBUM_ID,
         )
-        const val selection = "${MediaStore.Audio.Media.IS_MUSIC} != 0"
-        const val sortOrder = "${MediaStore.Audio.Media.ARTIST} ASC"
+        const val selection = "${Media.IS_MUSIC} != 0"
+        const val sortOrder = "${Media.ARTIST} ASC"
     }
 
     @WorkerThread
@@ -47,9 +48,9 @@ class ArtistsRepositoryImpl(
         )
 
         mCursor?.use { cursor ->
-            val idColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST_ID)
-            val artistColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)
-            val albumIdColumn = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID)
+            val idColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
+            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
+            val albumIdColumn = cursor.getColumnIndexOrThrow(Media.ALBUM_ID)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
