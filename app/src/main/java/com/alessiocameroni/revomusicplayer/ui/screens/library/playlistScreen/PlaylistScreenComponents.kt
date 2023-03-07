@@ -3,7 +3,6 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -113,7 +112,7 @@ fun AddPlaylistDialog(
     openDialog: MutableState<Boolean>
 ) {
     val buttonEnabled = remember { mutableStateOf(true) }
-    var text by rememberSaveable { mutableStateOf("") }
+    var text by remember { mutableStateOf("") }
 
     AlertDialog(
         modifier = modifier,

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,10 +20,10 @@ fun PlayerScreen(
     navController: NavController,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
-    val sliderPosition by rememberSaveable { mutableStateOf(0.5f) }
-    val shuffleChecked by rememberSaveable { mutableStateOf(false) }
-    val repeatChecked by rememberSaveable { mutableStateOf(false) }
-    val openBottomSheet = rememberSaveable { mutableStateOf(false) }
+    val sliderPosition by remember { mutableStateOf(0.5f) }
+    val shuffleChecked by remember { mutableStateOf(false) }
+    val repeatChecked by remember { mutableStateOf(false) }
+    val openBottomSheet = remember { mutableStateOf(false) }
 
     RevoMusicPlayerTheme {
         Surface(
