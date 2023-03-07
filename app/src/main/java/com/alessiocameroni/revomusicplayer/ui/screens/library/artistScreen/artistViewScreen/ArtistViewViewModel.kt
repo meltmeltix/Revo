@@ -7,16 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
-import com.alessiocameroni.revomusicplayer.data.repository.ArtistViewRepositoryImpl
-import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.ArtistViewRepository
+import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ArtistViewViewModel @Inject constructor(
-    private val sortingRepositoryImpl: SortingRepositoryImpl,
-    private val albumViewRepositoryImpl: ArtistViewRepositoryImpl
+    private val sortingRepository: SortingRepository,
+    private val albumViewRepository: ArtistViewRepository
 ): ViewModel() {
     var sortingType = mutableStateOf(0)
     var sortingOrder = mutableStateOf(0)
@@ -31,7 +31,7 @@ class ArtistViewViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sortingRepositoryImpl.getArtistSongsSorting().collect {
+            sortingRepository.getArtistSongsSorting().collect {
                 sortingType.value = it.type
                 sortingOrder.value = it.order
             }
@@ -41,7 +41,7 @@ class ArtistViewViewModel @Inject constructor(
     // Artist, album, song initialization
     fun initializeArtistDetails(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepositoryImpl.fetchArtistInfo(artistId).collect { details ->
+            albumViewRepository.fetchArtistInfo(artistId).collect { details ->
                 artist.value = details.artist
                 numberOfAlbums.value = details.numberOfAlbums
                 numberOfTracks.value = details.numberOfArtists
@@ -51,7 +51,7 @@ class ArtistViewViewModel @Inject constructor(
 
     fun initializeAlbumList(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepositoryImpl.fetchAlbumList(artistId).collect {
+            albumViewRepository.fetchAlbumList(artistId).collect {
                 albumList = it
                 artistPictureUri.value = it[0].albumCoverUri
             }
@@ -60,7 +60,7 @@ class ArtistViewViewModel @Inject constructor(
 
     fun initializeSongList(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepositoryImpl.fetchSongList(artistId).collect {
+            albumViewRepository.fetchSongList(artistId).collect {
                 songList = it
             }
         }
@@ -69,7 +69,7 @@ class ArtistViewViewModel @Inject constructor(
     // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
-            sortingRepositoryImpl.setArtistSongsSorting(SortingValues(type, order))
+            sortingRepository.setArtistSongsSorting(SortingValues(type, order))
         }
     }
 }

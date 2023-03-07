@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.di
 
 import android.content.Context
 import com.alessiocameroni.revomusicplayer.data.repository.SettingsRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,8 @@ object SettingsModule {
     @Singleton
     fun provideSettingsRepository(
         @ApplicationContext context: Context
-    ) = SettingsRepositoryImpl(context)
+    ): SettingsRepository {
+        return SettingsRepositoryImpl(context)
+    }
 
 }

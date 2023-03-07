@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
-import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 
 @HiltViewModel
 class AlbumViewViewModel @Inject constructor(
-    private val sortingRepositoryImpl: SortingRepositoryImpl
+    private val sortingRepository: SortingRepository
 ): ViewModel() {
     val albumSongs = mutableListOf<AlbumSongEntity>()
     private var albumSongsInitialized = false
@@ -41,7 +41,7 @@ class AlbumViewViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sortingRepositoryImpl.getAlbumSongsSorting().collect {
+            sortingRepository.getAlbumSongsSorting().collect {
                 sortingType.value = it.type
                 sortingOrder.value = it.order
             }
@@ -170,7 +170,7 @@ class AlbumViewViewModel @Inject constructor(
     // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
-            sortingRepositoryImpl.setAlbumSongsSorting(SortingValues(type, order))
+            sortingRepository.setAlbumSongsSorting(SortingValues(type, order))
         }
     }
 }

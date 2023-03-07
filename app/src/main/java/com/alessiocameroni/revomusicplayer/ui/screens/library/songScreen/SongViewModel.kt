@@ -6,16 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.SongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
-import com.alessiocameroni.revomusicplayer.data.repository.SongsRepositoryImpl
-import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SongsRepository
+import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SongViewModel @Inject constructor(
-    private val sortingRepositoryImpl: SortingRepositoryImpl,
-    private val songsRepositoryImpl: SongsRepositoryImpl
+    private val sortingRepository: SortingRepository,
+    private val songsRepository: SongsRepository
 ): ViewModel() {
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
@@ -23,13 +23,13 @@ class SongViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            sortingRepositoryImpl.getSongSorting().collect {
+            sortingRepository.getSongSorting().collect {
                 sortingType.value = it.type
                 sortingOrder.value = it.order
             }
         }
         viewModelScope.launch {
-            songsRepositoryImpl.fetchSongList().collect {
+            songsRepository.fetchSongList().collect {
                 librarySongs = it
             }
         }
@@ -38,7 +38,7 @@ class SongViewModel @Inject constructor(
     // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
-            sortingRepositoryImpl.setSongSorting(SortingValues(type, order))
+            sortingRepository.setSongSorting(SortingValues(type, order))
         }
     }
 }

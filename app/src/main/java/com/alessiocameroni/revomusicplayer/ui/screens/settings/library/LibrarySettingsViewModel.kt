@@ -3,20 +3,20 @@ package com.alessiocameroni.revomusicplayer.ui.screens.settings.library
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.repository.SettingsRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LibrarySettingsViewModel @Inject constructor(
-    private val settingsRepositoryImpl: SettingsRepositoryImpl
+    private val settingsRepository: SettingsRepository
 ): ViewModel() {
     val spotifyEnabledState = mutableStateOf(true)
 
     init {
         viewModelScope.launch {
-            settingsRepositoryImpl.getSpotifyEnabledState().collect {
+            settingsRepository.getSpotifyEnabledState().collect {
                 spotifyEnabledState.value = it
             }
         }
@@ -24,7 +24,7 @@ class LibrarySettingsViewModel @Inject constructor(
 
     fun setSpotifyVisibility(visibilityValue: Boolean) {
         viewModelScope.launch {
-            settingsRepositoryImpl.setSpotifyEnabledState(
+            settingsRepository.setSpotifyEnabledState(
                 visibilityValue
             )
         }

@@ -3,20 +3,20 @@ package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.pl
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.repository.SettingsRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PlayerLayoutViewModel @Inject constructor(
-    private val settingsRepositoryImpl: SettingsRepositoryImpl
+    private val settingsRepository: SettingsRepository
 ): ViewModel() {
     val playerLayout = mutableStateOf(1)
 
     init {
         viewModelScope.launch {
-            settingsRepositoryImpl.getPlayerLayout().collect {
+            settingsRepository.getPlayerLayout().collect {
                 playerLayout.value = it
             }
         }
@@ -24,7 +24,7 @@ class PlayerLayoutViewModel @Inject constructor(
 
     fun setLayout(selectionIndex: Int) {
         viewModelScope.launch {
-            settingsRepositoryImpl.setPlayerLayout(
+            settingsRepository.setPlayerLayout(
                 selectionIndex
             )
         }

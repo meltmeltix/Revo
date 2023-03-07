@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.di
 
 import android.content.Context
 import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,8 @@ object SortingModule {
     @Singleton
     fun provideSortingRepository(
         @ApplicationContext context: Context
-    ) = SortingRepositoryImpl(context)
+    ): SortingRepository {
+        return SortingRepositoryImpl(context)
+    }
 
 }

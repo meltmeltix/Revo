@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.di
 
 import android.content.Context
 import com.alessiocameroni.revomusicplayer.data.repository.AlbumsRepositoryImpl
+import com.alessiocameroni.revomusicplayer.domain.repository.AlbumsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,8 @@ object AlbumsModule {
     @Singleton
     fun provideAlbumsRepository(
         @ApplicationContext context: Context
-    ) = AlbumsRepositoryImpl(context)
+    ): AlbumsRepository {
+        return AlbumsRepositoryImpl(context)
+    }
 
 }
