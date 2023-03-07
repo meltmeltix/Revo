@@ -22,7 +22,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumEntry
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import androidx.compose.runtime.getValue
@@ -58,7 +58,7 @@ fun AlbumsScreen(
 }
 
 private fun LazyListScope.albumList(
-    libraryAlbums: SnapshotStateList<AlbumData>,
+    libraryAlbums: SnapshotStateList<AlbumEntry>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(libraryAlbums) { _, item ->
@@ -117,7 +117,7 @@ private fun LazyListScope.albumList(
 }
 
 private fun listSort(
-    albums: SnapshotStateList<AlbumData>,
+    albums: SnapshotStateList<AlbumEntry>,
     sortOrder: Int,
     sortType: Int
 ) {

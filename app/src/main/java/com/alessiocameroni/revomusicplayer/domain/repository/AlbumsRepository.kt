@@ -1,9 +1,9 @@
 package com.alessiocameroni.revomusicplayer.domain.repository
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumData
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumEntry
 import kotlinx.coroutines.flow.Flow
 
 interface AlbumsRepository {
-    suspend fun fetchAlbumsRepository(): Flow<SnapshotStateList<AlbumData>>
+    suspend fun fetchAlbumList(): Flow<SnapshotStateList<AlbumEntry>>
 }

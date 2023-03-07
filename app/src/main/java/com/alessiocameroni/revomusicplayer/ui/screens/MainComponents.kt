@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.MainNavigationItemData
+import com.alessiocameroni.revomusicplayer.data.classes.MainNavigationItem
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens.*
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
@@ -63,25 +63,25 @@ fun BottomContent(
         BottomNavigationBar(
             modifier = Modifier,
             items = listOf(
-                MainNavigationItemData(
+                MainNavigationItem(
                     name = stringResource(id = R.string.str_songs),
                     route = SongScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
                     iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
                 ),
-                MainNavigationItemData(
+                MainNavigationItem(
                     name = stringResource(id = R.string.str_albums),
                     route = AlbumScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
                 ),
-                MainNavigationItemData(
+                MainNavigationItem(
                     name = stringResource(id = R.string.str_artists),
                     route = ArtistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
                     iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
                 ),
-                MainNavigationItemData(
+                MainNavigationItem(
                     name = stringResource(id = R.string.str_playlists),
                     route = PlaylistScreen.route,
                     iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
@@ -181,10 +181,10 @@ fun BottomMiniPlayer(
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    items: List<MainNavigationItemData>,
+    items: List<MainNavigationItem>,
     spotifyVisibilityState: Boolean,
     navController: NavController,
-    onItemClick: (MainNavigationItemData) -> Unit,
+    onItemClick: (MainNavigationItem) -> Unit,
     contentExpanded: MutableState<Boolean>,
     offset: Dp,
 ) {

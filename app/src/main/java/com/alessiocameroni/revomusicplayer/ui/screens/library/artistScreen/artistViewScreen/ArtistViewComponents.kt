@@ -41,8 +41,8 @@ fun ArtistViewTopActionBar(
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val artistName by remember { viewModel.artist }
-    val artistAlbumsNumber by remember { viewModel.artistAlbumsNumber }
-    val artistTracksNumber by remember { viewModel.artistTracksNumber }
+    val artistAlbumsNumber by remember { viewModel.numberOfAlbums }
+    val artistTracksNumber by remember { viewModel.numberOfTracks }
 
     TopAppBar(
         title = {
@@ -125,8 +125,8 @@ fun ArtistViewHeader(
     leadingUnit: @Composable () -> Unit,
 ) {
     val artistName by remember { viewModel.artist }
-    val artistAlbumsNumber by remember { viewModel.artistAlbumsNumber }
-    val artistTracksNumber by remember { viewModel.artistTracksNumber }
+    val artistAlbumsNumber by remember { viewModel.numberOfAlbums }
+    val artistTracksNumber by remember { viewModel.numberOfTracks }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(15.dp)

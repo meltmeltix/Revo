@@ -10,7 +10,7 @@ import android.provider.MediaStore.Audio.Media
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongData
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
@@ -23,7 +23,7 @@ import kotlin.math.roundToInt
 class AlbumViewViewModel @Inject constructor(
     private val sortingRepositoryImpl: SortingRepositoryImpl
 ): ViewModel() {
-    val albumSongs = mutableListOf<AlbumSongData>()
+    val albumSongs = mutableListOf<AlbumSongEntity>()
     private var albumSongsInitialized = false
     private var albumInfoRetrieved = false
 
@@ -48,9 +48,7 @@ class AlbumViewViewModel @Inject constructor(
         }
     }
 
-    /**
-     * Album fetching
-     */
+    // Album fetching
     fun initializeAlbumSongsList(
         context: Context,
         albumId: Long,
@@ -113,7 +111,7 @@ class AlbumViewViewModel @Inject constructor(
                 )
 
                 albumSongs.add(
-                    AlbumSongData(
+                    AlbumSongEntity(
                         id,
                         contentUri,
                         track,
@@ -169,9 +167,7 @@ class AlbumViewViewModel @Inject constructor(
         albumSecondsAmount.value = seconds
     }
 
-    /**
-     * Preferences management
-     */
+    // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
             sortingRepositoryImpl.setAlbumSongsSorting(SortingValues(type, order))

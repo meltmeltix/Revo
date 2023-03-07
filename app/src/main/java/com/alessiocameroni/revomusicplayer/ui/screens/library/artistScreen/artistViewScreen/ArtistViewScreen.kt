@@ -24,8 +24,8 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumData
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongData
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,23 +36,21 @@ fun ArtistViewScreen(
     navControllerBottomBar: NavHostController,
     viewModel: ArtistViewViewModel = hiltViewModel()
 ) {
-    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val artistAlbums = viewModel.artistAlbums
-    val artistSongs = viewModel.artistSongs
-    val albumRowVisibility = viewModel.albumAmountCheck
 
+    val albumList = viewModel.albumList
+    val songList = viewModel.songList
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
     LaunchedEffect(Unit) {
-        viewModel.initializeArtistInfo(context, artistId)
-        viewModel.initializeArtistAlbumList(context, artistId)
-        viewModel.initializeArtistSongList(context, artistId)
+        viewModel.initializeArtistDetails(artistId)
+        viewModel.initializeAlbumList(artistId)
+        viewModel.initializeSongList(artistId)
     }
-    listSort(artistSongs, selectedSortOrder, selectedSortType)
+    listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -88,7 +86,7 @@ fun ArtistViewScreen(
 
                 item {
                     AnimatedVisibility(
-                        visible = albumRowVisibility.value,
+                        visible = albumList.isNotEmpty(),
                         enter = fadeIn()
                     ) {
                         Column(
@@ -99,7 +97,7 @@ fun ArtistViewScreen(
                                 horizontalContentPadding = 15.dp,
                             )
 
-                            RowArtistAlbumList(artistAlbums, navControllerBottomBar)
+                            RowArtistAlbumList(albumList, navControllerBottomBar)
                         }
                     }
                 }
@@ -107,7 +105,7 @@ fun ArtistViewScreen(
                 item { ArtistViewSongSectionTitle(viewModel = viewModel) }
 
                 artistSongList(
-                    artistSongs,
+                    songList,
                     navControllerBottomBar
                 )
             }
@@ -117,7 +115,7 @@ fun ArtistViewScreen(
 
 @Composable
 private fun RowArtistAlbumList(
-    artistAlbums: MutableList<ArtistAlbumData>,
+    artistAlbums: MutableList<ArtistAlbumEntity>,
     navControllerBottomBar: NavHostController
 ) {
     LazyRow(
@@ -152,7 +150,7 @@ private fun RowArtistAlbumList(
 }
 
 private fun LazyListScope.artistSongList(
-    artistSongs: MutableList<ArtistSongData>,
+    artistSongs: MutableList<ArtistSongEntity>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(items = artistSongs) { _, item ->
@@ -211,7 +209,7 @@ private fun LazyListScope.artistSongList(
 }
 
 private fun listSort(
-    songs: MutableList<ArtistSongData>,
+    songs: MutableList<ArtistSongEntity>,
     sortOrder: Int,
     sortType: Int
 ) {

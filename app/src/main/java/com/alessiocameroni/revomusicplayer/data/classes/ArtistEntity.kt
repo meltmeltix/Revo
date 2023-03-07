@@ -2,7 +2,7 @@ package com.alessiocameroni.revomusicplayer.data.classes
 
 import android.net.Uri
 
-data class ArtistData(
+data class ArtistEntity(
     var artistId: Long,
     var artist: String,
     val albumCoverUri: Uri,

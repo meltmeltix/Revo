@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.classes.SongData
+import com.alessiocameroni.revomusicplayer.data.classes.SongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.data.repository.SongsRepositoryImpl
 import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
@@ -19,7 +19,7 @@ class SongViewModel @Inject constructor(
 ): ViewModel() {
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
-    var librarySongs = mutableStateListOf<SongData>()
+    var librarySongs = mutableStateListOf<SongEntity>()
 
     init {
         viewModelScope.launch {
@@ -29,15 +29,13 @@ class SongViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            songsRepositoryImpl.fetchSongRepository().collect {
+            songsRepositoryImpl.fetchSongList().collect {
                 librarySongs = it
             }
         }
     }
 
-    /**
-     * Preferences management
-     */
+    // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
             sortingRepositoryImpl.setSongSorting(SortingValues(type, order))

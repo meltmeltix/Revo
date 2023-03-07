@@ -24,7 +24,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistEntity
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
@@ -58,7 +58,7 @@ fun ArtistsScreen(
 }
 
 private fun LazyListScope.artistList(
-    libraryArtists: SnapshotStateList<ArtistData>,
+    libraryArtists: SnapshotStateList<ArtistEntity>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(libraryArtists) { _, item ->
@@ -118,7 +118,7 @@ private fun LazyListScope.artistList(
 }
 
 private fun listSort(
-    artists: SnapshotStateList<ArtistData>,
+    artists: SnapshotStateList<ArtistEntity>,
     sortOrder: Int,
 ) {
     when(sortOrder) {
