@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistData
-import com.alessiocameroni.revomusicplayer.data.classes.SortData
+import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.data.repository.ArtistsRepositoryImpl
 import com.alessiocameroni.revomusicplayer.data.repository.SortingRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,7 +38,7 @@ class ArtistViewModel @Inject constructor(
      */
     fun setSortData(order: Int) {
         viewModelScope.launch {
-            sortingRepositoryImpl.setArtistSorting(SortData(0, order))
+            sortingRepositoryImpl.setArtistSorting(SortingValues(0, order))
         }
     }
 }

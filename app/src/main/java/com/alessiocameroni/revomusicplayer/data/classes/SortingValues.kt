@@ -1,6 +1,6 @@
 package com.alessiocameroni.revomusicplayer.data.classes
 
-data class SortData (
+data class SortingValues (
     var type: Int,
     var order: Int
 )

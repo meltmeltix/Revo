@@ -91,7 +91,12 @@ fun BottomContent(
             ),
             spotifyVisibilityState = spotifyVisibilityState,
             navController = navControllerBottomBar,
-            onItemClick = { navControllerBottomBar.navigate(it.route) },
+            onItemClick = {
+                navControllerBottomBar.navigate(it.route) {
+                    popUpTo(it.route)
+                    launchSingleTop = true
+                }
+            },
             contentExpanded = contentExpanded,
             offset = navBarOffset
         )
@@ -217,7 +222,12 @@ fun BottomNavigationBar(
 
             NavigationBarItem(
                 selected =  selected,
-                onClick = { navController.navigate(SpotifyScreen.route) },
+                onClick = {
+                    navController.navigate(SpotifyScreen.route) {
+                        popUpTo(SpotifyScreen.route)
+                        launchSingleTop = true
+                    }
+                },
                 icon = {
                     Icon(
                         painter =

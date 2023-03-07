@@ -1,28 +1,28 @@
 package com.alessiocameroni.revomusicplayer.domain.repository
 
-import com.alessiocameroni.revomusicplayer.data.classes.SortData
+import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import kotlinx.coroutines.flow.Flow
 
 interface SortingRepository {
     /**
      * Get data
      */
-    suspend fun getSongSorting(): Flow<SortData>
+    suspend fun getSongSorting(): Flow<SortingValues>
 
-    suspend fun getAlbumSorting(): Flow<SortData>
-    suspend fun getAlbumSongsSorting(): Flow<SortData>
+    suspend fun getAlbumSorting(): Flow<SortingValues>
+    suspend fun getAlbumSongsSorting(): Flow<SortingValues>
 
-    suspend fun getArtistSorting(): Flow<SortData>
-    suspend fun getArtistSongsSorting(): Flow<SortData>
+    suspend fun getArtistSorting(): Flow<SortingValues>
+    suspend fun getArtistSongsSorting(): Flow<SortingValues>
 
     /**
      * Set data
      */
-    suspend fun setSongSorting(sortData: SortData)
+    suspend fun setSongSorting(sortingValues: SortingValues)
 
-    suspend fun setAlbumSorting(sortData: SortData)
-    suspend fun setAlbumSongsSorting(sortData: SortData)
+    suspend fun setAlbumSorting(sortingValues: SortingValues)
+    suspend fun setAlbumSongsSorting(sortingValues: SortingValues)
 
-    suspend fun setArtistSorting(sortData: SortData)
-    suspend fun setArtistSongsSorting(sortData: SortData)
+    suspend fun setArtistSorting(sortingValues: SortingValues)
+    suspend fun setArtistSongsSorting(sortingValues: SortingValues)
 }
