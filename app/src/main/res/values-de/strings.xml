@@ -1,39 +1,122 @@
 <resources>
+    <string name="app_packageName" translatable="false">com.alessiocameroni.revomusicplayer</string>
+    <string name="app_name" translatable="false">Revo</string>
+    <string name="app_language">German</string>
+    <string name="str_songs">Songs</string>
     <string name="str_albums">Alben</string>
     <string name="str_playlists">Playlists</string>
+    <string name="str_spotify" translatable="false">Spotify</string>
     <string name="str_settings">Einstellungen</string>
     <string name="str_sortBy">Sortieren nach</string>
     <string name="str_openSpotify">Spotify öffnen</string>
-    <string name="str_search">Suche…</string>
+    <string name="str_search">Suchen…</string>
     <string name="str_moreOptions">Mehr</string>
-    <string name="str_customization">Personalisierung</string>
+    <string name="str_customization">Anpassungen</string>
     <string name="str_about">Über</string>
-    <string name="info_customization">Änder das Design oder Layout der App</string>
-    <string name="str_chooseControls">Wähle Layout</string>
-    <string name="str_left">Linksbündig</string>
-    <string name="str_center">Zentriert</string>
-    <string name="str_right">Rechtsbündig</string>
+    <string name="info_customization">Ändere das Design oder das Layout der App</string>
+    <string name="info_about">App Info, Entwickler und Würdigungen</string>
+    <string name="str_chooseControls">Wähle ein Layout</string>
+    <string name="str_left">Links</string>
+    <string name="str_center">Mittig</string>
+    <string name="str_right">Rechts</string>
+    <string name="str_ok" translatable="false">OK</string>
     <string name="str_cancel">Abbrechen</string>
-    <string name="str_layoutPlayer">Layout player</string>
-    <string name="info_layoutPlayer">Wähle, wie die Buttons in der Vollbildansicht dargestellt werden sollen</string>
-    <string name="str_userIcon">Benutzer-Symbol</string>
+    <string name="str_layoutPlayer">Layout Player</string>
+    <string name="info_layoutPlayer">Wähle, wie sich die Buttons im Fullscreen-Modus verhalten</string>
+    <string name="str_AlessioCameroni" translatable="false">Alessio Cameroni</string>
+    <string name="str_arigata9" translatable="false">arigata9</string>
+    <string name="str_github" translatable="false">Github</string>
+    <string name="str_twitter" translatable="false">Twitter</string>
+    <string name="str_instagram" translatable="false">Instagram</string>
+    <string name="str_userIcon">User Icon</string>
     <string name="str_addToPlaylist">Zur Playlist hinzufügen</string>
-    <string name="str_lc_minutes">minuten</string>
-    <string name="str_songs">Songs</string>
-    <string name="str_lc_tracks">musiktitel</string>
+    <string name="str_lc_minutes">Minuten</string>
+    <string name="str_lc_tracks">Tracks</string>
     <string name="str_delete">Löschen</string>
     <string name="str_rename">Umbenennen</string>
-    <string name="str_history">Historie</string>
-    <string name="str_lastAdded">"Zuletzt hinzugefügt"</string>
+    <string name="str_shuffle" translatable="false">Shuffle</string>
+    <string name="str_history">Verlauf</string>
+    <string name="str_lastAdded">Zuletzt hinzugefügt</string>
     <string name="str_queue">Warteschlange</string>
     <string name="str_artists">Künstler</string>
-    <string name="str_icon">Symbol</string>
-    <string name="str_tooQuiet">Es ist ein bisschen zu ruhig hier…</string>
-    <string name="info_tooQuiet">Du hast keine Songs in deiner Mediathek. Füge ein paar Songs hinzu und hör zu!</string>
-    <string name="str_heyThere">Hallo! 👋🏻</string>
-    <string name="str_welcome">Willkommen bei</string>
+    <string name="str_icon">Icon</string>
+    <string name="str_tooQuiet">es ist ein bisschen zu ruhig hier…</string>
+    <string name="info_tooQuiet">Du hast keine Songs in deiner Mediathek. Füge ein paar Songs hinzu und beginne jetzt mit dem Hören!</string>
+    <string name="str_heyThere">Hey ! 👋🏻</string>
+    <string name="str_welcome">Willkommen bei </string>
     <string name="info_beforeProceeding">Bevor Du fortfährst, benötigt Revo Zugriff auf deinen Speicher, um deine Musik abspielen zu können.</string>
     <string name="str_letsGo">Los geht\'s!</string>
-    <string name="str_grantAccess">Zugriff gewähren</string>
+    <string name="str_grant">Erlauben</string>
+    <string name="str_grantAccess">Zugriff erlauben</string>
     <string name="str_library">Mediathek</string>
+    <string name="info_library">Verwalte deine Mediathek</string>
+    <string name="str_newPlaylist">Neue Playlist</string>
+    <string name="str_create">Erstellen</string>
+    <string name="str_playlistTitle">Playlist Titel</string>
+    <string name="str_goToArtist">Gehe zu Künstler</string>
+    <string name="str_goToAlbum">Gehe zu Album</string>
+    <string name="str_storageAccess">Speicher Zugriff</string>
+    <string name="info_storageAccess">Revo benötigt Zugriff auf den Speicher deines Geräts, um deine Songs zu finden und abzuspielen.</string>
+    <string name="str_accessGranted">Zugriff gewährt.</string>
+    <string name="str_permStorageDenied">Zugriff auf externes Speichermedium verweigert.</string>
+    <string name="str_other">Andere</string>
+    <string name="info_other">Erweiterte Features</string>
+    <string name="str_generalPrefs">Grundeinstellungen</string>
+    <string name="str_appLanguage">Sprache der App</string>
+    <string name="info_appLanguage">Ändere die Spracheinstellung in den Systemeinstellungen</string>
+    <string name="info_helpAppLanguage">Dieses Feature ist nur mit Android 13 verfügbar.\n\nRevo nutzt standardmäßig dieselbe Spracheinstellung die aktuell auf deinem Gerät eingestellt ist.\nDu kannst die Sprache der App hier auf eine andere, präferiertere Sprache ändern.</string>
+    <string name="str_interface">Interface</string>
+    <string name="str_theme">Design</string>
+    <string name="str_appTheme">App Design</string>
+    <string name="str_light">Hell</string>
+    <string name="str_dark">Dunkel</string>
+    <string name="str_systemDefault">Systemstandard</string>
+    <string name="str_colorScheme">Farbschema</string>
+    <string name="str_dynamic">Dynamisch</string>
+    <string name="str_appVersion">App Version</string>
+    <string name="str_membersAndContributors">Mitglieder und Mitwirkende</string>
+    <string name="info_AlessioCameroni">Leitender Entwickler &amp; Designer</string>
+    <string name="info_arigata9">Übersetzer Deutsch</string>
+    <string name="str_checkOnGithub">Sieh dir das Projekt auf GitHub an</string>
+    <string name="str_openSourceLicenses">Open Source Lizenzen</string>
+    <string name="info_openSourceLicenses">Liste der verwendeten Open Source Bibliotheken</string>
+    <plurals name="str_songAmount">
+        <item quantity="one">Song</item>
+        <item quantity="other">Songs</item>
+    </plurals>
+    <plurals name="str_albumAmount">
+        <item quantity="one">Album</item>
+        <item quantity="other">Alben</item>
+    </plurals>
+    <plurals name="str_hourAmountAbbr">
+        <item quantity="one">Std</item>
+        <item quantity="other">Stdn</item>
+    </plurals>
+    <plurals name="str_minutesAmountAbbr">
+        <item quantity="one">Min</item>
+        <item quantity="other">Min</item>
+    </plurals>
+    <string name="str_secondsAmountAbbr">Sek</string>
+    <string name="str_showSpotifyIntegration">Spotify einblenden</string>
+    <string name="desc_showSpotifyIntegration">Für all diejenigen, die Spotify nicht brauchen. Schalte es aus, um Spotify aus der Navigation zu entfernen.</string>
+    <string name="str_sortType">Typ</string>
+    <string name="str_name">Name</string>
+    <string name="str_artist">Künstler</string>
+    <string name="str_album">Album</string>
+    <string name="str_duration">Dauer</string>
+    <string name="str_dateAdded">Hinzugefügt am</string>
+    <string name="str_sortOrder">Sortierung</string>
+    <string name="str_year">Jahr</string>
+    <string name="str_songNumber">Song Nummer</string>
+    <string name="str_ascending">Aufsteigend</string>
+    <string name="str_descending">Absteigend</string>
+    <string name="str_albumImage">Album Bild</string>
+    <string name="str_back">Zurück</string>
+    <string name="str_next">Nächster</string>
+    <string name="str_play">Play</string>
+    <string name="str_previous">Vorheriger</string>
+    <string name="str_openPlayer">Player öffnen</string>
+    <string name="str_closePlayer">Player schließen</string>
+    <string name="str_addToFavorites">Zu Favoriten hinzufügen</string>
+    <string name="str_trackNumber">Track Nummer</string>
 </resources>
