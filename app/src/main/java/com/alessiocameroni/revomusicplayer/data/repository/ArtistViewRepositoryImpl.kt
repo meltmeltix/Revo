@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
+import androidx.annotation.WorkerThread
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
@@ -56,6 +57,7 @@ class ArtistViewRepositoryImpl(
         )
     }
 
+    @WorkerThread
     private fun artistDetailsContentResolver(artistId: Long): ArtistDetails {
         var artistDetails = ArtistDetails(
             "Artist Name",
@@ -89,6 +91,7 @@ class ArtistViewRepositoryImpl(
         return artistDetails
     }
 
+    @WorkerThread
     private fun albumContentResolver(artistId: Long): SnapshotStateList<ArtistAlbumEntity> {
         val albumList = mutableStateListOf<ArtistAlbumEntity>()
 
@@ -123,6 +126,7 @@ class ArtistViewRepositoryImpl(
         return albumList
     }
 
+    @WorkerThread
     private fun songContentResolver(artistId: Long): SnapshotStateList<ArtistSongEntity> {
         val songList = mutableStateListOf<ArtistSongEntity>()
 

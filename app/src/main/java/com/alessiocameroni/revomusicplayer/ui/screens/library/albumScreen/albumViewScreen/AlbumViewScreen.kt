@@ -35,16 +35,15 @@ fun AlbumViewScreen(
     navControllerBottomBar: NavHostController,
     viewModel: AlbumViewViewModel = hiltViewModel(),
 ) {
-    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val albumSongs = viewModel.albumSongs
+    val albumSongs = viewModel.songList
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
 
-    LaunchedEffect(Unit) { viewModel.initializeAlbumSongsList(context, albumId) }
+    LaunchedEffect(Unit) { viewModel.initializeSongList(albumId) }
     listSort(albumSongs, selectedSortOrder, selectedSortType)
 
     Scaffold(
