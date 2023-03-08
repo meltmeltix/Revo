@@ -115,13 +115,13 @@ fun ArtistViewScreen(
 
 @Composable
 private fun RowArtistAlbumList(
-    artistAlbums: MutableList<ArtistAlbumEntity>,
+    albums: MutableList<ArtistAlbumEntity>,
     navControllerBottomBar: NavHostController
 ) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 5.dp)
     ) {
-        itemsIndexed(items = artistAlbums) { _, item ->
+        itemsIndexed(items = albums) { _, item ->
             Column(
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.large)
@@ -150,10 +150,10 @@ private fun RowArtistAlbumList(
 }
 
 private fun LazyListScope.artistSongList(
-    artistSongs: MutableList<ArtistSongEntity>,
+    songs: MutableList<ArtistSongEntity>,
     navControllerBottomBar: NavHostController
 ) {
-    itemsIndexed(items = artistSongs) { _, item ->
+    itemsIndexed(items = songs) { _, item ->
         Row(
             modifier = Modifier
                 .clickable {  },

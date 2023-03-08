@@ -55,10 +55,10 @@ fun SongsScreen(
 }
 
 private fun LazyListScope.songList(
-    librarySongs: SnapshotStateList<SongEntity>,
+    songs: SnapshotStateList<SongEntity>,
     navControllerBottomBar: NavController
 ) {
-    itemsIndexed(items = librarySongs) { key, item ->
+    itemsIndexed(items = songs) { key, item ->
         key(key) {
             Row(modifier = Modifier.clickable{ }) {
                 PixelyListItem(

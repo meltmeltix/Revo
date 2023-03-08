@@ -58,10 +58,10 @@ fun AlbumsScreen(
 }
 
 private fun LazyListScope.albumList(
-    libraryAlbums: SnapshotStateList<AlbumEntity>,
+    albums: SnapshotStateList<AlbumEntity>,
     navControllerBottomBar: NavHostController
 ) {
-    itemsIndexed(libraryAlbums) { _, item ->
+    itemsIndexed(albums) { _, item ->
         Row(
             modifier = Modifier
                 .clickable {

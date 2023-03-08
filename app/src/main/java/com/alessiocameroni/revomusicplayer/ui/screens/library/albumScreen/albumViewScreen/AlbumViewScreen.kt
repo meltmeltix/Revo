@@ -100,9 +100,9 @@ fun AlbumViewScreen(
 }
 
 private fun LazyListScope.albumSongsList(
-    albumSongs: SnapshotStateList<AlbumSongEntity>
+    songs: SnapshotStateList<AlbumSongEntity>
 ) {
-    itemsIndexed(items = albumSongs) { _, item ->
+    itemsIndexed(items = songs) { _, item ->
         Row(
             modifier = Modifier.clickable {  },
         ) {
