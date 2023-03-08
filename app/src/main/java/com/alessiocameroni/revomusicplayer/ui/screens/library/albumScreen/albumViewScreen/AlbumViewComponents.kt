@@ -24,6 +24,7 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
@@ -41,8 +42,7 @@ fun AlbumViewTopActionBar(
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-    val artistId = viewModel.artistId
-    val albumTitle by remember { viewModel.albumTitle }
+    val albumDetails by remember { viewModel.albumDetails }
 
     TopAppBar(
         title = {
@@ -52,7 +52,7 @@ fun AlbumViewTopActionBar(
                 exit = fadeOut(animationSpec = tween(100))
             ) {
                 Text(
-                    text = albumTitle,
+                    text = albumDetails.title,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -95,7 +95,7 @@ fun AlbumViewTopActionBar(
                     expanded = expandedMenu,
                     navController = navController,
                     navControllerBottomBar = navControllerBottomBar,
-                    artistId = artistId
+                    artistId = albumDetails.artistId
                 )
             }
         },
@@ -294,6 +294,7 @@ fun AlbumViewHeader(
 
             HeaderText(
                 navControllerBottomBar = navControllerBottomBar,
+                albumDetails = viewModel.albumDetails.value,
                 viewModel = viewModel,
             )
         }
@@ -305,18 +306,17 @@ fun AlbumViewHeader(
 @Composable
 private fun HeaderText(
     navControllerBottomBar: NavHostController,
+    albumDetails: AlbumDetails,
     viewModel: AlbumViewViewModel,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val albumTitle: String = viewModel.albumTitle.value
-    val artistName: String = viewModel.artist.value
-    val songAmount: Int = viewModel.albumSongAmount.value
     val hoursAmount: Int = viewModel.albumHoursAmount.value
     val minutesAmount: Int = viewModel.albumMinutesAmount.value
     val secondsAmount: Int = viewModel.albumSecondsAmount.value
+
     val albumInfo =
-        "$songAmount " +
-        pluralStringResource(id = R.plurals.str_songAmount, count = songAmount) +
+        "${viewModel.songList.size} " +
+        pluralStringResource(id = R.plurals.str_songAmount, count = viewModel.songList.size) +
         " · " +
         when {
             hoursAmount > 0 -> {
@@ -344,7 +344,7 @@ private fun HeaderText(
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = albumTitle,
+                text = albumDetails.title,
                 modifier = Modifier,
                 style = MaterialTheme.typography.headlineMedium,
                 color = Color.White,
@@ -353,7 +353,7 @@ private fun HeaderText(
             )
 
             Text(
-                text = artistName,
+                text = albumDetails.artistName,
                 modifier = Modifier
                     .clickable(
                         interactionSource = interactionSource,
@@ -361,7 +361,7 @@ private fun HeaderText(
                     ) {
                         navControllerBottomBar.navigate(
                             NavigationScreens.ArtistViewScreen.route +
-                                "/${viewModel.artistId}"
+                                "/${albumDetails.artistId}"
                         )
                     },
                 color = Color.White,

@@ -38,13 +38,16 @@ fun AlbumViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val albumSongs = viewModel.songList
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
+    val songList = remember { viewModel.songList }
 
-    LaunchedEffect(Unit) { viewModel.initializeSongList(albumId) }
-    listSort(albumSongs, selectedSortOrder, selectedSortType)
+    LaunchedEffect(Unit) {
+        viewModel.initializeSongList(albumId)
+        viewModel.initializeAlbumDetails(albumId)
+    }
+    listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -72,7 +75,7 @@ fun AlbumViewScreen(
                         leadingUnit = {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
-                                    .data(viewModel.albumCoverUri.value)
+                                    .data(viewModel.albumDetails.value.coverUri)
                                     .crossfade(true)
                                     .build(),
                                 contentDescription = stringResource(id = R.string.str_albumImage),
@@ -89,7 +92,7 @@ fun AlbumViewScreen(
                     )
                 }
 
-                albumSongsList(albumSongs)
+                albumSongsList(songList)
             }
         }
     )

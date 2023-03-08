@@ -38,9 +38,9 @@ fun ArtistsScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val libraryArtists = viewModel.libraryArtists
+    val artistList = viewModel.libraryArtists
 
-    listSort(libraryArtists, selectedSortOrder)
+    listSort(artistList, selectedSortOrder)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -52,7 +52,7 @@ fun ArtistsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) { artistList(libraryArtists, navControllerBottomBar) }
+            ) { artistList(artistList, navControllerBottomBar) }
         }
     )
 }

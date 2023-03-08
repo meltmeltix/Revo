@@ -35,9 +35,9 @@ fun SongsScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val librarySongs = remember { viewModel.librarySongs }
+    val songList = remember { viewModel.librarySongs }
 
-    listSort(librarySongs, selectedSortOrder, selectedSortType)
+    listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -49,7 +49,7 @@ fun SongsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) { songList(librarySongs, navControllerBottomBar) }
+            ) { songList(songList, navControllerBottomBar) }
         }
     )
 }

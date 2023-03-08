@@ -1,11 +1,12 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen
 
-import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
+import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,14 +16,17 @@ import kotlin.math.roundToInt
 @HiltViewModel
 class AlbumViewViewModel @Inject constructor(
     private val sortingRepository: SortingRepository,
+    private val albumViewRepository: AlbumViewRepository
 ): ViewModel() {
     var songList = mutableListOf<AlbumSongEntity>()
-
-    var albumCoverUri = mutableStateOf<Uri?>(null)
-    var albumTitle = mutableStateOf("Album Title")
-    var artistId: Long = 0
-    var artist = mutableStateOf("Artist Name")
-    var albumSongAmount = mutableStateOf(0)
+    var albumDetails = mutableStateOf(
+        AlbumDetails(
+            title = "Unknown Album",
+            artistId = 0,
+            artistName = "Unknown Artist",
+            coverUri = null
+        )
+    )
     var albumHoursAmount = mutableStateOf(0)
     var albumMinutesAmount = mutableStateOf(0)
     var albumSecondsAmount = mutableStateOf(0)
@@ -42,9 +46,18 @@ class AlbumViewViewModel @Inject constructor(
     // Album fetching
     fun initializeSongList(albumId: Long) {
         viewModelScope.launch {
-            /*albumViewRepository.fetchSongList(albumId).collect {
+            albumViewRepository.fetchSongList(albumId).collect {
                 songList = it
-            }*/
+            }
+            calculateAlbumDuration(songList.sumOf { it.duration })
+        }
+    }
+
+    fun initializeAlbumDetails(albumId: Long) {
+        viewModelScope.launch {
+            albumViewRepository.fetchAlbumDetails(albumId).collect {
+                albumDetails.value = it
+            }
         }
     }
 

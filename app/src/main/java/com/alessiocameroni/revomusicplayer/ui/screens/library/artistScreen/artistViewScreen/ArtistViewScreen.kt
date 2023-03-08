@@ -40,10 +40,10 @@ fun ArtistViewScreen(
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
 
-    val albumList = viewModel.albumList
-    val songList = viewModel.songList
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
+    val albumList = remember { viewModel.albumList }
+    val songList = remember { viewModel.songList }
 
     LaunchedEffect(Unit) {
         viewModel.initializeArtistDetails(artistId)

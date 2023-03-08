@@ -6,6 +6,5 @@ data class AlbumDetails(
     val title: String,
     val artistId: Long,
     val artistName: String,
-    val duration: Int,
     val coverUri: Uri?,
 )

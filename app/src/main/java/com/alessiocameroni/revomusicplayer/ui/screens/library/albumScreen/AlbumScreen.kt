@@ -38,9 +38,9 @@ fun AlbumsScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val libraryAlbums = remember { viewModel.libraryAlbums }
+    val albumList = remember { viewModel.libraryAlbums }
 
-    listSort(libraryAlbums, selectedSortOrder, selectedSortType)
+    listSort(albumList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -52,7 +52,7 @@ fun AlbumsScreen(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 contentPadding = PaddingValues(bottom = 70.dp)
-            ) { albumList(libraryAlbums, navControllerBottomBar) }
+            ) { albumList(albumList, navControllerBottomBar) }
         }
     )
 }
