@@ -42,8 +42,8 @@ fun ArtistViewScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val albumList = remember { viewModel.albumList }
-    val songList = remember { viewModel.songList }
+    val albumList = viewModel.albumList
+    val songList = viewModel.songList
 
     LaunchedEffect(Unit) {
         viewModel.initializeArtistDetails(artistId)

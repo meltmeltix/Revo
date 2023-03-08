@@ -35,7 +35,7 @@ fun SongsScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val songList = remember { viewModel.librarySongs }
+    val songList = viewModel.librarySongs
 
     listSort(songList, selectedSortOrder, selectedSortType)
 

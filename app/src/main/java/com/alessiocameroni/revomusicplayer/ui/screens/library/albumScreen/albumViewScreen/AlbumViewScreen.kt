@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -25,7 +26,7 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
-import java.util.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +42,7 @@ fun AlbumViewScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val songList = remember { viewModel.songList }
+    val songList = viewModel.songList
 
     LaunchedEffect(Unit) {
         viewModel.initializeSongList(albumId)
@@ -99,12 +100,11 @@ fun AlbumViewScreen(
 }
 
 private fun LazyListScope.albumSongsList(
-    albumSongs: MutableList<AlbumSongEntity>
+    albumSongs: SnapshotStateList<AlbumSongEntity>
 ) {
     itemsIndexed(items = albumSongs) { _, item ->
         Row(
-            modifier = Modifier
-                .clickable {  },
+            modifier = Modifier.clickable {  },
         ) {
             PixelyListItem(
                 headlineTextString = item.songTitle,
@@ -153,7 +153,7 @@ private fun LazyListScope.albumSongsList(
 }
 
 private fun listSort(
-    songs: MutableList<AlbumSongEntity>,
+    songs: SnapshotStateList<AlbumSongEntity>,
     sortOrder: Int,
     sortType: Int
 ) {

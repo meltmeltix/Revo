@@ -22,7 +22,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumEntry
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumEntity
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import androidx.compose.runtime.getValue
@@ -38,7 +38,7 @@ fun AlbumsScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val albumList = remember { viewModel.libraryAlbums }
+    val albumList = viewModel.libraryAlbums
 
     listSort(albumList, selectedSortOrder, selectedSortType)
 
@@ -58,7 +58,7 @@ fun AlbumsScreen(
 }
 
 private fun LazyListScope.albumList(
-    libraryAlbums: SnapshotStateList<AlbumEntry>,
+    libraryAlbums: SnapshotStateList<AlbumEntity>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(libraryAlbums) { _, item ->
@@ -117,7 +117,7 @@ private fun LazyListScope.albumList(
 }
 
 private fun listSort(
-    albums: SnapshotStateList<AlbumEntry>,
+    albums: SnapshotStateList<AlbumEntity>,
     sortOrder: Int,
     sortType: Int
 ) {

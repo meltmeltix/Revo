@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.data.repository
 
 import android.content.ContentUris
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -20,6 +21,7 @@ class AlbumViewRepositoryImpl(
     private val context: Context
 ): AlbumViewRepository {
     private companion object {
+        var mCursor: Cursor? = null
         val collection: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
@@ -50,7 +52,7 @@ class AlbumViewRepositoryImpl(
         val selection =
             "${Media.IS_MUSIC} != 0 AND ${Media.ALBUM_ID} = $albumId"
         val sortOrder = "${Media.TITLE} ASC"
-        val mCursor = context.contentResolver.query(
+        mCursor = context.contentResolver.query(
             collection,
             projection,
             selection,
