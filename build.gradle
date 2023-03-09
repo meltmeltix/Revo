@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        compose_version = '1.4.0-beta02'
+        compose_version = '1.4.0-rc01'
         accompanist_version = '0.29.1-alpha'
         kotlin_version = '1.8.0'
         kotlin_compiler_extension_version = '1.4.2'

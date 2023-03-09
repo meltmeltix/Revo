@@ -44,7 +44,7 @@ class ArtistViewViewModel @Inject constructor(
             albumViewRepository.fetchArtistInfo(artistId).collect { details ->
                 artist.value = details.artist
                 numberOfAlbums.value = details.numberOfAlbums
-                numberOfTracks.value = details.numberOfArtists
+                numberOfTracks.value = details.numberOfTracks
             }
         }
     }
