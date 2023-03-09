@@ -25,7 +25,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -100,7 +100,7 @@ fun AlbumViewScreen(
 }
 
 private fun LazyListScope.albumSongsList(
-    songs: SnapshotStateList<AlbumSongEntity>
+    songs: SnapshotStateList<AlbumSong>
 ) {
     itemsIndexed(items = songs) { _, item ->
         Row(
@@ -153,7 +153,7 @@ private fun LazyListScope.albumSongsList(
 }
 
 private fun listSort(
-    songs: SnapshotStateList<AlbumSongEntity>,
+    songs: SnapshotStateList<AlbumSong>,
     sortOrder: Int,
     sortType: Int
 ) {

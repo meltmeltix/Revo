@@ -10,7 +10,7 @@ import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistViewRepository
@@ -92,8 +92,8 @@ class ArtistViewRepositoryImpl(
     }
 
     @WorkerThread
-    private fun albumContentResolver(artistId: Long): SnapshotStateList<ArtistAlbumEntity> {
-        val albumList = mutableStateListOf<ArtistAlbumEntity>()
+    private fun albumContentResolver(artistId: Long): SnapshotStateList<ArtistAlbum> {
+        val albumList = mutableStateListOf<ArtistAlbum>()
 
         val selection = "${Media.IS_MUSIC} != 0 AND ${Media.ARTIST_ID} = $artistId"
         val sortOrder = "${Media.ALBUM} ASC"
@@ -116,9 +116,9 @@ class ArtistViewRepositoryImpl(
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
 
                 if(
-                    !albumList.contains(ArtistAlbumEntity(albumId, albumTitle, albumCoverUri))
+                    !albumList.contains(ArtistAlbum(albumId, albumTitle, albumCoverUri))
                 ) {
-                    albumList.add(ArtistAlbumEntity(albumId, albumTitle, albumCoverUri))
+                    albumList.add(ArtistAlbum(albumId, albumTitle, albumCoverUri))
                 }
             }
         }
@@ -183,7 +183,7 @@ class ArtistViewRepositoryImpl(
         }
 
     override suspend fun fetchAlbumList(artistId: Long):
-        Flow<SnapshotStateList<ArtistAlbumEntity>> = flow {
+        Flow<SnapshotStateList<ArtistAlbum>> = flow {
             val list = albumContentResolver(artistId)
             emit(list)
         }

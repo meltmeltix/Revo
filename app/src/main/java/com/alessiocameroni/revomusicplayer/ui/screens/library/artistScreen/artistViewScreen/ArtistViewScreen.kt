@@ -24,7 +24,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
@@ -115,7 +115,7 @@ fun ArtistViewScreen(
 
 @Composable
 private fun RowArtistAlbumList(
-    albums: MutableList<ArtistAlbumEntity>,
+    albums: MutableList<ArtistAlbum>,
     navControllerBottomBar: NavHostController
 ) {
     LazyRow(

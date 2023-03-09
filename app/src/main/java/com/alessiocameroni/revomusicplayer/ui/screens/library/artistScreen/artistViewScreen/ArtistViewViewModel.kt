@@ -4,7 +4,7 @@ import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbumEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
 import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistViewRepository
@@ -26,7 +26,7 @@ class ArtistViewViewModel @Inject constructor(
     var numberOfAlbums = mutableStateOf(0)
     var numberOfTracks = mutableStateOf(0)
 
-    var albumList = mutableListOf<ArtistAlbumEntity>()
+    var albumList = mutableListOf<ArtistAlbum>()
     var songList = mutableListOf<ArtistSongEntity>()
 
     init {

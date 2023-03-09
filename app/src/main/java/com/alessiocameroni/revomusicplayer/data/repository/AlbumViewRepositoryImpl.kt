@@ -11,7 +11,7 @@ import androidx.annotation.WorkerThread
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSongEntity
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 import kotlinx.coroutines.flow.Flow
@@ -45,8 +45,8 @@ class AlbumViewRepositoryImpl(
     }
 
     @WorkerThread
-    private fun songContentResolver(albumId: Long): SnapshotStateList<AlbumSongEntity> {
-        val songList = mutableStateListOf<AlbumSongEntity>()
+    private fun songContentResolver(albumId: Long): SnapshotStateList<AlbumSong> {
+        val songList = mutableStateListOf<AlbumSong>()
         var gotAlbumDetails = false
 
         val selection =
@@ -87,7 +87,7 @@ class AlbumViewRepositoryImpl(
                 }
 
                 songList.add(
-                    AlbumSongEntity(
+                    AlbumSong(
                         id,
                         contentUri,
                         track,
@@ -103,7 +103,7 @@ class AlbumViewRepositoryImpl(
     }
 
     override suspend fun fetchSongList(albumId: Long):
-        Flow<SnapshotStateList<AlbumSongEntity>> = flow {
+        Flow<SnapshotStateList<AlbumSong>> = flow {
             val list = songContentResolver(albumId)
             emit(list)
         }
