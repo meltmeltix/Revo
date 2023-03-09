@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.alessiocameroni.revomusicplayer.R
@@ -92,8 +93,9 @@ fun BottomContent(
             navController = navControllerBottomBar,
             onItemClick = {
                 navControllerBottomBar.navigate(it.route) {
-                    popUpTo(it.route)
+                    popUpTo(navControllerBottomBar.graph.findStartDestination().id) { saveState = true }
                     launchSingleTop = true
+                    restoreState = true
                 }
             },
             contentExpanded = contentExpanded,
@@ -223,8 +225,9 @@ fun BottomNavigationBar(
                 selected =  selected,
                 onClick = {
                     navController.navigate(SpotifyScreen.route) {
-                        popUpTo(SpotifyScreen.route)
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
+                        restoreState = true
                     }
                 },
                 icon = {
