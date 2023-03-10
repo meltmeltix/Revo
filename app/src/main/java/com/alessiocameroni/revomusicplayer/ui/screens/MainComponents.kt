@@ -93,7 +93,9 @@ fun BottomContent(
             navController = navControllerBottomBar,
             onItemClick = {
                 navControllerBottomBar.navigate(it.route) {
-                    popUpTo(navControllerBottomBar.graph.findStartDestination().id) { saveState = true }
+                    popUpTo(navControllerBottomBar.graph.findStartDestination().id) {
+                        saveState = true
+                    }
                     launchSingleTop = true
                     restoreState = true
                 }
