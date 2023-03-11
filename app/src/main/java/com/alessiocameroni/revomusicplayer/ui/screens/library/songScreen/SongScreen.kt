@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -35,9 +34,9 @@ fun SongsScreen(
 
     val selectedSortType by remember { viewModel.sortingType }
     val selectedSortOrder by remember { viewModel.sortingOrder }
-    val songList = viewModel.librarySongs
+    val songList by viewModel.librarySongs
 
-    listSort(songList, selectedSortOrder, selectedSortType)
+    //listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -55,7 +54,7 @@ fun SongsScreen(
 }
 
 private fun LazyListScope.songList(
-    songs: SnapshotStateList<Song>,
+    songs: List<Song>,
     navControllerBottomBar: NavController
 ) {
     itemsIndexed(items = songs) { key, item ->
@@ -109,7 +108,7 @@ private fun LazyListScope.songList(
 }
 
 private fun listSort(
-    songs: SnapshotStateList<Song>,
+    songs: MutableList<Song>,
     sortOrder: Int,
     sortType: Int
 ) {

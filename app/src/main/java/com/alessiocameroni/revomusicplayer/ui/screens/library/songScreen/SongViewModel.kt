@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,9 @@ import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.domain.repository.SongsRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +20,7 @@ class SongViewModel @Inject constructor(
 ): ViewModel() {
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
-    var librarySongs = mutableStateListOf<Song>()
+    val librarySongs = mutableStateOf<List<Song>>(emptyList())
 
     init {
         viewModelScope.launch {
@@ -28,10 +29,12 @@ class SongViewModel @Inject constructor(
                 sortingOrder.value = it.order
             }
         }
-        viewModelScope.launch {
-            songsRepository.fetchSongList().collect {
-                librarySongs = it
+        viewModelScope.launch(Dispatchers.Main) {
+            var list: List<Song>
+            withContext(Dispatchers.IO) {
+                list = songsRepository.fetchSongList()
             }
+            librarySongs.value = list
         }
     }
 

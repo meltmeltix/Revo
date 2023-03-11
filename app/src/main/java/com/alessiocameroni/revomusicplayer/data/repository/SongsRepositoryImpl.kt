@@ -6,14 +6,10 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.*
+import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.Song
 import com.alessiocameroni.revomusicplayer.domain.repository.SongsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class SongsRepositoryImpl(
     private val context: Context
@@ -37,12 +33,12 @@ class SongsRepositoryImpl(
             Media.DATE_ADDED
         )
         const val selection = "${Media.IS_MUSIC} != 0"
-        val sortOrder = "${Media.DISPLAY_NAME} ASC"
+        const val sortOrder = "${Media.DISPLAY_NAME} ASC"
     }
 
     @WorkerThread
-    private fun songContentResolver(): SnapshotStateList<Song> {
-        val songList = mutableStateListOf<Song>()
+    private fun songContentResolver(): List<Song> {
+        val songList = mutableListOf<Song>()
 
         mCursor = context.contentResolver.query(
             collection,
@@ -97,9 +93,5 @@ class SongsRepositoryImpl(
         return songList
     }
 
-    override suspend fun fetchSongList(): Flow<SnapshotStateList<Song>> =
-        flow {
-            val list: SnapshotStateList<Song> = songContentResolver()
-            emit(list)
-        }
+    override suspend fun fetchSongList(): List<Song> = songContentResolver()
 }
