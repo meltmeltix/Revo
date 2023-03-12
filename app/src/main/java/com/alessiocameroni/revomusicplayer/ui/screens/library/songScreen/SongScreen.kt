@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -31,12 +32,7 @@ fun SongsScreen(
     viewModel: SongViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-    val selectedSortType by remember { viewModel.sortingType }
-    val selectedSortOrder by remember { viewModel.sortingOrder }
-    val songList by viewModel.librarySongs
-
-    //listSort(songList, selectedSortOrder, selectedSortType)
+    val songList by viewModel.songs.observeAsState(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -102,33 +98,6 @@ private fun LazyListScope.songList(
                         }
                     }
                 )
-            }
-        }
-    }
-}
-
-private fun listSort(
-    songs: MutableList<Song>,
-    sortOrder: Int,
-    sortType: Int
-) {
-    when(sortOrder) {
-        0 -> {
-            when(sortType) {
-                0 -> songs.sortBy { it.songTitle }
-                1 -> songs.sortBy { it.artist }
-                2 -> songs.sortBy { it.album }
-                3 -> songs.sortBy { it.duration }
-                4 -> songs.sortBy { it.dateAdded }
-            }
-        }
-        1 -> {
-            when(sortType) {
-                0 -> songs.sortByDescending { it.songTitle }
-                1 -> songs.sortByDescending { it.artist }
-                2 -> songs.sortByDescending { it.album }
-                3 -> songs.sortByDescending { it.duration }
-                4 -> songs.sortByDescending { it.dateAdded }
             }
         }
     }

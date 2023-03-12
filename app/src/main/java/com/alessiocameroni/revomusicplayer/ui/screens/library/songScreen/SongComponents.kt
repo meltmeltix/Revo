@@ -144,7 +144,7 @@ private fun SortDropDownMenu(
             selected = sortTypeList[selectedSortType],
             onSelected = { selectedSortType = sortTypeList.indexOf(it) },
             viewModel = viewModel,
-            orderSelection = selectedSortOrder
+            orderSelection = selectedSortOrder,
         )
         
         Divider()
@@ -159,7 +159,7 @@ private fun SortDropDownMenu(
             selected = sortOrderList[selectedSortOrder],
             onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
             viewModel = viewModel,
-            typeSelection = selectedSortType
+            typeSelection = selectedSortType,
         )
     }
 }
@@ -179,6 +179,7 @@ private fun SortTypeSelector(
             onClick = {
                 onSelected(text)
                 viewModel.setSortData(options.indexOf(text), orderSelection)
+                viewModel.sortList(options.indexOf(text), orderSelection)
                 expanded.value = false
             },
             trailingIcon = {
