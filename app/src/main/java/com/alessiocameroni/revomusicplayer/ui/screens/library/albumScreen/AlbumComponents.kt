@@ -18,9 +18,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumTopActionBar(
@@ -219,9 +217,7 @@ private fun SortOrderSelector(
     }
 }
 
-/**
- * Screen components
- */
+// Screen components
 @Composable
 fun AlbumItemDropDownMenu(
     expanded: MutableState<Boolean>,

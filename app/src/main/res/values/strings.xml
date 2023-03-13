@@ -40,9 +40,9 @@
     <string name="str_queue">Queue</string>
     <string name="str_artists">Artists</string>
     <string name="str_icon">Icon</string>
-    <string name="str_tooQuiet">It\'s a little too quiet in here…</string>
-    <string name="info_tooQuiet">You have no songs in your library.\nAdd some songs and start listening!</string>
-    <string name="str_heyThere">Hey there! 👋🏻</string>
+    <string name="str_tooQuietSongs">It\'s a little too quiet in here…</string>
+    <string name="info_tooQuietSongs">There doesn\'t seem to be any song in your library… Add some songs and get the party started!</string>
+    <string name="str_heyThere">Hey there! &#128075;</string>
     <string name="str_welcome">Welcome to </string>
     <string name="info_beforeProceeding">Before proceeding, Revo needs access to your storage for playing your tunes.</string>
     <string name="str_letsGo">Let\'s go!</string>
@@ -120,4 +120,10 @@
     <string name="str_addToFavorites">Add to favorites</string>
     <string name="str_trackNumber">Track number</string>
     <string name="str_loadingTunes">Loading your tunes…</string>
+    <string name="str_tooQuietAlbums">Did you forgot the disc?</string>
+    <string name="str_loadingAlbums">Loading your albums…</string>
+    <string name="str_loadingArtists">Loading your artists…</string>
+    <string name="info_tooQuietAlbums">There doesn\'t seem to be any album in your library… Add some songs and get the party started!</string>
+    <string name="str_tooQuietArtists">There are no artists at the party…</string>
+    <string name="info_tooQuietArtists">There doesn\'t seem to be any artist in your library… Add some songs and get the party started!</string>
 </resources>

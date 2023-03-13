@@ -26,6 +26,9 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.Song
+import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
+import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
+import com.alessiocameroni.revomusicplayer.ui.components.ScreenContent
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,8 +50,20 @@ fun SongsScreen(
             ScreenContent(
                 state = contentVisibilityState,
                 isListEmpty = isListEmpty,
-                loadingUnit = { LoadingContent(padding) },
-                noContentUnit = { NoSongsMessage(padding) },
+                loadingUnit = {
+                    LoadingContent(
+                        padding = padding,
+                        headlineString = stringResource(id = R.string.str_loadingTunes)
+                    )
+                },
+                noContentUnit = { 
+                    NoContentMessage(
+                        padding = padding,
+                        leadingIcon = painterResource(id = R.drawable.ic_baseline_music_off_24),
+                        headlineString = stringResource(id = R.string.str_tooQuietSongs),
+                        infoString = stringResource(id = R.string.info_tooQuietSongs)
+                    )
+                },
             )
 
             AnimatedVisibility(

@@ -30,9 +30,9 @@
     <string name="str_queue">Warteschlange</string>
     <string name="str_artists">Künstler</string>
     <string name="str_icon">Icon</string>
-    <string name="str_tooQuiet">Es ist ein bisschen zu ruhig hier…</string>
-    <string name="info_tooQuiet">Du hast keine Songs in deiner Mediathek.\nFüge ein paar Songs hinzu und beginne jetzt mit dem Hören!</string>
-    <string name="str_heyThere">Hey ! 👋🏻</string>
+    <string name="str_tooQuietSongs">Es ist ein bisschen zu ruhig hier…</string>
+    <string name="info_tooQuietSongs">Scheint so, als gäbe es keine Songs in deiner Mediathek… Füge welche hinzu und lasse die Party beginnen!</string>
+    <string name="str_heyThere">Hey! &#128075;</string>
     <string name="str_welcome">Willkommen bei </string>
     <string name="info_beforeProceeding">Bevor Du fortfährst, benötigt Revo Zugriff auf deinen Speicher, um deine Musik abspielen zu können.</string>
     <string name="str_letsGo">Los geht\'s!</string>
@@ -110,4 +110,10 @@
     <string name="str_addToFavorites">Zu Favoriten hinzufügen</string>
     <string name="str_trackNumber">Track Nummer</string>
     <string name="str_loadingTunes">Laden Deiner Songs…</string>
+    <string name="str_tooQuietAlbums">Hast du die CD vergessen?</string>
+    <string name="str_loadingAlbums">Lade deine Alben…</string>
+    <string name="str_loadingArtists">Lade deine Künstler…</string>
+    <string name="info_tooQuietAlbums">Scheint so, als gäbe es keine Alben in deiner Mediathek… Füge welche hinzu und lasse die Party beginnen!</string>
+    <string name="str_tooQuietArtists">Hier sind keine Künstler auf der Party…</string>
+    <string name="info_tooQuietArtists">Scheint so, als gäbe es keine Künstler in deiner Mediathek… Füge ein paar Songs hinzu und lasse die Party beginnen!</string>
 </resources>

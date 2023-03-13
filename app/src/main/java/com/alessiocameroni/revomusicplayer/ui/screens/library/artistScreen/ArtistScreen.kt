@@ -1,5 +1,9 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,7 +12,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,6 +29,9 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.Artist
+import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
+import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
+import com.alessiocameroni.revomusicplayer.ui.components.ScreenContent
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
@@ -36,29 +43,52 @@ fun ArtistsScreen(
     viewModel: ArtistViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-    val selectedSortOrder by remember { viewModel.sortingOrder }
-    val artistList = viewModel.libraryArtists
-
-    listSort(artistList, selectedSortOrder)
+    val artistList by viewModel.artist.observeAsState(emptyList())
+    val isListEmpty by remember { viewModel.isListEmpty }
+    val contentVisibilityState = artistList.isEmpty()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-                contentPadding = PaddingValues(bottom = 70.dp)
-            ) { artistList(artistList, navControllerBottomBar) }
+            ScreenContent(
+                state = contentVisibilityState,
+                isListEmpty = isListEmpty,
+                loadingUnit = {
+                    LoadingContent(
+                        padding = padding,
+                        headlineString = stringResource(id = R.string.str_loadingArtists)
+                    )
+                },
+                noContentUnit = {
+                    NoContentMessage(
+                        padding = padding,
+                        leadingIcon = painterResource(id = R.drawable.outlined_person_off_24),
+                        headlineString = stringResource(id = R.string.str_tooQuietArtists),
+                        infoString = stringResource(id = R.string.info_tooQuietArtists)
+                    )
+                },
+            )
+
+            AnimatedVisibility(
+                visible = !contentVisibilityState,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(padding)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    contentPadding = PaddingValues(bottom = 70.dp)
+                ) { artistList(artistList, navControllerBottomBar) }
+            }
         }
     )
 }
 
 private fun LazyListScope.artistList(
-    artists: SnapshotStateList<Artist>,
+    artists: List<Artist>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(artists) { _, item ->
@@ -114,15 +144,5 @@ private fun LazyListScope.artistList(
                 }
             )
         }
-    }
-}
-
-private fun listSort(
-    artists: SnapshotStateList<Artist>,
-    sortOrder: Int,
-) {
-    when(sortOrder) {
-        0 -> { artists.sortBy { it.artist } }
-        1 -> { artists.sortByDescending { it.artist } }
     }
 }

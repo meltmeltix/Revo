@@ -32,9 +32,9 @@
     <string name="str_queue">Coda</string>
     <string name="str_artists">Artisti</string>
     <string name="str_icon">Icona</string>
-    <string name="str_tooQuiet">C\'è troppo silenzio…</string>
-    <string name="info_tooQuiet">Non hai canconi nella tua libreria.\nAggiungine qualcuna e comincia ad ascoltare!</string>
-    <string name="str_heyThere">Ehi ciao! 👋🏻</string>
+    <string name="str_tooQuietSongs">C\'è troppo silenzio…</string>
+    <string name="info_tooQuietSongs">Sembra che non ci siano brani nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
+    <string name="str_heyThere">Ehi ciao! &#128075;</string>
     <string name="str_welcome">Benvenuto in</string>
     <string name="info_beforeProceeding">Prima di procedere, Revo necessita accesso all\'archivio per poter riprodurre le tue canzoni.</string>
     <string name="str_letsGo">Andiamo!</string>
@@ -56,7 +56,7 @@
     <string name="str_generalPrefs">Preferenze generali</string>
     <string name="str_appLanguage">Lingua app</string>
     <string name="info_appLanguage">Cambia lingua nelle impostazioni di sistema</string>
-    <string name="info_helpAppLanguage">Questa funzionalità è disponibile solo su Android 13. Revo utilizza di default lo stesso linguaggio utilizzato dal tuo dispositivo. Puoi cambiare il linguaggio dell\'app ad un altro linguaggio da qui.</string>
+    <string name="info_helpAppLanguage">Questa funzionalità è disponibile solo su Android 13.\n\nRevo utilizza di default lo stesso linguaggio utilizzato dal tuo dispositivo. Puoi cambiare il linguaggio dell\'app ad un altro linguaggio da qui.</string>
     <string name="str_interface">Interfaccia</string>
     <string name="str_theme">Tema</string>
     <string name="str_appTheme">Tema app</string>
@@ -112,4 +112,10 @@
     </plurals>
     <string name="str_trackNumber">Numero traccia</string>
     <string name="str_loadingTunes">Caricando i tuoi brani…</string>
+    <string name="str_tooQuietAlbums">Hai dimenticato il disco?</string>
+    <string name="str_loadingAlbums">Caricando i tuoi album…</string>
+    <string name="str_loadingArtists">Caricando i tuoi artisti…</string>
+    <string name="info_tooQuietAlbums">Sembra che non ci siano album nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
+    <string name="str_tooQuietArtists">Non ci sono artisti alla festa…</string>
+    <string name="info_tooQuietArtists">Sembra che non ci siano artisti nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
 </resources>

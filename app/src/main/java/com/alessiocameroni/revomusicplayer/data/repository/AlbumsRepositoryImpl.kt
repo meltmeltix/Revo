@@ -9,12 +9,8 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.Album
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class AlbumsRepositoryImpl(
     private val context: Context
@@ -40,8 +36,8 @@ class AlbumsRepositoryImpl(
     }
 
     @WorkerThread
-    private fun albumContentResolver(): SnapshotStateList<Album> {
-        val albumList = mutableStateListOf<Album>()
+    private fun albumContentResolver(): List<Album> {
+        val albumList = mutableListOf<Album>()
 
         mCursor = context.contentResolver.query(
             collection,
@@ -84,13 +80,8 @@ class AlbumsRepositoryImpl(
                 )
             }
         }
-
         return albumList
     }
 
-    override suspend fun fetchAlbumList(): Flow<SnapshotStateList<Album>> =
-        flow {
-            val list: SnapshotStateList<Album> = albumContentResolver()
-            emit(list)
-        }
+    override suspend fun fetchAlbumList(): List<Album> = albumContentResolver()
 }

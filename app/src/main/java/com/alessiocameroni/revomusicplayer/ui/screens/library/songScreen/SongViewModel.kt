@@ -43,13 +43,13 @@ class SongViewModel @Inject constructor(
 
     // List management
     private fun sortList(
-        sortType: Int,
-        sortOrder: Int,
+        type: Int,
+        order: Int,
     ) {
         var list = _songs.value!!
-        list = when(sortOrder) {
+        list = when(order) {
             0 -> {
-                when(sortType) {
+                when(type) {
                     0 -> list.sortedBy { it.songTitle }
                     1 -> list.sortedBy { it.artist }
                     2 -> list.sortedBy { it.album }
@@ -59,7 +59,7 @@ class SongViewModel @Inject constructor(
                 }
             }
             1 -> {
-                when(sortType) {
+                when(type) {
                     0 -> list.sortedByDescending { it.songTitle }
                     1 -> list.sortedByDescending { it.artist }
                     2 -> list.sortedByDescending { it.album }
