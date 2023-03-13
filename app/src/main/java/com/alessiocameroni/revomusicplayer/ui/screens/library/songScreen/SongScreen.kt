@@ -1,5 +1,9 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,16 +49,21 @@ fun SongsScreen(
                 isListEmpty = isListEmpty,
                 loadingUnit = { LoadingContent(padding) },
                 noContentUnit = { NoSongsMessage(padding) },
-                contentUnit = {
-                    LazyColumn(
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(2.dp),
-                        contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { songList(songList, navControllerBottomBar) }
-                }
             )
+
+            AnimatedVisibility(
+                visible = !contentVisibilityState,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(padding)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    contentPadding = PaddingValues(bottom = 70.dp)
+                ) { songList(songList, navControllerBottomBar) }
+            }
         }
     )
 }

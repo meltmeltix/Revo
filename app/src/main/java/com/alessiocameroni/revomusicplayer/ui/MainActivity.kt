@@ -2,6 +2,8 @@ package com.alessiocameroni.revomusicplayer.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -28,7 +30,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        installSplashScreen()
+        var keepSplash = true
+        val splashDelay = 300L
+        installSplashScreen().setKeepOnScreenCondition { keepSplash }
+        Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, splashDelay)
 
         setContent {
             RevoMusicPlayerTheme {

@@ -28,7 +28,6 @@ fun ScreenContent(
     isListEmpty: Boolean,
     loadingUnit: @Composable () -> Unit,
     noContentUnit: @Composable () -> Unit,
-    contentUnit: @Composable () -> Unit,
 ) {
     AnimatedVisibility(
         visible = state && !isListEmpty,
@@ -43,12 +42,6 @@ fun ScreenContent(
             exit = fadeOut(animationSpec = tween(300))
         ) { noContentUnit() }
     }
-
-    AnimatedVisibility(
-        visible = !state,
-        enter = fadeIn(animationSpec = tween(300)),
-        exit = fadeOut(animationSpec = tween(300))
-    ) { contentUnit() }
 }
 
 @Composable
