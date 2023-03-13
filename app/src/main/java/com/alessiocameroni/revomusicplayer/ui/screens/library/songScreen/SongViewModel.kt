@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,7 @@ class SongViewModel @Inject constructor(
 ): ViewModel() {
     val sortingType = mutableStateOf(0)
     val sortingOrder = mutableStateOf(0)
-
+    val isListEmpty = mutableStateOf(false)
     private var _songs: MutableLiveData<List<Song>> = MutableLiveData(emptyList())
     val songs = _songs
 
@@ -35,16 +34,15 @@ class SongViewModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.Main) {
             var list: List<Song>
-            withContext(Dispatchers.IO) {
-                list = songsRepository.fetchSongList()
-            }
+            withContext(Dispatchers.IO) { list = songsRepository.fetchSongList() }
             _songs.value = list
-            sortList(sortingType.value, sortingOrder.value)
+            if (list.isNotEmpty()) { sortList(sortingType.value, sortingOrder.value) }
+            else { isListEmpty.value = true }
         }
     }
 
     // List management
-    fun sortList(
+    private fun sortList(
         sortType: Int,
         sortOrder: Int,
     ) {
@@ -72,7 +70,6 @@ class SongViewModel @Inject constructor(
             }
             else -> { list.sortedBy { it.songTitle } }
         }
-        Log.d("sortListNoReturn", list[0].songTitle)
         _songs.value = list
     }
 

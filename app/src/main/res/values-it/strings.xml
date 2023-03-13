@@ -33,7 +33,7 @@
     <string name="str_artists">Artisti</string>
     <string name="str_icon">Icona</string>
     <string name="str_tooQuiet">C\'è troppo silenzio…</string>
-    <string name="info_tooQuiet">Non hai canconi nella tua libreria. Aggiungine qualcuna e comincia ad ascoltare!</string>
+    <string name="info_tooQuiet">Non hai canconi nella tua libreria.\nAggiungine qualcuna e comincia ad ascoltare!</string>
     <string name="str_heyThere">Ehi ciao! 👋🏻</string>
     <string name="str_welcome">Benvenuto in</string>
     <string name="info_beforeProceeding">Prima di procedere, Revo necessita accesso all\'archivio per poter riprodurre le tue canzoni.</string>
@@ -111,4 +111,5 @@
         <item quantity="other">min</item>
     </plurals>
     <string name="str_trackNumber">Numero traccia</string>
+    <string name="str_loadingTunes">Caricando i tuoi brani…</string>
 </resources>

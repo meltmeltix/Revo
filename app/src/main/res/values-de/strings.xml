@@ -1,11 +1,8 @@
 <resources>
-    <string name="app_packageName" translatable="false">com.alessiocameroni.revomusicplayer</string>
-    <string name="app_name" translatable="false">Revo</string>
     <string name="app_language">German</string>
     <string name="str_songs">Songs</string>
     <string name="str_albums">Alben</string>
     <string name="str_playlists">Playlists</string>
-    <string name="str_spotify" translatable="false">Spotify</string>
     <string name="str_settings">Einstellungen</string>
     <string name="str_sortBy">Sortieren nach</string>
     <string name="str_openSpotify">Spotify öffnen</string>
@@ -19,29 +16,22 @@
     <string name="str_left">Links</string>
     <string name="str_center">Mittig</string>
     <string name="str_right">Rechts</string>
-    <string name="str_ok" translatable="false">OK</string>
     <string name="str_cancel">Abbrechen</string>
     <string name="str_layoutPlayer">Layout Player</string>
     <string name="info_layoutPlayer">Wähle, wie sich die Buttons im Fullscreen-Modus verhalten</string>
-    <string name="str_AlessioCameroni" translatable="false">Alessio Cameroni</string>
-    <string name="str_arigata9" translatable="false">arigata9</string>
-    <string name="str_github" translatable="false">Github</string>
-    <string name="str_twitter" translatable="false">Twitter</string>
-    <string name="str_instagram" translatable="false">Instagram</string>
     <string name="str_userIcon">User Icon</string>
     <string name="str_addToPlaylist">Zur Playlist hinzufügen</string>
     <string name="str_lc_minutes">Minuten</string>
     <string name="str_lc_tracks">Tracks</string>
     <string name="str_delete">Löschen</string>
     <string name="str_rename">Umbenennen</string>
-    <string name="str_shuffle" translatable="false">Shuffle</string>
     <string name="str_history">Verlauf</string>
     <string name="str_lastAdded">Zuletzt hinzugefügt</string>
     <string name="str_queue">Warteschlange</string>
     <string name="str_artists">Künstler</string>
     <string name="str_icon">Icon</string>
-    <string name="str_tooQuiet">es ist ein bisschen zu ruhig hier…</string>
-    <string name="info_tooQuiet">Du hast keine Songs in deiner Mediathek. Füge ein paar Songs hinzu und beginne jetzt mit dem Hören!</string>
+    <string name="str_tooQuiet">Es ist ein bisschen zu ruhig hier…</string>
+    <string name="info_tooQuiet">Du hast keine Songs in deiner Mediathek.\nFüge ein paar Songs hinzu und beginne jetzt mit dem Hören!</string>
     <string name="str_heyThere">Hey ! 👋🏻</string>
     <string name="str_welcome">Willkommen bei </string>
     <string name="info_beforeProceeding">Bevor Du fortfährst, benötigt Revo Zugriff auf deinen Speicher, um deine Musik abspielen zu können.</string>
@@ -81,22 +71,22 @@
     <string name="str_openSourceLicenses">Open Source Lizenzen</string>
     <string name="info_openSourceLicenses">Liste der verwendeten Open Source Bibliotheken</string>
     <plurals name="str_songAmount">
-        <item quantity="one">Song</item>
-        <item quantity="other">Songs</item>
+        <item quantity="one">song</item>
+        <item quantity="other">songs</item>
     </plurals>
     <plurals name="str_albumAmount">
-        <item quantity="one">Album</item>
-        <item quantity="other">Alben</item>
+        <item quantity="one">album</item>
+        <item quantity="other">alben</item>
     </plurals>
     <plurals name="str_hourAmountAbbr">
-        <item quantity="one">Std</item>
-        <item quantity="other">Stdn</item>
+        <item quantity="one">std</item>
+        <item quantity="other">stdn</item>
     </plurals>
     <plurals name="str_minutesAmountAbbr">
-        <item quantity="one">Min</item>
-        <item quantity="other">Min</item>
+        <item quantity="one">min</item>
+        <item quantity="other">min</item>
     </plurals>
-    <string name="str_secondsAmountAbbr">Sek</string>
+    <string name="str_secondsAmountAbbr">sek</string>
     <string name="str_showSpotifyIntegration">Spotify einblenden</string>
     <string name="desc_showSpotifyIntegration">Für all diejenigen, die Spotify nicht brauchen. Schalte es aus, um Spotify aus der Navigation zu entfernen.</string>
     <string name="str_sortType">Typ</string>
@@ -119,4 +109,5 @@
     <string name="str_closePlayer">Player schließen</string>
     <string name="str_addToFavorites">Zu Favoriten hinzufügen</string>
     <string name="str_trackNumber">Track Nummer</string>
+    <string name="str_loadingTunes">Laden Deiner Songs…</string>
 </resources>

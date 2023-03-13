@@ -33,18 +33,28 @@ fun SongsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val songList by viewModel.songs.observeAsState(emptyList())
+    val isListEmpty by remember { viewModel.isListEmpty }
+    val contentVisibilityState = songList.isEmpty()
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { SongTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-                contentPadding = PaddingValues(bottom = 70.dp)
-            ) { songList(songList, navControllerBottomBar) }
+            ScreenContent(
+                state = contentVisibilityState,
+                isListEmpty = isListEmpty,
+                loadingUnit = { LoadingContent(padding) },
+                noContentUnit = { NoSongsMessage(padding) },
+                contentUnit = {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        contentPadding = PaddingValues(bottom = 70.dp)
+                    ) { songList(songList, navControllerBottomBar) }
+                }
+            )
         }
     )
 }

@@ -1,14 +1,18 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.songScreen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
@@ -17,9 +21,102 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
-/**
- * Scaffold components
- */
+// Screen components
+@Composable
+fun ScreenContent(
+    state: Boolean,
+    isListEmpty: Boolean,
+    loadingUnit: @Composable () -> Unit,
+    noContentUnit: @Composable () -> Unit,
+    contentUnit: @Composable () -> Unit,
+) {
+    AnimatedVisibility(
+        visible = state && !isListEmpty,
+        enter = fadeIn(animationSpec = tween(300)),
+        exit = fadeOut(animationSpec = tween(300))
+    ) { loadingUnit() }
+
+    if(isListEmpty) {
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(animationSpec = tween(300)),
+            exit = fadeOut(animationSpec = tween(300))
+        ) { noContentUnit() }
+    }
+
+    AnimatedVisibility(
+        visible = !state,
+        enter = fadeIn(animationSpec = tween(300)),
+        exit = fadeOut(animationSpec = tween(300))
+    ) { contentUnit() }
+}
+
+@Composable
+fun LoadingContent(padding: PaddingValues) {
+    Surface(color = MaterialTheme.colorScheme.surface) {
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .padding(bottom = 70.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.str_loadingTunes),
+                modifier = Modifier
+                    .padding(horizontal = 25.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium),
+            )
+        }
+    }
+
+}
+
+@Composable
+fun NoSongsMessage(padding: PaddingValues) {
+    Surface(color = MaterialTheme.colorScheme.surface) {
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .padding(horizontal = 25.dp)
+                .padding(bottom = 70.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
+                contentDescription = stringResource(id = R.string.str_songs),
+                modifier = Modifier
+                    .padding(bottom = 20.dp)
+                    .size(50.dp)
+            )
+            Text(
+                text = stringResource(id = R.string.str_tooQuiet),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = stringResource(id = R.string.info_tooQuiet),
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SongTopActionBar(
@@ -179,7 +276,6 @@ private fun SortTypeSelector(
             onClick = {
                 onSelected(text)
                 viewModel.setSortData(options.indexOf(text), orderSelection)
-                viewModel.sortList(options.indexOf(text), orderSelection)
                 expanded.value = false
             },
             trailingIcon = {
@@ -219,9 +315,7 @@ private fun SortOrderSelector(
     }
 }
 
-/**
- * Screen components
- */
+// Items components
 @Composable
 fun SongItemDropDownMenu(
     expanded: MutableState<Boolean>,
