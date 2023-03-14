@@ -10,6 +10,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,10 +38,10 @@ fun AlbumViewTopActionBar(
     viewModel: AlbumViewViewModel,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
+    albumDetails: AlbumDetails,
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-    val albumDetails by remember { viewModel.albumDetails }
 
     TopAppBar(
         title = {
@@ -255,6 +256,7 @@ private fun SortOrderSelector(
 // Header components
 @Composable
 fun AlbumViewHeader(
+    albumDetails: AlbumDetails,
     navControllerBottomBar: NavHostController,
     viewModel: AlbumViewViewModel,
     leadingUnit: @Composable () -> Unit?,
@@ -289,8 +291,8 @@ fun AlbumViewHeader(
             )
 
             HeaderText(
+                albumDetails = albumDetails,
                 navControllerBottomBar = navControllerBottomBar,
-                albumDetails = viewModel.albumDetails.value,
                 viewModel = viewModel,
             )
         }
@@ -301,18 +303,19 @@ fun AlbumViewHeader(
 
 @Composable
 private fun HeaderText(
-    navControllerBottomBar: NavHostController,
     albumDetails: AlbumDetails,
+    navControllerBottomBar: NavHostController,
     viewModel: AlbumViewViewModel,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val songs by viewModel.songs.observeAsState(emptyList())
     val hoursAmount: Int = viewModel.albumHoursAmount.value
     val minutesAmount: Int = viewModel.albumMinutesAmount.value
     val secondsAmount: Int = viewModel.albumSecondsAmount.value
 
     val albumInfo =
-        "${viewModel.songList.size} " +
-        pluralStringResource(id = R.plurals.str_songAmount, count = viewModel.songList.size) +
+        "${songs.size} " +
+        pluralStringResource(id = R.plurals.str_songAmount, count = songs.size) +
         " · " +
         when {
             hoursAmount > 0 -> {
