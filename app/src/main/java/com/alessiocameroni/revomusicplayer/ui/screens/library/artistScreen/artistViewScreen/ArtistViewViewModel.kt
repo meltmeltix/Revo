@@ -41,7 +41,7 @@ class ArtistViewViewModel @Inject constructor(
     // Artist, album, song initialization
     fun initializeArtistDetails(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepository.fetchArtistInfo(artistId).collect { details ->
+            albumViewRepository.getArtistDetails(artistId).collect { details ->
                 artist.value = details.artist
                 numberOfAlbums.value = details.numberOfAlbums
                 numberOfTracks.value = details.numberOfTracks
@@ -51,7 +51,7 @@ class ArtistViewViewModel @Inject constructor(
 
     fun initializeAlbumList(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepository.fetchAlbumList(artistId).collect {
+            albumViewRepository.getAlbumList(artistId).collect {
                 albumList = it
                 artistPictureUri.value = it[0].albumCoverUri
             }
@@ -60,7 +60,7 @@ class ArtistViewViewModel @Inject constructor(
 
     fun initializeSongList(artistId: Long) {
         viewModelScope.launch {
-            albumViewRepository.fetchSongList(artistId).collect {
+            albumViewRepository.getSongList(artistId).collect {
                 songList = it
             }
         }

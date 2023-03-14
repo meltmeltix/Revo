@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -25,6 +25,7 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
 
 
@@ -39,21 +40,26 @@ fun AlbumViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-
-    val selectedSortType by remember { viewModel.sortingType }
-    val selectedSortOrder by remember { viewModel.sortingOrder }
-    val songList = viewModel.songList
+    val albumDetails by viewModel.details.observeAsState(
+        AlbumDetails(
+            title = "Unknown Album",
+            artistId = 0,
+            artistName = "Unknown Artist",
+            coverUri = null
+        )
+    )
+    val songList by viewModel.songs.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
         viewModel.initializeSongList(albumId)
-        viewModel.initializeAlbumDetails(albumId)
+        viewModel.getAlbumDetails(albumId)
     }
-    listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             AlbumViewTopActionBar(
+                albumDetails = albumDetails,
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
                 viewModel = viewModel,
@@ -71,12 +77,13 @@ fun AlbumViewScreen(
             ) {
                 item {
                     AlbumViewHeader(
+                        albumDetails = albumDetails,
                         navControllerBottomBar = navControllerBottomBar,
                         viewModel = viewModel,
                         leadingUnit = {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
-                                    .data(viewModel.albumDetails.value.coverUri)
+                                    .data(albumDetails.coverUri)
                                     .crossfade(true)
                                     .build(),
                                 contentDescription = stringResource(id = R.string.str_albumImage),
@@ -100,7 +107,7 @@ fun AlbumViewScreen(
 }
 
 private fun LazyListScope.albumSongsList(
-    songs: SnapshotStateList<AlbumSong>
+    songs: List<AlbumSong>
 ) {
     itemsIndexed(items = songs) { _, item ->
         Row(
@@ -148,29 +155,6 @@ private fun LazyListScope.albumSongsList(
                     }
                 }
             )
-        }
-    }
-}
-
-private fun listSort(
-    songs: SnapshotStateList<AlbumSong>,
-    sortOrder: Int,
-    sortType: Int
-) {
-    when(sortOrder) {
-        0 -> {
-            when(sortType) {
-                0 -> songs.sortBy { it.track }
-                1 -> songs.sortBy { it.songTitle }
-                2 -> songs.sortBy { it.duration }
-            }
-        }
-        1 -> {
-            when(sortType) {
-                0 -> songs.sortByDescending { it.track }
-                1 -> songs.sortByDescending { it.songTitle }
-                2 -> songs.sortByDescending { it.duration }
-            }
         }
     }
 }

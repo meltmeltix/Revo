@@ -92,5 +92,5 @@ class SongsRepositoryImpl(
         return songList
     }
 
-    override suspend fun fetchSongList(): List<Song> = songContentResolver()
+    override suspend fun getSongList(): List<Song> = songContentResolver()
 }

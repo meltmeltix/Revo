@@ -83,5 +83,5 @@ class AlbumsRepositoryImpl(
         return albumList
     }
 
-    override suspend fun fetchAlbumList(): List<Album> = albumContentResolver()
+    override suspend fun getAlbumList(): List<Album> = albumContentResolver()
 }

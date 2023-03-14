@@ -69,5 +69,5 @@ class ArtistsRepositoryImpl(
         return artistList
     }
 
-    override suspend fun fetchArtistList(): List<Artist> = artistContentResolver()
+    override suspend fun getArtistList(): List<Artist> = artistContentResolver()
 }

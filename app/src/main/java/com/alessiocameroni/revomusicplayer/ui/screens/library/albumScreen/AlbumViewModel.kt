@@ -34,7 +34,7 @@ class AlbumViewModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.Main) {
             var list: List<Album>
-            withContext(Dispatchers.IO) { list = albumsRepository.fetchAlbumList() }
+            withContext(Dispatchers.IO) { list = albumsRepository.getAlbumList() }
             _albums.value = list
             if(list.isNotEmpty()) { sortList(sortingType.value, sortingOrder.value) }
             else { isListEmpty.value = true }

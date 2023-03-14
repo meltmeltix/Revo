@@ -176,19 +176,19 @@ class ArtistViewRepositoryImpl(
         return songList
     }
 
-    override suspend fun fetchArtistInfo(artistId: Long): Flow<ArtistDetails> =
+    override suspend fun getArtistDetails(artistId: Long): Flow<ArtistDetails> =
         flow {
             val artistDetails = artistDetailsContentResolver(artistId)
             emit(artistDetails)
         }
 
-    override suspend fun fetchAlbumList(artistId: Long):
+    override suspend fun getAlbumList(artistId: Long):
         Flow<SnapshotStateList<ArtistAlbum>> = flow {
             val list = albumContentResolver(artistId)
             emit(list)
         }
 
-    override suspend fun fetchSongList(artistId: Long):
+    override suspend fun getSongList(artistId: Long):
         Flow<SnapshotStateList<ArtistSongEntity>> = flow {
             val list = songContentResolver(artistId)
             emit(list)

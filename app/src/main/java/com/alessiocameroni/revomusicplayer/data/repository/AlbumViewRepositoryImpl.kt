@@ -2,59 +2,98 @@ package com.alessiocameroni.revomusicplayer.data.repository
 
 import android.content.ContentUris
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class AlbumViewRepositoryImpl(
     private val context: Context
 ): AlbumViewRepository {
     private companion object {
-        var mCursor: Cursor? = null
-        val collection: Uri =
+        val albumDetailsCollection: Uri =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                Albums.getContentUri(MediaStore.VOLUME_EXTERNAL)
+            } else {
+                Albums.EXTERNAL_CONTENT_URI
+            }
+        val albumDetailsProjection = arrayOf(
+            Albums.ALBUM,
+            Media.ARTIST_ID,
+            Albums.ARTIST,
+        )
+
+        val songsCollection: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
             } else {
                 Media.EXTERNAL_CONTENT_URI
             }
-        val projection = arrayOf(
+        val songsProjection = arrayOf(
             Media._ID,
             Media.DURATION,
             Media.TITLE,
             Media.TRACK,
-            Media.ALBUM,
-            Media.ARTIST_ID,
-            Media.ARTIST,
         )
-
-        var albumCoverUri: Uri? = null
-        var albumTitle: String = "Album Title"
-        var artistId: Long = 0
-        var artist: String = "Artist Name"
     }
 
     @WorkerThread
-    private fun songContentResolver(albumId: Long): SnapshotStateList<AlbumSong> {
-        val songList = mutableStateListOf<AlbumSong>()
-        var gotAlbumDetails = false
+    private fun albumDetailsContentResolver(albumId: Long): AlbumDetails {
+        var albumDetails = AlbumDetails(
+            "Album Title",
+            0,
+            "Artist Name",
+            null
+        )
 
-        val selection =
-            "${Media.IS_MUSIC} != 0 AND ${Media.ALBUM_ID} = $albumId"
+        val selection = "${Albums._ID} = $albumId"
+        val mCursor = context.contentResolver.query(
+            albumDetailsCollection,
+            albumDetailsProjection,
+            selection,
+            null,
+            null
+        )
+
+        mCursor?.use { cursor ->
+            val albumColumn = cursor.getColumnIndexOrThrow(Albums.ALBUM)
+            val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
+            val artistColumn = cursor.getColumnIndexOrThrow(Albums.ARTIST)
+
+            if(cursor.moveToFirst()) {
+                val album = cursor.getString(albumColumn)
+                val artistId = cursor.getLong(artistIdColumn)
+                val artist = cursor.getString(artistColumn)
+                val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
+                val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
+
+                albumDetails = AlbumDetails(
+                    album,
+                    artistId,
+                    artist,
+                    albumCoverUri
+                )
+            }
+        }
+
+        return albumDetails
+    }
+
+    @WorkerThread
+    private fun songContentResolver(albumId: Long): List<AlbumSong> {
+        val songList = mutableListOf<AlbumSong>()
+
+        val selection = "${Media.IS_MUSIC} != 0 AND ${Media.ALBUM_ID} = $albumId"
         val sortOrder = "${Media.TITLE} ASC"
-        mCursor = context.contentResolver.query(
-            collection,
-            projection,
+        val mCursor = context.contentResolver.query(
+            songsCollection,
+            songsProjection,
             selection,
             null,
             sortOrder
@@ -65,9 +104,6 @@ class AlbumViewRepositoryImpl(
             val trackColumn = cursor.getColumnIndexOrThrow(Media.TRACK)
             val titleColumn = cursor.getColumnIndexOrThrow(Media.TITLE)
             val durationColumn = cursor.getColumnIndexOrThrow(Media.DURATION)
-            val albumTitleColumn = cursor.getColumnIndexOrThrow(Media.ALBUM)
-            val artistIdColumn = cursor.getColumnIndexOrThrow(Media.ARTIST_ID)
-            val artistColumn = cursor.getColumnIndexOrThrow(Media.ARTIST)
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val contentUri: Uri = ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, id)
@@ -75,16 +111,6 @@ class AlbumViewRepositoryImpl(
                 val track = cursor.getInt(trackColumn)
                 val duration = cursor.getInt(durationColumn)
                 val fixedDuration = calculateSongDuration(duration)
-
-                if(!gotAlbumDetails) {
-                    albumTitle = cursor.getString(albumTitleColumn)
-                    artistId = cursor.getLong(artistIdColumn)
-                    artist = cursor.getString(artistColumn)
-                    val albumCover: Uri = Uri.parse("content://media/external/audio/albumart")
-                    albumCoverUri = ContentUris.withAppendedId(albumCover, albumId)
-
-                    gotAlbumDetails = true
-                }
 
                 songList.add(
                     AlbumSong(
@@ -98,24 +124,13 @@ class AlbumViewRepositoryImpl(
                 )
             }
         }
-
         return songList
     }
 
-    override suspend fun fetchSongList(albumId: Long):
-        Flow<SnapshotStateList<AlbumSong>> = flow {
-            val list = songContentResolver(albumId)
-            emit(list)
-        }
+    override suspend fun getAlbumDetails(albumId: Long):
+            AlbumDetails = albumDetailsContentResolver(albumId)
 
-    override suspend fun fetchAlbumDetails(albumId: Long): Flow<AlbumDetails> = flow {
-        emit(
-            AlbumDetails(
-                albumTitle,
-                artistId,
-                artist,
-                albumCoverUri
-            )
-        )
-    }
+    override suspend fun getSongList(albumId: Long):
+            List<AlbumSong> = songContentResolver(albumId)
+
 }

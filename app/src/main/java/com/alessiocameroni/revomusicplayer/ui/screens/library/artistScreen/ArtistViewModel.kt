@@ -32,7 +32,7 @@ class ArtistViewModel @Inject constructor(
         }
         viewModelScope.launch {
             var list: List<Artist>
-            withContext(Dispatchers.IO) { list = artistsRepository.fetchArtistList() }
+            withContext(Dispatchers.IO) { list = artistsRepository.getArtistList() }
             _artists.value = list
             if (list.isNotEmpty()) { sortList(sortingOrder.value) }
             else { isListEmpty.value = true }

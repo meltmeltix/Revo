@@ -34,7 +34,7 @@ class SongViewModel @Inject constructor(
         }
         viewModelScope.launch(Dispatchers.Main) {
             var list: List<Song>
-            withContext(Dispatchers.IO) { list = songsRepository.fetchSongList() }
+            withContext(Dispatchers.IO) { list = songsRepository.getSongList() }
             _songs.value = list
             if (list.isNotEmpty()) { sortList(sortingType.value, sortingOrder.value) }
             else { isListEmpty.value = true }
