@@ -7,9 +7,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomizationTopActionBar(

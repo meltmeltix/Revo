@@ -27,9 +27,7 @@ import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistViewTopActionBar(
@@ -116,9 +114,7 @@ private fun ArtistViewDropDownMenu(
 }
 
 
-/**
- * Header components
- */
+// Header components
 @Composable
 fun ArtistViewHeader(
     viewModel: ArtistViewViewModel,
@@ -203,10 +199,7 @@ private fun HeaderButtons() {
     }
 }
 
-
-/**
- * Text components
- */
+// Text components
 @Composable
 private fun ArtistInfoText(
     largeText: Boolean,
@@ -269,9 +262,7 @@ private fun ArtistInfoText(
 }
 
 
-/**
- * Screen components
- */
+// Screen components
 @Composable
 fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
     val sortTypeList = listOf(

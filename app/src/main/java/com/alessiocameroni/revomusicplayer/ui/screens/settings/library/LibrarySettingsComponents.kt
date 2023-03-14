@@ -10,9 +10,7 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibrarySettingsTopActionBar(
@@ -35,9 +33,7 @@ fun LibrarySettingsTopActionBar(
     )
 }
 
-/**
- * Screen Components
- */
+// Screen components
 @Composable
 fun SpotifyVisibilitySelection(
     checked: Boolean,

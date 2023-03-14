@@ -23,9 +23,7 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerLayoutTopActionBar(
@@ -48,9 +46,7 @@ fun PlayerLayoutTopActionBar(
     )
 }
 
-/**
- * Screen Components
- */
+// Screen components
 @Composable
 fun PlayerLayoutPreviewHeader(
     modifier: Modifier = Modifier,

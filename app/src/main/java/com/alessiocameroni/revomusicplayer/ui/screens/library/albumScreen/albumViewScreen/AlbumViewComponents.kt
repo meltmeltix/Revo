@@ -28,9 +28,7 @@ import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumViewTopActionBar(
@@ -254,9 +252,7 @@ private fun SortOrderSelector(
     }
 }
 
-/**
- * Header components
- */
+// Header components
 @Composable
 fun AlbumViewHeader(
     navControllerBottomBar: NavHostController,
@@ -424,9 +420,7 @@ private fun HeaderButtons() {
 }
 
 
-/**
- * Screen components
- */
+// List components
 @Composable
 fun AlbumViewItemDropDownMenu(
     expanded: MutableState<Boolean>

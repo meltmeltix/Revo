@@ -77,9 +77,7 @@ private fun TopBarDropDownMenu(
     }
 }
 
-/**
- * Screen components
- */
+// Screen components
 @Composable
 fun PlaylistItemDropDownMenu(
     expanded: MutableState<Boolean>

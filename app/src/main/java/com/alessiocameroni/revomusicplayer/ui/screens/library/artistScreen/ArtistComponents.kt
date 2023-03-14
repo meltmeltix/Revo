@@ -16,9 +16,7 @@ import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
-/**
- * Scaffold components
- */
+// Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistTopActionBar(
@@ -165,9 +163,7 @@ private fun SortOrderSelector(
     }
 }
 
-/**
- * Screen components
- */
+// List components
 @Composable
 fun ArtistItemDropDownMenu(
     expanded: MutableState<Boolean>
