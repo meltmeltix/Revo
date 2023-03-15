@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,7 +26,8 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistSong
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -39,26 +41,30 @@ fun ArtistViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-
-    val selectedSortType by remember { viewModel.sortingType }
-    val selectedSortOrder by remember { viewModel.sortingOrder }
-    val albumList = viewModel.albumList
-    val songList = viewModel.songList
+    val artistDetails by viewModel.artistDetails.observeAsState(
+        ArtistDetails(
+            artist = "Artist Name",
+            numberOfAlbums = 0,
+            numberOfTracks = 0
+        )
+    )
+    val artistPicture by viewModel.artistPicture.observeAsState(null)
+    val albumList by viewModel.albumList.observeAsState(emptyList())
+    val songList by viewModel.songList.observeAsState(emptyList())
 
     LaunchedEffect(Unit) {
         viewModel.initializeArtistDetails(artistId)
         viewModel.initializeAlbumList(artistId)
         viewModel.initializeSongList(artistId)
     }
-    listSort(songList, selectedSortOrder, selectedSortType)
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             ArtistViewTopActionBar(
+                artistDetails = artistDetails,
                 navController = navController,
                 navControllerBottomBar = navControllerBottomBar,
-                viewModel = viewModel,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -72,10 +78,10 @@ fun ArtistViewScreen(
                 state = scrollState
             ) {
                 item {
-                    ArtistViewHeader(viewModel = viewModel) {
+                    ArtistViewHeader(artistDetails = artistDetails) {
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
-                                .data(viewModel.artistPictureUri.value)
+                                .data(artistPicture)
                                 .crossfade(true)
                                 .build(),
                             contentDescription = stringResource(id = R.string.str_albumImage),
@@ -115,7 +121,7 @@ fun ArtistViewScreen(
 
 @Composable
 private fun RowArtistAlbumList(
-    albums: MutableList<ArtistAlbum>,
+    albums: List<ArtistAlbum>,
     navControllerBottomBar: NavHostController
 ) {
     LazyRow(
@@ -150,7 +156,7 @@ private fun RowArtistAlbumList(
 }
 
 private fun LazyListScope.artistSongList(
-    songs: MutableList<ArtistSongEntity>,
+    songs: List<ArtistSong>,
     navControllerBottomBar: NavHostController
 ) {
     itemsIndexed(items = songs) { _, item ->
@@ -204,31 +210,6 @@ private fun LazyListScope.artistSongList(
                     }
                 }
             )
-        }
-    }
-}
-
-private fun listSort(
-    songs: MutableList<ArtistSongEntity>,
-    sortOrder: Int,
-    sortType: Int
-) {
-    when(sortOrder) {
-        0 -> {
-            when(sortType) {
-                0 -> songs.sortBy { it.songTitle }
-                1 -> songs.sortBy { it.track }
-                2 -> songs.sortBy { it.duration }
-                3 -> songs.sortBy { it.album }
-            }
-        }
-        1 -> {
-            when(sortType) {
-                0 -> songs.sortByDescending { it.songTitle }
-                1 -> songs.sortByDescending { it.track }
-                2 -> songs.sortByDescending { it.duration }
-                3 -> songs.sortByDescending { it.album }
-            }
         }
     }
 }

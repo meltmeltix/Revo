@@ -22,6 +22,7 @@ import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
@@ -31,16 +32,13 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistViewTopActionBar(
+    artistDetails: ArtistDetails,
     navController: NavController,
     navControllerBottomBar: NavHostController,
-    viewModel: ArtistViewViewModel,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
-    val artistName by remember { viewModel.artist }
-    val artistAlbumsNumber by remember { viewModel.numberOfAlbums }
-    val artistTracksNumber by remember { viewModel.numberOfTracks }
 
     TopAppBar(
         title = {
@@ -51,9 +49,7 @@ fun ArtistViewTopActionBar(
             ) {
                 ArtistInfoText(
                     largeText = false,
-                    artistName = artistName,
-                    artistAlbumsNumber = artistAlbumsNumber,
-                    artistTracksNumber = artistTracksNumber
+                    artistDetails = artistDetails
                 )
             }
         },
@@ -117,13 +113,9 @@ private fun ArtistViewDropDownMenu(
 // Header components
 @Composable
 fun ArtistViewHeader(
-    viewModel: ArtistViewViewModel,
+    artistDetails: ArtistDetails,
     leadingUnit: @Composable () -> Unit,
 ) {
-    val artistName by remember { viewModel.artist }
-    val artistAlbumsNumber by remember { viewModel.numberOfAlbums }
-    val artistTracksNumber by remember { viewModel.numberOfTracks }
-
     Column(
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
@@ -146,9 +138,7 @@ fun ArtistViewHeader(
 
             ArtistInfoText(
                 largeText = true,
-                artistName = artistName,
-                artistAlbumsNumber = artistAlbumsNumber,
-                artistTracksNumber = artistTracksNumber
+                artistDetails = artistDetails,
             )
         }
 
@@ -203,22 +193,19 @@ private fun HeaderButtons() {
 @Composable
 private fun ArtistInfoText(
     largeText: Boolean,
-    artistName: String?,
-    artistAlbumsNumber: Int,
-    artistTracksNumber: Int,
+    artistDetails: ArtistDetails
 ) {
-    val nameString: String = artistName ?: "Artist Name"
     val artistInfo =
-        "$artistAlbumsNumber " +
+        "${artistDetails.numberOfAlbums} " +
                 pluralStringResource(
                     id = R.plurals.str_albumAmount,
-                    count = artistAlbumsNumber
+                    count = artistDetails.numberOfAlbums
                 ) +
                 " · " +
-                "$artistTracksNumber " +
+                "${artistDetails.numberOfTracks} " +
                 pluralStringResource(
                     id = R.plurals.str_songAmount,
-                    count = artistTracksNumber
+                    count = artistDetails.numberOfTracks
                 )
 
     if(largeText) {
@@ -226,7 +213,7 @@ private fun ArtistInfoText(
             modifier = Modifier.padding(start = 15.dp)
         ) {
             Text(
-                text = nameString,
+                text = artistDetails.artist,
                 modifier = Modifier,
                 style = MaterialTheme.typography.headlineMedium,
                 maxLines = 2,
@@ -243,7 +230,7 @@ private fun ArtistInfoText(
     } else {
         Column {
             Text(
-                text = nameString,
+                text = artistDetails.artist,
                 modifier = Modifier,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

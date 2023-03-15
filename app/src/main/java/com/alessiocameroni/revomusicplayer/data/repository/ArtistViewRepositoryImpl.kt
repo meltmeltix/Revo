@@ -8,15 +8,11 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
 import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistSongEntity
+import com.alessiocameroni.revomusicplayer.data.classes.ArtistSong
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistViewRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class ArtistViewRepositoryImpl(
     private val context: Context
@@ -60,9 +56,9 @@ class ArtistViewRepositoryImpl(
     @WorkerThread
     private fun artistDetailsContentResolver(artistId: Long): ArtistDetails {
         var artistDetails = ArtistDetails(
-            "Artist Name",
-            0,
-            0
+            artist = "Artist Name",
+            numberOfAlbums = 0,
+            numberOfTracks = 0,
         )
 
         val selection = "${Artists._ID} = $artistId"
@@ -82,18 +78,17 @@ class ArtistViewRepositoryImpl(
             cursor.moveToFirst()
 
             artistDetails = ArtistDetails(
-                cursor.getString(artistColumn),
-                cursor.getInt(artistsNumberOfAlbumsColumn),
-                cursor.getInt(artistNumberOfTracksColumn)
+                artist = cursor.getString(artistColumn),
+                numberOfAlbums = cursor.getInt(artistsNumberOfAlbumsColumn),
+                numberOfTracks = cursor.getInt(artistNumberOfTracksColumn),
             )
         }
-
         return artistDetails
     }
 
     @WorkerThread
-    private fun albumContentResolver(artistId: Long): SnapshotStateList<ArtistAlbum> {
-        val albumList = mutableStateListOf<ArtistAlbum>()
+    private fun albumContentResolver(artistId: Long): List<ArtistAlbum> {
+        val albumList = mutableListOf<ArtistAlbum>()
 
         val selection = "${Media.IS_MUSIC} != 0 AND ${Media.ARTIST_ID} = $artistId"
         val sortOrder = "${Media.ALBUM} ASC"
@@ -122,13 +117,12 @@ class ArtistViewRepositoryImpl(
                 }
             }
         }
-
         return albumList
     }
 
     @WorkerThread
-    private fun songContentResolver(artistId: Long): SnapshotStateList<ArtistSongEntity> {
-        val songList = mutableStateListOf<ArtistSongEntity>()
+    private fun songContentResolver(artistId: Long): List<ArtistSong> {
+        val songList = mutableListOf<ArtistSong>()
 
         val selection = "${Media.IS_MUSIC} != 0 AND ${Media.ARTIST_ID} = $artistId"
         val sortOrder = "${Media.TITLE} ASC"
@@ -159,7 +153,7 @@ class ArtistViewRepositoryImpl(
                 val album = cursor.getString(albumColumn)
 
                 songList.add(
-                    ArtistSongEntity(
+                    ArtistSong(
                         id,
                         contentUri,
                         track,
@@ -172,25 +166,15 @@ class ArtistViewRepositoryImpl(
                 )
             }
         }
-
         return songList
     }
 
-    override suspend fun getArtistDetails(artistId: Long): Flow<ArtistDetails> =
-        flow {
-            val artistDetails = artistDetailsContentResolver(artistId)
-            emit(artistDetails)
-        }
+    override suspend fun getArtistDetails(artistId: Long):
+        ArtistDetails = artistDetailsContentResolver(artistId)
 
     override suspend fun getAlbumList(artistId: Long):
-        Flow<SnapshotStateList<ArtistAlbum>> = flow {
-            val list = albumContentResolver(artistId)
-            emit(list)
-        }
+        List<ArtistAlbum> = albumContentResolver(artistId)
 
     override suspend fun getSongList(artistId: Long):
-        Flow<SnapshotStateList<ArtistSongEntity>> = flow {
-            val list = songContentResolver(artistId)
-            emit(list)
-        }
+        List<ArtistSong> = songContentResolver(artistId)
 }

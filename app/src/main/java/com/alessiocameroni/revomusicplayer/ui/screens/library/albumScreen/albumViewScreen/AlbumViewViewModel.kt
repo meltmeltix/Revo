@@ -51,6 +51,14 @@ class AlbumViewViewModel @Inject constructor(
     }
 
     // List and album details fetching
+    fun getAlbumDetails(albumId: Long) {
+        viewModelScope.launch {
+            val details: AlbumDetails
+            withContext(Dispatchers.IO) { details = albumViewRepository.getAlbumDetails(albumId) }
+            _details.value = details
+        }
+    }
+
     fun initializeSongList(albumId: Long) {
         viewModelScope.launch(Dispatchers.Main) {
             val list: List<AlbumSong>
@@ -58,14 +66,6 @@ class AlbumViewViewModel @Inject constructor(
             _songs.value = list
             sortList(sortingType.value, sortingOrder.value)
             calculateAlbumDuration(list.sumOf { it.duration })
-        }
-    }
-
-    fun getAlbumDetails(albumId: Long) {
-        viewModelScope.launch {
-            val details: AlbumDetails
-            withContext(Dispatchers.IO) { details = albumViewRepository.getAlbumDetails(albumId) }
-            _details.value = details
         }
     }
 
