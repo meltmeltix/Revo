@@ -49,7 +49,7 @@ fun ArtistsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel) },
+        topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel, isListEmpty) },
         content = { padding ->
             ScreenContent(
                 state = contentVisibilityState,

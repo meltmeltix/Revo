@@ -33,22 +33,33 @@ class ArtistViewModel @Inject constructor(
         viewModelScope.launch {
             var list: List<Artist>
             withContext(Dispatchers.IO) { list = artistsRepository.getArtistList() }
-            _artists.value = list
-            if (list.isNotEmpty()) { sortList(sortingOrder.value) }
+            if (list.isNotEmpty()) {
+                withContext(Dispatchers.Default) {
+                    list = sortList(list, sortingOrder.value)
+                }
+            }
             else { isListEmpty.value = true }
+            _artists.value = list
         }
     }
 
     // List management
     private fun sortList(
+        list: List<Artist>,
         order: Int,
-    ) {
-        var list = _artists.value!!
-        list = when(order) {
-            0 -> { list.sortedBy { it.artist } }
-            1 -> { list.sortedByDescending { it.artist } }
-            else -> { list.sortedBy { it.artist } }
+    ): List<Artist> {
+        var sortedList = list
+        sortedList = when(order) {
+            0 -> { sortedList.sortedBy { it.artist } }
+            1 -> { sortedList.sortedByDescending { it.artist } }
+            else -> { sortedList.sortedBy { it.artist } }
         }
+        return sortedList
+    }
+
+    private fun onSortChange(order: Int) {
+        var list = _artists.value!!
+        list = sortList(list, order)
         _artists.value = list
     }
 
@@ -56,7 +67,7 @@ class ArtistViewModel @Inject constructor(
     fun setSortData(order: Int) {
         viewModelScope.launch {
             sortingRepository.setArtistSorting(SortingValues(0, order))
-            sortList(order)
+            onSortChange(order)
         }
     }
 }
