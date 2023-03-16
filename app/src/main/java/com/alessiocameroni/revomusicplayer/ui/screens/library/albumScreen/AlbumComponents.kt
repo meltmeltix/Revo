@@ -24,7 +24,8 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 fun AlbumTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
-    viewModel: AlbumViewModel
+    viewModel: AlbumViewModel,
+    isListEmpty: Boolean
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
@@ -52,7 +53,8 @@ fun AlbumTopActionBar(
                 TopBarDropDownMenu(
                     expandedMenu,
                     expandedSortMenu,
-                    navController
+                    navController,
+                    isListEmpty
                 )
                 SortDropDownMenu(
                     expandedSortMenu,
@@ -67,7 +69,8 @@ fun AlbumTopActionBar(
 private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     expandedSortMenu: MutableState<Boolean>,
-    navController: NavController
+    navController: NavController,
+    isListEmpty: Boolean
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -90,7 +93,8 @@ private fun TopBarDropDownMenu(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24),
                     contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
-            }
+            },
+            enabled = !isListEmpty
         )
 
         Divider()

@@ -47,7 +47,7 @@ fun AlbumsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { AlbumTopActionBar(navController, scrollBehavior, viewModel) },
+        topBar = { AlbumTopActionBar(navController, scrollBehavior, viewModel, isListEmpty) },
         content = { padding ->
             ScreenContent(
                 state = contentVisibilityState,
