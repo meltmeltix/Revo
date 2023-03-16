@@ -72,40 +72,53 @@ class ArtistViewViewModel @Inject constructor(
 
     fun initializeSongList(artistId: Long) {
         viewModelScope.launch {
-            val list: List<ArtistSong>
+            var list: List<ArtistSong>
             withContext(Dispatchers.IO) { list = artistViewRepository.getSongList(artistId) }
+            withContext(Dispatchers.Default) {
+                list = sortList(
+                    list,
+                    sortingType.value,
+                    sortingOrder.value
+                )
+            }
             _songList.value = list
-            sortList(sortingType.value, sortingOrder.value)
         }
     }
 
     // List and data management
     private fun sortList(
+        list: List<ArtistSong>,
         type: Int,
         order: Int,
-    ) {
-        var list = _songList.value!!
-        list = when(order) {
+    ): List<ArtistSong> {
+        var sortedList = list
+        sortedList = when(order) {
             0 -> {
                 when(type) {
-                    0 -> list.sortedBy { it.songTitle }
-                    1 -> list.sortedBy { it.track }
-                    2 -> list.sortedBy { it.duration }
-                    3 -> list.sortedBy { it.album }
-                    else -> { list.sortedBy { it.songTitle } }
+                    0 -> sortedList.sortedBy { it.songTitle }
+                    1 -> sortedList.sortedBy { it.track }
+                    2 -> sortedList.sortedBy { it.duration }
+                    3 -> sortedList.sortedBy { it.album }
+                    else -> { sortedList.sortedBy { it.songTitle } }
                 }
             }
             1 -> {
                 when(type) {
-                    0 -> list.sortedByDescending { it.songTitle }
-                    1 -> list.sortedByDescending { it.track }
-                    2 -> list.sortedByDescending { it.duration }
-                    3 -> list.sortedByDescending { it.album }
-                    else -> { list.sortedByDescending { it.songTitle } }
+                    0 -> sortedList.sortedByDescending { it.songTitle }
+                    1 -> sortedList.sortedByDescending { it.track }
+                    2 -> sortedList.sortedByDescending { it.duration }
+                    3 -> sortedList.sortedByDescending { it.album }
+                    else -> { sortedList.sortedByDescending { it.songTitle } }
                 }
             }
-            else -> { list.sortedBy { it.songTitle } }
+            else -> { sortedList.sortedBy { it.songTitle } }
         }
+        return sortedList
+    }
+
+    private fun onSortChanged(type: Int, order: Int) {
+        var list = _songList.value!!
+        list = sortList(list, type, order)
         _songList.value = list
     }
 
@@ -113,7 +126,7 @@ class ArtistViewViewModel @Inject constructor(
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
             sortingRepository.setArtistSongsSorting(SortingValues(type, order))
-            sortList(type, order)
+            onSortChanged(type, order)
         }
     }
 }
