@@ -45,7 +45,7 @@ fun SongsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel) },
+        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel, isListEmpty) },
         content = { padding ->
             ScreenContent(
                 state = contentVisibilityState,

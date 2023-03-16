@@ -22,6 +22,7 @@ fun SongTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: SongViewModel,
+    isListEmpty: Boolean,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
@@ -47,7 +48,8 @@ fun SongTopActionBar(
                 TopBarDropDownMenu(
                     expandedMenu,
                     expandedSortMenu,
-                    navController
+                    navController,
+                    isListEmpty
                 )
                 SortDropDownMenu(
                     expandedSortMenu,
@@ -63,7 +65,8 @@ fun SongTopActionBar(
 private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     expandedSortMenu: MutableState<Boolean>,
-    navController: NavController
+    navController: NavController,
+    isListEmpty: Boolean
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -86,7 +89,8 @@ private fun TopBarDropDownMenu(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_right_24), 
                     contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
-            }
+            },
+            enabled = !isListEmpty
         )
         
         Divider()
