@@ -61,49 +61,28 @@ class AlbumViewViewModel @Inject constructor(
 
     fun initializeSongList(albumId: Long) {
         viewModelScope.launch(Dispatchers.Main) {
-            val list: List<AlbumSong>
+            var list: List<AlbumSong>
             withContext(Dispatchers.IO) { list = albumViewRepository.getSongList(albumId) }
-            _songs.value = list
-            sortList(sortingType.value, sortingOrder.value)
+            withContext(Dispatchers.Default) {
+                list = sortList(
+                    list,
+                    sortingType.value,
+                    sortingOrder.value
+                )
+            }
             calculateAlbumDuration(list.sumOf { it.duration })
+            _songs.value = list
         }
     }
 
     // List and data management
-    private fun sortList(
-        type: Int,
-        order: Int
-    ) {
-        var list = _songs.value!!
-        list = when(order) {
-            0 -> {
-                when(type) {
-                    0 -> list.sortedBy { it.track }
-                    1 -> list.sortedBy { it.songTitle }
-                    2 -> list.sortedBy { it.duration }
-                    else -> { list.sortedBy { it.track } }
-                }
-            }
-            1 -> {
-                when(type) {
-                    0 -> list.sortedByDescending { it.track }
-                    1 -> list.sortedByDescending { it.songTitle }
-                    2 -> list.sortedByDescending { it.duration }
-                    else -> { list.sortedByDescending { it.track } }
-                }
-            }
-            else -> { list.sortedBy { it.track } }
-        }
-        _songs.value = list
-    }
-
     private fun calculateAlbumDuration(duration: Int?) {
         val fixedDuration: Double = (duration ?: 0).toDouble() / 1000
 
         val hours: Double = fixedDuration / 3600
         var minutes: Double = (hours - hours.toInt()) * 60
         var seconds: Int = ((minutes - minutes.toInt()) * 60).roundToInt()
-        when(seconds) {
+        when (seconds) {
             60 -> {
                 seconds = 0
                 minutes++
@@ -115,11 +94,45 @@ class AlbumViewViewModel @Inject constructor(
         albumSecondsAmount.value = seconds
     }
 
+    private fun sortList(
+        list: List<AlbumSong>,
+        type: Int,
+        order: Int
+    ): List<AlbumSong> {
+        var sortedList = list
+        sortedList = when(order) {
+            0 -> {
+                when(type) {
+                    0 -> sortedList.sortedBy { it.track }
+                    1 -> sortedList.sortedBy { it.songTitle }
+                    2 -> sortedList.sortedBy { it.duration }
+                    else -> { sortedList.sortedBy { it.track } }
+                }
+            }
+            1 -> {
+                when(type) {
+                    0 -> sortedList.sortedByDescending { it.track }
+                    1 -> sortedList.sortedByDescending { it.songTitle }
+                    2 -> sortedList.sortedByDescending { it.duration }
+                    else -> { sortedList.sortedByDescending { it.track } }
+                }
+            }
+            else -> { sortedList.sortedBy { it.track } }
+        }
+        return sortedList
+    }
+
+    private fun onSortChange(type: Int, order: Int) {
+        var list = _songs.value!!
+        list = sortList(list, type, order)
+        _songs.value = list
+    }
+
     // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
             sortingRepository.setAlbumSongsSorting(SortingValues(type, order))
-            sortList(type, order)
+            onSortChange(type, order)
         }
     }
 }
