@@ -79,9 +79,9 @@ class AlbumViewModel @Inject constructor(
         return sortedList
     }
 
-    private fun onSortChange(type: Int, order: Int) {
+    private suspend fun onSortChange(type: Int, order: Int) {
         var list = _albums.value!!
-        list = sortList(list, type, order)
+        withContext(Dispatchers.Default) { list = sortList(list, type, order) }
         _albums.value = list
     }
 

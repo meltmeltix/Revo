@@ -116,9 +116,9 @@ class ArtistViewViewModel @Inject constructor(
         return sortedList
     }
 
-    private fun onSortChanged(type: Int, order: Int) {
+    private suspend fun onSortChanged(type: Int, order: Int) {
         var list = _songList.value!!
-        list = sortList(list, type, order)
+        withContext(Dispatchers.Default) { list = sortList(list, type, order) }
         _songList.value = list
     }
 
