@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,7 +23,7 @@ class ArtistViewModel @Inject constructor(
     val sortingOrder = mutableStateOf(0)
     val isListEmpty = mutableStateOf(false)
     private var _artists: MutableLiveData<List<Artist>> = MutableLiveData(emptyList())
-    val artist = _artists
+    val artist: LiveData<List<Artist>> = _artists
 
     init {
         viewModelScope.launch {

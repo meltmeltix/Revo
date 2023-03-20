@@ -2,6 +2,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen.arti
 
 import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,19 +30,17 @@ class ArtistViewViewModel @Inject constructor(
         ArtistDetails(
             artist = "Artist Name",
             numberOfAlbums = 0,
-            numberOfTracks = 0,
+            numberOfTracks = 0
         )
     )
-    val artistDetails = _artistDetails
-
     private val _artistPicture: MutableLiveData<Uri?> = MutableLiveData(null)
-    val artistPicture =  _artistPicture
-
     private val _albumList: MutableLiveData<List<ArtistAlbum>> = MutableLiveData(emptyList())
-    val albumList = _albumList
-
     private val _songList: MutableLiveData<List<ArtistSong>> = MutableLiveData(emptyList())
-    val songList = _songList
+
+    val artistDetails: LiveData<ArtistDetails> = _artistDetails
+    val artistPicture: LiveData<Uri?> =  _artistPicture
+    val albumList: LiveData<List<ArtistAlbum>> = _albumList
+    val songList: LiveData<List<ArtistSong>> = _songList
 
     init {
         viewModelScope.launch {

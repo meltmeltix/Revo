@@ -22,11 +22,7 @@ class PlayerLayoutViewModel @Inject constructor(
         }
     }
 
-    fun setLayout(selectionIndex: Int) {
-        viewModelScope.launch {
-            settingsRepository.setPlayerLayout(
-                selectionIndex
-            )
-        }
+    fun setLayout(selection: Int) {
+        viewModelScope.launch { settingsRepository.setPlayerLayout(selection) }
     }
 }

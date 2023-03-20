@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,21 +26,17 @@ class AlbumViewViewModel @Inject constructor(
     var sortingOrder = mutableStateOf(0)
 
     private var _details: MutableLiveData<AlbumDetails> = MutableLiveData(
-        AlbumDetails(
-            title = "Unknown Album",
-            artistId = 0,
-            artistName = "Unknown Artist",
-            coverUri = null
-        )
+        AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
     )
-    val details = _details
+    private var _songs: MutableLiveData<List<AlbumSong>> = MutableLiveData(emptyList())
+
+    val details: LiveData<AlbumDetails> = _details
+    val songs: LiveData<List<AlbumSong>> = _songs
 
     var albumHoursAmount = mutableStateOf(0)
     var albumMinutesAmount = mutableStateOf(0)
     var albumSecondsAmount = mutableStateOf(0)
 
-    private var _songs: MutableLiveData<List<AlbumSong>> = MutableLiveData(emptyList())
-    val songs = _songs
 
     init {
         viewModelScope.launch {

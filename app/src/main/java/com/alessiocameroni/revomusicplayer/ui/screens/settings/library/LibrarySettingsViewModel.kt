@@ -22,11 +22,7 @@ class LibrarySettingsViewModel @Inject constructor(
         }
     }
 
-    fun setSpotifyVisibility(visibilityValue: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.setSpotifyEnabledState(
-                visibilityValue
-            )
-        }
+    fun setSpotifyVisibility(visibility: Boolean) {
+        viewModelScope.launch { settingsRepository.setSpotifyEnabledState(visibility) }
     }
 }
