@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alessiocameroni.revomusicplayer.data.classes.Song
-import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
 import com.alessiocameroni.revomusicplayer.domain.repository.SongsRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,26 +27,7 @@ class SongViewModel @Inject constructor(
     val songs: LiveData<List<Song>> = _songs
 
     init {
-        viewModelScope.launch {
-            sortingRepository.getSongSorting().collect {
-                sortingType.value = it.type
-                sortingOrder.value = it.order
-            }
-        }
-        viewModelScope.launch {
-            var list: List<Song>
-            withContext(Dispatchers.IO) { list = songsRepository.getSongList() }
-            if (list.isNotEmpty()) {
-                withContext(Dispatchers.Default) {
-                    list = sortList(
-                        list,
-                        sortingType.value,
-                        sortingOrder.value
-                    )
-                }
-            } else { isListEmpty.value = true }
-            _songs.value = list
-        }
+
     }
 
     // List management
@@ -92,8 +72,7 @@ class SongViewModel @Inject constructor(
     // Preferences management
     fun setSortData(type: Int, order: Int) {
         viewModelScope.launch {
-            sortingRepository.setSongSorting(SortingValues(type, order))
-            onSortChange(type, order)
+
         }
     }
 }
