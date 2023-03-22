@@ -22,7 +22,7 @@ import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistDetails
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens

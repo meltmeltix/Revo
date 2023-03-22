@@ -1,14 +1,12 @@
-package com.alessiocameroni.revomusicplayer.data.classes
+package com.alessiocameroni.revomusicplayer.data.classes.album
 
 import android.net.Uri
 
-data class ArtistSong(
+data class AlbumSong(
     var songId: Long,
     var contentUri: Uri,
-    var track: String? = "-",
+    var track: Int,
     var songTitle: String,
     var duration: Int,
     val fixedDuration: String? = "00:00",
-    val albumId: Long,
-    val album: String,
 )

@@ -1,8 +1,8 @@
 package com.alessiocameroni.revomusicplayer.domain.repository
 
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistSong
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistAlbum
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistDetails
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistSong
 
 interface ArtistViewRepository {
     suspend fun getArtistDetails(artistId: Long): ArtistDetails

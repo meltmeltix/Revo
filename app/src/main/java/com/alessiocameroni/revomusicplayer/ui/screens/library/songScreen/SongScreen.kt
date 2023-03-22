@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,12 +31,11 @@ fun SongsScreen(
     viewModel: SongViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val songList by viewModel.songs.observeAsState(emptyList())
-    val isListEmpty by remember { viewModel.isListEmpty }
+    val songList by viewModel.songs.collectAsState(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel, isListEmpty) },
+        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
             LazyColumn(
                 modifier = Modifier

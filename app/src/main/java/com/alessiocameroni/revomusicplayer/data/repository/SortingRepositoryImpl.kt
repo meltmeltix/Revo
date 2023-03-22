@@ -3,10 +3,12 @@ package com.alessiocameroni.revomusicplayer.data.repository
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.NewSortingValues
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingValues
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -22,26 +24,24 @@ class SortingRepositoryImpl(
 ): SortingRepository {
     private companion object {
         val SONG_SORTING_TYPE = intPreferencesKey("song_sorting_type")
-        val SONG_SORTING_ORDER = intPreferencesKey("song_sorting_order")
+        val SONG_SORTING_DESCENDING = booleanPreferencesKey("song_sorting_descending")
 
         val ALBUM_SORTING_TYPE = intPreferencesKey("album_sorting_type")
-        val ALBUM_SORTING_ORDER = intPreferencesKey("album_sorting_order")
+        val ALBUM_SORTING_ORDER = intPreferencesKey("album_sorting_order") // TODO Change this to boolean
         val ALBUM_SONGS_SORTING_TYPE = intPreferencesKey("album_songs_sorting_type")
-        val ALBUM_SONGS_SORTING_ORDER = intPreferencesKey("album_songs_sorting_order")
+        val ALBUM_SONGS_SORTING_ORDER = intPreferencesKey("album_songs_sorting_order") // TODO Change this to boolean
 
-        val ARTIST_SORTING_ORDER = intPreferencesKey("artist_sorting_order")
+        val ARTIST_SORTING_ORDER = intPreferencesKey("artist_sorting_order") // TODO Change this to boolean
         val ARTIST_SONGS_SORTING_TYPE = intPreferencesKey("artist_songs_sorting_type")
-        val ARTIST_SONGS_SORTING_ORDER = intPreferencesKey("artist_songs_sorting_order")
+        val ARTIST_SONGS_SORTING_ORDER = intPreferencesKey("artist_songs_sorting_order") // TODO Change this to boolean
     }
 
-    /**
-     * Get Data functions
-     */
-    override suspend fun getSongSorting(): Flow<SortingValues> = context.dataStore.data
+    // Get Data functions
+    override fun getSongSorting(): Flow<NewSortingValues> = context.dataStore.data
         .map { preferences ->
-            SortingValues(
+            NewSortingValues(
                 type = preferences[SONG_SORTING_TYPE] ?: 0,
-                order = preferences[SONG_SORTING_ORDER] ?: 0
+                order = preferences[SONG_SORTING_DESCENDING] ?: false
             )
         }
 
@@ -77,13 +77,11 @@ class SortingRepositoryImpl(
             )
         }
 
-    /**
-     * Set Data functions
-     */
-    override suspend fun setSongSorting(sortingValues: SortingValues) {
+    // Set Data functions
+    override suspend fun setSongSorting(sortingValues: NewSortingValues) {
         context.dataStore.edit { preferences ->
             preferences[SONG_SORTING_TYPE] = sortingValues.type
-            preferences[SONG_SORTING_ORDER] = sortingValues.order
+            preferences[SONG_SORTING_DESCENDING] = sortingValues.order
         }
     }
 

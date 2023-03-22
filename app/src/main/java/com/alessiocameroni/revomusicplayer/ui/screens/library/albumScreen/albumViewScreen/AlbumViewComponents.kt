@@ -25,7 +25,7 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 

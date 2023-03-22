@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.data.classes
+package com.alessiocameroni.revomusicplayer.data.classes.playlist
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

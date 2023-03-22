@@ -9,7 +9,7 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import com.alessiocameroni.revomusicplayer.data.classes.Artist
+import com.alessiocameroni.revomusicplayer.data.classes.artist.Artist
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistsRepository
 
 class ArtistsRepositoryImpl(

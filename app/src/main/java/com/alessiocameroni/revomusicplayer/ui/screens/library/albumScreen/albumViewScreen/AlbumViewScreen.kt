@@ -25,8 +25,8 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
 
 
 @OptIn(ExperimentalMaterial3Api::class)

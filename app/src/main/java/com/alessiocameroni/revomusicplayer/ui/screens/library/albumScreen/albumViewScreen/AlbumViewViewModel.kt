@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
-import com.alessiocameroni.revomusicplayer.data.classes.SortingValues
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingValues
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

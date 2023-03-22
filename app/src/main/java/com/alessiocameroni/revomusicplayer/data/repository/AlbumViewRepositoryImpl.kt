@@ -8,8 +8,8 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Albums
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumDetails
-import com.alessiocameroni.revomusicplayer.data.classes.AlbumSong
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 

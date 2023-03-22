@@ -26,7 +26,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.Album
+import com.alessiocameroni.revomusicplayer.data.classes.album.Album
 import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
 import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
 import com.alessiocameroni.revomusicplayer.ui.components.ScreenContent

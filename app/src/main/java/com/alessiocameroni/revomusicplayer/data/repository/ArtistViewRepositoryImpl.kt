@@ -8,9 +8,9 @@ import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Artists
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistAlbum
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistDetails
-import com.alessiocameroni.revomusicplayer.data.classes.ArtistSong
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistAlbum
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistDetails
+import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistSong
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistViewRepository
 import com.alessiocameroni.revomusicplayer.util.functions.calculateSongDuration
 
@@ -170,7 +170,7 @@ class ArtistViewRepositoryImpl(
     }
 
     override suspend fun getArtistDetails(artistId: Long):
-        ArtistDetails = artistDetailsContentResolver(artistId)
+            ArtistDetails = artistDetailsContentResolver(artistId)
 
     override suspend fun getAlbumList(artistId: Long):
         List<ArtistAlbum> = albumContentResolver(artistId)

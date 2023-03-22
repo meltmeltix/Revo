@@ -12,8 +12,10 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.util.functions.selectSortingString
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
@@ -22,7 +24,6 @@ fun SongTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: SongViewModel,
-    isListEmpty: Boolean,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
@@ -49,7 +50,6 @@ fun SongTopActionBar(
                     expandedMenu,
                     expandedSortMenu,
                     navController,
-                    isListEmpty
                 )
                 SortDropDownMenu(
                     expandedSortMenu,
@@ -66,7 +66,6 @@ private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     expandedSortMenu: MutableState<Boolean>,
     navController: NavController,
-    isListEmpty: Boolean
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -90,7 +89,6 @@ private fun TopBarDropDownMenu(
                     contentDescription = stringResource(id = R.string.str_moreOptions)
                 )
             },
-            enabled = !isListEmpty
         )
         
         Divider()
@@ -117,18 +115,27 @@ private fun SortDropDownMenu(
     viewModel: SongViewModel
 ) {
     val sortTypeList = listOf(
+        SortingType.TITLE,
+        SortingType.ARTIST,
+        SortingType.ALBUM,
+        SortingType.DURATION,
+        SortingType.DATE_ADDED
+    )
+
+    /*val sortTypeList = listOf(
         stringResource(id = R.string.str_name),
         stringResource(id = R.string.str_artist),
         stringResource(id = R.string.str_album),
         stringResource(id = R.string.str_duration),
         stringResource(id = R.string.str_dateAdded),
-    )
-    val sortOrderList = listOf(
+    )*/
+    /*val sortOrderList = listOf(
         stringResource(id = R.string.str_ascending),
         stringResource(id = R.string.str_descending)
-    )
-    var selectedSortType by remember { viewModel.sortingType }
-    var selectedSortOrder by remember { viewModel.sortingOrder }
+    )*/
+    /*var selectedSortType by remember { viewModel.sortingType }
+    var selectedSortOrder by remember { viewModel.sortingOrder }*/
+    val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TITLE)
 
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -141,11 +148,16 @@ private fun SortDropDownMenu(
         SortTypeSelector(
             expanded = expanded,
             options = sortTypeList,
+            selected = selectedSortType
+        )
+        /*SortTypeSelector(
+            expanded = expanded,
+            options = sortTypeList,
             selected = sortTypeList[selectedSortType],
             onSelected = { selectedSortType = sortTypeList.indexOf(it) },
             viewModel = viewModel,
             orderSelection = selectedSortOrder,
-        )
+        )*/
         
         Divider()
         
@@ -153,18 +165,40 @@ private fun SortDropDownMenu(
             modifier = Modifier.padding(top = 5.dp),
             stringTitle = stringResource(id = R.string.str_sortOrder)
         )
-        SortOrderSelector(
+        /*SortOrderSelector(
             expanded = expanded,
             options = sortOrderList,
             selected = sortOrderList[selectedSortOrder],
             onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
             viewModel = viewModel,
             typeSelection = selectedSortType,
-        )
+        )*/
     }
 }
 
 @Composable
+private fun SortTypeSelector(
+    expanded: MutableState<Boolean>,
+    options: List<SortingType>,
+    selected: SortingType,
+) {
+    options.forEach { option ->
+        DropdownMenuItem(
+            text = { Text(selectSortingString(option)) },
+            onClick = {
+                expanded.value = false
+            },
+            trailingIcon = {
+                RadioButton(
+                    selected = option == selected,
+                    onClick = null
+                )
+            }
+        )
+    }
+}
+
+/*@Composable
 private fun SortTypeSelector(
     expanded: MutableState<Boolean>,
     options: List<String>,
@@ -216,7 +250,7 @@ private fun SortOrderSelector(
             }
         )
     }
-}
+}*/
 
 // Items components
 @Composable
