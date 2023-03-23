@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer.data.classes
+package com.alessiocameroni.revomusicplayer.data.classes.song
 
 import android.net.Uri
 

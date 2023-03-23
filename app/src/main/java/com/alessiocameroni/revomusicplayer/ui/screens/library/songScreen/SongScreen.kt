@@ -20,7 +20,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.Song
+import com.alessiocameroni.revomusicplayer.data.classes.song.Song
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 
 @OptIn(ExperimentalMaterial3Api::class)

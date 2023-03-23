@@ -8,7 +8,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
-import com.alessiocameroni.revomusicplayer.data.classes.Song
+import com.alessiocameroni.revomusicplayer.data.classes.song.Song
 import com.alessiocameroni.revomusicplayer.domain.repository.SongsRepository
 
 class SongsRepositoryImpl(

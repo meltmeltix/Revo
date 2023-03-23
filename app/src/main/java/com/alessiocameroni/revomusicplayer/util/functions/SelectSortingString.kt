@@ -3,10 +3,11 @@ package com.alessiocameroni.revomusicplayer.util.functions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 
 @Composable
-fun selectSortingString(option: SortingType): String =
+fun selectSortingTypeString(option: SortingType): String =
     when(option) {
         SortingType.TITLE -> stringResource(id = R.string.str_name)
         SortingType.TRACK -> stringResource(id = R.string.str_trackNumber)
@@ -16,4 +17,11 @@ fun selectSortingString(option: SortingType): String =
         SortingType.NUMBER_OF_TRACKS -> stringResource(id = R.string.str_trackNumber)
         SortingType.DURATION -> stringResource(id = R.string.str_duration)
         SortingType.DATE_ADDED -> stringResource(id = R.string.str_dateAdded)
+    }
+
+@Composable
+fun selectSortingOrderString(option: SortingOrder): String =
+    when(option) {
+        SortingOrder.ASCENDING -> stringResource(id = R.string.str_ascending)
+        SortingOrder.DESCENDING -> stringResource(id = R.string.str_descending)
     }
