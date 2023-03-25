@@ -119,7 +119,7 @@
     <string name="str_closePlayer">Close player</string>
     <string name="str_addToFavorites">Add to favorites</string>
     <string name="str_trackNumber">Track number</string>
-    <string name="str_loadingTunes">Loading your tunes…</string>
+    <string name="str_loadingSongs">Loading your tunes…</string>
     <string name="str_tooQuietAlbums">Did you forgot the disc?</string>
     <string name="str_loadingAlbums">Loading your albums…</string>
     <string name="str_loadingArtists">Loading your artists…</string>

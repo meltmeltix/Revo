@@ -111,7 +111,7 @@
         <item quantity="other">min</item>
     </plurals>
     <string name="str_trackNumber">Numero traccia</string>
-    <string name="str_loadingTunes">Caricando i tuoi brani…</string>
+    <string name="str_loadingSongs">Caricando i tuoi brani…</string>
     <string name="str_tooQuietAlbums">Hai dimenticato il disco?</string>
     <string name="str_loadingAlbums">Caricando i tuoi album…</string>
     <string name="str_loadingArtists">Caricando i tuoi artisti…</string>

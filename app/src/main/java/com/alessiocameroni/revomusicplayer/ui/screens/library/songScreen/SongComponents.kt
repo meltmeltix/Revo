@@ -12,12 +12,41 @@ import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
+import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
+import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingOrderString
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingTypeString
+
+// Content components
+@Composable
+fun ContentSelector(
+    state: ContentState,
+    contentPadding: PaddingValues,
+    contentUnit: @Composable (() -> Unit)
+) {
+    when(state) {
+        ContentState.LOADING -> { 
+            LoadingContent(
+                padding = contentPadding, 
+                headlineString = stringResource(id = R.string.str_loadingSongs)
+            )
+        }
+        ContentState.FAILURE -> { 
+            NoContentMessage(
+                padding = contentPadding, 
+                leadingIcon = painterResource(id = R.drawable.ic_baseline_music_off_24), 
+                headlineString = stringResource(id = R.string.str_tooQuietSongs), 
+                infoString = stringResource(id = R.string.info_tooQuietSongs)
+            )
+        }
+        ContentState.SUCCESS -> { contentUnit() }
+    }
+}
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)

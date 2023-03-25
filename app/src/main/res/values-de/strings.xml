@@ -109,7 +109,7 @@
     <string name="str_closePlayer">Player schließen</string>
     <string name="str_addToFavorites">Zu Favoriten hinzufügen</string>
     <string name="str_trackNumber">Track Nummer</string>
-    <string name="str_loadingTunes">Laden Deiner Songs…</string>
+    <string name="str_loadingSongs">Laden Deiner Songs…</string>
     <string name="str_tooQuietAlbums">Hast du die CD vergessen?</string>
     <string name="str_loadingAlbums">Lade deine Alben…</string>
     <string name="str_loadingArtists">Lade deine Künstler…</string>
