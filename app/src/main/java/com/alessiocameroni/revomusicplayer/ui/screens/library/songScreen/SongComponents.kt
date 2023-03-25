@@ -146,7 +146,7 @@ private fun SortDropDownMenu(
     viewModel: SongViewModel
 ) {
     val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TITLE)
-    val selectedSortingOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
+    val selectedSortOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
 
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -169,11 +169,10 @@ private fun SortDropDownMenu(
             modifier = Modifier.padding(top = 5.dp),
             stringTitle = stringResource(id = R.string.str_sortOrder)
         )
-
         SortOrderSelector(
             expanded = expanded,
             options = SortingOrder.values(),
-            selected = selectedSortingOrder,
+            selected = selectedSortOrder,
             onSelected = { viewModel.setSortOrder(it) }
         )
     }
@@ -202,7 +201,7 @@ private fun SortTypeSelector(
 private fun SortOrderSelector(
     expanded: MutableState<Boolean>,
     options: Array<SortingOrder>,
-    selected: Any,
+    selected: SortingOrder,
     onSelected: (SortingOrder) -> Unit
 ) {
     options.forEach { option ->

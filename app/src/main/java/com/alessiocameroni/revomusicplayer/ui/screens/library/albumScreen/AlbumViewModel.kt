@@ -1,16 +1,16 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.album.Album
-import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingValues
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumsRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,77 +20,88 @@ class AlbumViewModel @Inject constructor(
     private val sortingRepository: SortingRepository,
     private val albumsRepository: AlbumsRepository
 ): ViewModel() {
-    val sortingType = mutableStateOf(0)
-    val sortingOrder = mutableStateOf(0)
-    val isListEmpty = mutableStateOf(false)
-    private var _albums: MutableLiveData<List<Album>> = MutableLiveData(emptyList())
-    val albums: LiveData<List<Album>> = _albums
+    val sortTypeList = listOf(
+        SortingType.TITLE,
+        SortingType.ARTIST,
+        SortingType.YEAR,
+        SortingType.NUMBER_OF_TRACKS
+    )
+
+    private var _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
+    val contentState: StateFlow<ContentState> = _contentState
+
+    var sortingType = sortingRepository.getAlbumSortType()
+        .map { sortTypeList[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingType.TITLE)
+
+    var sortingOrder = sortingRepository.getAlbumSortOrder()
+        .map { SortingOrder.values()[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
+
+    private var _albums: MutableStateFlow<List<Album>> = MutableStateFlow(emptyList())
+    val albums: StateFlow<List<Album>> = sortingOrder
+        .combine(sortingType) { order, type -> sortList(_albums.value, order, type) }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     init {
         viewModelScope.launch {
-            sortingRepository.getAlbumSorting().collect {
-                sortingType.value = it.type
-                sortingOrder.value = it.order
-            }
-        }
-        viewModelScope.launch(Dispatchers.Main) {
             var list: List<Album>
             withContext(Dispatchers.IO) { list = albumsRepository.getAlbumList() }
-            if(list.isNotEmpty()) {
-                withContext(Dispatchers.Default) {
-                    list = sortList(
-                        list,
-                        sortingType.value,
-                        sortingOrder.value
-                    )
-                }
-            } else { isListEmpty.value = true }
+            if (list.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            else { _contentState.value = ContentState.FAILURE }
             _albums.value = list
         }
     }
 
-    // List management
     private fun sortList(
         list: List<Album>,
-        type: Int,
-        order: Int,
+        order: SortingOrder,
+        type: SortingType,
     ): List<Album> {
-        var sortedList = list
-        sortedList = when(order) {
-            0 -> {
+        return when(order) {
+            SortingOrder.ASCENDING -> {
                 when(type) {
-                    0 -> sortedList.sortedBy { it.albumTitle }
-                    1 -> sortedList.sortedBy { it.artist }
-                    2 -> sortedList.sortedBy { it.year }
-                    3 -> sortedList.sortedBy { it.numberOfSongs }
-                    else -> { sortedList.sortedBy { it.albumTitle } }
+                    SortingType.TITLE -> list.sortedBy { it.albumTitle }
+                    SortingType.ARTIST -> list.sortedBy { it.artist }
+                    SortingType.YEAR -> list.sortedBy { it.year }
+                    SortingType.NUMBER_OF_TRACKS -> list.sortedBy { it.numberOfSongs }
+                    else -> { list.sortedBy { it.albumTitle } }
                 }
             }
-            1 -> {
+            SortingOrder.DESCENDING -> {
                 when(type) {
-                    0 -> sortedList.sortedByDescending { it.albumTitle }
-                    1 -> sortedList.sortedByDescending { it.artist }
-                    2 -> sortedList.sortedByDescending { it.year }
-                    3 -> sortedList.sortedByDescending { it.numberOfSongs }
-                    else -> { sortedList.sortedByDescending { it.albumTitle } }
+                    SortingType.TITLE -> list.sortedByDescending { it.albumTitle }
+                    SortingType.ARTIST -> list.sortedByDescending { it.artist }
+                    SortingType.YEAR -> list.sortedByDescending { it.year }
+                    SortingType.NUMBER_OF_TRACKS -> list.sortedByDescending { it.numberOfSongs }
+                    else -> { list.sortedByDescending { it.albumTitle } }
                 }
             }
-            else -> { sortedList.sortedBy { it.albumTitle } }
         }
-        return sortedList
     }
 
-    private suspend fun onSortChange(type: Int, order: Int) {
-        var list = _albums.value!!
-        withContext(Dispatchers.Default) { list = sortList(list, type, order) }
-        _albums.value = list
-    }
-
-    // Preferences management
-    fun setSortData(type: Int, order: Int) {
+    fun setSortType(type: SortingType) {
         viewModelScope.launch {
-            sortingRepository.setAlbumSorting(SortingValues(type, order))
-            onSortChange(type, order)
+            sortingRepository.setAlbumSortType(sortTypeList.indexOf(type))
+            onSort()
+        }
+    }
+
+    fun setSortOrder(order: SortingOrder) {
+        viewModelScope.launch {
+            sortingRepository.setAlbumSortOrder(SortingOrder.values().indexOf(order))
+            onSort()
+        }
+    }
+
+    private fun onSort() {
+        viewModelScope.launch {
+            var list = _albums.value
+            withContext(Dispatchers.IO) {
+                list = sortList(list, sortingOrder.value, sortingType.value)
+            }
+            _albums.value = list
         }
     }
 }

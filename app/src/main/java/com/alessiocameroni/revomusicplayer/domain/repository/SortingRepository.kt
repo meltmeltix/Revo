@@ -8,7 +8,9 @@ interface SortingRepository {
     fun getSongSortType(): Flow<Int>
     fun getSongSortOrder(): Flow<Int>
 
-    suspend fun getAlbumSorting(): Flow<SortingValues>
+    fun getAlbumSortType(): Flow<Int>
+    fun getAlbumSortOrder(): Flow<Int>
+
     suspend fun getAlbumSongsSorting(): Flow<SortingValues>
 
     suspend fun getArtistSorting(): Flow<SortingValues>
@@ -18,7 +20,9 @@ interface SortingRepository {
     suspend fun setSongSortType(type: Int)
     suspend fun setSongSortOrder(order: Int)
 
-    suspend fun setAlbumSorting(oldSortingValues: SortingValues)
+    suspend fun setAlbumSortType(type: Int)
+    suspend fun setAlbumSortOrder(order: Int)
+
     suspend fun setAlbumSongsSorting(oldSortingValues: SortingValues)
 
     suspend fun setArtistSorting(oldSortingValues: SortingValues)

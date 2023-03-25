@@ -41,13 +41,11 @@ class SortingRepositoryImpl(
     override fun getSongSortOrder(): Flow<Int> = context.dataStore.data
         .map { preferences -> preferences[SONG_SORTING_ORDER] ?: 0 }
 
-    override suspend fun getAlbumSorting(): Flow<SortingValues> = context.dataStore.data
-        .map { preferences ->
-            SortingValues(
-                type = preferences[ALBUM_SORTING_TYPE] ?: 0,
-                order = preferences[ALBUM_SORTING_ORDER] ?: 0
-            )
-        }
+    override fun getAlbumSortType(): Flow<Int> = context.dataStore.data
+        .map { preferences -> preferences[ALBUM_SORTING_TYPE] ?: 0 }
+
+    override fun getAlbumSortOrder(): Flow<Int> = context.dataStore.data
+        .map { preferences -> preferences[ALBUM_SORTING_ORDER] ?: 0 }
 
     override suspend fun getAlbumSongsSorting(): Flow<SortingValues> = context.dataStore.data
         .map { preferences ->
@@ -82,11 +80,12 @@ class SortingRepositoryImpl(
         context.dataStore.edit { preferences -> preferences[SONG_SORTING_ORDER] = order }
     }
 
-    override suspend fun setAlbumSorting(oldSortingValues: SortingValues) {
-        context.dataStore.edit { preferences ->
-            preferences[ALBUM_SORTING_TYPE] = oldSortingValues.type
-            preferences[ALBUM_SORTING_ORDER] = oldSortingValues.order
-        }
+    override suspend fun setAlbumSortType(type: Int) {
+        context.dataStore.edit { preferences -> preferences[ALBUM_SORTING_TYPE] = type }
+    }
+
+    override suspend fun setAlbumSortOrder(order: Int) {
+        context.dataStore.edit { preferences -> preferences[ALBUM_SORTING_ORDER] = order }
     }
 
     override suspend fun setAlbumSongsSorting(oldSortingValues: SortingValues) {
