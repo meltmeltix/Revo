@@ -1,9 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,11 +23,9 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.artist.Artist
-import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
-import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
-import com.alessiocameroni.revomusicplayer.ui.components.ScreenContent
-import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
+import com.alessiocameroni.revomusicplayer.ui.components.*
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,24 +36,22 @@ fun ArtistsScreen(
     viewModel: ArtistViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val artistList by viewModel.artist.observeAsState(emptyList())
-    val isListEmpty by remember { viewModel.isListEmpty }
-    val contentVisibilityState = artistList.isEmpty()
+    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
+    val artistList by viewModel.artists.collectAsState(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel, isListEmpty) },
+        topBar = { ArtistTopActionBar(navController, scrollBehavior, viewModel) },
         content = { padding ->
-            ScreenContent(
-                state = contentVisibilityState,
-                isListEmpty = isListEmpty,
+            ContentSelector(
+                state = contentState,
                 loadingUnit = {
                     LoadingContent(
                         padding = padding,
                         headlineString = stringResource(id = R.string.str_loadingArtists)
                     )
                 },
-                noContentUnit = {
+                failedUnit = {
                     NoContentMessage(
                         padding = padding,
                         leadingIcon = painterResource(id = R.drawable.outlined_person_off_24),
@@ -68,21 +59,16 @@ fun ArtistsScreen(
                         infoString = stringResource(id = R.string.info_tooQuietArtists)
                     )
                 },
+                contentUnit = {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        contentPadding = PaddingValues(bottom = 70.dp)
+                    ) { artistList(artistList, navControllerBottomBar) }
+                }
             )
-
-            AnimatedVisibility(
-                visible = !contentVisibilityState,
-                enter = fadeIn(animationSpec = tween(300)),
-                exit = fadeOut(animationSpec = tween(300))
-            ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .padding(padding)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
-                    contentPadding = PaddingValues(bottom = 70.dp)
-                ) { artistList(artistList, navControllerBottomBar) }
-            }
         }
     )
 }

@@ -46,10 +46,10 @@ class AlbumViewRepositoryImpl(
     @WorkerThread
     private fun albumDetailsContentResolver(albumId: Long): AlbumDetails {
         var albumDetails = AlbumDetails(
-            "Album Title",
-            0,
-            "Artist Name",
-            null
+            title = "Album Title",
+            artistId = 0,
+            artistName = "Artist Name",
+            coverUri = null
         )
 
         val selection = "${Albums._ID} = $albumId"
@@ -74,10 +74,10 @@ class AlbumViewRepositoryImpl(
                 val albumCoverUri: Uri = ContentUris.withAppendedId(albumCover, albumId)
 
                 albumDetails = AlbumDetails(
-                    album,
-                    artistId,
-                    artist,
-                    albumCoverUri
+                    title = album,
+                    artistId = artistId,
+                    artistName = artist,
+                    coverUri = albumCoverUri
                 )
             }
         }

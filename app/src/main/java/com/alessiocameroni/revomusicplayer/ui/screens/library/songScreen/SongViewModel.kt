@@ -40,7 +40,8 @@ class SongViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
 
     private val _songs: MutableStateFlow<List<Song>> = MutableStateFlow(emptyList())
-    val songs: StateFlow<List<Song>> = combine(_songs, sortingOrder, sortingType) {
+    val songs: StateFlow<List<Song>> =
+        combine(_songs, sortingOrder, sortingType) {
             list, order, type -> sortList(list, order, type)
         }
         .flowOn(Dispatchers.Default)

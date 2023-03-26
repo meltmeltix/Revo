@@ -1,16 +1,15 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.artistScreen
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.artist.Artist
-import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingValues
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.domain.repository.ArtistsRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -20,55 +19,49 @@ class ArtistViewModel @Inject constructor(
     private val sortingRepository: SortingRepository,
     private val artistsRepository: ArtistsRepository
 ): ViewModel() {
-    val sortingOrder = mutableStateOf(0)
-    val isListEmpty = mutableStateOf(false)
-    private var _artists: MutableLiveData<List<Artist>> = MutableLiveData(emptyList())
-    val artist: LiveData<List<Artist>> = _artists
+    private val _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
+    val contentState: StateFlow<ContentState> = _contentState
+
+    val sortingOrder = sortingRepository.getArtistSortOrder()
+        .map { SortingOrder.values()[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
+
+    private val _artists: MutableStateFlow<List<Artist>> = MutableStateFlow(emptyList())
+    val artists: StateFlow<List<Artist>> =
+        combine(_artists, sortingOrder) {
+            list, order -> sortList(list, order)
+        }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     init {
         viewModelScope.launch {
-            sortingRepository.getArtistSorting().collect {
-                sortingOrder.value = it.order
-            }
-        }
-        viewModelScope.launch {
-            var list: List<Artist>
-            withContext(Dispatchers.IO) { list = artistsRepository.getArtistList() }
-            if (list.isNotEmpty()) {
-                withContext(Dispatchers.Default) {
-                    list = sortList(list, sortingOrder.value)
-                }
-            }
-            else { isListEmpty.value = true }
-            _artists.value = list
+            withContext(Dispatchers.IO) { _artists.value = artistsRepository.getArtistList() }
+            if (_artists.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            else { _contentState.value = ContentState.FAILURE }
         }
     }
 
-    // List management
     private fun sortList(
         list: List<Artist>,
-        order: Int,
+        order: SortingOrder,
     ): List<Artist> {
-        var sortedList = list
-        sortedList = when(order) {
-            0 -> { sortedList.sortedBy { it.artist } }
-            1 -> { sortedList.sortedByDescending { it.artist } }
-            else -> { sortedList.sortedBy { it.artist } }
+        return when(order) {
+            SortingOrder.ASCENDING -> { list.sortedBy { it.artist } }
+            SortingOrder.DESCENDING -> { list.sortedByDescending { it.artist } }
         }
-        return sortedList
     }
 
-    private suspend fun onSortChange(order: Int) {
-        var list = _artists.value!!
-        withContext(Dispatchers.Default) { list = sortList(list, order) }
-        _artists.value = list
-    }
-
-    // Preferences management
-    fun setSortData(order: Int) {
+    fun setSortOrder(order: SortingOrder) {
         viewModelScope.launch {
-            sortingRepository.setArtistSorting(SortingValues(0, order))
-            onSortChange(order)
+            sortingRepository.setArtistOrder(SortingOrder.values().indexOf(order))
+            onSort()
+        }
+    }
+
+    private fun onSort() {
+        viewModelScope.launch(Dispatchers.Default) {
+            _artists.value = sortList(_artists.value, sortingOrder.value)
         }
     }
 }

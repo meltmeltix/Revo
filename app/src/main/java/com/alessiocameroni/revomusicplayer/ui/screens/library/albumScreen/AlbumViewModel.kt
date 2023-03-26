@@ -39,7 +39,8 @@ class AlbumViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
 
     private val _albums: MutableStateFlow<List<Album>> = MutableStateFlow(emptyList())
-    val albums: StateFlow<List<Album>> = combine(_albums, sortingOrder, sortingType) {
+    val albums: StateFlow<List<Album>> =
+        combine(_albums, sortingOrder, sortingType) {
             list, order, type -> sortList(list, order, type)
         }
         .flowOn(Dispatchers.Default)
