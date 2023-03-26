@@ -27,30 +27,29 @@ class AlbumViewModel @Inject constructor(
         SortingType.NUMBER_OF_TRACKS
     )
 
-    private var _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
+    private val _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
     val contentState: StateFlow<ContentState> = _contentState
 
-    var sortingType = sortingRepository.getAlbumSortType()
+    val sortingType = sortingRepository.getAlbumSortType()
         .map { sortTypeList[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingType.TITLE)
 
-    var sortingOrder = sortingRepository.getAlbumSortOrder()
+    val sortingOrder = sortingRepository.getAlbumSortOrder()
         .map { SortingOrder.values()[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
 
-    private var _albums: MutableStateFlow<List<Album>> = MutableStateFlow(emptyList())
-    val albums: StateFlow<List<Album>> = sortingOrder
-        .combine(sortingType) { order, type -> sortList(_albums.value, order, type) }
+    private val _albums: MutableStateFlow<List<Album>> = MutableStateFlow(emptyList())
+    val albums: StateFlow<List<Album>> = combine(_albums, sortingOrder, sortingType) {
+            list, order, type -> sortList(list, order, type)
+        }
         .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     init {
         viewModelScope.launch {
-            var list: List<Album>
-            withContext(Dispatchers.IO) { list = albumsRepository.getAlbumList() }
-            if (list.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            withContext(Dispatchers.IO) { _albums.value = albumsRepository.getAlbumList() }
+            if (_albums.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
             else { _contentState.value = ContentState.FAILURE }
-            _albums.value = list
         }
     }
 
@@ -96,12 +95,8 @@ class AlbumViewModel @Inject constructor(
     }
 
     private fun onSort() {
-        viewModelScope.launch {
-            var list = _albums.value
-            withContext(Dispatchers.IO) {
-                list = sortList(list, sortingOrder.value, sortingType.value)
-            }
-            _albums.value = list
+        viewModelScope.launch(Dispatchers.Default) {
+            _albums.value = sortList(_albums.value, sortingOrder.value, sortingType.value)
         }
     }
 }

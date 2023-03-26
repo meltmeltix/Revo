@@ -116,4 +116,5 @@
     <string name="info_tooQuietAlbums">Scheint so, als gäbe es keine Alben in deiner Mediathek… Füge welche hinzu und lasse die Party beginnen!</string>
     <string name="str_tooQuietArtists">Hier sind keine Künstler auf der Party…</string>
     <string name="info_tooQuietArtists">Scheint so, als gäbe es keine Künstler in deiner Mediathek… Füge ein paar Songs hinzu und lasse die Party beginnen!</string>
+    <string name="str_loadingAlbumSongs">Laden deiner Songs aus dem Album…</string>
 </resources>

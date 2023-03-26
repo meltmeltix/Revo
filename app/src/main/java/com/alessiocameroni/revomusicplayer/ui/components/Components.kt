@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 
 @Composable
 fun SmallImageContainer(
@@ -135,6 +136,39 @@ fun NoContentMessage(
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
+        }
+    }
+}
+
+@Composable
+fun ContentSelector(
+    state: ContentState,
+    loadingUnit: @Composable (() -> Unit),
+    failedUnit: @Composable (() -> Unit),
+    contentUnit: @Composable (() -> Unit)
+) {
+    when(state) {
+        ContentState.LOADING -> {
+            AnimatedVisibility(
+                visible = true,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) { loadingUnit() }
+
+        }
+        ContentState.FAILURE -> {
+            AnimatedVisibility(
+                visible = true,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) { failedUnit() }
+        }
+        ContentState.SUCCESS -> {
+            AnimatedVisibility(
+                visible = true,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) { contentUnit() }
         }
     }
 }

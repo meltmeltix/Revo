@@ -1,7 +1,6 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.*
@@ -16,41 +15,12 @@ import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
-import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
-import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingOrderString
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingTypeString
-
-// Content components
-@Composable
-fun ContentSelector(
-    state: ContentState,
-    contentPadding: PaddingValues,
-    contentUnit: @Composable (() -> Unit)
-) {
-    when(state) {
-        ContentState.LOADING -> {
-            LoadingContent(
-                padding = contentPadding,
-                headlineString = stringResource(id = R.string.str_loadingAlbums)
-            )
-        }
-        ContentState.FAILURE -> {
-            NoContentMessage(
-                padding = contentPadding,
-                leadingIcon = painterResource(id = R.drawable.ic_outlined_no_album_24),
-                headlineString = stringResource(id = R.string.str_tooQuietAlbums),
-                infoString = stringResource(id = R.string.info_tooQuietAlbums)
-            )
-        }
-        ContentState.SUCCESS -> { contentUnit() }
-    }
-}
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)

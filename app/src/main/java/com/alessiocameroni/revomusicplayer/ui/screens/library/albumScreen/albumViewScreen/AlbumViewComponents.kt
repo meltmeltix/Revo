@@ -10,7 +10,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,8 +25,13 @@ import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
+import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDuration
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.util.functions.selectSortingOrderString
+import com.alessiocameroni.revomusicplayer.util.functions.selectSortingTypeString
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
@@ -153,17 +157,8 @@ private fun SortDropDownMenu(
     expanded: MutableState<Boolean>,
     viewModel: AlbumViewViewModel
 ) {
-    val sortTypeList = listOf(
-        stringResource(id = R.string.str_trackNumber),
-        stringResource(id = R.string.str_name),
-        stringResource(id = R.string.str_duration)
-    )
-    val sortOrderList = listOf(
-        stringResource(id = R.string.str_ascending),
-        stringResource(id = R.string.str_descending)
-    )
-    var selectedSortType by remember { viewModel.sortingType }
-    var selectedSortOrder by remember { viewModel.sortingOrder }
+    val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TRACK)
+    val selectedSortOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
 
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -175,11 +170,9 @@ private fun SortDropDownMenu(
 
         SortTypeSelector(
             expanded = expanded,
-            options = sortTypeList,
-            selected = sortTypeList[selectedSortType],
-            onSelected = { selectedSortType = sortTypeList.indexOf(it) },
-            viewModel = viewModel,
-            orderSelection = selectedSortOrder
+            options = viewModel.sortTypeList,
+            selected = selectedSortType,
+            onSelected = { viewModel.setSortType(it) },
         )
 
         Divider()
@@ -190,11 +183,9 @@ private fun SortDropDownMenu(
 
         SortOrderSelector(
             expanded = expanded,
-            options = sortOrderList,
-            selected = sortOrderList[selectedSortOrder],
-            onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
-            viewModel = viewModel,
-            typeSelection = selectedSortType
+            options = SortingOrder.values(),
+            selected = selectedSortOrder,
+            onSelected = { viewModel.setSortOrder(it) },
         )
     }
 }
@@ -202,26 +193,18 @@ private fun SortDropDownMenu(
 @Composable
 private fun SortTypeSelector(
     expanded: MutableState<Boolean>,
-    options: List<String>,
-    selected: String,
-    onSelected: (String) -> Unit,
-    viewModel: AlbumViewViewModel,
-    orderSelection: Int
+    options: List<SortingType>,
+    selected: SortingType,
+    onSelected: (SortingType) -> Unit,
 ) {
-    options.forEach { text ->
+    options.forEach { option ->
         DropdownMenuItem(
-            text = { Text(text = text) },
+            text = { Text(selectSortingTypeString(option)) },
             onClick = {
-                onSelected(text)
-                viewModel.setSortData(options.indexOf(text), orderSelection)
+                onSelected(option)
                 expanded.value = false
             },
-            trailingIcon = {
-                RadioButton(
-                    selected = (text == selected),
-                    onClick = null
-                )
-            }
+            trailingIcon = { RadioButton(selected = option == selected, onClick = null) }
         )
     }
 }
@@ -229,26 +212,18 @@ private fun SortTypeSelector(
 @Composable
 private fun SortOrderSelector(
     expanded: MutableState<Boolean>,
-    options: List<String>,
-    selected: String,
-    onSelected: (String) -> Unit,
-    viewModel: AlbumViewViewModel,
-    typeSelection: Int
+    options: Array<SortingOrder>,
+    selected: SortingOrder,
+    onSelected: (SortingOrder) -> Unit
 ) {
-    options.forEach { text ->
+    options.forEach { option ->
         DropdownMenuItem(
-            text = { Text(text = text) },
+            text = { Text(selectSortingOrderString(option)) },
             onClick = {
-                onSelected(text)
-                viewModel.setSortData(typeSelection, options.indexOf(text))
+                onSelected(option)
                 expanded.value = false
             },
-            trailingIcon = {
-                RadioButton(
-                    selected = (text == selected),
-                    onClick = null
-                )
-            }
+            trailingIcon = { RadioButton(selected = option == selected, onClick = null) }
         )
     }
 }
@@ -308,26 +283,26 @@ private fun HeaderText(
     viewModel: AlbumViewViewModel,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val songs by viewModel.songs.observeAsState(emptyList())
-    val hoursAmount: Int = viewModel.albumHoursAmount.value
-    val minutesAmount: Int = viewModel.albumMinutesAmount.value
-    val secondsAmount: Int = viewModel.albumSecondsAmount.value
+    val songs by viewModel.songs.collectAsState(emptyList())
+    val albumDuration by viewModel.albumDuration.collectAsState(
+        AlbumDuration( 0, 0, 0, 0)
+    )
 
     val albumInfo =
         "${songs.size} " +
         pluralStringResource(id = R.plurals.str_songAmount, count = songs.size) +
         " · " +
         when {
-            hoursAmount > 0 -> {
-                "$hoursAmount " +
-                        pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = hoursAmount) +
-                        " $minutesAmount " +
-                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount)
+            albumDuration.hours > 0 -> {
+                "${albumDuration.hours} " +
+                        pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = albumDuration.hours) +
+                        " ${albumDuration.minutes} " +
+                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = albumDuration.minutes)
             }
             else -> {
-                "$minutesAmount " +
-                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = minutesAmount) +
-                        " $secondsAmount " +
+                "${albumDuration.minutes} " +
+                        pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = albumDuration.minutes) +
+                        " ${albumDuration.seconds} " +
                         stringResource(id = R.string.str_secondsAmountAbbr)
             }
         }

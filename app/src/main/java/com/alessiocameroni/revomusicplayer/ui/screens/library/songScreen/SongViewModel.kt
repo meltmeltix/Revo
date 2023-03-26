@@ -28,30 +28,29 @@ class SongViewModel @Inject constructor(
         SortingType.DATE_ADDED
     )
 
-    private var _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
+    private val _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
     val contentState: StateFlow<ContentState> = _contentState
 
-    var sortingType = sortingRepository.getSongSortType()
+    val sortingType = sortingRepository.getSongSortType()
         .map { sortTypeList[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingType.TITLE)
 
-    var sortingOrder = sortingRepository.getSongSortOrder()
+    val sortingOrder = sortingRepository.getSongSortOrder()
         .map { SortingOrder.values()[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
 
-    private var _songs: MutableStateFlow<List<Song>> = MutableStateFlow(emptyList())
-    val songs: StateFlow<List<Song>> = sortingOrder
-        .combine(sortingType) { order, type -> sortList(_songs.value, order, type) }
+    private val _songs: MutableStateFlow<List<Song>> = MutableStateFlow(emptyList())
+    val songs: StateFlow<List<Song>> = combine(_songs, sortingOrder, sortingType) {
+            list, order, type -> sortList(list, order, type)
+        }
         .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     init {
         viewModelScope.launch {
-            var list: List<Song>
-            withContext(Dispatchers.IO) { list = songsRepository.getSongList() }
-            if (list.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            withContext(Dispatchers.IO) { _songs.value = songsRepository.getSongList() }
+            if (_songs.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
             else { _contentState.value = ContentState.FAILURE }
-            _songs.value = list
         }
     }
 
@@ -99,12 +98,8 @@ class SongViewModel @Inject constructor(
     }
 
     private fun onSort() {
-        viewModelScope.launch {
-            var list = _songs.value
-            withContext(Dispatchers.IO) {
-                list = sortList(list, sortingOrder.value, sortingType.value)
-            }
-            _songs.value = list
+        viewModelScope.launch(Dispatchers.Default) {
+            _songs.value = sortList(_songs.value, sortingOrder.value, sortingType.value)
         }
     }
 }

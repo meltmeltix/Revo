@@ -1,9 +1,5 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,6 +23,9 @@ import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.album.Album
+import com.alessiocameroni.revomusicplayer.ui.components.ContentSelector
+import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
+import com.alessiocameroni.revomusicplayer.ui.components.NoContentMessage
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
@@ -47,21 +46,28 @@ fun AlbumsScreen(
         content = { padding ->
             ContentSelector(
                 state = contentState,
-                contentPadding = padding,
+                loadingUnit = {
+                    LoadingContent(
+                        padding = padding,
+                        headlineString = stringResource(id = R.string.str_loadingAlbums)
+                    )
+                },
+                failedUnit = {
+                    NoContentMessage(
+                        padding = padding,
+                        leadingIcon = painterResource(id = R.drawable.ic_outlined_no_album_24),
+                        headlineString = stringResource(id = R.string.str_tooQuietAlbums),
+                        infoString = stringResource(id = R.string.info_tooQuietAlbums)
+                    )
+                },
                 contentUnit = {
-                    AnimatedVisibility(
-                        visible = albumList.isNotEmpty(),
-                        enter = fadeIn(animationSpec = tween(300)),
-                        exit = fadeOut(animationSpec = tween(300))
-                    ) {
-                        LazyColumn(
-                            modifier = Modifier
-                                .padding(padding)
-                                .fillMaxSize(),
-                            verticalArrangement = Arrangement.spacedBy(2.dp),
-                            contentPadding = PaddingValues(bottom = 70.dp)
-                        ) { albumList(albumList, navControllerBottomBar) }
-                    }
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        contentPadding = PaddingValues(bottom = 70.dp)
+                    ) { albumList(albumList, navControllerBottomBar) }
                 }
             )
         }
