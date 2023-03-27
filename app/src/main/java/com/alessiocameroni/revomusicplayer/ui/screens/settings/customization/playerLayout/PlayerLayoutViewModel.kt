@@ -1,10 +1,13 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -12,17 +15,11 @@ import javax.inject.Inject
 class PlayerLayoutViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ): ViewModel() {
-    val playerLayout = mutableStateOf(1)
+    val playerLayout = settingsRepository.getPlayerLayout()
+        .map { PlayerLayout.values()[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PlayerLayout.CENTER)
 
-    init {
-        viewModelScope.launch {
-            settingsRepository.getPlayerLayout().collect {
-                playerLayout.value = it
-            }
-        }
-    }
-
-    fun setLayout(selection: Int) {
-        viewModelScope.launch { settingsRepository.setPlayerLayout(selection) }
+    fun setLayout(selection: PlayerLayout) {
+        viewModelScope.launch { settingsRepository.setPlayerLayout(PlayerLayout.values().indexOf(selection)) }
     }
 }

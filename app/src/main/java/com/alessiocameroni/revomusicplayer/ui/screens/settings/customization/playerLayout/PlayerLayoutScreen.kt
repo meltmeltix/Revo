@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,12 +22,7 @@ fun PlayerLayoutScreen(
     viewModel: PlayerLayoutViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val radioOptions = listOf(
-        stringResource(id = R.string.str_left),
-        stringResource(id = R.string.str_center),
-        stringResource(id = R.string.str_right),
-    )
-    var selectedLayout by remember { viewModel.playerLayout }
+    val selectedLayout by viewModel.playerLayout.collectAsState(PlayerLayout.CENTER)
 
     RevoMusicPlayerTheme {
         Surface(
@@ -49,7 +45,7 @@ fun PlayerLayoutScreen(
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         Row( modifier = Modifier.padding(horizontal = 15.dp) ) {
-                            PlayerLayoutPreviewHeader(selectedOption = radioOptions[selectedLayout])
+                            PlayerLayoutPreviewHeader(selectedOption = selectedLayout)
                         }
 
                         Row( modifier = Modifier ) {
@@ -63,10 +59,9 @@ fun PlayerLayoutScreen(
                             verticalArrangement = Arrangement.spacedBy(2.dp)
                         ) {
                             LayoutSelector(
-                                options = radioOptions,
-                                selected = radioOptions[selectedLayout],
-                                onSelected = { selectedLayout = radioOptions.indexOf(it) },
-                                viewModel = viewModel
+                                options = PlayerLayout.values(),
+                                selected = selectedLayout,
+                                onSelected = { viewModel.setLayout(it) },
                             )
                         }
                     }

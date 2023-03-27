@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.util.functions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 
@@ -24,4 +25,12 @@ fun selectSortingOrderString(option: SortingOrder): String =
     when(option) {
         SortingOrder.ASCENDING -> stringResource(id = R.string.str_ascending)
         SortingOrder.DESCENDING -> stringResource(id = R.string.str_descending)
+    }
+
+@Composable
+fun selectPlayerLayoutString(option: PlayerLayout): String =
+    when(option) {
+        PlayerLayout.LEFT -> stringResource(id = R.string.str_left)
+        PlayerLayout.CENTER -> stringResource(id = R.string.str_center)
+        PlayerLayout.RIGHT -> stringResource(id = R.string.str_right)
     }
