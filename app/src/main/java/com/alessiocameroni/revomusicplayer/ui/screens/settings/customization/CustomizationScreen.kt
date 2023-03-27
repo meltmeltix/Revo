@@ -83,6 +83,16 @@ fun CustomizationScreen(
                                 supportingTextString = stringResource(id = R.string.info_layoutPlayer)
                             )
                         }
+
+                        item {
+                            PixelyListItem(
+                                modifier = Modifier.clickable {
+                                    // TODO: Add Navigation
+                                },
+                                headlineTextString = stringResource(id = R.string.str_albumViewLayout),
+                                supportingTextString = stringResource(id = R.string.info_albumViewLayout)
+                            )
+                        }
                     }
                 }
             )

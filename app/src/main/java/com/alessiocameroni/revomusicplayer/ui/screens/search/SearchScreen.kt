@@ -4,23 +4,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.alessiocameroni.pixely_components.PixelyTextField
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(navController: NavController) {
-    val text by remember { mutableStateOf("") }
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    var text by remember { mutableStateOf("") }
 
     RevoMusicPlayerTheme {
         Surface(
@@ -29,17 +24,14 @@ fun SearchScreen(navController: NavController) {
         ) {
             Scaffold(
                 topBar = {
-                    TopAppBar(
-                        title = {
-                            PixelyTextField(
-                                stringText = text,
-                                stringPlaceHolder = stringResource(id = R.string.str_search),
-                                clearTrailingIcon = painterResource(id = R.drawable.ic_baseline_close_24),
-                                descriptionTrailingIcon = stringResource(id = R.string.str_search),
-                                onSearch = {  }
-                            )
-                        },
-                        navigationIcon = {
+                    SearchBar(
+                        query = text,
+                        onQueryChange = { text = it },
+                        onSearch = { /*TODO*/ },
+                        active = true,
+                        onActiveChange = {  },
+                        placeholder = { Text(stringResource(id = R.string.str_search)) },
+                        leadingIcon = {
                             IconButton(onClick = { navController.navigateUp() }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
@@ -47,8 +39,18 @@ fun SearchScreen(navController: NavController) {
                                 )
                             }
                         },
-                        scrollBehavior = scrollBehavior
-                    )
+                        trailingIcon = {
+                            IconButton(onClick = { text = "" }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_close_24),
+                                    contentDescription = stringResource(id = R.string.str_search),
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    ) {
+
+                    }
                 },
                 content = { padding ->
                     Column(

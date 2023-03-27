@@ -20,45 +20,34 @@ class SettingsRepositoryImpl(
     private val context: Context
 ): SettingsRepository {
     private companion object {
-        /**
-         * Library Keys
-         */
+        // Library Keys
         val SPOTIFY_ENABLED = booleanPreferencesKey("spotify_enabled")
 
-        /**
-         * Customization Keys
-         */
+        // Customization Keys
         val APP_THEME = intPreferencesKey("app_theme")
         val COLOR_SCHEME = intPreferencesKey("color_scheme")
         val PLAYER_LAYOUT = intPreferencesKey("player_layout")
+        val ALBUM_VIEW_LAYOUT = intPreferencesKey("album_view_layout")
     }
 
-    /**
-     * Get Data functions
-     */
-    override suspend fun getSpotifyEnabledState() = context.dataStore.data
-        .map { preferences ->
-            preferences[SPOTIFY_ENABLED] ?: true
-        }
+    // Get Data functions
+    override fun getSpotifyEnabledState() = context.dataStore.data
+        .map { preferences -> preferences[SPOTIFY_ENABLED] ?: false }
 
-    override suspend fun getPlayerLayout() = context.dataStore.data
-        .map { preferences ->
-            preferences[PLAYER_LAYOUT] ?: 1
-        }
+    override fun getPlayerLayout() = context.dataStore.data
+        .map { preferences -> preferences[PLAYER_LAYOUT] ?: 1 }
+
+    override fun getAlbumViewLayout() = context.dataStore.data
+        .map { preferences -> preferences[ALBUM_VIEW_LAYOUT] ?: 0 }
 
 
-    /**
-     * Set Data functions
-     */
-    override suspend fun setSpotifyEnabledState(enabledState: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[SPOTIFY_ENABLED] = enabledState
-        }
-    }
+    // Set Data functions
+    override suspend fun setSpotifyEnabledState(enabledState: Boolean)
+        { context.dataStore.edit { preferences -> preferences[SPOTIFY_ENABLED] = enabledState } }
 
-    override suspend fun setPlayerLayout(playerLayoutValue: Int) {
-        context.dataStore.edit { preferences ->
-            preferences[PLAYER_LAYOUT] = playerLayoutValue
-        }
-    }
+    override suspend fun setPlayerLayout(playerLayoutValue: Int)
+        { context.dataStore.edit { preferences -> preferences[PLAYER_LAYOUT] = playerLayoutValue } }
+
+    override suspend fun setAlbumViewLayout(albumViewLayoutValue: Int)
+        { context.dataStore.edit { preferences -> preferences[ALBUM_VIEW_LAYOUT] = albumViewLayoutValue } }
 }

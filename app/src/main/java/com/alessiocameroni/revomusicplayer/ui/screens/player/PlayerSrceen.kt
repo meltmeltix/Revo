@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
 @Composable
@@ -24,6 +25,8 @@ fun PlayerScreen(
     val shuffleChecked by remember { mutableStateOf(false) }
     val repeatChecked by remember { mutableStateOf(false) }
     val openBottomSheet = remember { mutableStateOf(false) }
+
+    val buttonsLayout by viewModel.playerLayout.collectAsState(PlayerLayout.CENTER)
 
     RevoMusicPlayerTheme {
         Surface(
@@ -84,7 +87,7 @@ fun PlayerScreen(
                         ) {
                             PlayerControls(
                                 modifier = Modifier,
-                                buttonsLayout = viewModel.playerLayout.value,
+                                buttonsLayout = buttonsLayout,
                                 floatSliderPosition = sliderPosition
                             )
                         }

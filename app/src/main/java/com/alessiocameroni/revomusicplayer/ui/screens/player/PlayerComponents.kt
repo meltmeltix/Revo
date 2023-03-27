@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -138,7 +139,7 @@ internal fun PlayerBottomAppBarDropDownMenu(
 @Composable
 internal fun PlayerControls(
     modifier: Modifier = Modifier,
-    buttonsLayout: Int = 1,
+    buttonsLayout: PlayerLayout,
     floatSliderPosition: Float
 ) {
     var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
@@ -192,7 +193,7 @@ internal fun PlayerControls(
         }
 
         when (buttonsLayout) {
-            0 -> {
+            PlayerLayout.LEFT -> {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.Start)
@@ -202,7 +203,7 @@ internal fun PlayerControls(
                     NextButton()
                 }
             }
-            1 -> {
+            PlayerLayout.CENTER -> {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterHorizontally)
@@ -212,7 +213,7 @@ internal fun PlayerControls(
                     NextButton()
                 }
             }
-            2 -> {
+            PlayerLayout.RIGHT -> {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(15.dp, Alignment.End)
