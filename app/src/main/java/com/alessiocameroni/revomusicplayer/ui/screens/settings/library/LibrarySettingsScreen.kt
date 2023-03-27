@@ -47,12 +47,11 @@ fun LibrarySettingsScreen(
                         }
 
                         item {
-                            var checkedState by remember { viewModel.spotifyEnabledState }
+                            val checkedState by viewModel.spotifyEnabledState.collectAsState(false)
 
                             SpotifyVisibilitySelection(
                                 checked = checkedState,
-                                onChecked = { checkedState = it },
-                                viewModel = viewModel
+                                onChecked = { viewModel.setSpotifyVisibility(it) }
                             )
                         }
                     }

@@ -38,18 +38,12 @@ fun LibrarySettingsTopActionBar(
 fun SpotifyVisibilitySelection(
     checked: Boolean,
     onChecked: (Boolean) -> Unit,
-    viewModel: LibrarySettingsViewModel
 ) {
     PixelyListItem(
         modifier = Modifier
             .selectable(
                 selected = checked,
-                onClick = {
-                    onChecked(!checked)
-                    viewModel.setSpotifyVisibility(
-                        !checked
-                    )
-                }
+                onClick = { onChecked(!checked) }
             ),
         headlineTextString = stringResource(id = R.string.str_showSpotifyIntegration),
         supportingTextString = stringResource(id = R.string.desc_showSpotifyIntegration),
