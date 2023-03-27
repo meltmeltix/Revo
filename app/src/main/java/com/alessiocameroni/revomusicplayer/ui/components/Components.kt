@@ -172,25 +172,3 @@ fun ContentSelector(
         }
     }
 }
-
-@Composable
-fun ScreenContent(
-    state: Boolean,
-    isListEmpty: Boolean,
-    loadingUnit: @Composable () -> Unit,
-    noContentUnit: @Composable () -> Unit,
-) {
-    AnimatedVisibility(
-        visible = state && !isListEmpty,
-        enter = fadeIn(animationSpec = tween(300)),
-        exit = fadeOut(animationSpec = tween(300))
-    ) { loadingUnit() }
-
-    if(isListEmpty) {
-        AnimatedVisibility(
-            visible = true,
-            enter = fadeIn(animationSpec = tween(300)),
-            exit = fadeOut(animationSpec = tween(300))
-        ) { noContentUnit() }
-    }
-}

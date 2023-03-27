@@ -46,7 +46,7 @@ class AlbumViewViewModel @Inject constructor(
             list, order, type -> sortList(list, order, type)
         }
         .flowOn(Dispatchers.Default)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     private val _albumDetails: MutableStateFlow<AlbumDetails> = MutableStateFlow(
         AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
