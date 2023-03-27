@@ -1,6 +1,5 @@
 package com.alessiocameroni.revomusicplayer.domain.repository
 
-import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingValues
 import kotlinx.coroutines.flow.Flow
 
 interface SortingRepository {
@@ -14,8 +13,8 @@ interface SortingRepository {
     fun getAlbumSongsSortOrder(): Flow<Int>
 
     fun getArtistSortOrder(): Flow<Int>
-
-    suspend fun getArtistSongsSorting(): Flow<SortingValues>
+    fun getArtistSongsSortType(): Flow<Int>
+    fun getArtistSongsSortOrder(): Flow<Int>
 
     // Set data
     suspend fun setSongSortType(type: Int)
@@ -27,6 +26,6 @@ interface SortingRepository {
     suspend fun setAlbumSongsSortOrder(order: Int)
 
     suspend fun setArtistOrder(order: Int)
-
-    suspend fun setArtistSongsSorting(oldSortingValues: SortingValues)
+    suspend fun setArtistSongsSortType(type: Int)
+    suspend fun setArtistSongsSortOrder(order: Int)
 }
