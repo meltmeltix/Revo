@@ -23,10 +23,14 @@ import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistDetails
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
+import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.ui.components.LargeImageContainer
 import com.alessiocameroni.revomusicplayer.ui.components.SmallImageContainer
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.util.functions.selectSortingOrderString
+import com.alessiocameroni.revomusicplayer.util.functions.selectSortingTypeString
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
@@ -252,19 +256,9 @@ private fun ArtistInfoText(
 // Screen components
 @Composable
 fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
-    val sortTypeList = listOf(
-        stringResource(id = R.string.str_name),
-        stringResource(id = R.string.str_trackNumber),
-        stringResource(id = R.string.str_duration),
-        stringResource(id = R.string.str_album)
-    )
-    val sortOrderList = listOf(
-        stringResource(id = R.string.str_ascending),
-        stringResource(id = R.string.str_descending)
-    )
     val expanded = remember { mutableStateOf(false) }
-    var selectedSortType by remember { viewModel.sortingType }
-    var selectedSortOrder by remember { viewModel.sortingOrder }
+    val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TITLE)
+    val selectedSortOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
 
     PixelySectionTitle(
         stringTitle = stringResource(id = R.string.str_songs),
@@ -288,11 +282,9 @@ fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
 
                     SortTypeSelector(
                         expanded = expanded,
-                        options = sortTypeList,
-                        selected = sortTypeList[selectedSortType],
-                        onSelected = { selectedSortType = sortTypeList.indexOf(it) },
-                        viewModel = viewModel,
-                        orderSelection = selectedSortOrder
+                        options = viewModel.sortTypeList,
+                        selected = selectedSortType,
+                        onSelected = { viewModel.setSortType(it) }
                     )
 
                     Divider()
@@ -303,11 +295,9 @@ fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
 
                     SortOrderSelector(
                         expanded = expanded,
-                        options = sortOrderList,
-                        selected = sortOrderList[selectedSortOrder],
-                        onSelected = { selectedSortOrder = sortOrderList.indexOf(it) },
-                        viewModel = viewModel,
-                        typeSelection = selectedSortType
+                        options = SortingOrder.values(),
+                        selected = selectedSortOrder,
+                        onSelected = { viewModel.setSortOrder(it) }
                     )
                 }
             }
@@ -318,26 +308,18 @@ fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
 @Composable
 private fun SortTypeSelector(
     expanded: MutableState<Boolean>,
-    options: List<String>,
-    selected: String,
-    onSelected: (String) -> Unit,
-    viewModel: ArtistViewViewModel,
-    orderSelection: Int
+    options: List<SortingType>,
+    selected: SortingType,
+    onSelected: (SortingType) -> Unit
 ) {
-    options.forEach { text ->
+    options.forEach { option ->
         DropdownMenuItem(
-            text = { Text(text = text) },
+            text = { Text(selectSortingTypeString(option)) },
             onClick = {
-                onSelected(text)
-                viewModel.setSortData(options.indexOf(text), orderSelection)
+                onSelected(option)
                 expanded.value = false
             },
-            trailingIcon = {
-                RadioButton(
-                    selected = (text == selected),
-                    onClick = null
-                )
-            }
+            trailingIcon = { RadioButton(selected = option == selected, onClick = null) }
         )
     }
 }
@@ -345,26 +327,18 @@ private fun SortTypeSelector(
 @Composable
 private fun SortOrderSelector(
     expanded: MutableState<Boolean>,
-    options: List<String>,
-    selected: String,
-    onSelected: (String) -> Unit,
-    viewModel: ArtistViewViewModel,
-    typeSelection: Int
+    options: Array<SortingOrder>,
+    selected: SortingOrder,
+    onSelected: (SortingOrder) -> Unit
 ) {
-    options.forEach { text ->
+    options.forEach { option ->
         DropdownMenuItem(
-            text = { Text(text = text) },
+            text = { Text(selectSortingOrderString(option)) },
             onClick = {
-                onSelected(text)
-                viewModel.setSortData(typeSelection, options.indexOf(text))
+                onSelected(option)
                 expanded.value = false
             },
-            trailingIcon = {
-                RadioButton(
-                    selected = (text == selected),
-                    onClick = null
-                )
-            }
+            trailingIcon = { RadioButton(selected = option == selected, onClick = null) }
         )
     }
 }

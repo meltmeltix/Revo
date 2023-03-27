@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,9 +24,11 @@ import coil.request.ImageRequest
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistAlbum
 import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistDetails
 import com.alessiocameroni.revomusicplayer.data.classes.artist.ArtistSong
+import com.alessiocameroni.revomusicplayer.ui.components.ContentSelector
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,22 +42,15 @@ fun ArtistViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val artistDetails by viewModel.artistDetails.observeAsState(
-        ArtistDetails(
-            artist = "Artist Name",
-            numberOfAlbums = 0,
-            numberOfTracks = 0
-        )
+    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
+    val artistDetails by viewModel.artistDetails.collectAsState(
+        ArtistDetails("Unknown Artist", 0, 0)
     )
-    val artistPicture by viewModel.artistPicture.observeAsState(null)
-    val albumList by viewModel.albumList.observeAsState(emptyList())
-    val songList by viewModel.songList.observeAsState(emptyList())
+    val artistCover by viewModel.artistCover.collectAsState(null)
+    val albumList by viewModel.albums.collectAsState(emptyList())
+    val songList by viewModel.songs.collectAsState(emptyList())
 
-    LaunchedEffect(Unit) {
-        viewModel.initializeArtistDetails(artistId)
-        viewModel.initializeAlbumList(artistId)
-        viewModel.initializeSongList(artistId)
-    }
+    LaunchedEffect(Unit) { viewModel.initializeArtistData(artistId) }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -70,51 +64,60 @@ fun ArtistViewScreen(
             )
         },
         content = { padding ->
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
-                state = scrollState
-            ) {
-                item {
-                    ArtistViewHeader(artistDetails = artistDetails) {
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(artistPicture)
-                                .crossfade(true)
-                                .build(),
-                            contentDescription = stringResource(id = R.string.str_albumImage),
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
-                }
-
-                item {
-                    AnimatedVisibility(
-                        visible = albumList.isNotEmpty(),
-                        enter = fadeIn()
+            // TODO: Improve content loading units
+            ContentSelector(
+                state = contentState,
+                loadingUnit = {
+                    // TODO: Add Loading Unit
+                },
+                failedUnit = {
+                    // TODO: Add Failed Unit
+                },
+                contentUnit = {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(2.dp),
+                        state = scrollState
                     ) {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(2.dp),
-                        ) {
-                            PixelySectionTitle(
-                                stringTitle = stringResource(id = R.string.str_albums),
-                                horizontalContentPadding = 15.dp,
-                            )
-
-                            RowArtistAlbumList(albumList, navControllerBottomBar)
+                        item {
+                            ArtistViewHeader(artistDetails = artistDetails) {
+                                AsyncImage(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(artistCover)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = stringResource(id = R.string.str_albumImage),
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
                         }
+
+                        item {
+                            AnimatedVisibility(
+                                visible = albumList.isNotEmpty(),
+                                enter = fadeIn()
+                            ) {
+                                Column(
+                                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                                ) {
+                                    PixelySectionTitle(
+                                        stringTitle = stringResource(id = R.string.str_albums),
+                                        horizontalContentPadding = 15.dp,
+                                    )
+
+                                    RowArtistAlbumList(albumList, navControllerBottomBar)
+                                }
+                            }
+                        }
+
+                        item { ArtistViewSongSectionTitle(viewModel = viewModel) }
+
+                        artistSongList(songList, navControllerBottomBar)
                     }
                 }
-
-                item { ArtistViewSongSectionTitle(viewModel = viewModel) }
-
-                artistSongList(
-                    songList,
-                    navControllerBottomBar
-                )
-            }
+            )
         }
     )
 }

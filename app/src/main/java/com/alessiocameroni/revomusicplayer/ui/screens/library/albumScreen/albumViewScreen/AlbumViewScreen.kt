@@ -28,7 +28,6 @@ import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
 import com.alessiocameroni.revomusicplayer.ui.components.ContentSelector
-import com.alessiocameroni.revomusicplayer.ui.components.LoadingContent
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,16 +62,14 @@ fun AlbumViewScreen(
             )
         },
         content = { padding ->
+            // TODO: Improve content loading units
             ContentSelector(
                 state = contentState,
                 loadingUnit = {
-                    LoadingContent(
-                        padding = padding,
-                        headlineString = stringResource(R.string.str_loadingAlbumSongs)
-                    )
+                    // TODO: Add Loading Unit
                 },
                 failedUnit = {
-
+                    // TODO: Add Failed Unit
                 },
                 contentUnit = {
                     LazyColumn(

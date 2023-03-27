@@ -126,5 +126,4 @@
     <string name="info_tooQuietAlbums">There doesn\'t seem to be any album in your library… Add some songs and get the party started!</string>
     <string name="str_tooQuietArtists">There are no artists at the party…</string>
     <string name="info_tooQuietArtists">There doesn\'t seem to be any artist in your library… Add some songs and get the party started!</string>
-    <string name="str_loadingAlbumSongs">Loading your album\'s tunes…</string>
 </resources>
