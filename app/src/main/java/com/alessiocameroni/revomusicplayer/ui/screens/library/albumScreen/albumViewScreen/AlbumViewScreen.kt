@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,6 +28,7 @@ import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
+import com.alessiocameroni.revomusicplayer.data.classes.album.HeaderLayout
 import com.alessiocameroni.revomusicplayer.ui.components.ContentSelector
 
 
@@ -42,6 +44,7 @@ fun AlbumViewScreen(
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
+    val headerLayout by viewModel.headerLayout.collectAsState(HeaderLayout.REVO)
     val albumDetails by viewModel.albumDetails.collectAsState(
         AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
     )
@@ -81,15 +84,17 @@ fun AlbumViewScreen(
                     ) {
                         item {
                             AlbumViewHeader(
+                                layout = headerLayout,
                                 albumDetails = albumDetails,
-                                navControllerBottomBar = navControllerBottomBar,
                                 viewModel = viewModel,
+                                navController = navControllerBottomBar,
                                 leadingUnit = {
                                     AsyncImage(
                                         model = ImageRequest.Builder(LocalContext.current)
                                             .data(albumDetails.coverUri)
                                             .crossfade(true)
                                             .build(),
+                                        contentScale = ContentScale.FillHeight,
                                         contentDescription = stringResource(id = R.string.str_albumImage),
                                         modifier = Modifier.fillMaxSize()
                                     )

@@ -28,6 +28,7 @@ open class SettingsScreens(val route: String) {
 
     object CustomizationScreen : SettingsScreens("customization_screen")
     object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
+    object AlbumViewLayoutScreen : SettingsScreens("album_view_layout_screen")
 
     object OtherScreen : SettingsScreens("other_screen")
     object AppLanguageScreen : SettingsScreens("app_language_screen")

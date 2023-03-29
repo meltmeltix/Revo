@@ -18,6 +18,7 @@ import com.alessiocameroni.revomusicplayer.ui.screens.search.SearchScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.SettingsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.about.AboutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.CustomizationScreen
+import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.albumViewLayout.AlbumViewLayoutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.playerLayout.PlayerLayoutScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.library.LibrarySettingsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.OtherScreen
@@ -32,6 +33,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 fun Navigation(startDestination: String) {
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(navController = navController, startDestination = startDestination) {
+        // Welcome screen
         composable(
             route = Screens.WelcomeScreen.route,
             exitTransition = {
@@ -42,6 +44,7 @@ fun Navigation(startDestination: String) {
             }
         ) { WelcomeScreen(navController) }
 
+        // Main screen
         composable(
             route = Screens.MainScreen.route,
             enterTransition = {
@@ -68,6 +71,7 @@ fun Navigation(startDestination: String) {
             }
         ) { MainScreen(navController = navController) }
 
+        // Player screen
         composable(
             route = Screens.PlayerScreen.route,
             enterTransition = {
@@ -92,6 +96,7 @@ fun Navigation(startDestination: String) {
             }
         ) { PlayerScreen(navController = navController) }
 
+        // Search screen
         composable(
             route = Screens.SearchScreen.route,
             enterTransition = {
@@ -109,6 +114,7 @@ fun Navigation(startDestination: String) {
             //TODO Add popEnter when actually listing items
         ) { SearchScreen(navController = navController) }
 
+        // Settings screen
         composable(
             route = Screens.SettingsScreen.route,
             enterTransition = {
@@ -141,7 +147,7 @@ fun Navigation(startDestination: String) {
         ) { SettingsScreen(navController = navController) }
 
 
-        // Settings SubScreens
+        // Settings sub-screens
         composable(
             route = SettingsScreens.LibrarySettingsScreen.route,
             enterTransition = {
@@ -171,12 +177,14 @@ fun Navigation(startDestination: String) {
             exitTransition = {
                 when(targetState.destination.route) {
                     "settings_screen" -> horSlidePopExitToScreen()
+                    "album_view_layout_screen" -> horSlideExitToScreen()
                     "player_layout_screen" -> horSlideExitToScreen()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when(initialState.destination.route) {
+                    "album_view_layout_screen" -> horSlidePopEnterFromScreen()
                     "player_layout_screen" -> horSlidePopEnterFromScreen()
                     else -> null
                 }
@@ -199,6 +207,21 @@ fun Navigation(startDestination: String) {
             }
         ) { PlayerLayoutScreen(navController = navController) }
 
+        composable(
+            route = SettingsScreens.AlbumViewLayoutScreen.route,
+            enterTransition = {
+                when(initialState.destination.route) {
+                    "customization_screen" -> horSlideEnterFromScreen()
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when(targetState.destination.route) {
+                    "customization_screen" -> horSlidePopExitToScreen()
+                    else -> null
+                }
+            }
+        ) { AlbumViewLayoutScreen(navController = navController) }
 
         composable(
             route = SettingsScreens.OtherScreen.route,

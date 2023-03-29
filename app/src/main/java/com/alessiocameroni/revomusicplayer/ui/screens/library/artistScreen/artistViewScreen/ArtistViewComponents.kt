@@ -126,9 +126,8 @@ fun ArtistViewHeader(
         Row(
             modifier = Modifier
                 .height(72.dp)
-                .padding(
-                    horizontal = 10.dp
-                ),
+                .padding(horizontal = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             SmallImageContainer(
@@ -136,9 +135,7 @@ fun ArtistViewHeader(
                     .padding(start = 5.dp)
                     .clip(CircleShape),
                 painterPlaceholder = painterResource(id = R.drawable.ic_outlined_artist_24)
-            ) {
-                leadingUnit()
-            }
+            ) { leadingUnit() }
 
             ArtistInfoText(
                 largeText = true,
@@ -213,9 +210,7 @@ private fun ArtistInfoText(
                 )
 
     if(largeText) {
-        Column(
-            modifier = Modifier.padding(start = 15.dp)
-        ) {
+        Column {
             Text(
                 text = artistDetails.artist,
                 modifier = Modifier,

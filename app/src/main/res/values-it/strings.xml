@@ -120,4 +120,9 @@
     <string name="info_tooQuietArtists">Sembra che non ci siano artisti nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
     <string name="str_albumViewLayout">Layout visualizzazione album</string>
     <string name="info_albumViewLayout">Scegli come la copertina dell\'album, il testo e i pulsanti vengono mostrati nella schermata di visualizzazione album</string>
+    <string name="info_defaultAlbumViewLayout">Layout di default. Non troppo invasivo, pulito e in generale molto semplice</string>
+    <string name="info_minimalLayout">It\'s free real estate. Tutte le informazioni di cui hai bisogno in una piccola sezione</string>
+    <string name="info_fruitMusicLayout">Fortemente inspirato dalla app musicale di un certo fruttivendolo. Grande e stiloso</string>
+    <string name="str_minimalLayout">Minimale</string>
+    <string name="str_fruitMusicLayout">Mela Music</string>
 </resources>

@@ -87,7 +87,9 @@ fun CustomizationScreen(
                         item {
                             PixelyListItem(
                                 modifier = Modifier.clickable {
-                                    // TODO: Add Navigation
+                                    navController.navigate(
+                                        SettingsScreens.AlbumViewLayoutScreen.route
+                                    )
                                 },
                                 headlineTextString = stringResource(id = R.string.str_albumViewLayout),
                                 supportingTextString = stringResource(id = R.string.info_albumViewLayout)

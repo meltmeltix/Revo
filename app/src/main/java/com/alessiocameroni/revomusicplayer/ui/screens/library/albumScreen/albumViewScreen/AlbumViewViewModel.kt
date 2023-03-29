@@ -6,9 +6,11 @@ import com.alessiocameroni.revomusicplayer.data.classes.ContentState
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDetails
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumDuration
 import com.alessiocameroni.revomusicplayer.data.classes.album.AlbumSong
+import com.alessiocameroni.revomusicplayer.data.classes.album.HeaderLayout
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.domain.repository.AlbumViewRepository
+import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import com.alessiocameroni.revomusicplayer.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,7 @@ import kotlin.math.roundToInt
 
 @HiltViewModel
 class AlbumViewViewModel @Inject constructor(
+    private val settingsRepository: SettingsRepository,
     private val sortingRepository: SortingRepository,
     private val albumViewRepository: AlbumViewRepository
 ): ViewModel() {
@@ -31,6 +34,10 @@ class AlbumViewViewModel @Inject constructor(
 
     private val _contentState: MutableStateFlow<ContentState> = MutableStateFlow(ContentState.LOADING)
     val contentState: StateFlow<ContentState> = _contentState
+
+    val headerLayout = settingsRepository.getAlbumViewLayout()
+        .map { HeaderLayout.values()[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HeaderLayout.REVO)
 
     val sortingType = sortingRepository.getAlbumSongsSortType()
         .map { sortTypeList[it] }

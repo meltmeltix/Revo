@@ -3,6 +3,7 @@ package com.alessiocameroni.revomusicplayer.util.functions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.alessiocameroni.revomusicplayer.R
+import com.alessiocameroni.revomusicplayer.data.classes.album.HeaderLayout
 import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
@@ -33,4 +34,20 @@ fun selectPlayerLayoutString(option: PlayerLayout): String =
         PlayerLayout.LEFT -> stringResource(id = R.string.str_left)
         PlayerLayout.CENTER -> stringResource(id = R.string.str_center)
         PlayerLayout.RIGHT -> stringResource(id = R.string.str_right)
+    }
+
+@Composable
+fun selectAlbumViewHeaderLayoutString(option: HeaderLayout): String =
+    when(option) {
+        HeaderLayout.REVO -> stringResource(id = R.string.app_name)
+        HeaderLayout.FRUIT_MUSIC -> stringResource(id = R.string.str_fruitMusicLayout)
+        HeaderLayout.MINIMAL -> stringResource(id = R.string.str_minimalLayout)
+    }
+
+@Composable
+fun selectAlbumViewHeaderLayoutSupportingString(option: HeaderLayout): String =
+    when(option) {
+        HeaderLayout.REVO -> stringResource(id = R.string.info_defaultAlbumViewLayout)
+        HeaderLayout.FRUIT_MUSIC -> stringResource(id = R.string.info_fruitMusicLayout)
+        HeaderLayout.MINIMAL -> stringResource(id = R.string.info_minimalLayout)
     }
