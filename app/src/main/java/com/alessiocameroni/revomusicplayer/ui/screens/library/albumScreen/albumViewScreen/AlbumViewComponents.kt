@@ -33,6 +33,7 @@ import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
+import com.alessiocameroni.revomusicplayer.ui.theme.*
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingOrderString
 import com.alessiocameroni.revomusicplayer.util.functions.selectSortingTypeString
 
@@ -331,7 +332,6 @@ private fun RevoHeader(
                 contentAlignment = Alignment.BottomStart
             ) {
                 HeaderText(
-                    layout = layout,
                     albumDetails = albumDetails,
                     navController = navController,
                     viewModel = viewModel,
@@ -398,7 +398,6 @@ private fun FruitMusicHeader(
                 verticalArrangement = Arrangement.Bottom
             ) {
                 HeaderText(
-                    layout = layout,
                     albumDetails = albumDetails,
                     navController = navController,
                     viewModel = viewModel
@@ -422,22 +421,70 @@ private fun MinimalMusicHeader(
     navController: NavHostController,
     viewModel: AlbumViewViewModel,
 ) {
+    Column(
+        modifier = Modifier,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+                .clip(MaterialTheme.shapes.extraLarge)
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .aspectRatio(3.6f),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                modifier = Modifier.size(100.dp),
+                painter = painterResource(id = R.drawable.ic_outlined_album_24),
+                contentDescription = stringResource(id = R.string.str_albumImage),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
 
+            leadingUnit()
+        }
+
+        HeaderText(
+            modifier = Modifier.padding(
+                start = 20.dp,
+                bottom = 8.dp,
+                end = 20.dp,
+            ),
+            albumDetails = albumDetails,
+            navController = navController,
+            viewModel = viewModel,
+            disableWhiteColor = true
+        )
+
+        HeaderButtons(
+            layout = layout,
+            onPlayClick = {  },
+            onShuffleClick = {  }
+        )
+    }
 }
 
 @Composable
 private fun HeaderText(
-    layout: HeaderLayout,
+    modifier: Modifier = Modifier,
     albumDetails: AlbumDetails,
     navController: NavHostController,
     viewModel: AlbumViewViewModel,
+    disableWhiteColor: Boolean = false,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val textColor = when(disableWhiteColor) {
+        true -> MaterialTheme.colorScheme.onSurface
+        false -> Color.White
+    }
+    val supportingTextColor = when(disableWhiteColor) {
+        true -> MaterialTheme.colorScheme.onSurfaceVariant
+        false -> Grey90
+    }
     val songs by viewModel.songs.collectAsState(emptyList())
     val albumDuration by viewModel.albumDuration.collectAsState(
         AlbumDuration( 0, 0, 0, 0)
     )
-
     val albumInfo =
         "${songs.size} " +
             pluralStringResource(id = R.plurals.str_songAmount, count = songs.size) +
@@ -458,14 +505,14 @@ private fun HeaderText(
             }
 
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         Text(
             text = albumDetails.title,
             modifier = Modifier,
             style = MaterialTheme.typography.headlineMedium,
-            color = Color.White,
+            color = textColor,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
@@ -482,7 +529,7 @@ private fun HeaderText(
                                 "/${albumDetails.artistId}"
                     )
                 },
-            color = Color.White,
+            color = supportingTextColor,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -490,7 +537,7 @@ private fun HeaderText(
         Text(
             text = albumInfo,
             modifier = Modifier,
-            color = Color.White,
+            color = supportingTextColor,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -504,46 +551,6 @@ private fun HeaderButtons(
     onShuffleClick: () -> Unit
 ) {
     when(layout) {
-        HeaderLayout.REVO -> {
-            Row(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                horizontalArrangement = Arrangement.spacedBy(18.dp)
-            ) {
-                FilledTonalButton(
-                    onClick = onPlayClick,
-                    modifier = Modifier
-                        .weight(0.5f)
-                        .height(45.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                        contentDescription = stringResource(id = R.string.str_play),
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .size(18.dp)
-                    )
-
-                    Text(text = stringResource(id = R.string.str_play))
-                }
-
-                Button(
-                    onClick = onShuffleClick,
-                    modifier = Modifier
-                        .weight(0.5f)
-                        .height(45.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
-                        contentDescription = stringResource(id = R.string.str_shuffle),
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .size(18.dp)
-                    )
-
-                    Text(text = stringResource(id = R.string.str_shuffle))
-                }
-            }
-        }
         HeaderLayout.FRUIT_MUSIC -> {
             Row(
                 modifier = Modifier.padding(top = 10.dp),
@@ -584,8 +591,45 @@ private fun HeaderButtons(
                 }
             }
         }
-        HeaderLayout.MINIMAL -> {
+        else -> {
+            Row(
+                modifier = Modifier.padding(horizontal = 15.dp),
+                horizontalArrangement = Arrangement.spacedBy(18.dp)
+            ) {
+                FilledTonalButton(
+                    onClick = onPlayClick,
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .height(45.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                        contentDescription = stringResource(id = R.string.str_play),
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .size(18.dp)
+                    )
 
+                    Text(text = stringResource(id = R.string.str_play))
+                }
+
+                Button(
+                    onClick = onShuffleClick,
+                    modifier = Modifier
+                        .weight(0.5f)
+                        .height(45.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
+                        contentDescription = stringResource(id = R.string.str_shuffle),
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .size(18.dp)
+                    )
+
+                    Text(text = stringResource(id = R.string.str_shuffle))
+                }
+            }
         }
     }
 }

@@ -45,6 +45,11 @@ fun AlbumViewScreen(
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
     val headerLayout by viewModel.headerLayout.collectAsState(HeaderLayout.REVO)
+    val contentScale = when(headerLayout) {
+        HeaderLayout.REVO -> ContentScale.FillBounds
+        HeaderLayout.FRUIT_MUSIC -> ContentScale.FillHeight
+        HeaderLayout.MINIMAL -> ContentScale.FillWidth
+    }
     val albumDetails by viewModel.albumDetails.collectAsState(
         AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
     )
@@ -94,9 +99,10 @@ fun AlbumViewScreen(
                                             .data(albumDetails.coverUri)
                                             .crossfade(true)
                                             .build(),
-                                        contentScale = ContentScale.FillHeight,
+                                        modifier = Modifier
+                                            .fillMaxSize(),
+                                        contentScale = contentScale,
                                         contentDescription = stringResource(id = R.string.str_albumImage),
-                                        modifier = Modifier.fillMaxSize()
                                     )
                                 }
                             )
