@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -152,8 +153,10 @@ private fun LazyListScope.albumSongsList(
                         ) {
                             Text(
                                 text = item.fixedDuration ?: "00:00",
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontSize = 14.sp,
                                 maxLines = 1,
-                                style = MaterialTheme.typography.titleMedium
+                                style = MaterialTheme.typography.bodyMedium,
                             )
 
                             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
