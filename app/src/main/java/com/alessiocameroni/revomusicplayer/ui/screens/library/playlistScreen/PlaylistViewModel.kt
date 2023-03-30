@@ -1,5 +1,9 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen
 
-class PlaylistViewModel {
+import androidx.lifecycle.ViewModel
+
+class PlaylistViewModel(
+
+): ViewModel() {
 
 }

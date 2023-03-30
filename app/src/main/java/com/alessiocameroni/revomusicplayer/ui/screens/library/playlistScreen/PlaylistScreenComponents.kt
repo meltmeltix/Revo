@@ -1,12 +1,16 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.playlistScreen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
@@ -110,14 +114,15 @@ fun AddPlaylistDialog(
     openDialog: MutableState<Boolean>
 ) {
     val buttonEnabled = remember { mutableStateOf(true) }
-    var text by remember { mutableStateOf("") }
+    var iconText by remember { mutableStateOf("") }
+    var playlistText by remember { mutableStateOf("") }
 
     AlertDialog(
         modifier = modifier,
         onDismissRequest = { openDialog.value = false },
         confirmButton = {
             when {
-                text.isEmpty() -> buttonEnabled.value = false
+                playlistText.isEmpty() -> buttonEnabled.value = false
                 else -> buttonEnabled.value = true
             }
 
@@ -139,12 +144,50 @@ fun AddPlaylistDialog(
             )
         },
         text = {
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = text,
-                onValueChange = { text = it },
-                label = { Text(text = stringResource(id = R.string.str_playlistTitle)) }
+            AddPlaylistDialogContent(
+                iconText = iconText,
+                onIconTextChange = { if(it.length <= 2) iconText = it },
+                playlistText = playlistText,
+                onPlaylistTextChange = { playlistText = it }
             )
         }
     )
+}
+
+@Composable
+private fun AddPlaylistDialogContent(
+    iconText: String,
+    onIconTextChange: (String) -> Unit,
+    playlistText: String,
+    onPlaylistTextChange: (String) -> Unit,
+) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(15.dp),
+        verticalAlignment = Alignment.Bottom
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(CircleShape)
+                .size(56.dp)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            OutlinedTextField(
+                value = iconText,
+                onValueChange = onIconTextChange,
+                shape = CircleShape,
+                singleLine = true,
+                textStyle = LocalTextStyle.current.copy(
+                    textAlign = TextAlign.Center
+                )
+            )
+        }
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = playlistText,
+            onValueChange = onPlaylistTextChange,
+            label = { Text(text = stringResource(id = R.string.str_playlistTitle)) },
+            singleLine = true
+        )
+    }
 }

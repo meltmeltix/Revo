@@ -98,8 +98,7 @@ private fun LazyListScope.artistList(
                         modifier = Modifier
                             .padding(horizontal = 5.dp)
                             .clip(CircleShape),
-                        painterPlaceholder =
-                        painterResource(id = R.drawable.ic_outlined_artist_24),
+                        painterPlaceholder = painterResource(id = R.drawable.ic_outlined_artist_24),
                         leadingUnit = {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
