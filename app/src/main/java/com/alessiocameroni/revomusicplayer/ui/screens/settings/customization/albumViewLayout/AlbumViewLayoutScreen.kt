@@ -1,6 +1,7 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.albumViewLayout
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -40,27 +41,38 @@ fun AlbumViewLayoutScreen(
                     )
                 },
                 content = { padding ->
-                    Column(
+                    LazyColumn(
                         modifier = Modifier
                             .padding(padding)
                             .fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-                        Row(modifier = Modifier) {
-                            PixelySupportInfoText(
-                                stringText = stringResource(id = R.string.info_albumViewLayout)
+                        item {
+                            AlbumViewLayoutHeaderPreview(
+                                modifier = Modifier.padding(horizontal = 15.dp),
+                                selectedOption = selectedLayout
                             )
                         }
 
-                        Column(
-                            modifier = Modifier.selectableGroup(),
-                            verticalArrangement = Arrangement.spacedBy(2.dp)
-                        ) {
-                            LayoutSelector(
-                                options = HeaderLayout.values(),
-                                selected = selectedLayout,
-                                onSelected = { viewModel.setHeaderLayout(it) },
-                            )
+                        item {
+                            Row(modifier = Modifier) {
+                                PixelySupportInfoText(
+                                    stringText = stringResource(id = R.string.info_albumViewLayout)
+                                )
+                            }
+                        }
+
+                        item {
+                            Column(
+                                modifier = Modifier.selectableGroup(),
+                                verticalArrangement = Arrangement.spacedBy(2.dp)
+                            ) {
+                                LayoutSelector(
+                                    options = HeaderLayout.values(),
+                                    selected = selectedLayout,
+                                    onSelected = { viewModel.setHeaderLayout(it) },
+                                )
+                            }
                         }
                     }
                 }
