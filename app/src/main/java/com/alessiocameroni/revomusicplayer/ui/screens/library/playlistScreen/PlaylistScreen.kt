@@ -15,6 +15,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
@@ -26,7 +27,8 @@ import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationScreens.*
 @Composable
 fun PlaylistsScreen(
     navController: NavController,
-    navControllerBottomBar: NavHostController
+    navControllerBottomBar: NavHostController,
+    viewModel: PlaylistViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val openDialog = remember { mutableStateOf(false) }

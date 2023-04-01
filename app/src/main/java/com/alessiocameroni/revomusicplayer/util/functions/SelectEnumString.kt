@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.album.HeaderLayout
-import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
+import com.alessiocameroni.revomusicplayer.data.classes.player.PlayerLayout
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingOrder
 import com.alessiocameroni.revomusicplayer.data.classes.preferences.SortingType
 

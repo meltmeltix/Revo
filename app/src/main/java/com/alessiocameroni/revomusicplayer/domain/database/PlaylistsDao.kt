@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import com.alessiocameroni.revomusicplayer.data.classes.playlist.Playlist
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlaylistsDao {
@@ -16,6 +17,6 @@ interface PlaylistsDao {
     suspend fun deletePlaylist(playlist: Playlist)
 
     @Query("SELECT * FROM playlists ORDER BY id")
-    fun getPlaylists(): List<Playlist>
+    fun getPlaylists(): Flow<List<Playlist>>
 
 }

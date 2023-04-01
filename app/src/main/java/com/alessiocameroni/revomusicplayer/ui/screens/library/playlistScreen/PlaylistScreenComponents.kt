@@ -178,7 +178,8 @@ private fun AddPlaylistDialogContent(
                 singleLine = true,
                 textStyle = LocalTextStyle.current.copy(
                     textAlign = TextAlign.Center
-                )
+                ),
+                placeholder = { Icon(painter = painterResource(id = R.drawable.ic_baseline_playlist_play_24), contentDescription = null) }
             )
         }
 

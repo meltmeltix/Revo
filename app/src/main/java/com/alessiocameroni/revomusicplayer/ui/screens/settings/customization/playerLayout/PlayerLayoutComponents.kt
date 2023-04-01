@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyListItem
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
+import com.alessiocameroni.revomusicplayer.data.classes.player.PlayerLayout
 import com.alessiocameroni.revomusicplayer.util.functions.selectPlayerLayoutString
 
 // Scaffold components

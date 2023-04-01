@@ -2,7 +2,7 @@ package com.alessiocameroni.revomusicplayer.ui.screens.settings.customization.pl
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
+import com.alessiocameroni.revomusicplayer.data.classes.player.PlayerLayout
 import com.alessiocameroni.revomusicplayer.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.RoundedDropDownMenu
 import com.alessiocameroni.revomusicplayer.R
-import com.alessiocameroni.revomusicplayer.data.classes.playlist.PlayerLayout
+import com.alessiocameroni.revomusicplayer.data.classes.player.PlayerLayout
 import com.alessiocameroni.revomusicplayer.ui.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
