@@ -15,7 +15,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "0.1 · Amber"
-        resConfigs 'en', 'it', 'de'
+        resourceConfigurations += ['en', 'it', 'de']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         compose true
@@ -63,18 +63,18 @@ ktlint {
 
 dependencies {
     // App core
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.6.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.0'
-    implementation "androidx.compose.runtime:runtime-livedata:1.4.0-rc01"
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
+    implementation "androidx.compose.runtime:runtime-livedata:1.5.0-alpha02"
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
     // Component libraries
-    implementation 'androidx.compose.material3:material3:1.1.0-alpha08'
-    implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-alpha08'
+    implementation 'androidx.compose.material3:material3:1.1.0-beta02'
+    implementation 'androidx.compose.material3:material3-window-size-class:1.1.0-beta02'
     implementation 'com.github.alessiocameroni:pixely-components:2.1.5'
 
     // Dependency Injection
@@ -93,10 +93,10 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     // Image processing
-    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation('io.coil-kt:coil-compose:2.3.0')
 
     // Media player
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.4'
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.5'
 
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation files('lib/spotify-app-remote-release-0.7.2.aar')
