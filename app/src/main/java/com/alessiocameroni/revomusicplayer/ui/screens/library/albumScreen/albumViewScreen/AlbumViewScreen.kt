@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -44,17 +45,17 @@ fun AlbumViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
-    val headerLayout by viewModel.headerLayout.collectAsState(HeaderLayout.REVO)
+    val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
+    val headerLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
     val contentScale = when(headerLayout) {
         HeaderLayout.REVO -> ContentScale.FillBounds
         HeaderLayout.FRUIT_MUSIC -> ContentScale.FillHeight
         HeaderLayout.MINIMAL -> ContentScale.FillWidth
     }
-    val albumDetails by viewModel.albumDetails.collectAsState(
+    val albumDetails by viewModel.albumDetails.collectAsStateWithLifecycle(
         AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
     )
-    val songList by viewModel.songs.collectAsState(emptyList())
+    val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
 
     LaunchedEffect(Unit) { viewModel.initializeAlbumData(albumId) }
 

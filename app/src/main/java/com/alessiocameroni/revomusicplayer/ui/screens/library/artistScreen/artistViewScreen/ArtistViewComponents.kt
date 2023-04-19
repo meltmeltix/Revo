@@ -16,6 +16,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
@@ -252,8 +253,8 @@ private fun ArtistInfoText(
 @Composable
 fun ArtistViewSongSectionTitle(viewModel: ArtistViewViewModel) {
     val expanded = remember { mutableStateOf(false) }
-    val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TITLE)
-    val selectedSortOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
+    val selectedSortType by viewModel.sortingType.collectAsStateWithLifecycle(SortingType.TITLE)
+    val selectedSortOrder by viewModel.sortingOrder.collectAsStateWithLifecycle(SortingOrder.ASCENDING)
 
     PixelySectionTitle(
         stringTitle = stringResource(id = R.string.str_songs),

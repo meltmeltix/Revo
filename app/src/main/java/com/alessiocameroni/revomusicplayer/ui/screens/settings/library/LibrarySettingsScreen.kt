@@ -9,6 +9,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelySectionTitle
 import com.alessiocameroni.revomusicplayer.R
@@ -47,7 +48,7 @@ fun LibrarySettingsScreen(
                         }
 
                         item {
-                            val checkedState by viewModel.spotifyEnabledState.collectAsState(false)
+                            val checkedState by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
 
                             SpotifyVisibilitySelection(
                                 checked = checkedState,

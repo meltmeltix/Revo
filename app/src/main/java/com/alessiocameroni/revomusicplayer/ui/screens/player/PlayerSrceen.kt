@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.alessiocameroni.revomusicplayer.R
 import com.alessiocameroni.revomusicplayer.data.classes.player.PlayerLayout
@@ -26,7 +27,7 @@ fun PlayerScreen(
     val repeatChecked by remember { mutableStateOf(false) }
     val openBottomSheet = remember { mutableStateOf(false) }
 
-    val buttonsLayout by viewModel.playerLayout.collectAsState(PlayerLayout.CENTER)
+    val buttonsLayout by viewModel.playerLayout.collectAsStateWithLifecycle(PlayerLayout.CENTER)
 
     RevoMusicPlayerTheme {
         Surface(

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -37,8 +38,8 @@ fun AlbumsScreen(
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
-    val albumList by viewModel.albums.collectAsState(emptyList())
+    val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
+    val albumList by viewModel.albums.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

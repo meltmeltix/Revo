@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -35,8 +36,8 @@ fun SongsScreen(
     viewModel: SongViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
-    val songList by viewModel.songs.collectAsState(emptyList())
+    val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
+    val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),

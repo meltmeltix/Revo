@@ -5,13 +5,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.alessiocameroni.pixely_components.PixelySupportInfoText
 import com.alessiocameroni.revomusicplayer.R
@@ -25,7 +25,7 @@ fun AlbumViewLayoutScreen(
     viewModel: AlbumViewLayoutViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val selectedLayout by viewModel.headerLayout.collectAsState(HeaderLayout.REVO)
+    val selectedLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
 
     RevoMusicPlayerTheme {
         Surface(

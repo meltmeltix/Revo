@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -43,13 +44,13 @@ fun ArtistViewScreen(
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
     val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
-    val contentState by viewModel.contentState.collectAsState(ContentState.LOADING)
-    val artistDetails by viewModel.artistDetails.collectAsState(
+    val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
+    val artistDetails by viewModel.artistDetails.collectAsStateWithLifecycle(
         ArtistDetails("Unknown Artist", 0, 0)
     )
-    val artistCover by viewModel.artistCover.collectAsState(null)
-    val albumList by viewModel.albums.collectAsState(emptyList())
-    val songList by viewModel.songs.collectAsState(emptyList())
+    val artistCover by viewModel.artistCover.collectAsStateWithLifecycle(null)
+    val albumList by viewModel.albums.collectAsStateWithLifecycle(emptyList())
+    val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
 
     LaunchedEffect(Unit) { viewModel.initializeArtistData(artistId) }
 

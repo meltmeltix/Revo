@@ -21,6 +21,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.alessiocameroni.pixely_components.PixelyDropdownMenuTitle
@@ -161,8 +162,8 @@ private fun SortDropDownMenu(
     expanded: MutableState<Boolean>,
     viewModel: AlbumViewViewModel
 ) {
-    val selectedSortType by viewModel.sortingType.collectAsState(SortingType.TRACK)
-    val selectedSortOrder by viewModel.sortingOrder.collectAsState(SortingOrder.ASCENDING)
+    val selectedSortType by viewModel.sortingType.collectAsStateWithLifecycle(SortingType.TRACK)
+    val selectedSortOrder by viewModel.sortingOrder.collectAsStateWithLifecycle(SortingOrder.ASCENDING)
 
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -481,8 +482,8 @@ private fun HeaderText(
         true -> MaterialTheme.colorScheme.onSurfaceVariant
         false -> Grey90
     }
-    val songs by viewModel.songs.collectAsState(emptyList())
-    val albumDuration by viewModel.albumDuration.collectAsState(
+    val songs by viewModel.songs.collectAsStateWithLifecycle(emptyList())
+    val albumDuration by viewModel.albumDuration.collectAsStateWithLifecycle(
         AlbumDuration( 0, 0, 0, 0)
     )
     val albumInfo =
