@@ -333,6 +333,7 @@ private fun RevoHeader(
         Box(
             modifier = Modifier
                 .padding(horizontal = 15.dp)
+                .padding(top = 70.dp)
                 .clip(MaterialTheme.shapes.extraLarge)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
@@ -463,6 +464,7 @@ private fun MinimalMusicHeader(
         Box(
             modifier = Modifier
                 .padding(horizontal = 15.dp)
+                .padding(top = 70.dp)
                 .clip(MaterialTheme.shapes.extraLarge)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
