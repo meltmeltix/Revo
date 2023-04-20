@@ -44,7 +44,7 @@ fun AlbumViewScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyListState()
-    val textVisibility = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
+    val firstVisibleItem = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val headerLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
     val contentScale = when(headerLayout) {
@@ -61,66 +61,66 @@ fun AlbumViewScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            AlbumViewTopActionBar(
-                albumDetails = albumDetails,
-                navController = navController,
-                navControllerBottomBar = navControllerBottomBar,
-                viewModel = viewModel,
-                textVisibility = textVisibility,
-                scrollBehavior = scrollBehavior,
-            )
-        },
         content = { padding ->
-            // TODO: Improve content loading units
-            ContentSelector(
-                state = contentState,
-                loadingUnit = {
-                    // TODO: Add Loading Unit
-                },
-                failedUnit = {
-                    // TODO: Add Failed Unit
-                },
-                contentUnit = {
-                    LazyColumn(
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(2.dp),
-                        state = scrollState
-                    ) {
-                        item {
-                            AlbumViewHeader(
-                                layout = headerLayout,
-                                albumDetails = albumDetails,
-                                viewModel = viewModel,
-                                navController = navControllerBottomBar,
-                                leadingUnit = {
-                                    AsyncImage(
-                                        model = ImageRequest.Builder(LocalContext.current)
-                                            .data(albumDetails.coverUri)
-                                            .crossfade(true)
-                                            .build(),
-                                        modifier = Modifier
-                                            .fillMaxSize(),
-                                        contentScale = contentScale,
-                                        contentDescription = stringResource(id = R.string.str_albumImage),
-                                    )
-                                }
-                            )
-                        }
+            Box(modifier = Modifier.fillMaxSize()) {
+                // TODO: Improve content loading units
+                ContentSelector(
+                    state = contentState,
+                    loadingUnit = {
+                        // TODO: Add Loading Unit
+                    },
+                    failedUnit = {
+                        // TODO: Add Failed Unit
+                    },
+                    contentUnit = {
+                        LazyColumn(
+                            modifier = Modifier
+                                .padding(padding)
+                                .fillMaxSize(),
+                            verticalArrangement = Arrangement.spacedBy(2.dp),
+                            state = scrollState
+                        ) {
+                            item {
+                                AlbumViewHeader(
+                                    layout = headerLayout,
+                                    albumDetails = albumDetails,
+                                    viewModel = viewModel,
+                                    navController = navControllerBottomBar,
+                                    leadingUnit = {
+                                        AsyncImage(
+                                            model = ImageRequest.Builder(LocalContext.current)
+                                                .data(albumDetails.coverUri)
+                                                .crossfade(true)
+                                                .build(),
+                                            modifier = Modifier
+                                                .fillMaxSize(),
+                                            contentScale = contentScale,
+                                            contentDescription = stringResource(id = R.string.str_albumImage),
+                                        )
+                                    }
+                                )
+                            }
 
-                        item {
-                            PixelySectionTitle(
-                                stringTitle = stringResource(id = R.string.str_songs),
-                                horizontalContentPadding = 15.dp
-                            )
-                        }
+                            item {
+                                PixelySectionTitle(
+                                    stringTitle = stringResource(id = R.string.str_songs),
+                                    horizontalContentPadding = 15.dp
+                                )
+                            }
 
-                        albumSongsList(songList)
+                            albumSongsList(songList)
+                        }
                     }
-                }
-            )
+                )
+
+                AlbumViewTopActionBar(
+                    albumDetails = albumDetails,
+                    navController = navController,
+                    navControllerBottomBar = navControllerBottomBar,
+                    viewModel = viewModel,
+                    firstVisibleItem = firstVisibleItem
+                )
+            }
         }
     )
 }

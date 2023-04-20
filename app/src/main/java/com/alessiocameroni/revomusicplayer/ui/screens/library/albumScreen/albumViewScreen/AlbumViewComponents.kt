@@ -1,7 +1,10 @@
 package com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
@@ -45,17 +48,35 @@ fun AlbumViewTopActionBar(
     navController: NavController,
     navControllerBottomBar: NavHostController,
     viewModel: AlbumViewViewModel,
-    scrollBehavior: TopAppBarScrollBehavior,
-    textVisibility: State<Boolean>,
+    firstVisibleItem: State<Boolean>,
     albumDetails: AlbumDetails,
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
+    val transition = updateTransition(targetState = firstVisibleItem, label = "")
+    val buttonContainerColor by transition.animateColor(
+        transitionSpec = { tween(1) },
+        label = ""
+    ) {
+        when(it.value) {
+            true -> MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+            false -> MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
+        }
+    }
+    val topBarContainerFloat by transition.animateFloat(
+        transitionSpec = { tween(1) },
+        label = ""
+    ) {
+        when(it.value) {
+            true -> 1f
+            false -> 0f
+        }
+    }
 
     TopAppBar(
         title = {
             AnimatedVisibility(
-                visible = textVisibility.value,
+                visible = firstVisibleItem.value,
                 enter = fadeIn(animationSpec = tween(100)),
                 exit = fadeOut(animationSpec = tween(100))
             ) {
@@ -68,7 +89,10 @@ fun AlbumViewTopActionBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = { navControllerBottomBar.navigateUp() }
+                onClick = { navControllerBottomBar.navigateUp() },
+                colors = IconButtonDefaults.iconButtonColors(
+                    containerColor = buttonContainerColor,
+                )
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
@@ -78,7 +102,12 @@ fun AlbumViewTopActionBar(
         },
         actions = {
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { expandedSortMenu.value = true }) {
+                IconButton(
+                    onClick = { expandedSortMenu.value = true },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = buttonContainerColor,
+                    )
+                ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_sort_24),
                         contentDescription = stringResource(id = R.string.str_sortBy)
@@ -92,7 +121,12 @@ fun AlbumViewTopActionBar(
             }
 
             Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { expandedMenu.value = true }) {
+                IconButton(
+                    onClick = { expandedMenu.value = true },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = buttonContainerColor,
+                    )
+                ) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
                         contentDescription = stringResource(id = R.string.str_settings)
@@ -107,7 +141,9 @@ fun AlbumViewTopActionBar(
                 )
             }
         },
-        scrollBehavior = scrollBehavior
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp).copy(topBarContainerFloat)
+        )
     )
 }
 
@@ -361,11 +397,9 @@ private fun FruitMusicHeader(
     Column(modifier = Modifier) {
         Box(
             modifier = Modifier
-                .padding(horizontal = 15.dp)
-                .clip(MaterialTheme.shapes.extraLarge)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
-                .aspectRatio(0.8f),
+                .aspectRatio(0.82f),
             contentAlignment = Alignment.Center
         ) {
             Icon(
