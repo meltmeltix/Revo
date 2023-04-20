@@ -4,6 +4,12 @@
 <strong>A clean and simple music player for Android</strong>
 </p>
 
+---
+
+<p align="center">
+  <a href="https://github.com/alessiocameroni/RevoMusicPlayer/issues/4">Progress, announcements and updates</a>
+</p>
+
 <br>
 
 ## 🤔 About
