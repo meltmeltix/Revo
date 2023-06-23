@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -18,7 +18,7 @@ fun MainScreen(
     navController: NavController,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    val navControllerBottomBar = rememberAnimatedNavController()
+    val navControllerBottomBar = rememberNavController()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val spotifyVisibilityState by remember { viewModel.spotifyEnabledState }
 

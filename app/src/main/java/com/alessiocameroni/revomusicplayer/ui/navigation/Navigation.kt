@@ -1,9 +1,11 @@
 package com.alessiocameroni.revomusicplayer.ui.navigation
 
-import androidx.compose.animation.*
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.alessiocameroni.revomusicplayer.ui.screens.MainScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.AlbumsScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.library.albumScreen.albumViewScreen.AlbumViewScreen
@@ -24,15 +26,11 @@ import com.alessiocameroni.revomusicplayer.ui.screens.settings.library.LibrarySe
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.OtherScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.settings.other.appLanguage.AppLanguageScreen
 import com.alessiocameroni.revomusicplayer.ui.screens.welcome.WelcomeScreen
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun Navigation(startDestination: String) {
-    val navController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = startDestination) {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = startDestination) {
         // Welcome screen
         composable(
             route = Screens.WelcomeScreen.route,
@@ -282,13 +280,12 @@ fun Navigation(startDestination: String) {
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavigationBottomNavBar(
     navControllerBottomBar: NavHostController,
     navControllerApp: NavController
 ) {
-    AnimatedNavHost(navController = navControllerBottomBar, startDestination = NavigationScreens.SongScreen.route) {
+    NavHost(navController = navControllerBottomBar, startDestination = NavigationScreens.SongScreen.route) {
         composable(
             route = NavigationScreens.SongScreen.route,
             enterTransition = {
