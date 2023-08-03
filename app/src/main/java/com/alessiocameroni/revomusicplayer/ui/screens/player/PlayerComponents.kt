@@ -115,7 +115,7 @@ internal fun PlayerBottomAppBarDropDownMenu(
             expanded = expanded.value,
             onDismissRequest = { expanded.value = false }
         ) {
-            Divider()
+            HorizontalDivider()
             DropdownMenuItem(
                 text = { Text(text = stringResource(id = R.string.str_settings)) },
                 onClick = {
@@ -133,16 +133,14 @@ internal fun PlayerBottomAppBarDropDownMenu(
     }
 }
 
-/**
- * Player Controls
- */
+// Player Controls
 @Composable
 internal fun PlayerControls(
     modifier: Modifier = Modifier,
     buttonsLayout: PlayerLayout,
     floatSliderPosition: Float
 ) {
-    var sliderPosition by remember { mutableStateOf(floatSliderPosition) }
+    var sliderPosition by remember { mutableFloatStateOf(floatSliderPosition) }
     var favouriteChecked by remember { mutableStateOf(false) }
 
     Column(
@@ -299,3 +297,5 @@ private fun NextButton() {
         )
     }
 }
+
+// Queue Sheet 

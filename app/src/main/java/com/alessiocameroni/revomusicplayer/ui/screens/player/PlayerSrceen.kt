@@ -22,7 +22,7 @@ fun PlayerScreen(
     navController: NavController,
     viewModel: PlayerViewModel = hiltViewModel()
 ) {
-    val sliderPosition by remember { mutableStateOf(0.5f) }
+    val sliderPosition by remember { mutableFloatStateOf(0.5f) }
     val shuffleChecked by remember { mutableStateOf(false) }
     val repeatChecked by remember { mutableStateOf(false) }
     val openBottomSheet = remember { mutableStateOf(false) }

@@ -1,9 +1,17 @@
 package com.alessiocameroni.revomusicplayer.ui.screens
 
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,7 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.alessiocameroni.revomusicplayer.ui.navigation.NavigationBottomNavBar
 import com.alessiocameroni.revomusicplayer.ui.theme.RevoMusicPlayerTheme
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen(
     navController: NavController,
