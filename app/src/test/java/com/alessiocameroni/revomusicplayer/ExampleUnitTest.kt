@@ -1,4 +1,4 @@
-package com.alessiocameroni.revomusicplayer
+package com.meltix.revo
 
 import org.junit.Test
 
