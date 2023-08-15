@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelyListItem
@@ -22,6 +23,8 @@ fun CustomizationScreen(
     navController: NavController
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
+    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
 
     RevoMusicPlayerTheme {
         Surface(
@@ -29,7 +32,14 @@ fun CustomizationScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             Scaffold(
-                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+                modifier = Modifier
+                    .nestedScroll(scrollBehavior.nestedScrollConnection)
+                    .padding(
+                        PaddingValues(
+                            start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
+                            end = systemCutoutPadding.calculateStartPadding(LayoutDirection.Rtl)
+                        )
+                    ),
                 topBar = {
                     CustomizationTopActionBar(
                         navController,
@@ -39,8 +49,14 @@ fun CustomizationScreen(
                 content = { padding ->
                     LazyColumn(
                         modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .padding(
+                                start = padding.calculateStartPadding(LayoutDirection.Ltr),
+                                top = padding.calculateTopPadding(),
+                                end = padding.calculateEndPadding(LayoutDirection.Rtl),
+                                bottom = 0.dp,
+                            ),
+                        contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         item {
