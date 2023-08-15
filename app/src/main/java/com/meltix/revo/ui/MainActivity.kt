@@ -13,7 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.permissions.SetContentByPermission
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, splashDelay)
 
         setContent {
-            RevoMusicPlayerTheme {
+            RevoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

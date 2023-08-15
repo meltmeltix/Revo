@@ -15,7 +15,7 @@ import com.meltix.pixely_components.PixelyListItem
 import com.meltix.pixely_components.PixelySectionTitle
 import com.meltix.revo.R
 import com.meltix.revo.ui.navigation.SettingsScreens
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +26,7 @@ fun CustomizationScreen(
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
 
-    RevoMusicPlayerTheme {
+    RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

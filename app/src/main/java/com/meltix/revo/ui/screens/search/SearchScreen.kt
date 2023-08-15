@@ -10,14 +10,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.meltix.revo.R
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(navController: NavController) {
     var text by remember { mutableStateOf("") }
 
-    RevoMusicPlayerTheme {
+    RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

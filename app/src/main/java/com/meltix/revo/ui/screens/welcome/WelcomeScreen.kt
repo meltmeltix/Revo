@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.meltix.revo.R
 import com.meltix.revo.ui.permissionsList
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.permissions.checkPermissions
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
@@ -54,7 +54,7 @@ fun WelcomeScreen(navController: NavHostController) {
         }
     }
 
-    RevoMusicPlayerTheme {
+    RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

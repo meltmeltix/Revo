@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelySupportInfoText
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.album.HeaderLayout
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +30,7 @@ fun AlbumViewLayoutScreen(
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
     val selectedLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
 
-    RevoMusicPlayerTheme {
+    RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

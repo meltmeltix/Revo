@@ -2,10 +2,10 @@
 <resources>
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ill_revo_r_logo</item>
-        <item name="postSplashScreenTheme">@style/Theme.RevoMusicPlayer</item>
+        <item name="postSplashScreenTheme">@style/Theme.revo</item>
     </style>
 
-    <style name="Theme.RevoMusicPlayer" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.revo" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>

@@ -15,7 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.player.PlayerLayout
-import com.meltix.revo.ui.theme.RevoMusicPlayerTheme
+import com.meltix.revo.ui.theme.RevoTheme
 
 @Composable
 fun PlayerScreen(
@@ -29,7 +29,7 @@ fun PlayerScreen(
 
     val buttonsLayout by viewModel.playerLayout.collectAsStateWithLifecycle(PlayerLayout.CENTER)
 
-    RevoMusicPlayerTheme {
+    RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background

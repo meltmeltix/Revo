@@ -73,7 +73,7 @@ private val LightColorPalette = lightColorScheme(
 )
 
 @Composable
-fun RevoMusicPlayerTheme(
+fun RevoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
