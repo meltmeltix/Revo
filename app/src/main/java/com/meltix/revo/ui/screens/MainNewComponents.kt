@@ -27,7 +27,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
-import com.meltix.revo.ui.components.navigationPaddingOnWindow
+import com.meltix.revo.ui.components.navigationPadding
 import com.meltix.revo.ui.navigation.NavigationScreens.*
 
 @Composable
@@ -77,7 +77,7 @@ fun BoxScope.MainNavigation(
             MainNavigationRail(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .navigationPaddingOnWindow(windowClass),
+                    .navigationPadding(windowClass),
                 items = destinationList,
                 spotifyItemState = spotifyItemState,
                 navController = navController,
@@ -93,7 +93,7 @@ fun BoxScope.MainNavigation(
             MainNavigationBar(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .navigationPaddingOnWindow(windowClass),
+                    .navigationPadding(windowClass),
                 items = destinationList,
                 spotifyItemState = spotifyItemState,
                 navController = navController,
@@ -120,7 +120,7 @@ fun MainNavigationRail(
 
     NavigationRail(
         modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxHeight(),

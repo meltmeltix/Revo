@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,22 +30,30 @@ import com.meltix.revo.ui.components.ContentSelector
 import com.meltix.revo.ui.components.LoadingContent
 import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
+import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.ui.navigation.NavigationScreens
+import com.meltix.revo.util.functions.findActivity
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlbumsScreen(
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    navControllerApp: NavController,
+    navControllerMain: NavHostController,
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val windowClass = calculateWindowSizeClass(activity)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val albumList by viewModel.albums.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { AlbumTopActionBar(navController, scrollBehavior, viewModel) },
+        topBar = { AlbumTopActionBar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             ContentSelector(
                 state = contentState,
@@ -63,12 +73,10 @@ fun AlbumsScreen(
                 },
                 contentUnit = {
                     LazyColumn(
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
+                        modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { albumList(albumList, navControllerBottomBar) }
+                    ) { albumList(albumList, navControllerMain) }
                 }
             )
         }

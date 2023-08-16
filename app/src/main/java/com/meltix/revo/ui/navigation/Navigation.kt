@@ -329,8 +329,8 @@ fun NavigationLibrary(
             }
         ) {
             SongsScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerMain,
+                navControllerApp = navControllerApp,
+                navControllerMain = navControllerMain,
             )
         }
 
@@ -377,8 +377,8 @@ fun NavigationLibrary(
             }
         ) {
             AlbumsScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerMain
+                navControllerApp = navControllerApp,
+                navControllerMain = navControllerMain
             )
         }
 
@@ -468,8 +468,8 @@ fun NavigationLibrary(
             }
         ) {
             ArtistsScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerMain
+                navControllerApp = navControllerApp,
+                navControllerMain = navControllerMain
             )
         }
 
@@ -556,8 +556,8 @@ fun NavigationLibrary(
             }
         ) {
             PlaylistsScreen(
-                navController = navControllerApp,
-                navControllerBottomBar = navControllerMain
+                navControllerApp = navControllerApp,
+                navControllerMain = navControllerMain
             )
         }
 
@@ -624,6 +624,10 @@ fun NavigationLibrary(
                     else -> null
                 }
             }
-        ) { SpotifyFavoritesScreen(navController = navControllerApp) }
+        ) {
+            SpotifyFavoritesScreen(
+                navControllerApp = navControllerApp
+            )
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.meltix.revo.ui.screens.library.spotifyScreen
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
+import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
+import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.Screens
 
 // Scaffold components
@@ -21,7 +24,8 @@ import com.meltix.revo.ui.navigation.Screens
 @Composable
 fun SpotifyTopActionBar(
     navController: NavController,
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
+    windowClass: WindowSizeClass
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
 
@@ -50,7 +54,10 @@ fun SpotifyTopActionBar(
                     navController = navController
                 )
             }
-        }, scrollBehavior = scrollBehavior
+        },
+        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
+        colors = topAppBarColorOnWindowSize(windowClass),
+        scrollBehavior = scrollBehavior,
     )
 }
 

@@ -2,6 +2,7 @@ package com.meltix.revo.ui.screens.library.songScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,6 +16,8 @@ import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
+import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
+import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.NavigationScreens
 import com.meltix.revo.ui.navigation.Screens
 import com.meltix.revo.util.functions.selectSortingOrderString
@@ -27,6 +30,7 @@ fun SongTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: SongViewModel,
+    windowClass: WindowSizeClass,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
@@ -54,12 +58,15 @@ fun SongTopActionBar(
                     expandedSortMenu,
                     navController,
                 )
+
                 SortDropDownMenu(
                     expandedSortMenu,
                     viewModel
                 )
             }
         },
+        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
+        colors = topAppBarColorOnWindowSize(windowClass),
         scrollBehavior = scrollBehavior,
     )
 }

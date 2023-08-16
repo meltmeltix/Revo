@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,21 +29,30 @@ import com.meltix.revo.ui.components.ContentSelector
 import com.meltix.revo.ui.components.LoadingContent
 import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
+import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.scrollBehaviorOnWindowSize
+import com.meltix.revo.ui.components.surfaceColorOnWindowSize
+import com.meltix.revo.util.functions.findActivity
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun SongsScreen(
-    navController: NavController,
-    navControllerBottomBar: NavController,
+    navControllerApp: NavController,
+    navControllerMain: NavController,
     viewModel: SongViewModel = hiltViewModel(),
 ) {
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val windowClass = calculateWindowSizeClass(activity)
+    val scrollBehavior = scrollBehaviorOnWindowSize(windowClass)
+
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { SongTopActionBar(navController, scrollBehavior, viewModel) },
+        topBar = { SongTopActionBar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             ContentSelector(
                 state = contentState,
@@ -61,12 +72,10 @@ fun SongsScreen(
                 },
                 contentUnit = {
                     LazyColumn(
-                        modifier = Modifier
-                            .padding(padding)
-                            .fillMaxSize(),
+                        modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { songList(songList, navControllerBottomBar) }
+                    ) { songList(songList, navControllerMain) }
                 }
             )
         }

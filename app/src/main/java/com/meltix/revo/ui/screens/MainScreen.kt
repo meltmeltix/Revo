@@ -14,8 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.meltix.revo.ui.components.contentModifierOnWindow
-import com.meltix.revo.ui.components.returnSurfaceColorOnWindowSize
+import com.meltix.revo.ui.components.panelSurfaceModifier
+import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.ui.navigation.NavigationLibrary
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.functions.findActivity
@@ -36,11 +36,11 @@ fun MainScreen(
     RevoTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = returnSurfaceColorOnWindowSize(windowClass)
+            color = surfaceColorOnWindowSize(windowClass)
         ) {
             Box {
                 Surface(
-                    modifier = Modifier.contentModifierOnWindow(windowClass),
+                    modifier = Modifier.panelSurfaceModifier(windowClass),
                     color = MaterialTheme.colorScheme.surface
                 ) {
                     MainScaffold(

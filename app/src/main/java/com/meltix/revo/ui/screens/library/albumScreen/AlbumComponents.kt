@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +19,8 @@ import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
+import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
+import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.NavigationScreens
 import com.meltix.revo.ui.navigation.Screens
 import com.meltix.revo.util.functions.selectSortingOrderString
@@ -30,6 +33,7 @@ fun AlbumTopActionBar(
     navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: AlbumViewModel,
+    windowClass: WindowSizeClass,
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
@@ -59,12 +63,16 @@ fun AlbumTopActionBar(
                     expandedSortMenu,
                     navController,
                 )
+
                 SortDropDownMenu(
                     expandedSortMenu,
                     viewModel
                 )
             }
-        }, scrollBehavior = scrollBehavior
+        },
+        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
+        colors = topAppBarColorOnWindowSize(windowClass),
+        scrollBehavior = scrollBehavior,
     )
 }
 

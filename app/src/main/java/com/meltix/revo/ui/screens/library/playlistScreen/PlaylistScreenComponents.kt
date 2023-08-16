@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,13 +16,17 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
+import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
+import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistTopActionbar(
     navController: NavController,
-    scrollBehavior: TopAppBarScrollBehavior
+    scrollBehavior: TopAppBarScrollBehavior,
+    viewModel: PlaylistViewModel,
+    windowClass: WindowSizeClass
 ) {
     val expandedMenu = remember { mutableStateOf(false) }
 
@@ -50,7 +55,10 @@ fun PlaylistTopActionbar(
                     navController = navController
                 )
             }
-        }, scrollBehavior = scrollBehavior
+        },
+        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
+        colors = topAppBarColorOnWindowSize(windowClass),
+        scrollBehavior = scrollBehavior,
     )
 }
 
