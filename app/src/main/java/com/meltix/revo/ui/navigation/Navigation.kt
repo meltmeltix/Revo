@@ -28,7 +28,7 @@ import com.meltix.revo.ui.screens.settings.other.appLanguage.AppLanguageScreen
 import com.meltix.revo.ui.screens.welcome.WelcomeScreen
 
 @Composable
-fun Navigation(startDestination: String) {
+fun NavigationApp(startDestination: String) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = startDestination) {
         // Welcome screen
@@ -281,11 +281,11 @@ fun Navigation(startDestination: String) {
 }
 
 @Composable
-fun NavigationBottomNavBar(
-    navControllerBottomBar: NavHostController,
+fun NavigationLibrary(
+    navControllerMain: NavHostController,
     navControllerApp: NavController
 ) {
-    NavHost(navController = navControllerBottomBar, startDestination = NavigationScreens.SongScreen.route) {
+    NavHost(navController = navControllerMain, startDestination = NavigationScreens.SongScreen.route) {
         composable(
             route = NavigationScreens.SongScreen.route,
             enterTransition = {
@@ -330,7 +330,7 @@ fun NavigationBottomNavBar(
         ) {
             SongsScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar,
+                navControllerBottomBar = navControllerMain,
             )
         }
 
@@ -378,7 +378,7 @@ fun NavigationBottomNavBar(
         ) {
             AlbumsScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerMain
             )
         }
 
@@ -422,7 +422,7 @@ fun NavigationBottomNavBar(
                 AlbumViewScreen(
                     albumId = albumId,
                     navController = navControllerApp,
-                    navControllerBottomBar = navControllerBottomBar
+                    navControllerBottomBar = navControllerMain
                 )
             }
         }
@@ -469,7 +469,7 @@ fun NavigationBottomNavBar(
         ) {
             ArtistsScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerMain
             )
         }
 
@@ -510,7 +510,7 @@ fun NavigationBottomNavBar(
                 ArtistViewScreen(
                     artistId = artistId,
                     navController = navControllerApp,
-                    navControllerBottomBar = navControllerBottomBar
+                    navControllerBottomBar = navControllerMain
                 )
             }
         }
@@ -557,7 +557,7 @@ fun NavigationBottomNavBar(
         ) {
             PlaylistsScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerMain
             )
         }
 
@@ -583,7 +583,7 @@ fun NavigationBottomNavBar(
         ) {
             PlaylistViewScreen(
                 navController = navControllerApp,
-                navControllerBottomBar = navControllerBottomBar
+                navControllerBottomBar = navControllerMain
             )
         }
 

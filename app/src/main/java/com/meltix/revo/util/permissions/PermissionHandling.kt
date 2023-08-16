@@ -2,7 +2,7 @@ package com.meltix.revo.util.permissions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.meltix.revo.ui.navigation.Navigation
+import com.meltix.revo.ui.navigation.NavigationApp
 import com.meltix.revo.ui.permissionsList
 import com.google.accompanist.permissions.*
 
@@ -12,8 +12,8 @@ fun SetContentByPermission() {
     val enterApp = remember { allPermissionsAvailable }
 
     when {
-        enterApp -> Navigation(startDestination = "main_screen")
-        else -> Navigation(startDestination = "welcome_screen")
+        enterApp -> NavigationApp(startDestination = "main_screen")
+        else -> NavigationApp(startDestination = "welcome_screen")
     }
 }
 
