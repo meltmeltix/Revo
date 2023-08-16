@@ -7,9 +7,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.meltix.revo.ui.components.contentModifierOnWindow
@@ -27,8 +29,9 @@ fun MainScreen(
     val context = LocalContext.current
     val activity = context.findActivity()
     val windowClass = calculateWindowSizeClass(activity)
-
     val navControllerMainNavigation = rememberNavController()
+
+    val spotifyItemState by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
 
     RevoTheme {
         Surface(
@@ -52,18 +55,13 @@ fun MainScreen(
 
                 MainNavigation(
                     windowClass = windowClass,
-                    navController = navControllerMainNavigation
+                    navController = navControllerMainNavigation,
+                    spotifyItemState = spotifyItemState
                 )
             }
         }
     }
 }
-
-/*
-val navControllerBottomBar = rememberNavController()
-val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-val spotifyVisibilityState by remember { viewModel.spotifyEnabledState }
-*/
 
 /*
 Scaffold(

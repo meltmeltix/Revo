@@ -28,7 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
 import com.meltix.revo.ui.components.navigationPaddingOnWindow
-import com.meltix.revo.ui.navigation.NavigationScreens
+import com.meltix.revo.ui.navigation.NavigationScreens.*
 
 @Composable
 fun MainScaffold(
@@ -40,29 +40,33 @@ fun MainScaffold(
 }
 
 @Composable
-fun BoxScope.MainNavigation(windowClass: WindowSizeClass, navController: NavHostController) {
+fun BoxScope.MainNavigation(
+    windowClass: WindowSizeClass,
+    navController: NavHostController,
+    spotifyItemState: Boolean
+) {
     val destinationList = listOf(
         MainNavigationItem(
             name = stringResource(id = R.string.str_songs),
-            route = NavigationScreens.SongScreen.route,
+            route = SongScreen.route,
             iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
             iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_albums),
-            route = NavigationScreens.AlbumScreen.route,
+            route = AlbumScreen.route,
             iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
             iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_artists),
-            route = NavigationScreens.ArtistScreen.route,
+            route = ArtistScreen.route,
             iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
             iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_playlists),
-            route = NavigationScreens.PlaylistScreen.route,
+            route = PlaylistScreen.route,
             iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
             iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
         ),
@@ -75,6 +79,7 @@ fun BoxScope.MainNavigation(windowClass: WindowSizeClass, navController: NavHost
                     .align(Alignment.CenterStart)
                     .navigationPaddingOnWindow(windowClass),
                 items = destinationList,
+                spotifyItemState = spotifyItemState,
                 navController = navController,
                 onItemClick = {
                     navController.navigate(it.route) {
@@ -90,6 +95,7 @@ fun BoxScope.MainNavigation(windowClass: WindowSizeClass, navController: NavHost
                     .align(Alignment.BottomCenter)
                     .navigationPaddingOnWindow(windowClass),
                 items = destinationList,
+                spotifyItemState = spotifyItemState,
                 navController = navController,
                 onItemClick = {
                     navController.navigate(it.route) {
@@ -106,8 +112,9 @@ fun BoxScope.MainNavigation(windowClass: WindowSizeClass, navController: NavHost
 fun MainNavigationRail(
     modifier: Modifier,
     items: List<MainNavigationItem>,
+    spotifyItemState: Boolean,
     navController: NavHostController,
-    onItemClick: (MainNavigationItem) -> Unit
+    onItemClick: (MainNavigationItem) -> Unit,
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
@@ -132,6 +139,30 @@ fun MainNavigationRail(
                     label = { Text(text = item.name) },
                 )
             }
+
+            if(spotifyItemState) {
+                val selected = SpotifyScreen.route == backStackEntry.value?.destination?.route
+
+                NavigationRailItem(
+                    selected = selected,
+                    onClick = {
+                        navController.navigate(SpotifyScreen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    icon = { Icon(
+                        painter = if(selected) {
+                            painterResource(id = R.drawable.ic_filled_spotify_24)
+                        } else {
+                            painterResource(id = R.drawable.ic_outlined_spotify_24)
+                        },
+                        contentDescription = stringResource(id = R.string.str_spotify)
+                    ) },
+                    label = { Text(text = stringResource(id = R.string.str_spotify)) },
+                )
+            }
         }
     }
 }
@@ -140,8 +171,9 @@ fun MainNavigationRail(
 fun MainNavigationBar(
     modifier: Modifier,
     items: List<MainNavigationItem>,
+    spotifyItemState: Boolean,
     navController: NavHostController,
-    onItemClick: (MainNavigationItem) -> Unit
+    onItemClick: (MainNavigationItem) -> Unit,
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
@@ -159,6 +191,30 @@ fun MainNavigationBar(
                     contentDescription = item.name
                 ) },
                 label = { Text(text = item.name) },
+            )
+        }
+
+        if(spotifyItemState) {
+            val selected = SpotifyScreen.route == backStackEntry.value?.destination?.route
+
+            NavigationBarItem(
+                selected = selected,
+                onClick = {
+                    navController.navigate(SpotifyScreen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = { Icon(
+                    painter = if(selected) {
+                        painterResource(id = R.drawable.ic_filled_spotify_24)
+                    } else {
+                        painterResource(id = R.drawable.ic_outlined_spotify_24)
+                    },
+                    contentDescription = stringResource(id = R.string.str_spotify)
+                ) },
+                label = { Text(text = stringResource(id = R.string.str_spotify)) },
             )
         }
     }
