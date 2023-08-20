@@ -1,37 +1,39 @@
 package com.meltix.revo.ui.navigation
 
-open class Screens(val route: String) {
-    object WelcomeScreen : Screens("welcome_screen")
-    object MainScreen : Screens("main_screen")
-    object PlayerScreen : Screens("player_screen")
-    object SearchScreen : Screens("search_screen")
-    object SettingsScreen : Screens("settings_screen")
+open class RootScreens(val route: String) {
+    object Welcome : RootScreens("welcome")
+    object Main : RootScreens("main")
+    object Player : RootScreens("player")
+    object Search : RootScreens("search")
+    object SettingsGraph: RootScreens("settings_graph")
 }
 
-open class NavigationScreens(val route: String) {
-    object SongScreen : NavigationScreens("songs")
+open class LibraryScreens(val route: String) {
+    object Songs : LibraryScreens("songs")
 
-    object AlbumScreen : NavigationScreens("albums")
-    object AlbumViewScreen : NavigationScreens("album_view_screen")
+    object Albums : LibraryScreens("albums")
+    object AlbumView : LibraryScreens("album_view")
 
-    object ArtistScreen : NavigationScreens("artists")
-    object ArtistViewScreen : NavigationScreens("artist_view_screen")
+    object Artists : LibraryScreens("artists")
+    object ArtistView : LibraryScreens("artist_view")
 
-    object PlaylistScreen : NavigationScreens("playlists")
-    object PlaylistViewScreen : NavigationScreens("playlist_view_screen")
+    object Playlists : LibraryScreens("playlists")
+    object PlaylistView : LibraryScreens("playlist_view")
 
-    object SpotifyScreen : NavigationScreens("spotify")
+    object Spotify : LibraryScreens("spotify")
 }
 
 open class SettingsScreens(val route: String) {
-    object LibrarySettingsScreen : SettingsScreens("library_settings_screen")
+    object MainSettings : RootScreens("main_settings")
 
-    object CustomizationScreen : SettingsScreens("customization_screen")
-    object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
-    object AlbumViewLayoutScreen : SettingsScreens("album_view_layout_screen")
+    object Library : SettingsScreens("library_settings")
 
-    object OtherScreen : SettingsScreens("other_screen")
-    object AppLanguageScreen : SettingsScreens("app_language_screen")
+    object Customization : SettingsScreens("customization")
+    object PlayerLayout : SettingsScreens("player_layout")
+    object AlbumViewLayout : SettingsScreens("album_view_layout")
 
-    object AboutScreen : SettingsScreens("about_screen")
+    object Other : SettingsScreens("other")
+    object AppLanguage : SettingsScreens("app_language")
+
+    object About : SettingsScreens("about")
 }

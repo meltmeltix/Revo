@@ -32,7 +32,7 @@ import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
 import com.meltix.revo.ui.components.contentModifier
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
-import com.meltix.revo.ui.navigation.NavigationScreens
+import com.meltix.revo.ui.navigation.LibraryScreens
 import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
@@ -93,7 +93,7 @@ private fun LazyListScope.albumList(
                 modifier = Modifier
                     .clickable {
                         navControllerBottomBar.navigate(
-                            NavigationScreens.AlbumViewScreen.route +
+                            LibraryScreens.AlbumView.route +
                                     "/${item.albumId}"
                         )
                     },

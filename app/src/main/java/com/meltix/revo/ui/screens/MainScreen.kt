@@ -2,7 +2,6 @@ package com.meltix.revo.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -16,7 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.meltix.revo.ui.components.panelSurfaceModifier
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
-import com.meltix.revo.ui.navigation.NavigationLibrary
+import com.meltix.revo.ui.navigation.LibraryNavigation
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.functions.findActivity
 
@@ -41,11 +40,11 @@ fun MainScreen(
             Box {
                 Surface(
                     modifier = Modifier.panelSurfaceModifier(windowClass),
-                    color = MaterialTheme.colorScheme.surface
+                    color = surfaceColorOnWindowSize(windowClass)
                 ) {
                     MainScaffold(
                         content = { _ ->
-                            NavigationLibrary(
+                            LibraryNavigation(
                                 navControllerApp = navController,
                                 navControllerMain = navControllerMainNavigation
                             )
@@ -62,27 +61,3 @@ fun MainScreen(
         }
     }
 }
-
-/*
-Scaffold(
-    bottomBar = {
-        BottomContent(
-            navController,
-            navControllerBottomBar,
-            spotifyVisibilityState
-        )
-    },
-    content = { padding ->
-        Column(modifier = Modifier
-            .padding(
-                bottom =
-                    padding.calculateBottomPadding() -
-                    systemBarsPadding.calculateBottomPadding() -
-                    70.dp
-            )
-        ){
-
-        }
-    }
-)
-*/

@@ -29,7 +29,7 @@ import com.meltix.revo.R
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.artist.Artist
 import com.meltix.revo.ui.components.*
-import com.meltix.revo.ui.navigation.NavigationScreens
+import com.meltix.revo.ui.navigation.LibraryScreens
 import com.meltix.revo.ui.components.ContentSelector
 import com.meltix.revo.ui.components.LoadingContent
 import com.meltix.revo.ui.components.NoContentMessage
@@ -93,7 +93,7 @@ private fun LazyListScope.artistList(
             modifier = Modifier
                 .clickable {
                     navControllerBottomBar.navigate(
-                        NavigationScreens.ArtistViewScreen.route +
+                        LibraryScreens.ArtistView.route +
                                 "/${item.artistId}"
                     )
                 },

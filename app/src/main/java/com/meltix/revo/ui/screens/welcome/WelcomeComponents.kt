@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.meltix.revo.R
-import com.meltix.revo.ui.navigation.Screens
+import com.meltix.revo.ui.navigation.RootScreens
 
 @Composable
 fun WelcomeHeader() {
@@ -105,8 +105,8 @@ fun ForwardAppButton(
 ) {
     Button(
         onClick = {
-            navController.navigate(Screens.MainScreen.route) {
-                popUpTo(Screens.WelcomeScreen.route) {
+            navController.navigate(RootScreens.Main.route) {
+                popUpTo(RootScreens.Welcome.route) {
                     inclusive = true
                 }
             }

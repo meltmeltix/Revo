@@ -31,7 +31,7 @@ import com.meltix.revo.data.classes.artist.ArtistAlbum
 import com.meltix.revo.data.classes.artist.ArtistDetails
 import com.meltix.revo.data.classes.artist.ArtistSong
 import com.meltix.revo.ui.components.ContentSelector
-import com.meltix.revo.ui.navigation.NavigationScreens
+import com.meltix.revo.ui.navigation.LibraryScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -138,7 +138,7 @@ private fun RowArtistAlbumList(
                     .clip(MaterialTheme.shapes.large)
                     .clickable {
                         navControllerBottomBar.navigate(
-                            NavigationScreens.AlbumViewScreen.route +
+                            LibraryScreens.AlbumView.route +
                                     "/${item.albumId}"
                         )
                     },

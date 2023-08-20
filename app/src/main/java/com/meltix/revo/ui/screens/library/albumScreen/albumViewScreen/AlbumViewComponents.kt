@@ -35,8 +35,8 @@ import com.meltix.revo.data.classes.album.AlbumDuration
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
-import com.meltix.revo.ui.navigation.NavigationScreens
-import com.meltix.revo.ui.navigation.Screens
+import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.ui.theme.*
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
@@ -163,7 +163,7 @@ private fun TopBarDropDownMenu(
             text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
             onClick = {
                 navControllerBottomBar.navigate(
-                    NavigationScreens.ArtistViewScreen.route +
+                    LibraryScreens.ArtistView.route +
                         "/$artistId"
                 )
                 expanded.value = false
@@ -181,7 +181,7 @@ private fun TopBarDropDownMenu(
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
-                navController.navigate(Screens.SettingsScreen.route)
+                navController.navigate(RootScreens.SettingsGraph.route)
                 expanded.value = false
             },
             leadingIcon = {
@@ -563,7 +563,7 @@ private fun HeaderText(
                     indication = null
                 ) {
                     navController.navigate(
-                        NavigationScreens.ArtistViewScreen.route +
+                        LibraryScreens.ArtistView.route +
                                 "/${albumDetails.artistId}"
                     )
                 },

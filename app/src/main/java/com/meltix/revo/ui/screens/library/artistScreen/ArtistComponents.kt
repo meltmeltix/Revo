@@ -19,7 +19,7 @@ import com.meltix.revo.R
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
 import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
-import com.meltix.revo.ui.navigation.Screens
+import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.util.functions.selectSortingOrderString
 
 // Scaffold components
@@ -37,7 +37,7 @@ fun ArtistTopActionBar(
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.str_artists)) },
         actions = {
-            IconButton(onClick = { navController.navigate(Screens.SearchScreen.route) }) {
+            IconButton(onClick = { navController.navigate(RootScreens.Search.route) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_search_24),
                     contentDescription = stringResource(id = R.string.str_search)
@@ -105,7 +105,7 @@ private fun TopBarDropDownMenu(
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
-                navController.navigate(Screens.SettingsScreen.route)
+                navController.navigate(RootScreens.SettingsGraph.route)
                 expanded.value = false
             },
             leadingIcon = {

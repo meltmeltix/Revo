@@ -28,7 +28,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
 import com.meltix.revo.ui.components.navigationPadding
-import com.meltix.revo.ui.navigation.NavigationScreens.*
+import com.meltix.revo.ui.navigation.LibraryScreens.Albums
+import com.meltix.revo.ui.navigation.LibraryScreens.Artists
+import com.meltix.revo.ui.navigation.LibraryScreens.Playlists
+import com.meltix.revo.ui.navigation.LibraryScreens.Songs
+import com.meltix.revo.ui.navigation.LibraryScreens.Spotify
 
 @Composable
 fun MainScaffold(
@@ -48,25 +52,25 @@ fun BoxScope.MainNavigation(
     val destinationList = listOf(
         MainNavigationItem(
             name = stringResource(id = R.string.str_songs),
-            route = SongScreen.route,
+            route = Songs.route,
             iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
             iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_albums),
-            route = AlbumScreen.route,
+            route = Albums.route,
             iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
             iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_artists),
-            route = ArtistScreen.route,
+            route = Artists.route,
             iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
             iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_playlists),
-            route = PlaylistScreen.route,
+            route = Playlists.route,
             iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
             iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
         ),
@@ -141,12 +145,12 @@ fun MainNavigationRail(
             }
 
             if(spotifyItemState) {
-                val selected = SpotifyScreen.route == backStackEntry.value?.destination?.route
+                val selected = Spotify.route == backStackEntry.value?.destination?.route
 
                 NavigationRailItem(
                     selected = selected,
                     onClick = {
-                        navController.navigate(SpotifyScreen.route) {
+                        navController.navigate(Spotify.route) {
                             popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                             launchSingleTop = true
                             restoreState = true
@@ -195,12 +199,12 @@ fun MainNavigationBar(
         }
 
         if(spotifyItemState) {
-            val selected = SpotifyScreen.route == backStackEntry.value?.destination?.route
+            val selected = Spotify.route == backStackEntry.value?.destination?.route
 
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    navController.navigate(SpotifyScreen.route) {
+                    navController.navigate(Spotify.route) {
                         popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
                         restoreState = true

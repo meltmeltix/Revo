@@ -92,7 +92,7 @@ fun CustomizationScreen(
                                 modifier = Modifier
                                     .clickable {
                                         navController.navigate(
-                                            SettingsScreens.PlayerLayoutScreen.route
+                                            SettingsScreens.PlayerLayout.route
                                         )
                                     },
                                 headlineTextString = stringResource(id = R.string.str_layoutPlayer),
@@ -104,7 +104,7 @@ fun CustomizationScreen(
                             PixelyListItem(
                                 modifier = Modifier.clickable {
                                     navController.navigate(
-                                        SettingsScreens.AlbumViewLayoutScreen.route
+                                        SettingsScreens.AlbumViewLayout.route
                                     )
                                 },
                                 headlineTextString = stringResource(id = R.string.str_albumViewLayout),

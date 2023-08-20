@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.player.PlayerLayout
-import com.meltix.revo.ui.navigation.Screens
+import com.meltix.revo.ui.navigation.RootScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -119,7 +119,7 @@ internal fun PlayerBottomAppBarDropDownMenu(
             DropdownMenuItem(
                 text = { Text(text = stringResource(id = R.string.str_settings)) },
                 onClick = {
-                    navController.navigate(Screens.SettingsScreen.route)
+                    navController.navigate(RootScreens.SettingsGraph.route)
                     expanded.value = false
                 },
                 leadingIcon = {

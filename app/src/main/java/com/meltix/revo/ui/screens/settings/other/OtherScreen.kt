@@ -87,7 +87,7 @@ fun OtherScreen(navController: NavController) {
                                 .clickable {
                                     navController
                                         .navigate(
-                                            SettingsScreens.AppLanguageScreen.route
+                                            SettingsScreens.AppLanguage.route
                                         )
                                 },
                             headlineTextString = stringResource(id = R.string.str_appLanguage),

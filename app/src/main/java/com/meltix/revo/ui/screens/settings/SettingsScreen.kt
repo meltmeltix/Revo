@@ -68,7 +68,7 @@ fun SettingsScreen(navController: NavController) {
                     item {
                         PixelyListItem(
                             modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.LibrarySettingsScreen.route) },
+                                .clickable { navController.navigate(SettingsScreens.Library.route) },
                             headlineTextString = stringResource(id = R.string.str_library),
                             supportingTextString = stringResource(id = R.string.info_library),
                             leadingContent = {
@@ -84,7 +84,7 @@ fun SettingsScreen(navController: NavController) {
                     item {
                         PixelyListItem(
                             modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.CustomizationScreen.route) },
+                                .clickable { navController.navigate(SettingsScreens.Customization.route) },
                             headlineTextString = stringResource(id = R.string.str_customization),
                             supportingTextString = stringResource(id = R.string.info_customization),
                             leadingContent = {
@@ -99,7 +99,7 @@ fun SettingsScreen(navController: NavController) {
                     item {
                         PixelyListItem(
                             modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.OtherScreen.route) },
+                                .clickable { navController.navigate(SettingsScreens.Other.route) },
                             headlineTextString = stringResource(id = R.string.str_other),
                             supportingTextString = stringResource(id = R.string.info_other),
                             leadingContent = {
@@ -114,7 +114,7 @@ fun SettingsScreen(navController: NavController) {
                     item {
                         PixelyListItem(
                             modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.AboutScreen.route) },
+                                .clickable { navController.navigate(SettingsScreens.About.route) },
                             headlineTextString = stringResource(id = R.string.str_about),
                             supportingTextString = stringResource(id = R.string.info_about),
                             leadingContent = {
