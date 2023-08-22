@@ -54,6 +54,7 @@ fun MainScreen(
 
                 MainNavigation(
                     windowClass = windowClass,
+                    viewModel = viewModel,
                     navController = navControllerMainNavigation,
                     spotifyItemState = spotifyItemState
                 )

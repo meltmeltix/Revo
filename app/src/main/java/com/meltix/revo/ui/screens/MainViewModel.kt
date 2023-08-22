@@ -1,5 +1,8 @@
 package com.meltix.revo.ui.screens
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meltix.revo.domain.repository.SettingsRepository
@@ -13,6 +16,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     settingsRepository: SettingsRepository
 ): ViewModel() {
+    var latestDestination by mutableStateOf("")
     val spotifyEnabledState = settingsRepository.getSpotifyEnabledState()
         .map { it }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)

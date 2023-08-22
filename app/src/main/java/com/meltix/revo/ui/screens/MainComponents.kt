@@ -1,276 +1,249 @@
 package com.meltix.revo.ui.screens
 
-import androidx.compose.animation.core.animateDp
-import androidx.compose.animation.core.updateTransition
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
+import com.meltix.revo.ui.components.navigationPadding
 import com.meltix.revo.ui.navigation.LibraryScreens.Albums
 import com.meltix.revo.ui.navigation.LibraryScreens.Artists
 import com.meltix.revo.ui.navigation.LibraryScreens.Playlists
 import com.meltix.revo.ui.navigation.LibraryScreens.Songs
 import com.meltix.revo.ui.navigation.LibraryScreens.Spotify
-import com.meltix.revo.ui.navigation.RootScreens
 
 @Composable
-fun BottomContent(
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
-    spotifyVisibilityState: Boolean
+fun MainScaffold(
+    content: @Composable ((PaddingValues) -> Unit)
 ) {
-    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-    val contentExpanded = remember { mutableStateOf(true) }
-    val transition = updateTransition(targetState = contentExpanded, label = "")
-    val columnOffset by transition.animateDp(label = "") {
-        when(it.value) {
-            true -> 0.dp
-            false -> 70.dp
-        }
-    }
-    val navBarOffset by transition.animateDp(label = "") {
-        when(it.value) {
-            true -> 0.dp
-            false -> systemBarsPadding.calculateBottomPadding() + 50.dp
-        }
-    }
+    Scaffold(
+        content = content
+    )
+}
 
-    Column(
-        modifier = Modifier
-            .offset(y = columnOffset)
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
-    ) {
-        BottomMiniPlayer(
-            navController = navController,
-            modifier = Modifier,
-            songNameString = "SongName",
-            artistNameString = "ArtistName"
-        )
+@Composable
+fun BoxScope.MainNavigation(
+    windowClass: WindowSizeClass,
+    viewModel: MainViewModel,
+    spotifyItemState: Boolean,
+    navController: NavHostController
+) {
+    val destinationList = listOf(
+        MainNavigationItem(
+            name = stringResource(id = R.string.str_songs),
+            route = Songs.route,
+            iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
+            iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
+        ),
+        MainNavigationItem(
+            name = stringResource(id = R.string.str_albums),
+            route = Albums.route,
+            iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
+            iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
+        ),
+        MainNavigationItem(
+            name = stringResource(id = R.string.str_artists),
+            route = Artists.route,
+            iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
+            iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
+        ),
+        MainNavigationItem(
+            name = stringResource(id = R.string.str_playlists),
+            route = Playlists.route,
+            iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
+            iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
+        ),
+    )
 
-        BottomNavigationBar(
-            modifier = Modifier,
-            items = listOf(
-                MainNavigationItem(
-                    name = stringResource(id = R.string.str_songs),
-                    route = Songs.route,
-                    iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
-                    iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
-                ),
-                MainNavigationItem(
-                    name = stringResource(id = R.string.str_albums),
-                    route = Albums.route,
-                    iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
-                    iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
-                ),
-                MainNavigationItem(
-                    name = stringResource(id = R.string.str_artists),
-                    route = Artists.route,
-                    iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
-                    iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
-                ),
-                MainNavigationItem(
-                    name = stringResource(id = R.string.str_playlists),
-                    route = Playlists.route,
-                    iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
-                    iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
-                ),
-            ),
-            spotifyVisibilityState = spotifyVisibilityState,
-            navController = navControllerBottomBar,
-            onItemClick = {
-                navControllerBottomBar.navigate(it.route) {
-                    popUpTo(navControllerBottomBar.graph.findStartDestination().id) {
-                        saveState = true
+    when(windowClass.widthSizeClass) {
+        WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded ->
+            MainNavigationRail(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .navigationPadding(windowClass),
+                viewModel = viewModel,
+                items = destinationList,
+                spotifyItemState = spotifyItemState,
+                navController = navController,
+                onItemClick = {
+                    viewModel.latestDestination = it.route
+                    navController.navigate(it.route) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
                     }
-                    launchSingleTop = true
-                    restoreState = true
                 }
-            },
-            contentExpanded = contentExpanded,
-            offset = navBarOffset
-        )
+            )
+        else ->
+            MainNavigationBar(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationPadding(windowClass),
+                viewModel = viewModel,
+                items = destinationList,
+                spotifyItemState = spotifyItemState,
+                navController = navController,
+                onItemClick = {
+                    viewModel.latestDestination = it.route
+                    navController.navigate(it.route) {
+                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
     }
 }
 
 @Composable
-fun BottomMiniPlayer(
+fun MainNavigationRail(
     modifier: Modifier,
-    navController: NavController,
-    songNameString: String,
-    artistNameString: String
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(64.dp)
-            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                navController.navigate(RootScreens.Player.route)
-            },
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 4.dp)
-                    .size(40.dp)
-                    .aspectRatio(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_up_24),
-                    contentDescription = stringResource(id = R.string.str_openPlayer)
-                )
-            }
-
-
-            Text(
-                modifier = Modifier.weight(1f),
-                text = "$songNameString · $artistNameString",
-                maxLines = 1,
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis
-            )
-
-            IconButton(
-                onClick = {  },
-                modifier = Modifier.padding(horizontal = 4.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                    contentDescription = stringResource(id = R.string.str_play),
-                )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(4.dp)
-        ) {
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .padding(horizontal = 15.dp)
-                    .fillMaxWidth()
-                    .clip(MaterialTheme.shapes.medium),
-                progress = 0.3f
-            )
-        }
-    }
-}
-
-@Composable
-fun BottomNavigationBar(
-    modifier: Modifier = Modifier,
     items: List<MainNavigationItem>,
-    spotifyVisibilityState: Boolean,
-    navController: NavController,
+    viewModel: MainViewModel,
+    spotifyItemState: Boolean,
+    navController: NavHostController,
     onItemClick: (MainNavigationItem) -> Unit,
-    contentExpanded: MutableState<Boolean>,
-    offset: Dp,
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
-    when(backStackEntry.value?.destination?.route) {
-        Songs.route -> contentExpanded.value = true
-        Albums.route -> contentExpanded.value = true
-        Artists.route -> contentExpanded.value = true
-        Playlists.route -> contentExpanded.value = true
-        Spotify.route -> contentExpanded.value = true
-        else -> contentExpanded.value = false
-    }
+    NavigationRail(
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            items.forEach { item ->
+                val currentEntry =
+                    if (backStackEntry.value?.destination?.route == null) ""
+                    else backStackEntry.value!!.destination.route
+                val selected = item.route == currentEntry || item.route == viewModel.latestDestination
+                when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
 
-    NavigationBar( modifier = modifier.offset(y = offset) ) {
+                NavigationRailItem(
+                    selected = selected,
+                    onClick = { onItemClick(item) },
+                    icon = { Icon(
+                        if (selected) item.iconFilled else item.iconOutlined,
+                        contentDescription = item.name
+                    ) },
+                    label = { Text(text = item.name) },
+                )
+            }
+
+            if(spotifyItemState) {
+                val currentEntry =
+                    if (backStackEntry.value?.destination?.route == null) ""
+                    else backStackEntry.value!!.destination.route
+                val selected = Spotify.route == currentEntry || Spotify.route == viewModel.latestDestination
+                when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
+
+                NavigationRailItem(
+                    selected = selected,
+                    onClick = {
+                        viewModel.latestDestination = Spotify.route
+                        navController.navigate(Spotify.route) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    icon = { Icon(
+                        painter = if(selected) {
+                            painterResource(id = R.drawable.ic_filled_spotify_24)
+                        } else {
+                            painterResource(id = R.drawable.ic_outlined_spotify_24)
+                        },
+                        contentDescription = stringResource(id = R.string.str_spotify)
+                    ) },
+                    label = { Text(text = stringResource(id = R.string.str_spotify)) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MainNavigationBar(
+    modifier: Modifier,
+    viewModel: MainViewModel,
+    spotifyItemState: Boolean,
+    navController: NavHostController,
+    onItemClick: (MainNavigationItem) -> Unit,
+    items: List<MainNavigationItem>,
+) {
+    val backStackEntry = navController.currentBackStackEntryAsState()
+
+    NavigationBar(
+        modifier = modifier
+    ) {
         items.forEach { item ->
-            val selected = item.route == backStackEntry.value?.destination?.route
+            val currentEntry =
+                if (backStackEntry.value?.destination?.route == null) ""
+                else backStackEntry.value!!.destination.route
+            val selected = item.route == currentEntry || item.route == viewModel.latestDestination
+            when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
 
             NavigationBarItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
-                icon = {
-                    Icon(
-                        if (selected) item.iconFilled else item.iconOutlined,
-                        contentDescription = item.name
-                    )
-                },
+                icon = { Icon(
+                    if (selected) item.iconFilled else item.iconOutlined,
+                    contentDescription = item.name
+                ) },
                 label = { Text(text = item.name) },
             )
         }
 
-        if(spotifyVisibilityState) {
-            val selected = Spotify.route == backStackEntry.value?.destination?.route
+        if(spotifyItemState) {
+            val currentEntry =
+                if (backStackEntry.value?.destination?.route == null) ""
+                else backStackEntry.value!!.destination.route
+            val selected = Spotify.route == currentEntry || Spotify.route == viewModel.latestDestination
+            when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
 
             NavigationBarItem(
-                selected =  selected,
+                selected = selected,
                 onClick = {
+                    viewModel.latestDestination = Spotify.route
                     navController.navigate(Spotify.route) {
                         popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
-                icon = {
-                    Icon(
-                        painter =
-                        if(selected) {
-                            painterResource(id = R.drawable.ic_filled_spotify_24)
-                        } else {
-                            painterResource(id = R.drawable.ic_outlined_spotify_24)
-                        },
-                        contentDescription = stringResource(id = R.string.str_songs)
-                    )
-
-                },
-                label = { Text(text = stringResource(id = R.string.str_spotify)) }
+                icon = { Icon(
+                    painter = if(selected) {
+                        painterResource(id = R.drawable.ic_filled_spotify_24)
+                    } else {
+                        painterResource(id = R.drawable.ic_outlined_spotify_24)
+                    },
+                    contentDescription = stringResource(id = R.string.str_spotify)
+                ) },
+                label = { Text(text = stringResource(id = R.string.str_spotify)) },
             )
         }
     }
