@@ -74,16 +74,18 @@ fun ArtistsScreen(
                 state = contentState,
                 loadingUnit = {
                     LoadingContent(
-                        padding = padding,
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_loadingArtists)
                     )
                 },
                 failedUnit = {
                     NoContentMessage(
-                        padding = padding,
-                        leadingIcon = painterResource(id = R.drawable.outlined_person_off_24),
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_tooQuietArtists),
-                        infoString = stringResource(id = R.string.info_tooQuietArtists)
+                        infoString = stringResource(id = R.string.info_tooQuietArtists),
+                        leadingIcon = painterResource(id = R.drawable.outlined_person_off_24)
                     )
                 },
                 contentUnit = {

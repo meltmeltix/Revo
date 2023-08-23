@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.library.albumScreen.albumViewScreen
+package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,27 +23,30 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.meltix.pixely_components.PixelyListItem
-import com.meltix.pixely_components.PixelySectionTitle
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.album.AlbumDetails
 import com.meltix.revo.data.classes.album.AlbumSong
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.ui.components.ContentSelector
+import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.util.functions.findActivity
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlbumViewScreen(
     albumId: Long,
     rootNavController: NavController,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel = hiltViewModel(),
+    viewModel: AlbumDetailsViewModel = hiltViewModel(),
 ) {
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val windowClass = calculateWindowSizeClass(activity)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     val scrollState = rememberLazyListState()
     val firstVisibleItem = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
@@ -73,46 +78,16 @@ fun AlbumViewScreen(
                     },
                     contentUnit = {
                         LazyColumn(
-                            modifier = Modifier
-                                .padding(padding)
-                                .fillMaxSize(),
+                            modifier = Modifier.contentModifier(windowClass, padding),
                             verticalArrangement = Arrangement.spacedBy(2.dp),
                             state = scrollState
                         ) {
-                            item {
-                                AlbumViewHeader(
-                                    layout = headerLayout,
-                                    albumDetails = albumDetails,
-                                    viewModel = viewModel,
-                                    libraryNavController = libraryNavController,
-                                    leadingUnit = {
-                                        AsyncImage(
-                                            model = ImageRequest.Builder(LocalContext.current)
-                                                .data(albumDetails.coverUri)
-                                                .crossfade(true)
-                                                .build(),
-                                            modifier = Modifier
-                                                .fillMaxSize(),
-                                            contentScale = contentScale,
-                                            contentDescription = stringResource(id = R.string.str_albumImage),
-                                        )
-                                    }
-                                )
-                            }
 
-                            item {
-                                PixelySectionTitle(
-                                    stringTitle = stringResource(id = R.string.str_songs),
-                                    horizontalContentPadding = 15.dp
-                                )
-                            }
-
-                            albumSongsList(songList)
                         }
                     }
                 )
 
-                AlbumViewTopActionBar(
+                AlbumDetailsTopActionBar(
                     albumDetails = albumDetails,
                     rootNavController = rootNavController,
                     libraryNavController = libraryNavController,
@@ -124,9 +99,37 @@ fun AlbumViewScreen(
     )
 }
 
-private fun LazyListScope.albumSongsList(
-    songs: List<AlbumSong>
-) {
+/*item {
+    AlbumViewHeader(
+        layout = headerLayout,
+        albumDetails = albumDetails,
+        viewModel = viewModel,
+        libraryNavController = libraryNavController,
+        leadingUnit = {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(albumDetails.coverUri)
+                    .crossfade(true)
+                    .build(),
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentScale = contentScale,
+                contentDescription = stringResource(id = R.string.str_albumImage),
+            )
+        }
+    )
+}
+
+item {
+    PixelySectionTitle(
+        stringTitle = stringResource(id = R.string.str_songs),
+        horizontalContentPadding = 15.dp
+    )
+}
+
+albumSongsList(songList)*/
+
+private fun LazyListScope.albumSongsList(songs: List<AlbumSong>) {
     itemsIndexed(items = songs) { key, item ->
         key(key) {
             Row(modifier = Modifier.clickable {  }) {
@@ -167,7 +170,7 @@ private fun LazyListScope.albumSongsList(
                                     )
                                 }
 
-                                AlbumViewItemDropDownMenu(
+                                AlbumDetailsItemDropDownMenu(
                                     expanded = expandedItemMenu
                                 )
                             }

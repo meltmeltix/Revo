@@ -72,16 +72,18 @@ fun AlbumsScreen(
                 state = contentState,
                 loadingUnit = {
                     LoadingContent(
-                        padding = padding,
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_loadingAlbums)
                     )
                 },
                 failedUnit = {
                     NoContentMessage(
-                        padding = padding,
-                        leadingIcon = painterResource(id = R.drawable.ic_outlined_no_album_24),
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_tooQuietAlbums),
-                        infoString = stringResource(id = R.string.info_tooQuietAlbums)
+                        infoString = stringResource(id = R.string.info_tooQuietAlbums),
+                        leadingIcon = painterResource(id = R.drawable.ic_outlined_no_album_24)
                     )
                 },
                 contentUnit = {

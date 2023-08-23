@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.meltix.revo.ui.screens.library.albumScreen.albumViewScreen.AlbumViewScreen
+import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.AlbumViewScreen
 import com.meltix.revo.ui.screens.library.artistScreen.artistViewScreen.ArtistViewScreen
 import com.meltix.revo.ui.screens.library.playlistScreen.playlistViewScreen.PlaylistViewScreen
 import com.meltix.revo.ui.screens.settings.SettingsScreen

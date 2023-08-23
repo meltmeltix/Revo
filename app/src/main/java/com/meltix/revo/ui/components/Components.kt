@@ -8,10 +8,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,6 +19,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -83,15 +82,13 @@ fun LargeImageContainer(
 
 @Composable
 fun LoadingContent(
-    padding: PaddingValues,
+    modifier: Modifier,
+    windowClass: WindowSizeClass,
     headlineString: String,
 ) {
-    Surface(color = MaterialTheme.colorScheme.surface) {
+    Surface(color = surfaceColorOnWindowSize(windowClass)) {
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(bottom = 70.dp)
-                .fillMaxSize(),
+            modifier = modifier,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -115,18 +112,15 @@ fun LoadingContent(
 
 @Composable
 fun NoContentMessage(
-    padding: PaddingValues,
-    leadingIcon: Painter,
+    modifier: Modifier,
+    windowClass: WindowSizeClass,
     headlineString: String,
-    infoString: String
+    infoString: String,
+    leadingIcon: Painter
 ) {
-    Surface(color = MaterialTheme.colorScheme.surface) {
+    Surface(color = surfaceColorOnWindowSize(windowClass)) {
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(horizontal = 20.dp)
-                .padding(bottom = 70.dp)
-                .fillMaxSize(),
+            modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

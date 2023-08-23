@@ -124,7 +124,7 @@
     <string name="str_loadingAlbums">Loading your albums…</string>
     <string name="str_loadingArtists">Loading your artists…</string>
     <string name="info_tooQuietAlbums">There doesn\'t seem to be any album in your library… Add some songs and get the party started!</string>
-    <string name="str_tooQuietArtists">There are no artists at the party…</string>
+    <string name="str_tooQuietArtists">Where are all the artists?</string>
     <string name="info_tooQuietArtists">There doesn\'t seem to be any artist in your library… Add some songs and get the party started!</string>
     <string name="str_albumViewLayout">Album view layout</string>
     <string name="info_albumViewLayout">Choose how the album cover, text and buttons are displayed in the album view screen</string>
@@ -133,4 +133,5 @@
     <string name="info_defaultAlbumViewLayout">The default Album layout. Not too intrusive, clean and overall simple</string>
     <string name="info_fruitMusicLayout">Heavily inspired by a famous fruit company\'s music app. Big and stylish</string>
     <string name="info_minimalLayout">It\'s free real estate. All the information you need in a neat little header</string>
+    <string name="str_refresh">Refresh</string>
 </resources>

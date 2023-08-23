@@ -104,6 +104,19 @@ private fun TopBarDropDownMenu(
         HorizontalDivider()
         
         DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_refresh)) },
+            onClick = { /*TODO*/ },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_refresh_24), 
+                    contentDescription = stringResource(id = R.string.str_refresh)
+                )
+            }
+        )
+        
+        HorizontalDivider()
+        
+        DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
                 navController.navigate(RootScreens.SettingsGraph.route)

@@ -30,6 +30,7 @@ import com.meltix.revo.ui.components.LoadingContent
 import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
 import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.listContentPaddingOnWindowSize
 import com.meltix.revo.ui.components.scrollBehaviorOnWindowSize
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.util.functions.findActivity
@@ -58,13 +59,15 @@ fun SongsScreen(
                 state = contentState,
                 loadingUnit = {
                     LoadingContent(
-                        padding = padding,
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_loadingSongs)
                     )
                 },
                 failedUnit = {
                     NoContentMessage(
-                        padding = padding,
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        windowClass = windowClass,
                         leadingIcon = painterResource(id = R.drawable.ic_baseline_music_off_24),
                         headlineString = stringResource(id = R.string.str_tooQuietSongs),
                         infoString = stringResource(id = R.string.info_tooQuietSongs)
@@ -74,7 +77,7 @@ fun SongsScreen(
                     LazyColumn(
                         modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
-                        contentPadding = PaddingValues(bottom = 70.dp)
+                        contentPadding = listContentPaddingOnWindowSize(windowClass)
                     ) { songList(songList, libraryNavController) }
                 }
             )

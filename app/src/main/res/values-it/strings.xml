@@ -116,7 +116,7 @@
     <string name="str_loadingAlbums">Caricando i tuoi album…</string>
     <string name="str_loadingArtists">Caricando i tuoi artisti…</string>
     <string name="info_tooQuietAlbums">Sembra che non ci siano album nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
-    <string name="str_tooQuietArtists">Non ci sono artisti alla festa…</string>
+    <string name="str_tooQuietArtists">Ma dove sono gli artisti?</string>
     <string name="info_tooQuietArtists">Sembra che non ci siano artisti nella tua libreria… Aggiungi qualche brano e dai il via alla festa!</string>
     <string name="str_albumViewLayout">Layout visualizzazione album</string>
     <string name="info_albumViewLayout">Scegli come la copertina dell\'album, il testo e i pulsanti vengono mostrati nella schermata di visualizzazione album</string>
@@ -125,4 +125,5 @@
     <string name="info_fruitMusicLayout">Fortemente inspirato dalla app musicale di un certo fruttivendolo. Grande e stiloso</string>
     <string name="str_minimalLayout">Minimale</string>
     <string name="str_fruitMusicLayout">Mela Music</string>
+    <string name="str_refresh">Aggiorna</string>
 </resources>

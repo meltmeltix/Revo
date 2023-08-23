@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.library.albumScreen.albumViewScreen
+package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
@@ -43,10 +43,10 @@ import com.meltix.revo.util.functions.selectSortingTypeString
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlbumViewTopActionBar(
+fun AlbumDetailsTopActionBar(
     rootNavController: NavController,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
     firstVisibleItem: State<Boolean>,
     albumDetails: AlbumDetails,
 ) {
@@ -192,7 +192,7 @@ private fun TopBarDropDownMenu(
 @Composable
 private fun SortDropDownMenu(
     expanded: MutableState<Boolean>,
-    viewModel: AlbumViewViewModel
+    viewModel: AlbumDetailsViewModel
 ) {
     val selectedSortType by viewModel.sortingType.collectAsStateWithLifecycle(SortingType.TRACK)
     val selectedSortOrder by viewModel.sortingOrder.collectAsStateWithLifecycle(SortingOrder.ASCENDING)
@@ -267,7 +267,7 @@ private fun SortOrderSelector(
 
 // List components
 @Composable
-fun AlbumViewItemDropDownMenu(
+fun AlbumDetailsItemDropDownMenu(
     expanded: MutableState<Boolean>
 ) {
     RoundedDropDownMenu(
@@ -280,12 +280,12 @@ fun AlbumViewItemDropDownMenu(
 
 // Header components
 @Composable
-fun AlbumViewHeader(
+fun AlbumDetailsHeader(
     layout: HeaderLayout,
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
 ) {
     when(layout) {
         HeaderLayout.REVO -> RevoHeader(
@@ -318,7 +318,7 @@ private fun RevoHeader(
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
 ) {
     val gradientStartY = with(LocalDensity.current) { 100.dp.toPx() }
 
@@ -387,7 +387,7 @@ private fun FruitMusicHeader(
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
 ) {
     val gradientStartY = with(LocalDensity.current) { 140.dp.toPx() }
 
@@ -451,7 +451,7 @@ private fun MinimalMusicHeader(
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
 ) {
     Column(
         modifier = Modifier,
@@ -502,7 +502,7 @@ private fun HeaderText(
     modifier: Modifier = Modifier,
     albumDetails: AlbumDetails,
     libraryNavController: NavController,
-    viewModel: AlbumViewViewModel,
+    viewModel: AlbumDetailsViewModel,
     disableWhiteColor: Boolean = false,
 ) {
     val interactionSource = remember { MutableInteractionSource() }

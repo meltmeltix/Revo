@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.library.albumScreen.albumViewScreen
+package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,7 +21,7 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @HiltViewModel
-class AlbumViewViewModel @Inject constructor(
+class AlbumDetailsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val sortingRepository: SortingRepository,
     private val albumViewRepository: AlbumViewRepository
