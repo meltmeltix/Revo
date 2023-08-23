@@ -18,7 +18,7 @@ import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
 import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
 import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
-import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
@@ -211,7 +211,7 @@ fun SongItemDropDownMenu(
             text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
             onClick = {
                 navControllerBottomBar.navigate(
-                    LibraryScreens.AlbumView.route + "/$albumId"
+                    DetailsScreens.AlbumDetails.route + "/$albumId"
                 )
                 expanded.value = false
             }
@@ -221,7 +221,7 @@ fun SongItemDropDownMenu(
             text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
             onClick = {
                 navControllerBottomBar.navigate(
-                    LibraryScreens.ArtistView.route + "/$artistId"
+                    DetailsScreens.ArtistDetails.route + "/$artistId"
                 )
                 expanded.value = false
             }

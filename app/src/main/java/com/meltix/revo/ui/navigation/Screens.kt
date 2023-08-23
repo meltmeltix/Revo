@@ -10,17 +10,17 @@ open class RootScreens(val route: String) {
 
 open class LibraryScreens(val route: String) {
     object Songs : LibraryScreens("songs")
-
     object Albums : LibraryScreens("albums")
-    object AlbumView : LibraryScreens("album_view")
-
     object Artists : LibraryScreens("artists")
-    object ArtistView : LibraryScreens("artist_view")
-
     object Playlists : LibraryScreens("playlists")
-    object PlaylistView : LibraryScreens("playlist_view")
-
     object Spotify : LibraryScreens("spotify")
+    object DetailsGraph : LibraryScreens("details_graph")
+}
+
+open class DetailsScreens(val route: String) {
+    object AlbumDetails : DetailsScreens("album_view")
+    object ArtistDetails : DetailsScreens("artist_view")
+    object PlaylistDetails : DetailsScreens("playlist_view")
 }
 
 open class SettingsScreens(val route: String) {

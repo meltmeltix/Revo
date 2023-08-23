@@ -18,7 +18,7 @@ import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun SpotifyFavoritesScreen(navControllerApp: NavController) {
+fun SpotifyFavoritesScreen(rootNavController: NavController) {
     val context = LocalContext.current
     val activity = context.findActivity()
     val windowClass = calculateWindowSizeClass(activity)
@@ -26,7 +26,7 @@ fun SpotifyFavoritesScreen(navControllerApp: NavController) {
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { SpotifyTopActionBar(navControllerApp, scrollBehavior, windowClass) },
+        topBar = { SpotifyTopActionBar(rootNavController, scrollBehavior, windowClass) },
         containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             LazyColumn(

@@ -1,14 +1,27 @@
 package com.meltix.revo.ui.screens.library.albumScreen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,14 +45,14 @@ import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
 import com.meltix.revo.ui.components.contentModifier
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
-import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlbumsScreen(
-    navControllerApp: NavController,
-    navControllerMain: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavHostController,
     viewModel: AlbumViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -52,7 +65,7 @@ fun AlbumsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { AlbumTopActionBar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        topBar = { AlbumTopActionBar(rootNavController, scrollBehavior, viewModel, windowClass) },
         containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             ContentSelector(
@@ -76,7 +89,7 @@ fun AlbumsScreen(
                         modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { albumList(albumList, navControllerMain) }
+                    ) { albumList(albumList, libraryNavController) }
                 }
             )
         }
@@ -93,7 +106,7 @@ private fun LazyListScope.albumList(
                 modifier = Modifier
                     .clickable {
                         navControllerBottomBar.navigate(
-                            LibraryScreens.AlbumView.route +
+                            DetailsScreens.AlbumDetails.route +
                                     "/${item.albumId}"
                         )
                     },

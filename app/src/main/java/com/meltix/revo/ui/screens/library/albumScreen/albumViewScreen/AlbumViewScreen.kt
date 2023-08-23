@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.meltix.pixely_components.PixelyListItem
@@ -38,8 +37,8 @@ import com.meltix.revo.ui.components.ContentSelector
 @Composable
 fun AlbumViewScreen(
     albumId: Long,
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel = hiltViewModel(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -85,7 +84,7 @@ fun AlbumViewScreen(
                                     layout = headerLayout,
                                     albumDetails = albumDetails,
                                     viewModel = viewModel,
-                                    navController = navControllerBottomBar,
+                                    libraryNavController = libraryNavController,
                                     leadingUnit = {
                                         AsyncImage(
                                             model = ImageRequest.Builder(LocalContext.current)
@@ -115,8 +114,8 @@ fun AlbumViewScreen(
 
                 AlbumViewTopActionBar(
                     albumDetails = albumDetails,
-                    navController = navController,
-                    navControllerBottomBar = navControllerBottomBar,
+                    rootNavController = rootNavController,
+                    libraryNavController = libraryNavController,
                     viewModel = viewModel,
                     firstVisibleItem = firstVisibleItem
                 )

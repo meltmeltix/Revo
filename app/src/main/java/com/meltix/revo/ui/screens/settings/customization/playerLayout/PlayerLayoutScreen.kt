@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelySupportInfoText
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.player.PlayerLayout
@@ -21,7 +21,7 @@ import com.meltix.revo.ui.theme.RevoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerLayoutScreen(
-    navController: NavHostController,
+    navController: NavController,
     viewModel: PlayerLayoutViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()

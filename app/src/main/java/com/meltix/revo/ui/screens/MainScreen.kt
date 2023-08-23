@@ -28,7 +28,7 @@ fun MainScreen(
     val context = LocalContext.current
     val activity = context.findActivity()
     val windowClass = calculateWindowSizeClass(activity)
-    val navControllerMainNavigation = rememberNavController()
+    val libraryNavController = rememberNavController()
 
     val spotifyItemState by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
 
@@ -45,8 +45,8 @@ fun MainScreen(
                     MainScaffold(
                         content = { _ ->
                             LibraryNavigation(
-                                navControllerApp = navController,
-                                navControllerMain = navControllerMainNavigation
+                                rootNavController = navController,
+                                libraryNavController = libraryNavController
                             )
                         }
                     )
@@ -55,7 +55,7 @@ fun MainScreen(
                 MainNavigation(
                     windowClass = windowClass,
                     viewModel = viewModel,
-                    navController = navControllerMainNavigation,
+                    navController = libraryNavController,
                     spotifyItemState = spotifyItemState
                 )
             }

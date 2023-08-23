@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.meltix.pixely_components.PixelyListItem
@@ -31,14 +30,14 @@ import com.meltix.revo.data.classes.artist.ArtistAlbum
 import com.meltix.revo.data.classes.artist.ArtistDetails
 import com.meltix.revo.data.classes.artist.ArtistSong
 import com.meltix.revo.ui.components.ContentSelector
-import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.DetailsScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistViewScreen(
     artistId: Long,
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     viewModel: ArtistViewViewModel = hiltViewModel()
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -59,8 +58,8 @@ fun ArtistViewScreen(
         topBar = {
             ArtistViewTopActionBar(
                 artistDetails = artistDetails,
-                navController = navController,
-                navControllerBottomBar = navControllerBottomBar,
+                rootNavController = rootNavController,
+                libraryNavController = libraryNavController,
                 scrollBehavior = scrollBehavior,
                 textVisibility = textVisibility
             )
@@ -109,14 +108,14 @@ fun ArtistViewScreen(
                                         horizontalContentPadding = 15.dp,
                                     )
 
-                                    RowArtistAlbumList(albumList, navControllerBottomBar)
+                                    RowArtistAlbumList(albumList, libraryNavController)
                                 }
                             }
                         }
 
                         item { ArtistViewSongSectionTitle(viewModel = viewModel) }
 
-                        artistSongList(songList, navControllerBottomBar)
+                        artistSongList(songList, libraryNavController)
                     }
                 }
             )
@@ -127,7 +126,7 @@ fun ArtistViewScreen(
 @Composable
 private fun RowArtistAlbumList(
     albums: List<ArtistAlbum>,
-    navControllerBottomBar: NavHostController
+    navControllerBottomBar: NavController
 ) {
     LazyRow(
         contentPadding = PaddingValues(horizontal = 5.dp)
@@ -138,8 +137,7 @@ private fun RowArtistAlbumList(
                     .clip(MaterialTheme.shapes.large)
                     .clickable {
                         navControllerBottomBar.navigate(
-                            LibraryScreens.AlbumView.route +
-                                    "/${item.albumId}"
+                            DetailsScreens.AlbumDetails.route + "/${item.albumId}"
                         )
                     },
             ) {
@@ -162,7 +160,7 @@ private fun RowArtistAlbumList(
 
 private fun LazyListScope.artistSongList(
     songs: List<ArtistSong>,
-    navControllerBottomBar: NavHostController
+    navControllerBottomBar: NavController
 ) {
     itemsIndexed(items = songs) { _, item ->
         Row(

@@ -26,7 +26,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.meltix.pixely_components.PixelyDropdownMenuTitle
 import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
@@ -35,19 +34,18 @@ import com.meltix.revo.data.classes.album.AlbumDuration
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
-import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.ui.theme.*
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
-import com.meltix.revo.ui.theme.Grey90
 
 // Scaffold components
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumViewTopActionBar(
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
     firstVisibleItem: State<Boolean>,
     albumDetails: AlbumDetails,
@@ -90,7 +88,7 @@ fun AlbumViewTopActionBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = { navControllerBottomBar.navigateUp() },
+                onClick = { libraryNavController.navigateUp() },
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = buttonContainerColor,
                 )
@@ -136,8 +134,8 @@ fun AlbumViewTopActionBar(
 
                 TopBarDropDownMenu(
                     expanded = expandedMenu,
-                    navController = navController,
-                    navControllerBottomBar = navControllerBottomBar,
+                    rootNavController = rootNavController,
+                    libraryNavController = libraryNavController,
                     artistId = albumDetails.artistId
                 )
             }
@@ -151,8 +149,8 @@ fun AlbumViewTopActionBar(
 @Composable
 private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     artistId: Long
 ) {
     RoundedDropDownMenu(
@@ -162,10 +160,7 @@ private fun TopBarDropDownMenu(
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
             onClick = {
-                navControllerBottomBar.navigate(
-                    LibraryScreens.ArtistView.route +
-                        "/$artistId"
-                )
+                libraryNavController.navigate(DetailsScreens.ArtistDetails.route + "/$artistId")
                 expanded.value = false
             },
             leadingIcon = {
@@ -181,7 +176,7 @@ private fun TopBarDropDownMenu(
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
-                navController.navigate(RootScreens.SettingsGraph.route)
+                rootNavController.navigate(RootScreens.SettingsGraph.route)
                 expanded.value = false
             },
             leadingIcon = {
@@ -289,7 +284,7 @@ fun AlbumViewHeader(
     layout: HeaderLayout,
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
-    navController: NavHostController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
 ) {
     when(layout) {
@@ -297,21 +292,21 @@ fun AlbumViewHeader(
             layout = layout,
             albumDetails = albumDetails,
             leadingUnit = leadingUnit,
-            navController = navController,
+            libraryNavController = libraryNavController,
             viewModel = viewModel
         )
         HeaderLayout.FRUIT_MUSIC -> FruitMusicHeader(
             layout = layout,
             albumDetails = albumDetails,
             leadingUnit = leadingUnit,
-            navController = navController,
+            libraryNavController = libraryNavController,
             viewModel = viewModel
         )
         HeaderLayout.MINIMAL -> MinimalMusicHeader(
             layout = layout,
             albumDetails = albumDetails,
             leadingUnit = leadingUnit,
-            navController = navController,
+            libraryNavController = libraryNavController,
             viewModel = viewModel
         )
     }
@@ -322,7 +317,7 @@ private fun RevoHeader(
     layout: HeaderLayout,
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
-    navController: NavHostController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
 ) {
     val gradientStartY = with(LocalDensity.current) { 100.dp.toPx() }
@@ -372,7 +367,7 @@ private fun RevoHeader(
             ) {
                 HeaderText(
                     albumDetails = albumDetails,
-                    navController = navController,
+                    libraryNavController = libraryNavController,
                     viewModel = viewModel,
                 )
             }
@@ -391,7 +386,7 @@ private fun FruitMusicHeader(
     layout: HeaderLayout,
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
-    navController: NavHostController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
 ) {
     val gradientStartY = with(LocalDensity.current) { 140.dp.toPx() }
@@ -436,7 +431,7 @@ private fun FruitMusicHeader(
             ) {
                 HeaderText(
                     albumDetails = albumDetails,
-                    navController = navController,
+                    libraryNavController = libraryNavController,
                     viewModel = viewModel
                 )
 
@@ -455,7 +450,7 @@ private fun MinimalMusicHeader(
     layout: HeaderLayout,
     albumDetails: AlbumDetails,
     leadingUnit: @Composable () -> Unit?,
-    navController: NavHostController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
 ) {
     Column(
@@ -489,7 +484,7 @@ private fun MinimalMusicHeader(
                 end = 20.dp,
             ),
             albumDetails = albumDetails,
-            navController = navController,
+            libraryNavController = libraryNavController,
             viewModel = viewModel,
             disableWhiteColor = true
         )
@@ -506,7 +501,7 @@ private fun MinimalMusicHeader(
 private fun HeaderText(
     modifier: Modifier = Modifier,
     albumDetails: AlbumDetails,
-    navController: NavHostController,
+    libraryNavController: NavController,
     viewModel: AlbumViewViewModel,
     disableWhiteColor: Boolean = false,
 ) {
@@ -562,10 +557,7 @@ private fun HeaderText(
                     interactionSource = interactionSource,
                     indication = null
                 ) {
-                    navController.navigate(
-                        LibraryScreens.ArtistView.route +
-                                "/${albumDetails.artistId}"
-                    )
+                    libraryNavController.navigate(DetailsScreens.ArtistDetails.route + "/${albumDetails.artistId}")
                 },
             color = supportingTextColor,
             maxLines = 1,

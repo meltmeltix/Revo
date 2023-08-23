@@ -1,10 +1,19 @@
 package com.meltix.revo.ui.screens.library.playlistScreen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
@@ -27,14 +36,14 @@ import com.meltix.revo.ui.components.SmallImageContainer
 import com.meltix.revo.ui.components.contentModifier
 import com.meltix.revo.ui.components.scrollBehaviorOnWindowSize
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
-import com.meltix.revo.ui.navigation.LibraryScreens.*
+import com.meltix.revo.ui.navigation.DetailsScreens.PlaylistDetails
 import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun PlaylistsScreen(
-    navControllerApp: NavController,
-    navControllerMain: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavHostController,
     viewModel: PlaylistViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -46,7 +55,7 @@ fun PlaylistsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { PlaylistTopActionbar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        topBar = { PlaylistTopActionbar(rootNavController, scrollBehavior, viewModel, windowClass) },
         floatingActionButton = { AddPlaylistFAB(openDialog) },
         floatingActionButtonPosition = FabPosition.Center,
         containerColor = surfaceColorOnWindowSize(windowClass),
@@ -65,7 +74,7 @@ fun PlaylistsScreen(
             ) {
                 items(2) {
                     Row(modifier = Modifier
-                        .clickable { navControllerMain.navigate(PlaylistView.route) }
+                        .clickable { libraryNavController.navigate(PlaylistDetails.route) }
                     ) {
                         PixelyListItem(
                             headlineTextString = "Placeholder",

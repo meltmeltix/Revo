@@ -18,7 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelyListItem
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.player.PlayerLayout
@@ -28,7 +28,7 @@ import com.meltix.revo.util.functions.selectPlayerLayoutString
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlayerLayoutTopActionBar(
-    navController: NavHostController,
+    navController: NavController,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
     LargeTopAppBar(

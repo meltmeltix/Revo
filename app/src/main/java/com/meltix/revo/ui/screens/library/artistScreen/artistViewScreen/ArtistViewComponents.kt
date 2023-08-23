@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.meltix.pixely_components.PixelyDropdownMenuTitle
 import com.meltix.pixely_components.PixelySectionTitle
 import com.meltix.pixely_components.RoundedDropDownMenu
@@ -28,7 +27,7 @@ import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
 import com.meltix.revo.ui.components.LargeImageContainer
 import com.meltix.revo.ui.components.SmallImageContainer
-import com.meltix.revo.ui.navigation.LibraryScreens
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
@@ -38,8 +37,8 @@ import com.meltix.revo.util.functions.selectSortingTypeString
 @Composable
 fun ArtistViewTopActionBar(
     artistDetails: ArtistDetails,
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     scrollBehavior: TopAppBarScrollBehavior,
     textVisibility: State<Boolean>,
 ) {
@@ -60,7 +59,7 @@ fun ArtistViewTopActionBar(
         },
         navigationIcon = {
             IconButton(
-                onClick = { navControllerBottomBar.navigateUp() }
+                onClick = { libraryNavController.navigateUp() }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
@@ -79,7 +78,7 @@ fun ArtistViewTopActionBar(
 
                 ArtistViewDropDownMenu(
                     expanded = expandedMenu,
-                    navController = navController,
+                    navController = rootNavController,
                 )
             }
         },
@@ -352,10 +351,7 @@ fun ArtistViewItemDropDownMenu(
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
             onClick = {
-                navControllerBottomBar.navigate(
-                    LibraryScreens.AlbumView.route +
-                        "/$albumId"
-                )
+                navControllerBottomBar.navigate(DetailsScreens.AlbumDetails.route + "/$albumId")
                 expanded.value = false
             }
         )

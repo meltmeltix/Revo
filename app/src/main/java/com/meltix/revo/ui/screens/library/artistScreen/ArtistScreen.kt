@@ -1,15 +1,27 @@
 package com.meltix.revo.ui.screens.library.artistScreen
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,19 +40,21 @@ import com.meltix.pixely_components.PixelyListItem
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.artist.Artist
-import com.meltix.revo.ui.components.*
-import com.meltix.revo.ui.navigation.LibraryScreens
 import com.meltix.revo.ui.components.ContentSelector
 import com.meltix.revo.ui.components.LoadingContent
 import com.meltix.revo.ui.components.NoContentMessage
 import com.meltix.revo.ui.components.SmallImageContainer
+import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.scrollBehaviorOnWindowSize
+import com.meltix.revo.ui.components.surfaceColorOnWindowSize
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun ArtistsScreen(
-    navControllerApp: NavController,
-    navControllerMain: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavHostController,
     viewModel: ArtistViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -53,7 +67,7 @@ fun ArtistsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { ArtistTopActionBar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        topBar = { ArtistTopActionBar(rootNavController, scrollBehavior, viewModel, windowClass) },
         containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             ContentSelector(
@@ -77,7 +91,7 @@ fun ArtistsScreen(
                         modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { artistList(artistList, navControllerMain) }
+                    ) { artistList(artistList, libraryNavController) }
                 }
             )
         }
@@ -92,10 +106,7 @@ private fun LazyListScope.artistList(
         Row(
             modifier = Modifier
                 .clickable {
-                    navControllerBottomBar.navigate(
-                        LibraryScreens.ArtistView.route +
-                                "/${item.artistId}"
-                    )
+                    navControllerBottomBar.navigate(DetailsScreens.ArtistDetails.route + "/${item.artistId}")
                 },
         ) {
             PixelyListItem(

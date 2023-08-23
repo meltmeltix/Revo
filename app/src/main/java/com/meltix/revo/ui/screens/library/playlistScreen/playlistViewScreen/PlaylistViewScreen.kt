@@ -12,14 +12,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.meltix.revo.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistViewScreen(
-    navController: NavController,
-    navControllerBottomBar: NavHostController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
 ) {
     val expanded = remember { mutableStateOf(false) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -29,7 +28,7 @@ fun PlaylistViewScreen(
         topBar = {
             PlaylistViewTopAppBar(
                 modifier = Modifier,
-                navControllerBottomBar = navControllerBottomBar,
+                libraryNavController = libraryNavController,
                 expanded = expanded,
                 scrollBehavior = scrollBehavior
             )
@@ -52,7 +51,7 @@ fun PlaylistViewScreen(
 @Composable
 private fun PlaylistViewTopAppBar(
     modifier: Modifier,
-    navControllerBottomBar: NavHostController,
+    libraryNavController: NavController,
     expanded: MutableState<Boolean>,
     scrollBehavior: TopAppBarScrollBehavior,
 ) {
@@ -61,7 +60,7 @@ private fun PlaylistViewTopAppBar(
         modifier = modifier,
         navigationIcon = {
             IconButton(
-                onClick = { navControllerBottomBar.navigateUp() }
+                onClick = { libraryNavController.navigateUp() }
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),

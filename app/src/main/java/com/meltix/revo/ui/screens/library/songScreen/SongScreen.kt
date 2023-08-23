@@ -37,8 +37,8 @@ import com.meltix.revo.util.functions.findActivity
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun SongsScreen(
-    navControllerApp: NavController,
-    navControllerMain: NavController,
+    rootNavController: NavController,
+    libraryNavController: NavController,
     viewModel: SongViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -51,7 +51,7 @@ fun SongsScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { SongTopActionBar(navControllerApp, scrollBehavior, viewModel, windowClass) },
+        topBar = { SongTopActionBar(rootNavController, scrollBehavior, viewModel, windowClass) },
         containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
             ContentSelector(
@@ -75,7 +75,7 @@ fun SongsScreen(
                         modifier = Modifier.contentModifier(windowClass, padding),
                         verticalArrangement = Arrangement.spacedBy(2.dp),
                         contentPadding = PaddingValues(bottom = 70.dp)
-                    ) { songList(songList, navControllerMain) }
+                    ) { songList(songList, libraryNavController) }
                 }
             )
         }
