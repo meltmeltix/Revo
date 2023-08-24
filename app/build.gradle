@@ -98,7 +98,7 @@ dependencies {
     implementation('io.coil-kt:coil-compose:2.4.0')
 
     // Media player
-    implementation 'com.google.android.exoplayer:exoplayer:2.19.0'
+    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
 
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation files('lib/spotify-app-remote-release-0.7.2.aar')

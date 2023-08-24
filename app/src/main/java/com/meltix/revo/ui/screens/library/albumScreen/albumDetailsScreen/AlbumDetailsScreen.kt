@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +23,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.meltix.pixely_components.PixelyListItem
+import com.meltix.pixely_components.PixelySectionTitle
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.album.AlbumDetails
@@ -31,6 +34,7 @@ import com.meltix.revo.data.classes.album.AlbumSong
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.ui.components.ContentSelector
 import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.util.functions.findActivity
 
 
@@ -47,15 +51,8 @@ fun AlbumViewScreen(
     val windowClass = calculateWindowSizeClass(activity)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-    val scrollState = rememberLazyListState()
-    val firstVisibleItem = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val headerLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
-    val contentScale = when(headerLayout) {
-        HeaderLayout.REVO -> ContentScale.FillBounds
-        HeaderLayout.FRUIT_MUSIC -> ContentScale.FillHeight
-        HeaderLayout.MINIMAL -> ContentScale.FillWidth
-    }
     val albumDetails by viewModel.albumDetails.collectAsStateWithLifecycle(
         AlbumDetails("Unknown Album", 0, "Unknown Artist", null)
     )
@@ -65,39 +62,102 @@ fun AlbumViewScreen(
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            AlbumDetailsTopActionBar(
+                rootNavController = rootNavController,
+                libraryNavController = libraryNavController,
+                scrollBehavior = scrollBehavior,
+                viewModel = viewModel,
+                windowClass = windowClass,
+                albumDetails = albumDetails
+            )
+        },
+        containerColor = surfaceColorOnWindowSize(windowClass),
         content = { padding ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                // TODO: Improve content loading units
-                ContentSelector(
-                    state = contentState,
-                    loadingUnit = {
-                        // TODO: Add Loading Unit
-                    },
-                    failedUnit = {
-                        // TODO: Add Failed Unit
-                    },
-                    contentUnit = {
-                        LazyColumn(
-                            modifier = Modifier.contentModifier(windowClass, padding),
-                            verticalArrangement = Arrangement.spacedBy(2.dp),
-                            state = scrollState
-                        ) {
-
-                        }
-                    }
-                )
-
-                AlbumDetailsTopActionBar(
-                    albumDetails = albumDetails,
-                    rootNavController = rootNavController,
-                    libraryNavController = libraryNavController,
-                    viewModel = viewModel,
-                    firstVisibleItem = firstVisibleItem
-                )
-            }
+            ContentSelector(
+                state = contentState,
+                loadingUnit = {
+                    // TODO: Add Loading Unit
+                },
+                failedUnit = {
+                    // TODO: Add Failed Unit
+                },
+                contentUnit = {
+                    ContentUnit(
+                        modifier = Modifier.contentModifier(windowClass, padding),
+                        viewModel = viewModel,
+                        libraryNavController = libraryNavController,
+                        windowClass = windowClass,
+                        headerLayout = headerLayout,
+                        albumDetails = albumDetails,
+                        songList = songList
+                    )
+                }
+            )
         }
     )
 }
+
+@Composable
+private fun ContentUnit(
+    modifier: Modifier,
+    viewModel: AlbumDetailsViewModel,
+    libraryNavController: NavController,
+    windowClass: WindowSizeClass,
+    headerLayout: HeaderLayout,
+    albumDetails: AlbumDetails,
+    songList: List<AlbumSong>,
+) {
+    val contentScale = when(headerLayout) {
+        HeaderLayout.REVO -> ContentScale.FillBounds
+        HeaderLayout.FRUIT_MUSIC -> ContentScale.FillHeight
+        HeaderLayout.MINIMAL -> ContentScale.FillWidth
+    }
+
+    LazyColumn(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+    ) {
+        item {
+            AlbumDetailsHeader(
+                viewModel = viewModel,
+                navController = libraryNavController,
+                windowClass = windowClass,
+                layout = headerLayout,
+                leadingUnit = {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(albumDetails.coverUri)
+                            .crossfade(true)
+                            .build(),
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentScale = contentScale,
+                        contentDescription = stringResource(id = R.string.str_albumImage),
+                    )
+                },
+                albumDetails = albumDetails
+            )
+        }
+
+        item {
+            PixelySectionTitle(
+                stringTitle = stringResource(id = R.string.str_songs),
+                horizontalContentPadding = 15.dp
+            )
+        }
+
+        albumSongsList(songList)
+    }
+}
+
+/*AlbumDetailsTopActionBar(
+    albumDetails = albumDetails,
+    rootNavController = rootNavController,
+    libraryNavController = libraryNavController,
+    viewModel = viewModel,
+    firstVisibleItem = firstVisibleItem
+)*/
 
 /*item {
     AlbumViewHeader(
@@ -118,16 +178,7 @@ fun AlbumViewScreen(
             )
         }
     )
-}
-
-item {
-    PixelySectionTitle(
-        stringTitle = stringResource(id = R.string.str_songs),
-        horizontalContentPadding = 15.dp
-    )
-}
-
-albumSongsList(songList)*/
+}*/
 
 private fun LazyListScope.albumSongsList(songs: List<AlbumSong>) {
     itemsIndexed(items = songs) { key, item ->
