@@ -1,5 +1,9 @@
 package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.DropdownMenuItem
@@ -14,6 +18,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -66,6 +71,7 @@ fun AlbumDetailsHeader(
 fun AlbumDetailsTopActionBar(
     rootNavController: NavController,
     libraryNavController: NavController,
+    firstVisibleItem: State<Boolean>,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: AlbumDetailsViewModel,
     windowClass: WindowSizeClass,
@@ -73,9 +79,15 @@ fun AlbumDetailsTopActionBar(
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-
+    
     TopAppBar(
-        title = { Text(text = albumDetails.title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+        title = { 
+            AnimatedVisibility(
+                visible = firstVisibleItem.value,
+                enter = fadeIn(animationSpec = tween(100)),
+                exit = fadeOut(animationSpec = tween(100))
+            ) { Text(text = albumDetails.title, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+        },
         navigationIcon = {
             IconButton(
                 onClick = { libraryNavController.navigateUp() },
@@ -254,6 +266,14 @@ fun AlbumDetailsItemDropDownMenu(
         expanded = expanded.value,
         onDismissRequest = { expanded.value = false }
     ) {
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_addToFavorites)) },
+            onClick = {  }
+        )
 
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_addToPlaylist)) },
+            onClick = {  }
+        )
     }
 }

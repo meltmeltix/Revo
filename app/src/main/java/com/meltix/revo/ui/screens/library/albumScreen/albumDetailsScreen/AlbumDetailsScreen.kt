@@ -4,7 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -50,6 +52,8 @@ fun AlbumViewScreen(
     val activity = context.findActivity()
     val windowClass = calculateWindowSizeClass(activity)
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollState = rememberLazyListState()
+    val firstVisibleItem = remember { derivedStateOf { scrollState.firstVisibleItemIndex > 0 } }
 
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val headerLayout by viewModel.headerLayout.collectAsStateWithLifecycle(HeaderLayout.REVO)
@@ -67,6 +71,7 @@ fun AlbumViewScreen(
                 rootNavController = rootNavController,
                 libraryNavController = libraryNavController,
                 scrollBehavior = scrollBehavior,
+                firstVisibleItem = firstVisibleItem,
                 viewModel = viewModel,
                 windowClass = windowClass,
                 albumDetails = albumDetails
@@ -90,6 +95,7 @@ fun AlbumViewScreen(
                         windowClass = windowClass,
                         headerLayout = headerLayout,
                         albumDetails = albumDetails,
+                        listScrollState = scrollState,
                         songList = songList
                     )
                 }
@@ -106,6 +112,7 @@ private fun ContentUnit(
     windowClass: WindowSizeClass,
     headerLayout: HeaderLayout,
     albumDetails: AlbumDetails,
+    listScrollState: LazyListState,
     songList: List<AlbumSong>,
 ) {
     val contentScale = when(headerLayout) {
@@ -116,6 +123,7 @@ private fun ContentUnit(
 
     LazyColumn(
         modifier = modifier,
+        state = listScrollState,
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         item {
