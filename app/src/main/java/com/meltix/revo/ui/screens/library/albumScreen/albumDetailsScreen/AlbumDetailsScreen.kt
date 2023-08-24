@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -35,7 +36,7 @@ import com.meltix.revo.data.classes.album.AlbumDetails
 import com.meltix.revo.data.classes.album.AlbumSong
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.ui.components.ContentSelector
-import com.meltix.revo.ui.components.contentModifier
+import com.meltix.revo.ui.components.albumDetailsContentModifier
 import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.util.functions.findActivity
 
@@ -73,6 +74,7 @@ fun AlbumViewScreen(
                 scrollBehavior = scrollBehavior,
                 firstVisibleItem = firstVisibleItem,
                 viewModel = viewModel,
+                headerLayout = headerLayout,
                 windowClass = windowClass,
                 albumDetails = albumDetails
             )
@@ -89,7 +91,7 @@ fun AlbumViewScreen(
                 },
                 contentUnit = {
                     ContentUnit(
-                        modifier = Modifier.contentModifier(windowClass, padding),
+                        modifier = Modifier.albumDetailsContentModifier(windowClass, padding, headerLayout),
                         viewModel = viewModel,
                         libraryNavController = libraryNavController,
                         windowClass = windowClass,
@@ -117,7 +119,11 @@ private fun ContentUnit(
 ) {
     val contentScale = when(headerLayout) {
         HeaderLayout.REVO -> ContentScale.FillBounds
-        HeaderLayout.FRUIT_MUSIC -> ContentScale.FillHeight
+        HeaderLayout.FRUIT_MUSIC ->
+            when(windowClass.widthSizeClass) {
+                WindowWidthSizeClass.Compact -> ContentScale.FillHeight
+                else -> ContentScale.FillWidth
+            }
         HeaderLayout.MINIMAL -> ContentScale.FillWidth
     }
 
@@ -138,8 +144,7 @@ private fun ContentUnit(
                             .data(albumDetails.coverUri)
                             .crossfade(true)
                             .build(),
-                        modifier = Modifier
-                            .fillMaxSize(),
+                        modifier = Modifier.fillMaxSize(),
                         contentScale = contentScale,
                         contentDescription = stringResource(id = R.string.str_albumImage),
                     )
@@ -158,35 +163,6 @@ private fun ContentUnit(
         albumSongsList(songList)
     }
 }
-
-/*AlbumDetailsTopActionBar(
-    albumDetails = albumDetails,
-    rootNavController = rootNavController,
-    libraryNavController = libraryNavController,
-    viewModel = viewModel,
-    firstVisibleItem = firstVisibleItem
-)*/
-
-/*item {
-    AlbumViewHeader(
-        layout = headerLayout,
-        albumDetails = albumDetails,
-        viewModel = viewModel,
-        libraryNavController = libraryNavController,
-        leadingUnit = {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(albumDetails.coverUri)
-                    .crossfade(true)
-                    .build(),
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = contentScale,
-                contentDescription = stringResource(id = R.string.str_albumImage),
-            )
-        }
-    )
-}*/
 
 private fun LazyListScope.albumSongsList(songs: List<AlbumSong>) {
     itemsIndexed(items = songs) { key, item ->

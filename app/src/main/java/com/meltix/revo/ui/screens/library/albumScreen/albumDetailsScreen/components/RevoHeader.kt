@@ -18,6 +18,7 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -30,7 +31,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -39,7 +39,7 @@ import androidx.navigation.NavController
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.album.AlbumDetails
 import com.meltix.revo.data.classes.album.AlbumDuration
-import com.meltix.revo.data.classes.album.AlbumSong
+import com.meltix.revo.ui.components.albumInfoBuilder
 import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.AlbumDetailsViewModel
 import com.meltix.revo.ui.theme.Grey90
@@ -54,18 +54,30 @@ fun RevoHeader(
     albumDetails: AlbumDetails,
 ) {
     when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> CompactHeader(
-            viewModel = viewModel,
-            navController = navController,
-            leadingUnit = leadingUnit,
-            albumDetails = albumDetails
-        )
-        WindowWidthSizeClass.Medium -> MediumHeader(
-            viewModel = viewModel,
-            navController = navController,
-            leadingUnit = leadingUnit,
-            albumDetails = albumDetails
-        )
+        WindowWidthSizeClass.Compact ->
+            CompactHeader(
+                viewModel = viewModel,
+                navController = navController,
+                leadingUnit = leadingUnit,
+                albumDetails = albumDetails
+            )
+        WindowWidthSizeClass.Medium ->
+            MediumHeader(
+                viewModel = viewModel,
+                navController = navController,
+                leadingUnit = leadingUnit,
+                albumDetails = albumDetails
+            )
+        WindowWidthSizeClass.Expanded ->
+            when(windowClass.heightSizeClass) {
+                WindowHeightSizeClass.Compact ->
+                    MediumHeader(
+                        viewModel = viewModel,
+                        navController = navController,
+                        leadingUnit = leadingUnit,
+                        albumDetails = albumDetails
+                    )
+            }
     }
 }
 
@@ -300,24 +312,4 @@ private fun HeaderButtons(
             Text(text = stringResource(id = R.string.str_shuffle))
         }
     }
-}
-
-@Composable
-private fun albumInfoBuilder(songs: List<AlbumSong>, albumDuration: AlbumDuration): String {
-    return "${songs.size} " +
-            pluralStringResource(id = R.plurals.str_songAmount, count = songs.size) + " · " +
-            when {
-                albumDuration.hours > 0 -> {
-                    "${albumDuration.hours} " +
-                            pluralStringResource(id = R.plurals.str_hourAmountAbbr, count = albumDuration.hours) +
-                            " ${albumDuration.minutes} " +
-                            pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = albumDuration.minutes)
-                }
-                else -> {
-                    "${albumDuration.minutes} " +
-                            pluralStringResource(id = R.plurals.str_minutesAmountAbbr, count = albumDuration.minutes) +
-                            " ${albumDuration.seconds} " +
-                            stringResource(id = R.string.str_secondsAmountAbbr)
-                }
-            }
 }

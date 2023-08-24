@@ -21,6 +21,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import com.meltix.revo.data.classes.album.HeaderLayout
 
 @Composable
 fun Modifier.navigationPadding(windowClass: WindowSizeClass): Modifier = composed {
@@ -111,5 +112,53 @@ fun Modifier.contentModifier(
                 .padding(PaddingValues(top = padding.calculateTopPadding(), bottom = 0.dp))
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
+    }
+}
+
+@Composable
+fun Modifier.albumDetailsContentModifier(
+    windowClass: WindowSizeClass,
+    padding: PaddingValues,
+    headerLayout: HeaderLayout
+): Modifier = composed {
+    when (windowClass.widthSizeClass) {
+        WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded ->
+            when (windowClass.heightSizeClass) {
+                WindowHeightSizeClass.Medium, WindowHeightSizeClass.Expanded ->
+                    Modifier
+                        .padding(PaddingValues(top = 64.dp, bottom = 0.dp))
+                        .fillMaxSize()
+                        .clip(
+                            RoundedCornerShape(
+                                topStart = 16.dp,
+                                topEnd = 16.dp,
+                                bottomEnd = 0.dp,
+                                bottomStart = 0.dp
+                            )
+                        )
+                        .background(MaterialTheme.colorScheme.surface)
+                else ->
+                    when(headerLayout) {
+                        HeaderLayout.FRUIT_MUSIC -> Modifier
+                            .padding(PaddingValues(top = 0.dp, bottom = 0.dp))
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surface)
+                        else -> Modifier
+                            .padding(PaddingValues(top = padding.calculateTopPadding(), bottom = 0.dp))
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surface)
+                    }
+            }
+        else ->
+            when(headerLayout) {
+                HeaderLayout.FRUIT_MUSIC -> Modifier
+                    .padding(PaddingValues(top = 0.dp, bottom = 0.dp))
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface)
+                else -> Modifier
+                    .padding(PaddingValues(top = padding.calculateTopPadding(), bottom = 0.dp))
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface)
+            }
     }
 }

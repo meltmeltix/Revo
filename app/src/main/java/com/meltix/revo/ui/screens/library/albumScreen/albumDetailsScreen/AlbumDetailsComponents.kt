@@ -4,17 +4,25 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -36,10 +44,12 @@ import com.meltix.revo.data.classes.album.AlbumDetails
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
-import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
+import com.meltix.revo.ui.components.albumDetailsTopAppBarColor
+import com.meltix.revo.ui.components.albumDetailsTopElementsColor
 import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.RootScreens
+import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components.FruitHeader
 import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components.RevoHeader
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
@@ -61,7 +71,13 @@ fun AlbumDetailsHeader(
             leadingUnit = leadingUnit,
             albumDetails = albumDetails
         )
-        HeaderLayout.FRUIT_MUSIC -> {}
+        HeaderLayout.FRUIT_MUSIC -> FruitHeader(
+            viewModel = viewModel,
+            navController = navController,
+            windowClass = windowClass,
+            leadingUnit = leadingUnit,
+            albumDetails = albumDetails
+        )
         HeaderLayout.MINIMAL -> {}
     }
 }
@@ -74,69 +90,97 @@ fun AlbumDetailsTopActionBar(
     firstVisibleItem: State<Boolean>,
     scrollBehavior: TopAppBarScrollBehavior,
     viewModel: AlbumDetailsViewModel,
+    headerLayout: HeaderLayout,
     windowClass: WindowSizeClass,
     albumDetails: AlbumDetails,
 ) {
     val expandedSortMenu = remember { mutableStateOf(false) }
     val expandedMenu = remember { mutableStateOf(false) }
-    
-    TopAppBar(
-        title = { 
-            AnimatedVisibility(
-                visible = firstVisibleItem.value,
-                enter = fadeIn(animationSpec = tween(100)),
-                exit = fadeOut(animationSpec = tween(100))
-            ) { Text(text = albumDetails.title, maxLines = 1, overflow = TextOverflow.Ellipsis) }
-        },
-        navigationIcon = {
-            IconButton(
-                onClick = { libraryNavController.navigateUp() },
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                    contentDescription = stringResource(id = R.string.str_back)
-                )
-            }
-        },
-        actions = {
-            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
+
+    Box(modifier = Modifier.fillMaxWidth()) {
+        if(windowClass.heightSizeClass != WindowHeightSizeClass.Compact && headerLayout == HeaderLayout.FRUIT_MUSIC) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(systemBarsPadding.calculateTopPadding())
+                    .background(
+                        albumDetailsTopElementsColor(
+                            windowClass,
+                            headerLayout,
+                            firstVisibleItem
+                        )
+                    )
+            )
+        }
+
+        TopAppBar(
+            title = {
+                AnimatedVisibility(
+                    visible = firstVisibleItem.value,
+                    enter = fadeIn(animationSpec = tween(100)),
+                    exit = fadeOut(animationSpec = tween(100))
+                ) { Text(text = albumDetails.title, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+            },
+            navigationIcon = {
                 IconButton(
-                    onClick = { expandedSortMenu.value = true },
+                    onClick = { libraryNavController.navigateUp() },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = albumDetailsTopElementsColor(windowClass, headerLayout, firstVisibleItem)
+                    )
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_sort_24),
-                        contentDescription = stringResource(id = R.string.str_sortBy)
+                        painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                        contentDescription = stringResource(id = R.string.str_back)
+                    )
+                }
+            },
+            actions = {
+                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                    IconButton(
+                        onClick = { expandedSortMenu.value = true },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = albumDetailsTopElementsColor(windowClass, headerLayout, firstVisibleItem)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_sort_24),
+                            contentDescription = stringResource(id = R.string.str_sortBy)
+                        )
+                    }
+
+                    SortDropDownMenu(
+                        expandedSortMenu,
+                        viewModel
                     )
                 }
 
-                SortDropDownMenu(
-                    expandedSortMenu,
-                    viewModel
-                )
-            }
+                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                    IconButton(
+                        onClick = { expandedMenu.value = true },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = albumDetailsTopElementsColor(windowClass, headerLayout, firstVisibleItem)
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                            contentDescription = stringResource(id = R.string.str_settings)
+                        )
+                    }
 
-            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(
-                    onClick = { expandedMenu.value = true },
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_settings)
+                    TopBarDropDownMenu(
+                        expanded = expandedMenu,
+                        rootNavController = rootNavController,
+                        libraryNavController = libraryNavController,
+                        artistId = albumDetails.artistId
                     )
                 }
-
-                TopBarDropDownMenu(
-                    expanded = expandedMenu,
-                    rootNavController = rootNavController,
-                    libraryNavController = libraryNavController,
-                    artistId = albumDetails.artistId
-                )
-            }
-        },
-        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
-        colors = topAppBarColorOnWindowSize(windowClass),
-        scrollBehavior = scrollBehavior,
-    )
+            },
+            windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
+            colors = albumDetailsTopAppBarColor(windowClass, headerLayout, firstVisibleItem),
+            scrollBehavior = scrollBehavior,
+        )
+    }
 }
 
 @Composable
@@ -268,12 +312,12 @@ fun AlbumDetailsItemDropDownMenu(
     ) {
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_addToFavorites)) },
-            onClick = {  }
+            onClick = { }
         )
 
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_addToPlaylist)) },
-            onClick = {  }
+            onClick = { }
         )
     }
 }
