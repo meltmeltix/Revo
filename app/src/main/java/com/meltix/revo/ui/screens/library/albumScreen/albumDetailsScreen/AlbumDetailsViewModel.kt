@@ -22,7 +22,7 @@ import kotlin.math.roundToInt
 
 @HiltViewModel
 class AlbumDetailsViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
+    settingsRepository: SettingsRepository,
     private val sortingRepository: SortingRepository,
     private val albumViewRepository: AlbumViewRepository
 ): ViewModel() {

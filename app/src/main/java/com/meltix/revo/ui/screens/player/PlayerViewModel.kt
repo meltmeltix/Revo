@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository
 ): ViewModel() {
     val playerLayout = settingsRepository.getPlayerLayout()
         .map { PlayerLayout.values()[it] }
