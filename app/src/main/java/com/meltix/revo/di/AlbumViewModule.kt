@@ -1,8 +1,8 @@
 package com.meltix.revo.di
 
 import android.content.Context
-import com.meltix.revo.data.repository.AlbumViewRepositoryImpl
-import com.meltix.revo.domain.repository.AlbumViewRepository
+import com.meltix.revo.data.repository.AlbumDetailsRepositoryImpl
+import com.meltix.revo.domain.repository.AlbumDetailsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,8 @@ object AlbumViewModule {
     @Singleton
     fun provideAlbumViewRepository(
         @ApplicationContext context: Context
-    ): AlbumViewRepository {
-        return AlbumViewRepositoryImpl(context)
+    ): AlbumDetailsRepository {
+        return AlbumDetailsRepositoryImpl(context)
     }
 
 }

@@ -1,13 +1,16 @@
-package com.meltix.revo.ui.screens.settings.customization.albumViewLayout
+package com.meltix.revo.ui.screens.settings.customization.albumDetailsLayout
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -18,13 +21,17 @@ import com.meltix.pixely_components.PixelySupportInfoText
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.ui.theme.RevoTheme
+import com.meltix.revo.util.functions.findActivity
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlbumViewLayoutScreen(
     navController: NavController,
-    viewModel: AlbumViewLayoutViewModel = hiltViewModel()
+    viewModel: AlbumDetailsLayoutViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val windowClass = calculateWindowSizeClass(activity)
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
@@ -66,6 +73,7 @@ fun AlbumViewLayoutScreen(
                         item {
                             AlbumViewLayoutHeaderPreview(
                                 modifier = Modifier.padding(horizontal = 15.dp),
+                                windowClass = windowClass,
                                 selectedOption = selectedLayout
                             )
                         }

@@ -85,7 +85,7 @@ fun ArtistsScreen(
                         windowClass = windowClass,
                         headlineString = stringResource(id = R.string.str_tooQuietArtists),
                         infoString = stringResource(id = R.string.info_tooQuietArtists),
-                        leadingIcon = painterResource(id = R.drawable.outlined_person_off_24)
+                        leadingIcon = painterResource(id = R.drawable.ic_outlined_person_off_24)
                     )
                 },
                 contentUnit = {

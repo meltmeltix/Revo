@@ -9,7 +9,7 @@ import com.meltix.revo.data.classes.album.AlbumSong
 import com.meltix.revo.data.classes.album.HeaderLayout
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
-import com.meltix.revo.domain.repository.AlbumViewRepository
+import com.meltix.revo.domain.repository.AlbumDetailsRepository
 import com.meltix.revo.domain.repository.SettingsRepository
 import com.meltix.revo.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
 class AlbumDetailsViewModel @Inject constructor(
     settingsRepository: SettingsRepository,
     private val sortingRepository: SortingRepository,
-    private val albumViewRepository: AlbumViewRepository
+    private val albumDetailsRepository: AlbumDetailsRepository
 ): ViewModel() {
     val sortTypeList = listOf(
         SortingType.TRACK,
@@ -67,8 +67,8 @@ class AlbumDetailsViewModel @Inject constructor(
     fun initializeAlbumData(albumId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _songs.value = albumViewRepository.getSongList(albumId)
-                _albumDetails.value = albumViewRepository.getAlbumDetails(albumId)
+                _songs.value = albumDetailsRepository.getSongList(albumId)
+                _albumDetails.value = albumDetailsRepository.getAlbumDetails(albumId)
             }
             if (_songs.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
             else { _contentState.value = ContentState.FAILURE }

@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.settings.customization.albumViewLayout
+package com.meltix.revo.ui.screens.settings.customization.albumDetailsLayout
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AlbumViewLayoutViewModel @Inject constructor(
+class AlbumDetailsLayoutViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ): ViewModel() {
     val headerLayout = settingsRepository.getAlbumViewLayout()

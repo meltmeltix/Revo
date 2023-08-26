@@ -10,7 +10,7 @@ import com.meltix.revo.ui.screens.library.playlistScreen.playlistViewScreen.Play
 import com.meltix.revo.ui.screens.settings.SettingsScreen
 import com.meltix.revo.ui.screens.settings.about.AboutScreen
 import com.meltix.revo.ui.screens.settings.customization.CustomizationScreen
-import com.meltix.revo.ui.screens.settings.customization.albumViewLayout.AlbumViewLayoutScreen
+import com.meltix.revo.ui.screens.settings.customization.albumDetailsLayout.AlbumViewLayoutScreen
 import com.meltix.revo.ui.screens.settings.customization.playerLayout.PlayerLayoutScreen
 import com.meltix.revo.ui.screens.settings.library.LibrarySettingsScreen
 import com.meltix.revo.ui.screens.settings.other.OtherScreen

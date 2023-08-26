@@ -10,12 +10,12 @@ import android.provider.MediaStore.Audio.Media
 import androidx.annotation.WorkerThread
 import com.meltix.revo.data.classes.album.AlbumDetails
 import com.meltix.revo.data.classes.album.AlbumSong
-import com.meltix.revo.domain.repository.AlbumViewRepository
+import com.meltix.revo.domain.repository.AlbumDetailsRepository
 import com.meltix.revo.util.functions.calculateSongDuration
 
-class AlbumViewRepositoryImpl(
+class AlbumDetailsRepositoryImpl(
     private val context: Context
-): AlbumViewRepository {
+): AlbumDetailsRepository {
     private companion object {
         val albumDetailsCollection: Uri =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

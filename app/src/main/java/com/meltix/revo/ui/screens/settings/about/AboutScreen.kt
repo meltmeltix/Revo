@@ -98,7 +98,7 @@ fun AboutScreen(navController: NavController) {
                                 ) {
                                     Image(
                                         painter =
-                                        painterResource(id = R.drawable.ill_meltix_200),
+                                        painterResource(id = R.drawable.ic_outlined_person_off_24),
                                         contentDescription =
                                         stringResource(id = R.string.str_AlessioCameroni)
                                     )
