@@ -157,7 +157,7 @@ private fun HeaderButtons() {
         FilledTonalButton(
             onClick = {  },
             modifier = Modifier
-                .weight(0.5f)
+                .weight(1f)
                 .height(45.dp)
         ) {
             Icon(
@@ -174,7 +174,7 @@ private fun HeaderButtons() {
         Button(
             onClick = {  },
             modifier = Modifier
-                .weight(0.5f)
+                .weight(1f)
                 .height(45.dp)
         ) {
             Icon(

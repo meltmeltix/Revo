@@ -43,6 +43,7 @@ fun MainScreen(
                     color = surfaceColorOnWindowSize(windowClass)
                 ) {
                     MainScaffold(
+                        windowClass = windowClass,
                         content = { _ ->
                             LibraryNavigation(
                                 rootNavController = navController,

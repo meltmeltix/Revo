@@ -4,7 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -21,13 +27,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
-import com.meltix.revo.ui.components.navigationPadding
 import com.meltix.revo.ui.navigation.LibraryScreens.Albums
 import com.meltix.revo.ui.navigation.LibraryScreens.Artists
 import com.meltix.revo.ui.navigation.LibraryScreens.Playlists
@@ -36,6 +42,7 @@ import com.meltix.revo.ui.navigation.LibraryScreens.Spotify
 
 @Composable
 fun MainScaffold(
+    windowClass: WindowSizeClass,
     content: @Composable ((PaddingValues) -> Unit)
 ) {
     Scaffold(
@@ -80,9 +87,7 @@ fun BoxScope.MainNavigation(
     when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded ->
             MainNavigationRail(
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .navigationPadding(windowClass),
+                modifier = Modifier.align(Alignment.CenterStart),
                 viewModel = viewModel,
                 items = destinationList,
                 spotifyItemState = spotifyItemState,
@@ -98,9 +103,7 @@ fun BoxScope.MainNavigation(
             )
         else ->
             MainNavigationBar(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .navigationPadding(windowClass),
+                modifier = Modifier.align(Alignment.BottomCenter),
                 viewModel = viewModel,
                 items = destinationList,
                 spotifyItemState = spotifyItemState,
@@ -127,9 +130,13 @@ fun MainNavigationRail(
     onItemClick: (MainNavigationItem) -> Unit,
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
+    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
 
     NavigationRail(
-        modifier = modifier,
+        modifier = modifier.padding(
+                start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
+                end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
+            ),
         containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
     ) {
         Column(
@@ -197,9 +204,7 @@ fun MainNavigationBar(
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
 
-    NavigationBar(
-        modifier = modifier
-    ) {
+    NavigationBar(modifier = modifier.padding(0.dp)) {
         items.forEach { item ->
             val currentEntry =
                 if (backStackEntry.value?.destination?.route == null) ""

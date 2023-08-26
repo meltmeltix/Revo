@@ -96,7 +96,7 @@ private fun CompactHeader(
     ) {
         Box(
             modifier = Modifier
-                .clip(MaterialTheme.shapes.extraLarge)
+                .clip(MaterialTheme.shapes.small)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .aspectRatio(1f),
@@ -281,7 +281,7 @@ private fun HeaderButtons(
         FilledTonalButton(
             onClick = onPlayClick,
             modifier = Modifier
-                .weight(0.5f)
+                .weight(1f)
                 .height(45.dp)
         ) {
             Icon(
@@ -298,7 +298,7 @@ private fun HeaderButtons(
         Button(
             onClick = onShuffleClick,
             modifier = Modifier
-                .weight(0.5f)
+                .weight(1f)
                 .height(45.dp)
         ) {
             Icon(

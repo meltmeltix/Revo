@@ -267,12 +267,12 @@ private fun HeaderButtons(
     onPlayClick: () -> Unit,
     onShuffleClick: () -> Unit
 ) {
-    when(windowClass) {
-        WindowWidthSizeClass.Compact -> {
-            Row(
-                modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        when(windowClass) {
+            WindowWidthSizeClass.Compact -> {
                 ElevatedButton(
                     onClick = onPlayClick,
                     modifier = Modifier
@@ -303,12 +303,7 @@ private fun HeaderButtons(
                     Text(text = stringResource(id = R.string.str_shuffle))
                 }
             }
-        }
-        else -> {
-            Row(
-                modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
+            else -> {
                 FilledTonalIconButton(
                     modifier = Modifier.size(50.dp),
                     onClick = onShuffleClick

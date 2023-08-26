@@ -24,21 +24,6 @@ import androidx.compose.ui.unit.dp
 import com.meltix.revo.data.classes.album.HeaderLayout
 
 @Composable
-fun Modifier.navigationPadding(windowClass: WindowSizeClass): Modifier = composed {
-    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
-
-    when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded ->
-            Modifier.padding(
-                start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
-                end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
-            )
-        else ->
-            Modifier.padding(0.dp)
-    }
-}
-
-@Composable
 fun Modifier.panelSurfaceModifier(windowClass: WindowSizeClass): Modifier = composed {
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()

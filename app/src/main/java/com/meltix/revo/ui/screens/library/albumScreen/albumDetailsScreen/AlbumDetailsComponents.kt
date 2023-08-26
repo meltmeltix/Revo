@@ -50,6 +50,7 @@ import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components.FruitHeader
+import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components.MinimalHeader
 import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components.RevoHeader
 import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
@@ -78,7 +79,13 @@ fun AlbumDetailsHeader(
             leadingUnit = leadingUnit,
             albumDetails = albumDetails
         )
-        HeaderLayout.MINIMAL -> {}
+        HeaderLayout.MINIMAL -> MinimalHeader(
+            viewModel = viewModel,
+            navController = navController,
+            windowClass = windowClass,
+            leadingUnit = leadingUnit,
+            albumDetails = albumDetails
+        )
     }
 }
 

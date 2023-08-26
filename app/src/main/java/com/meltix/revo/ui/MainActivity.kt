@@ -27,12 +27,14 @@ val permissionsList = listOf(
 class MainActivity : ComponentActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         var keepSplash = true
         val splashDelay = 300L
+
+        super.onCreate(savedInstanceState)
+
         installSplashScreen().setKeepOnScreenCondition { keepSplash }
         Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, splashDelay)
+        enableEdgeToEdge()
 
         setContent {
             /*
@@ -41,7 +43,6 @@ class MainActivity : ComponentActivity() {
              *  based on UI state.
              *  Check https://github.com/android/nowinandroid/blob/main/app/src/main/java/com/google/samples/apps/nowinandroid/MainActivity.kt
              */
-            enableEdgeToEdge()
 
             RevoTheme {
                 Surface(
