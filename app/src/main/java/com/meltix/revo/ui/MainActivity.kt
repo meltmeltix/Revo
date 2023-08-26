@@ -6,13 +6,13 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.permissions.SetContentByPermission
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         var keepSplash = true
         val splashDelay = 300L
@@ -36,6 +35,14 @@ class MainActivity : ComponentActivity() {
         Handler(Looper.getMainLooper()).postDelayed({ keepSplash = false }, splashDelay)
 
         setContent {
+            /*
+             * TODO Since we want the user to choose which theme to use within the app,
+             *  remember to add a viewmodel for the mainactivity, and add a preference
+             *  based on UI state.
+             *  Check https://github.com/android/nowinandroid/blob/main/app/src/main/java/com/google/samples/apps/nowinandroid/MainActivity.kt
+             */
+            enableEdgeToEdge()
+
             RevoTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
