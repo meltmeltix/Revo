@@ -31,12 +31,8 @@ fun WelcomeHeader() {
             buildAnnotatedString {
                 append(stringResource(id = R.string.str_welcome))
                 withStyle(
-                    style = SpanStyle(
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                ) {
-                    append(" $stringRevo")
-                }
+                    style = SpanStyle(color = MaterialTheme.colorScheme.primary)
+                ) { append(" $stringRevo") }
             }
         )
     }
@@ -50,10 +46,7 @@ fun ListPermissionRow(
     stringSubtitle: String,
     unitButton: @Composable (() -> Unit)
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
+    Row(modifier = modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
                 .padding(25.dp)
@@ -71,8 +64,7 @@ fun ListPermissionRow(
 
         Column(
             modifier = Modifier
-                .padding(vertical = 25.dp)
-                .padding(end = 15.dp)
+                .padding(0.dp, 25.dp, 15.dp, 25.dp)
                 .weight(1f),
             verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically)
         ) {
@@ -106,9 +98,7 @@ fun ForwardAppButton(
     Button(
         onClick = {
             navController.navigate(RootScreens.Main.route) {
-                popUpTo(RootScreens.Welcome.route) {
-                    inclusive = true
-                }
+                popUpTo(RootScreens.Welcome.route) { inclusive = true }
             }
         },
         modifier = Modifier
@@ -117,8 +107,7 @@ fun ForwardAppButton(
         enabled = enabledState
     ) {
         Icon(
-            painter =
-            painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
+            painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
             contentDescription = stringResource(id = R.string.str_letsGo),
             modifier = Modifier
                 .padding(horizontal = 8.dp)

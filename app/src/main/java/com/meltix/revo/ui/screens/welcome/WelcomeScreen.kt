@@ -4,8 +4,26 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,15 +32,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import com.meltix.revo.R
 import com.meltix.revo.ui.permissionsList
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.permissions.checkPermissions
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -63,14 +80,12 @@ fun WelcomeScreen(navController: NavHostController) {
                 modifier = Modifier.fillMaxSize(),
                 topBar = { LargeTopAppBar(title = { WelcomeHeader() }) },
                 bottomBar = {
-                    BottomAppBar(
-                        content = {
-                            ForwardAppButton(
-                                enabledState = buttonForwardEnabled,
-                                navController = navController
-                            )
-                        }
-                    )
+                    BottomAppBar {
+                        ForwardAppButton(
+                            enabledState = buttonForwardEnabled,
+                            navController = navController
+                        )
+                    }
                 },
                 snackbarHost = { SnackbarHost(hostState = snackBarHostState) },
                 content = { padding ->
@@ -88,30 +103,19 @@ fun WelcomeScreen(navController: NavHostController) {
                             stringSubtitle = stringResource(id = R.string.info_storageAccess),
                             unitButton = {
                                 FilledTonalButton(
-                                    onClick = {
-                                        mediaPermissionState.launchPermissionRequest()
-                                    },
-                                    modifier = Modifier
-                                        .fillMaxWidth(),
+                                    onClick = { mediaPermissionState.launchPermissionRequest() },
+                                    modifier = Modifier.fillMaxWidth(),
                                     enabled = buttonStorageEnabled.value
                                 ) {
-                                    Box {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_outlined_sd_card_24),
-                                            contentDescription = stringResource(id = R.string.str_grantAccess),
-                                            modifier = Modifier
-                                                .padding(end = 8.dp)
-                                                .size(ButtonDefaults.IconSize)
-                                        )
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_outlined_sd_card_24),
+                                        contentDescription = stringResource(id = R.string.str_grantAccess),
+                                        modifier = Modifier
+                                            .padding(end = 8.dp)
+                                            .size(ButtonDefaults.IconSize)
+                                    )
 
-                                        Text(
-                                            text = stringResource(id = R.string.str_grantAccess),
-                                            modifier = Modifier
-                                                .padding(end = 8.dp)
-                                                .fillMaxWidth(),
-                                            textAlign = TextAlign.Center
-                                        )
-                                    }
+                                    Text(text = stringResource(id = R.string.str_grantAccess))
                                 }
                             }
                         )
@@ -140,7 +144,7 @@ fun callSnackBar(
             SnackbarResult.Dismissed -> {  }
             SnackbarResult.ActionPerformed -> {
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                intent.data = Uri.parse("package:com.meltix.revo")
+                intent.data = Uri.parse("package:" + R.string.app_packageName)
                 context.startActivity(intent)
             }
         }

@@ -1,16 +1,19 @@
 package com.meltix.revo.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -18,238 +21,228 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.MainNavigationItem
+import com.meltix.revo.ui.navigation.LibraryScreens
 import com.meltix.revo.ui.navigation.LibraryScreens.Albums
 import com.meltix.revo.ui.navigation.LibraryScreens.Artists
 import com.meltix.revo.ui.navigation.LibraryScreens.Playlists
 import com.meltix.revo.ui.navigation.LibraryScreens.Songs
-import com.meltix.revo.ui.navigation.LibraryScreens.Spotify
 
 @Composable
-fun MainScaffold(
-    windowClass: WindowSizeClass,
-    content: @Composable ((PaddingValues) -> Unit)
-) {
-    Scaffold(
-        content = content
-    )
-}
-
-@Composable
-fun BoxScope.MainNavigation(
-    windowClass: WindowSizeClass,
+fun MainLayout(
+    windowWidthSize: WindowWidthSizeClass,
+    currentDestinationRoute: String?,
+    onNavigationItemSelected: (String) -> Unit,
     viewModel: MainViewModel,
     spotifyItemState: Boolean,
-    navController: NavHostController
+    content: @Composable () -> Unit,
 ) {
     val destinationList = listOf(
         MainNavigationItem(
             name = stringResource(id = R.string.str_songs),
             route = Songs.route,
-            iconOutlined = painterResource(id = R.drawable.ic_baseline_music_note_24),
-            iconFilled = painterResource(id = R.drawable.ic_baseline_music_note_24)
+            unselectedIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
+            selectedIcon = painterResource(id = R.drawable.ic_baseline_music_note_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_albums),
             route = Albums.route,
-            iconOutlined = painterResource(id = R.drawable.ic_outlined_album_24),
-            iconFilled = painterResource(id = R.drawable.ic_filled_album_24)
+            unselectedIcon = painterResource(id = R.drawable.ic_outlined_album_24),
+            selectedIcon = painterResource(id = R.drawable.ic_filled_album_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_artists),
             route = Artists.route,
-            iconOutlined = painterResource(id = R.drawable.ic_outlined_groups_24),
-            iconFilled = painterResource(id = R.drawable.ic_filled_groups_24)
+            unselectedIcon = painterResource(id = R.drawable.ic_outlined_groups_24),
+            selectedIcon = painterResource(id = R.drawable.ic_filled_groups_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_playlists),
             route = Playlists.route,
-            iconOutlined = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
-            iconFilled = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
+            unselectedIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
+            selectedIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
         ),
     )
 
-    when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Medium, WindowWidthSizeClass.Expanded ->
-            MainNavigationRail(
-                modifier = Modifier.align(Alignment.CenterStart),
-                viewModel = viewModel,
-                items = destinationList,
-                spotifyItemState = spotifyItemState,
-                navController = navController,
-                onItemClick = {
-                    viewModel.latestDestination = it.route
-                    navController.navigate(it.route) {
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            )
-        else ->
-            MainNavigationBar(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                viewModel = viewModel,
-                items = destinationList,
-                spotifyItemState = spotifyItemState,
-                navController = navController,
-                onItemClick = {
-                    viewModel.latestDestination = it.route
-                    navController.navigate(it.route) {
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            )
+    when(windowWidthSize) {
+        WindowWidthSizeClass.Compact -> CompactLayout(
+            viewModel = viewModel,
+            destinationList = destinationList,
+            spotifyItemState = spotifyItemState,
+            currentDestinationRoute = currentDestinationRoute,
+            onNavigationItemSelected = { onNavigationItemSelected(it) }
+        ) { _ -> content() }
+        else -> ExpandedLayout(
+            viewModel = viewModel,
+            destinationList = destinationList,
+            spotifyItemState = spotifyItemState,
+            currentDestinationRoute = currentDestinationRoute,
+            onNavigationItemSelected = { onNavigationItemSelected(it) }
+        ) { content() }
     }
 }
 
 @Composable
-fun MainNavigationRail(
-    modifier: Modifier,
-    items: List<MainNavigationItem>,
+private fun CompactLayout(
     viewModel: MainViewModel,
+    destinationList: List<MainNavigationItem>,
     spotifyItemState: Boolean,
-    navController: NavHostController,
-    onItemClick: (MainNavigationItem) -> Unit,
+    currentDestinationRoute: String?,
+    onNavigationItemSelected: (String) -> Unit,
+    content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
-    val backStackEntry = navController.currentBackStackEntryAsState()
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surface
+    ) {
+        Scaffold(
+            bottomBar = {
+                NavigationBar {
+                    destinationList.forEach { item ->
+                        val selected =
+                            item.route == currentDestinationRoute ||
+                            item.route == viewModel.latestDestination
+                        if(currentDestinationRoute == Songs.route) {
+                            viewModel.latestDestination = Songs.route
+                        }
+
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = { onNavigationItemSelected(item.route) },
+                            icon = { Icon(
+                                        painter =
+                                            if (selected) item.selectedIcon
+                                            else item.unselectedIcon,
+                                        contentDescription = item.name
+                                    ) },
+                            label = { Text(item.name) }
+                        )
+                    }
+    
+                    if(spotifyItemState) {
+                        val item = LibraryScreens.Spotify
+                        val selected =
+                            item.route == currentDestinationRoute ||
+                            item.route == viewModel.latestDestination
+                        if(currentDestinationRoute == Songs.route) {
+                            viewModel.latestDestination = Songs.route
+                        }
+        
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = { onNavigationItemSelected(item.route) },
+                            icon = { Icon(
+                                painter =
+                                    if (selected) painterResource(R.drawable.ic_filled_spotify_24)
+                                    else painterResource(R.drawable.ic_outlined_spotify_24),
+                                contentDescription = stringResource(R.string.str_spotify)
+                            ) },
+                            label = { Text(stringResource(R.string.str_spotify)) }
+                        )
+                    }
+                }
+            }
+        ) { innerPadding -> content(innerPadding) }
+    }
+}
+
+@Composable
+private fun ExpandedLayout(
+    viewModel: MainViewModel,
+    destinationList: List<MainNavigationItem>,
+    spotifyItemState: Boolean,
+    currentDestinationRoute: String?,
+    onNavigationItemSelected: (String) -> Unit,
+    content: @Composable () -> Unit,
+) {
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
 
-    NavigationRail(
-        modifier = modifier.padding(
-                start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
-                end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
-            ),
-        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxHeight(),
-            verticalArrangement = Arrangement.Bottom
+        Row(
+            modifier = Modifier.padding(
+                start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
+                top = systemBarsPadding.calculateTopPadding(),
+                end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr) + 24.dp
+            )
         ) {
-            items.forEach { item ->
-                val currentEntry =
-                    if (backStackEntry.value?.destination?.route == null) ""
-                    else backStackEntry.value!!.destination.route
-                val selected = item.route == currentEntry || item.route == viewModel.latestDestination
-                when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
-
-                NavigationRailItem(
-                    selected = selected,
-                    onClick = { onItemClick(item) },
-                    icon = { Icon(
-                        if (selected) item.iconFilled else item.iconOutlined,
-                        contentDescription = item.name
-                    ) },
-                    label = { Text(text = item.name) },
-                )
-            }
-
-            if(spotifyItemState) {
-                val currentEntry =
-                    if (backStackEntry.value?.destination?.route == null) ""
-                    else backStackEntry.value!!.destination.route
-                val selected = Spotify.route == currentEntry || Spotify.route == viewModel.latestDestination
-                when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
-
-                NavigationRailItem(
-                    selected = selected,
-                    onClick = {
-                        viewModel.latestDestination = Spotify.route
-                        navController.navigate(Spotify.route) {
-                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
+            NavigationRail(
+                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxHeight(),
+                    verticalArrangement = Arrangement.Bottom
+                ) {
+                    destinationList.forEach { item ->
+                        val selected =
+                            item.route == currentDestinationRoute ||
+                            item.route == viewModel.latestDestination
+                        if(currentDestinationRoute == Songs.route) {
+                            viewModel.latestDestination = Songs.route
                         }
-                    },
-                    icon = { Icon(
-                        painter = if(selected) {
-                            painterResource(id = R.drawable.ic_filled_spotify_24)
-                        } else {
-                            painterResource(id = R.drawable.ic_outlined_spotify_24)
-                        },
-                        contentDescription = stringResource(id = R.string.str_spotify)
-                    ) },
-                    label = { Text(text = stringResource(id = R.string.str_spotify)) },
-                )
-            }
-        }
-    }
-}
 
-@Composable
-fun MainNavigationBar(
-    modifier: Modifier,
-    viewModel: MainViewModel,
-    spotifyItemState: Boolean,
-    navController: NavHostController,
-    onItemClick: (MainNavigationItem) -> Unit,
-    items: List<MainNavigationItem>,
-) {
-    val backStackEntry = navController.currentBackStackEntryAsState()
-
-    NavigationBar(modifier = modifier.padding(0.dp)) {
-        items.forEach { item ->
-            val currentEntry =
-                if (backStackEntry.value?.destination?.route == null) ""
-                else backStackEntry.value!!.destination.route
-            val selected = item.route == currentEntry || item.route == viewModel.latestDestination
-            when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
-
-            NavigationBarItem(
-                selected = selected,
-                onClick = { onItemClick(item) },
-                icon = { Icon(
-                    if (selected) item.iconFilled else item.iconOutlined,
-                    contentDescription = item.name
-                ) },
-                label = { Text(text = item.name) },
-            )
-        }
-
-        if(spotifyItemState) {
-            val currentEntry =
-                if (backStackEntry.value?.destination?.route == null) ""
-                else backStackEntry.value!!.destination.route
-            val selected = Spotify.route == currentEntry || Spotify.route == viewModel.latestDestination
-            when(currentEntry) { Songs.route -> viewModel.latestDestination = Songs.route }
-
-            NavigationBarItem(
-                selected = selected,
-                onClick = {
-                    viewModel.latestDestination = Spotify.route
-                    navController.navigate(Spotify.route) {
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
+                        NavigationRailItem(
+                            selected = selected,
+                            onClick = { onNavigationItemSelected(item.route) },
+                            icon = { Icon(
+                                painter =
+                                    if (selected) item.selectedIcon
+                                    else item.unselectedIcon,
+                                contentDescription = item.name
+                            ) },
+                            label = { Text(item.name) }
+                        )
                     }
-                },
-                icon = { Icon(
-                    painter = if(selected) {
-                        painterResource(id = R.drawable.ic_filled_spotify_24)
-                    } else {
-                        painterResource(id = R.drawable.ic_outlined_spotify_24)
-                    },
-                    contentDescription = stringResource(id = R.string.str_spotify)
-                ) },
-                label = { Text(text = stringResource(id = R.string.str_spotify)) },
-            )
+                    
+                    if(spotifyItemState) {
+                        val item = LibraryScreens.Spotify
+                        val selected =
+                            item.route == currentDestinationRoute ||
+                            item.route == viewModel.latestDestination
+                        if(currentDestinationRoute == Songs.route) {
+                            viewModel.latestDestination = Songs.route
+                        }
+                        
+                        NavigationRailItem(
+                            selected = selected,
+                            onClick = { onNavigationItemSelected(item.route) },
+                            icon = { Icon(
+                                painter =
+                                    if (selected) painterResource(R.drawable.ic_filled_spotify_24)
+                                    else painterResource(R.drawable.ic_outlined_spotify_24),
+                                contentDescription = stringResource(R.string.str_spotify)
+                            ) },
+                            label = { Text(stringResource(R.string.str_spotify)) }
+                        )
+                    }
+                }
+            }
+
+            Column(
+                modifier = Modifier.clip(
+                    RoundedCornerShape(
+                        topStart = 16.dp,
+                        topEnd = 16.dp,
+                        bottomEnd = 0.dp,
+                        bottomStart = 0.dp
+                    )
+                )
+            ) { content() }
         }
     }
 }
