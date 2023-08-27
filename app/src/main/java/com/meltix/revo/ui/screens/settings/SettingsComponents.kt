@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -178,6 +179,7 @@ private fun ExpandedLayout(
             modifier = Modifier
                 .padding(
                     start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
+                    top = systemBarsPadding.calculateTopPadding(),
                     end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
                 ),
         ) {
@@ -196,13 +198,14 @@ private fun ExpandedLayout(
                                 )
                             }
                         },
+                        windowInsets = WindowInsets(top = 0.dp),
                         colors = TopAppBarDefaults.largeTopAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            containerColor = MaterialTheme.colorScheme.inverseOnSurface,
                         ),
                         scrollBehavior = scrollBehavior
                     )
                 },
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface
             ) { padding ->
                 LazyColumn(
                     modifier = Modifier.padding(
@@ -233,7 +236,7 @@ private fun ExpandedLayout(
                                 colors = PixelyListItemDefaults.colors(
                                     containerColor =
                                         if(selected) MaterialTheme.colorScheme.primaryContainer
-                                        else MaterialTheme.colorScheme.surfaceContainerHighest,
+                                        else MaterialTheme.colorScheme.inverseOnSurface,
                                     leadingContentColor =
                                         if(selected) MaterialTheme.colorScheme.onPrimaryContainer
                                         else MaterialTheme.colorScheme.onSurface,
@@ -249,6 +252,15 @@ private fun ExpandedLayout(
             
             Column(
                 modifier = Modifier
+                    .padding(end = 24.dp)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp,
+                            bottomEnd = 0.dp,
+                            bottomStart = 0.dp
+                        )
+                    )
                     .weight(1f)
                     .background(MaterialTheme.colorScheme.surface)
             ) { content() }
