@@ -23,7 +23,6 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -172,7 +171,7 @@ private fun ExpandedLayout(
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+        color = MaterialTheme.colorScheme.inverseOnSurface
     ) {
         Row(
             modifier = Modifier.padding(
@@ -182,7 +181,7 @@ private fun ExpandedLayout(
             )
         ) {
             NavigationRail(
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface
             ) {
                 Column(
                     modifier = Modifier.fillMaxHeight(),

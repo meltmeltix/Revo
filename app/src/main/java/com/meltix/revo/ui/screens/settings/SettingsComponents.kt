@@ -25,7 +25,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -173,7 +172,7 @@ private fun ExpandedLayout(
     
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+        color = MaterialTheme.colorScheme.inverseOnSurface
     ) {
         Row(
             modifier = Modifier
@@ -198,12 +197,12 @@ private fun ExpandedLayout(
                             }
                         },
                         colors = TopAppBarDefaults.largeTopAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                         ),
                         scrollBehavior = scrollBehavior
                     )
                 },
-                containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest
             ) { padding ->
                 LazyColumn(
                     modifier = Modifier.padding(
@@ -234,7 +233,7 @@ private fun ExpandedLayout(
                                 colors = PixelyListItemDefaults.colors(
                                     containerColor =
                                         if(selected) MaterialTheme.colorScheme.primaryContainer
-                                        else MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
+                                        else MaterialTheme.colorScheme.surfaceContainerHighest,
                                     leadingContentColor =
                                         if(selected) MaterialTheme.colorScheme.onPrimaryContainer
                                         else MaterialTheme.colorScheme.onSurface,
