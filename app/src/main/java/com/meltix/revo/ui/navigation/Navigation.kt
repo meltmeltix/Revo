@@ -17,8 +17,11 @@ import com.meltix.revo.ui.screens.search.SearchScreen
 import com.meltix.revo.ui.screens.welcome.WelcomeScreen
 
 @Composable
-fun RootNavigation(startDestination: String) {
-    val navController = rememberNavController()
+fun RootNavigation(
+    startDestination: String,
+    nestedGraphStartDestination: String? = null,
+    navController: NavHostController = rememberNavController()
+) {
     NavHost(navController = navController, startDestination = startDestination) {
         // Welcome screen
         composable(
@@ -101,7 +104,7 @@ fun RootNavigation(startDestination: String) {
             //TODO Add popEnter when actually listing items
         ) { SearchScreen(navController = navController) }
 
-        settingsGraph(navController)
+        settingsGraph(navController, nestedGraphStartDestination)
     }
 }
 

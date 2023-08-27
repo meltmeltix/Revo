@@ -1,132 +1,56 @@
 package com.meltix.revo.ui.screens.settings
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.*
 import androidx.navigation.NavController
-import com.meltix.pixely_components.PixelyListItem
-import com.meltix.revo.R
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.meltix.revo.ui.navigation.RootNavigation
+import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.ui.navigation.SettingsScreens
+import com.meltix.revo.ui.theme.RevoTheme
+import com.meltix.revo.util.functions.findActivity
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun SettingsScreen(navController: NavController) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
+fun SettingsScreen(
+    navController: NavController,
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val windowClass = calculateWindowSizeClass(activity)
+    val settingsNavController = rememberNavController()
+    val backStackEntry = settingsNavController.currentBackStackEntryAsState().value
+    val currentDestinationRoute = if(backStackEntry?.destination?.route == null) "" else backStackEntry.destination.route
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Scaffold(
-            modifier = Modifier
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .padding(
-                    PaddingValues(
-                        start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
-                        end = systemCutoutPadding.calculateStartPadding(LayoutDirection.Rtl)
-                    )
-                ),
-            topBar = {
-                LargeTopAppBar(
-                    title = { Text(text = stringResource(id = R.string.str_settings)) },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { navController.navigateUp() }
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                                contentDescription = stringResource(id = R.string.str_back)
-                            )
-                        }
-                    },
-                    scrollBehavior = scrollBehavior
-                )
-            },
-            content = { padding ->
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(
-                            start = padding.calculateStartPadding(LayoutDirection.Ltr),
-                            top = padding.calculateTopPadding(),
-                            end = padding.calculateEndPadding(LayoutDirection.Rtl),
-                            bottom = 0.dp,
-                        ),
-                    contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                ){
-                    item {
-                        PixelyListItem(
-                            modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.Library.route) },
-                            headlineTextString = stringResource(id = R.string.str_library),
-                            supportingTextString = stringResource(id = R.string.info_library),
-                            leadingContent = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_library_music_24),
-                                    contentDescription = stringResource(id = R.string.info_library)
-                                )
-                            }
-                        )
-                    }
-
-
-                    item {
-                        PixelyListItem(
-                            modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.Customization.route) },
-                            headlineTextString = stringResource(id = R.string.str_customization),
-                            supportingTextString = stringResource(id = R.string.info_customization),
-                            leadingContent = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_palette_24),
-                                    contentDescription = stringResource(id = R.string.info_customization)
-                                )
-                            }
-                        )
-                    }
-
-                    item {
-                        PixelyListItem(
-                            modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.Other.route) },
-                            headlineTextString = stringResource(id = R.string.str_other),
-                            supportingTextString = stringResource(id = R.string.info_other),
-                            leadingContent = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_interests_24),
-                                    contentDescription = stringResource(id = R.string.info_other)
-                                )
-                            }
-                        )
-                    }
-
-                    item {
-                        PixelyListItem(
-                            modifier = Modifier
-                                .clickable { navController.navigate(SettingsScreens.About.route) },
-                            headlineTextString = stringResource(id = R.string.str_about),
-                            supportingTextString = stringResource(id = R.string.info_about),
-                            leadingContent = {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_outlined_info_24),
-                                    contentDescription = stringResource(id = R.string.info_about)
-                                )
-                            }
-                        )
-                    }
+    RevoTheme {
+        MainSettingsLayout(
+            windowWidthSizeClass = windowClass.widthSizeClass,
+            onBackButtonClick = { navController.navigateUp() },
+            onCompactItemClick = { navController.navigate(it) },
+            currentDestinationRoute = currentDestinationRoute,
+            onExpandedItemClick = {
+                viewModel.latestDestination = it
+                settingsNavController.navigate(it) {
+                    popUpTo(SettingsScreens.Library.route) { saveState = true }
+                    launchSingleTop = true
+                    restoreState = true
                 }
-            }
-        )
+            },
+            viewModel = viewModel,
+        ) {
+            RootNavigation(
+                startDestination = RootScreens.SettingsGraph.route,
+                nestedGraphStartDestination = SettingsScreens.Library.route,
+                navController = settingsNavController
+            )
+        }
     }
 }

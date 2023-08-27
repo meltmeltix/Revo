@@ -130,7 +130,7 @@ private fun CompactLayout(
                             label = { Text(item.name) }
                         )
                     }
-    
+                    
                     if(spotifyItemState) {
                         val item = LibraryScreens.Spotify
                         val selected =
@@ -139,7 +139,7 @@ private fun CompactLayout(
                         if(currentDestinationRoute == Songs.route) {
                             viewModel.latestDestination = Songs.route
                         }
-        
+                        
                         NavigationBarItem(
                             selected = selected,
                             onClick = { onNavigationItemSelected(item.route) },

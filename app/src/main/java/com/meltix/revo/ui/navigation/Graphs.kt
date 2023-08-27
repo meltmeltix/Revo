@@ -16,9 +16,12 @@ import com.meltix.revo.ui.screens.settings.library.LibrarySettingsScreen
 import com.meltix.revo.ui.screens.settings.other.OtherScreen
 import com.meltix.revo.ui.screens.settings.other.appLanguage.AppLanguageScreen
 
-fun NavGraphBuilder.settingsGraph(navController: NavController) {
+fun NavGraphBuilder.settingsGraph(
+    navController: NavController,
+    startDestination: String?
+) {
     navigation(
-        startDestination = SettingsScreens.MainSettings.route,
+        startDestination = startDestination ?: SettingsScreens.MainSettings.route,
         route = RootScreens.SettingsGraph.route
     ) {
         composable(
