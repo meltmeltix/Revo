@@ -196,7 +196,7 @@ private fun HeaderText(
                     text = albumDetails.title,
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.headlineMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )

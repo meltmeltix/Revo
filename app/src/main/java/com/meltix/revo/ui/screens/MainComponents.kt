@@ -184,7 +184,9 @@ private fun ExpandedLayout(
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface
             ) {
                 Column(
-                    modifier = Modifier.fillMaxHeight(),
+                    modifier = Modifier
+                        .weight(0.8f)
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.Bottom
                 ) {
                     destinationList.forEach { item ->
@@ -233,14 +235,17 @@ private fun ExpandedLayout(
             }
 
             Column(
-                modifier = Modifier.clip(
-                    RoundedCornerShape(
-                        topStart = 16.dp,
-                        topEnd = 16.dp,
-                        bottomEnd = 0.dp,
-                        bottomStart = 0.dp
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp,
+                            bottomEnd = 0.dp,
+                            bottomStart = 0.dp
+                        )
                     )
-                )
             ) { content() }
         }
     }

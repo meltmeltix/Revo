@@ -96,7 +96,7 @@ private fun CompactHeader(
     ) {
         Box(
             modifier = Modifier
-                .clip(MaterialTheme.shapes.small)
+                .clip(MaterialTheme.shapes.extraLarge)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .aspectRatio(1f),
@@ -154,7 +154,7 @@ private fun MediumHeader(
     ) {
         Box(
             modifier = Modifier
-                .clip(MaterialTheme.shapes.large)
+                .clip(MaterialTheme.shapes.small)
                 .size(180.dp)
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .aspectRatio(1f),
@@ -210,33 +210,7 @@ private fun HeaderText(
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         when(windowClass) {
-            WindowWidthSizeClass.Medium -> {
-                Text(
-                    text = albumDetails.title,
-                    modifier = Modifier,
-                    style = MaterialTheme.typography.headlineSmall,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Text(
-                    text = albumDetails.artistName,
-                    modifier = Modifier
-                        .clickable(interactionSource, null) {
-                            navController.navigate( DetailsScreens.ArtistDetails.route + "/${albumDetails.artistId}" )
-                        },
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                Text(
-                    text = albumInfo,
-                    modifier = Modifier,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            else -> {
+            WindowWidthSizeClass.Compact -> {
                 Text(
                     text = albumDetails.title,
                     modifier = Modifier,
@@ -245,7 +219,7 @@ private fun HeaderText(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-
+    
                 Text(
                     text = albumDetails.artistName,
                     modifier = Modifier.clickable(interactionSource, null) {
@@ -255,11 +229,37 @@ private fun HeaderText(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-
+    
                 Text(
                     text = albumInfo,
                     modifier = Modifier,
                     color = Grey90,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            else -> {
+                Text(
+                    text = albumDetails.title,
+                    modifier = Modifier,
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+    
+                Text(
+                    text = albumDetails.artistName,
+                    modifier = Modifier
+                        .clickable(interactionSource, null) {
+                            navController.navigate( DetailsScreens.ArtistDetails.route + "/${albumDetails.artistId}" )
+                        },
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+    
+                Text(
+                    text = albumInfo,
+                    modifier = Modifier,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

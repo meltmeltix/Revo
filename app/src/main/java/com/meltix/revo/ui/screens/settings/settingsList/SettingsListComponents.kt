@@ -1,22 +1,17 @@
-package com.meltix.revo.ui.screens.settings
+package com.meltix.revo.ui.screens.settings.settingsList
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -43,14 +39,13 @@ import com.meltix.revo.data.classes.settings.MainSettingsItem
 import com.meltix.revo.ui.navigation.SettingsScreens
 
 @Composable
-fun MainSettingsLayout(
-    windowWidthSizeClass: WindowWidthSizeClass,
-    onBackButtonClick: () -> Boolean,
+fun SettingsListLayout(
+    windowClass: WindowSizeClass,
+    viewModel: SettingsListViewModel,
+    onBackButtonClick: () -> Unit,
     onCompactItemClick: (String) -> Unit,
-    currentDestinationRoute: String?,
     onExpandedItemClick: (String) -> Unit,
-    viewModel: SettingsViewModel,
-    expandedContent: @Composable () -> Unit
+    currentDestinationRoute: String?
 ) {
     val destinationList = listOf(
         MainSettingsItem(
@@ -79,7 +74,7 @@ fun MainSettingsLayout(
         )
     )
     
-    when(windowWidthSizeClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(
             destinationList = destinationList,
             onBackButtonClick = { onBackButtonClick() },
@@ -88,10 +83,10 @@ fun MainSettingsLayout(
         else -> ExpandedLayout(
             viewModel = viewModel,
             destinationList = destinationList,
-            onBackButtonClick = { onBackButtonClick() },
             currentDestinationRoute = currentDestinationRoute,
+            onBackButtonClick = { onBackButtonClick() },
             onItemClick = { onExpandedItemClick(it) }
-        ) { expandedContent() }
+        )
     }
 }
 
@@ -104,19 +99,13 @@ private fun CompactLayout(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
     
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.surface
     ) {
         Scaffold(
-            modifier = Modifier
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-                .padding(
-                    start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
-                    end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
-                ),
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
                 LargeTopAppBar(
                     title = { Text(stringResource(R.string.str_settings)) },
@@ -133,12 +122,7 @@ private fun CompactLayout(
             }
         ) { padding ->
             LazyColumn(
-                modifier = Modifier.padding(
-                    start = padding.calculateStartPadding(LayoutDirection.Ltr),
-                    top = padding.calculateTopPadding(),
-                    end = padding.calculateEndPadding(LayoutDirection.Ltr),
-                    bottom = 0.dp
-                ),
+                modifier = Modifier.padding(padding),
                 contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
@@ -160,110 +144,85 @@ private fun CompactLayout(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ExpandedLayout(
-    viewModel: SettingsViewModel,
+    viewModel: SettingsListViewModel,
     destinationList: List<MainSettingsItem>,
-    onBackButtonClick: () -> Unit,
     currentDestinationRoute: String?,
+    onBackButtonClick: () -> Unit,
     onItemClick: (String) -> Unit,
-    content: @Composable () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
-    val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
     
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.inverseOnSurface
     ) {
-        Row(
-            modifier = Modifier
-                .padding(
-                    start = systemCutoutPadding.calculateStartPadding(LayoutDirection.Ltr),
-                    top = systemBarsPadding.calculateTopPadding(),
-                    end = systemCutoutPadding.calculateEndPadding(LayoutDirection.Ltr)
-                ),
-        ) {
-            Scaffold(
-                modifier = Modifier
-                    .nestedScroll(scrollBehavior.nestedScrollConnection)
-                    .weight(1f),
-                topBar = {
-                    LargeTopAppBar(
-                        title = { Text(stringResource(R.string.str_settings)) },
-                        navigationIcon = {
-                            IconButton(onClick = { onBackButtonClick() }) {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_baseline_arrow_back_24),
-                                    contentDescription = stringResource(R.string.str_back)
-                                )
-                            }
-                        },
-                        windowInsets = WindowInsets(top = 0.dp),
-                        colors = TopAppBarDefaults.largeTopAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.inverseOnSurface,
-                        ),
-                        scrollBehavior = scrollBehavior
-                    )
-                },
-                containerColor = MaterialTheme.colorScheme.inverseOnSurface
-            ) { padding ->
-                LazyColumn(
-                    modifier = Modifier.padding(
-                        start = padding.calculateStartPadding(LayoutDirection.Ltr) + 10.dp,
-                        top = padding.calculateTopPadding(),
-                        end = padding.calculateEndPadding(LayoutDirection.Ltr) + 10.dp,
-                        bottom = 0.dp
-                    ),
-                    contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    itemsIndexed(destinationList) { key, item ->
-                        val selected =
-                            item.route == currentDestinationRoute ||
-                            item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == SettingsScreens.Library.route) {
-                            viewModel.latestDestination = SettingsScreens.Library.route
-                        }
-                        
-                        key(key) {
-                            PixelyListItem(
-                                modifier = Modifier
-                                    .clip(MaterialTheme.shapes.large)
-                                    .clickable { onItemClick(item.route) },
-                                headlineTextString = item.headlineText,
-                                supportingTextString = item.supportingText,
-                                leadingContent = { Icon(item.icon, item.headlineText) },
-                                colors = PixelyListItemDefaults.colors(
-                                    containerColor =
-                                        if(selected) MaterialTheme.colorScheme.primaryContainer
-                                        else MaterialTheme.colorScheme.inverseOnSurface,
-                                    leadingContentColor =
-                                        if(selected) MaterialTheme.colorScheme.onPrimaryContainer
-                                        else MaterialTheme.colorScheme.onSurface,
-                                    headlineColor =
-                                        if(selected) MaterialTheme.colorScheme.onSecondaryContainer
-                                        else MaterialTheme.colorScheme.onSurface,
-                                )
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                LargeTopAppBar(
+                    title = { Text(stringResource(R.string.str_settings)) },
+                    navigationIcon = {
+                        IconButton(onClick = { onBackButtonClick() }) {
+                            Icon(
+                                painter = painterResource(R.drawable.ic_baseline_arrow_back_24),
+                                contentDescription = stringResource(R.string.str_back)
                             )
                         }
+                    },
+                    windowInsets = WindowInsets(top = 0.dp),
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                    ),
+                    scrollBehavior = scrollBehavior
+                )
+            },
+            containerColor = MaterialTheme.colorScheme.inverseOnSurface
+        ) { padding ->
+            LazyColumn(
+                modifier = Modifier.padding(
+                    start = padding.calculateStartPadding(LayoutDirection.Ltr) + 10.dp,
+                    top = padding.calculateTopPadding(),
+                    end = padding.calculateEndPadding(LayoutDirection.Ltr) + 10.dp,
+                    bottom = 0.dp
+                ),
+                contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                itemsIndexed(destinationList) { key, item ->
+                    val selected =
+                        item.route == currentDestinationRoute ||
+                        item.route == viewModel.latestDestination
+                    if(currentDestinationRoute == SettingsScreens.Library.route) {
+                        viewModel.latestDestination = SettingsScreens.Library.route
+                    }
+        
+                    key(key) {
+                        PixelyListItem(
+                            modifier = Modifier
+                                .clip(MaterialTheme.shapes.large)
+                                .clickable { onItemClick(item.route) },
+                            headlineTextString = item.headlineText,
+                            supportingTextString = item.supportingText,
+                            leadingContent = { Icon(item.icon, item.headlineText) },
+                            colors = PixelyListItemDefaults.colors(
+                                containerColor =
+                                    if(selected) MaterialTheme.colorScheme.secondary
+                                    else MaterialTheme.colorScheme.inverseOnSurface,
+                                leadingContentColor =
+                                    if(selected) MaterialTheme.colorScheme.onSecondary
+                                    else MaterialTheme.colorScheme.onSurface,
+                                headlineColor =
+                                    if(selected) MaterialTheme.colorScheme.onSecondary
+                                    else MaterialTheme.colorScheme.onSurface,
+                                supportingTextColor =
+                                    if(selected) MaterialTheme.colorScheme.onSecondary
+                                    else MaterialTheme.colorScheme.onSurface,
+                            )
+                        )
                     }
                 }
             }
-            
-            Column(
-                modifier = Modifier
-                    .padding(end = 24.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 16.dp,
-                            topEnd = 16.dp,
-                            bottomEnd = 0.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
-                    .weight(1f)
-                    .background(MaterialTheme.colorScheme.surface)
-            ) { content() }
         }
     }
 }

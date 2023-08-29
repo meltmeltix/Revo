@@ -7,7 +7,7 @@ import androidx.navigation.navigation
 import com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.AlbumViewScreen
 import com.meltix.revo.ui.screens.library.artistScreen.artistViewScreen.ArtistViewScreen
 import com.meltix.revo.ui.screens.library.playlistScreen.playlistViewScreen.PlaylistViewScreen
-import com.meltix.revo.ui.screens.settings.SettingsScreen
+import com.meltix.revo.ui.screens.settings.MainSettingsScreen
 import com.meltix.revo.ui.screens.settings.about.AboutScreen
 import com.meltix.revo.ui.screens.settings.customization.CustomizationScreen
 import com.meltix.revo.ui.screens.settings.customization.albumDetailsLayout.AlbumViewLayoutScreen
@@ -53,8 +53,8 @@ fun NavGraphBuilder.settingsGraph(
                     else -> null
                 }
             }
-        ) { SettingsScreen(navController = navController) }
-
+        ) { MainSettingsScreen(navController = navController) }
+        
         composable(
             route = SettingsScreens.Library.route,
             enterTransition = {
@@ -71,8 +71,7 @@ fun NavGraphBuilder.settingsGraph(
             },
             //TODO Add popEnter when actually listing items
         ) { LibrarySettingsScreen(navController = navController) }
-
-
+        
         composable(
             route = SettingsScreens.Customization.route,
             enterTransition = {
@@ -168,8 +167,7 @@ fun NavGraphBuilder.settingsGraph(
                 }
             }
         ) { AppLanguageScreen(navController = navController) }
-
-
+        
         composable(
             route = SettingsScreens.About.route,
             enterTransition = {
