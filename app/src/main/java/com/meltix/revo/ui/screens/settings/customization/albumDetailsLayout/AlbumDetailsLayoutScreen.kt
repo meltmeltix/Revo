@@ -64,7 +64,7 @@ private fun LazyListScope.itemList(
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.BottomCenter
-        ) { AlbumPreview(windowClass.widthSizeClass, selectedLayout) }
+        ) { AlbumPreview(windowClass, selectedLayout) }
     }
     
     item { PixelySupportInfoText(stringText = stringResource(id = R.string.info_albumViewLayout)) }

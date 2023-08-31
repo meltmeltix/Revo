@@ -97,6 +97,7 @@ private fun ExpandedLayout(onBackButtonClick: () -> Unit, content: LazyListScope
                         )
                     }
                 },
+                windowInsets = WindowInsets(top = 0.dp),
                 scrollBehavior = scrollBehavior
             )
         }

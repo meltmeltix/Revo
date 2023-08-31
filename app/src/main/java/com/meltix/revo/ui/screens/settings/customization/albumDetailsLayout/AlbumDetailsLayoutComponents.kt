@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -93,6 +95,7 @@ private fun ExpandedLayout(onBackButtonClick: () -> Unit, content: LazyListScope
                         )
                     }
                 },
+                windowInsets = WindowInsets(top = 0.dp),
                 scrollBehavior = scrollBehavior
             )
         }
@@ -133,10 +136,10 @@ fun LayoutSelector(
 
 @Composable
 fun AlbumPreview(
-    windowWidthClass: WindowWidthSizeClass,
+    windowClass: WindowSizeClass,
     selectedLayout: HeaderLayout
 ) {
-    when(windowWidthClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
             Image(
                 modifier = Modifier
@@ -158,7 +161,18 @@ fun AlbumPreview(
             )
         }
         WindowWidthSizeClass.Expanded -> {
-        
+            when(windowClass.heightSizeClass) {
+                WindowHeightSizeClass.Compact -> {
+                    Image(
+                        modifier = Modifier
+                            .padding(30.dp, 30.dp, 30.dp, 0.dp)
+                            .fillMaxSize(),
+                        painter = albumPainterLayout(WindowWidthSizeClass.Medium, selectedLayout),
+                        contentDescription = stringResource(id = R.string.app_name),
+                        contentScale = ContentScale.FillWidth
+                    )
+                }
+            }
         }
     }
 }
