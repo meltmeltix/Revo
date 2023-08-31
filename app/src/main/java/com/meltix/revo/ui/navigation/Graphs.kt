@@ -15,6 +15,7 @@ import com.meltix.revo.ui.screens.settings.customization.playerLayout.PlayerLayo
 import com.meltix.revo.ui.screens.settings.library.LibrarySettingsScreen
 import com.meltix.revo.ui.screens.settings.other.OtherScreen
 import com.meltix.revo.ui.screens.settings.other.appLanguage.AppLanguageScreen
+import com.meltix.revo.ui.screens.settings.settingsList.SettingsListScreen
 
 fun NavGraphBuilder.settingsGraph(
     navController: NavController,
@@ -54,6 +55,39 @@ fun NavGraphBuilder.settingsGraph(
                 }
             }
         ) { MainSettingsScreen(navController = navController) }
+    
+        composable(
+            route = SettingsScreens.SettingsList.route,
+            enterTransition = {
+                when (initialState.destination.route) {
+                    RootScreens.Main.route -> horSlideEnterFromScreen()
+                    RootScreens.Player.route -> horSlideEnterFromScreen()
+                    else -> null
+                }
+            },
+            exitTransition = {
+                when (targetState.destination.route) {
+                    RootScreens.Main.route -> horSlidePopExitToScreen()
+                    RootScreens.Player.route -> horSlidePopExitToScreen()
+                    SettingsScreens.Library.route -> horSlideExitToScreen()
+                    SettingsScreens.Customization.route -> horSlideExitToScreen()
+                    SettingsScreens.Other.route -> horSlideExitToScreen()
+                    SettingsScreens.About.route -> horSlideExitToScreen()
+                    else -> null
+                }
+            },
+            popEnterTransition = {
+                when (initialState.destination.route) {
+                    SettingsScreens.Library.route -> horSlidePopEnterFromScreen()
+                    SettingsScreens.Customization.route -> horSlidePopEnterFromScreen()
+                    SettingsScreens.Other.route -> horSlidePopEnterFromScreen()
+                    SettingsScreens.About.route -> horSlidePopEnterFromScreen()
+                    else -> null
+                }
+            }
+        ) { SettingsListScreen(navController = navController) }
+        
+        //
         
         composable(
             route = SettingsScreens.Library.route,

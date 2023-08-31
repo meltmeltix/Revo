@@ -25,6 +25,7 @@ open class DetailsScreens(val route: String) {
 
 open class SettingsScreens(val route: String) {
     object MainSettings : SettingsScreens("main_settings")
+    object SettingsList : SettingsScreens("settings_list")
 
     object Library : SettingsScreens("library_settings")
 

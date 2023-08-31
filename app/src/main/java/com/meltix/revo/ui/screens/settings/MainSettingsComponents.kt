@@ -33,17 +33,18 @@ fun MainSettingsLayout(
     rightPaneContent: @Composable (String, NavHostController) -> Unit
 ) {
     when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact ->
-            CompactLayout { leftPaneContent(null) }
+        WindowWidthSizeClass.Compact -> {
+            val compactNavController = rememberNavController()
+            CompactLayout {
+                rightPaneContent(SettingsScreens.SettingsList.route, compactNavController)
+            }
+        }
         else -> {
-            val settingsNavController = rememberNavController()
+            val expandedNavController = rememberNavController()
             ExpandedLayout(
-                leftPaneContent = { leftPaneContent(settingsNavController) },
+                leftPaneContent = { leftPaneContent(expandedNavController) },
                 rightPaneContent = {
-                    rightPaneContent(
-                        SettingsScreens.Library.route,
-                        settingsNavController
-                    )
+                    rightPaneContent(SettingsScreens.Library.route, expandedNavController)
                 }
             )
         }
