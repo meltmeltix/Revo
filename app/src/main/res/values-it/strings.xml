@@ -63,8 +63,7 @@
     <string name="str_light">Chiaro</string>
     <string name="str_dark">Scuro</string>
     <string name="str_systemDefault">Sistema</string>
-    <string name="str_colorScheme">Combinazione colori</string>
-    <string name="str_dynamic">Dinamica</string>
+    <string name="str_dynamicColors">Colori dinamici</string>
     <string name="str_appVersion">Versione app</string>
     <string name="str_membersAndContributors">Membri e contributori</string>
     <string name="info_AlessioCameroni">Sviluppatore Principale &amp; Designer</string>
@@ -95,19 +94,23 @@
     <string name="str_closePlayer">Chiudi player</string>
     <string name="str_addToFavorites">Aggiungi ai preferiti</string>
     <plurals name="str_songAmount">
-        <item quantity="one">brani</item>
+        <item quantity="one">brano</item>
+        <item quantity="many">brani</item>
         <item quantity="other">brani</item>
     </plurals>
     <plurals name="str_albumAmount">
         <item quantity="one">album</item>
+        <item quantity="many">album</item>
         <item quantity="other">album</item>
     </plurals>
     <plurals name="str_hourAmountAbbr">
         <item quantity="one">h</item>
+        <item quantity="many">h</item>
         <item quantity="other">h</item>
     </plurals>
     <plurals name="str_minutesAmountAbbr">
         <item quantity="one">min</item>
+        <item quantity="many">min</item>
         <item quantity="other">min</item>
     </plurals>
     <string name="str_trackNumber">Numero traccia</string>

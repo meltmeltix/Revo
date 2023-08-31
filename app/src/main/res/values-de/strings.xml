@@ -61,8 +61,6 @@
     <string name="str_light">Hell</string>
     <string name="str_dark">Dunkel</string>
     <string name="str_systemDefault">Systemstandard</string>
-    <string name="str_colorScheme">Farbschema</string>
-    <string name="str_dynamic">Dynamisch</string>
     <string name="str_appVersion">App Version</string>
     <string name="str_membersAndContributors">Mitglieder und Mitwirkende</string>
     <string name="info_AlessioCameroni">Leitender Entwickler &amp; Designer</string>

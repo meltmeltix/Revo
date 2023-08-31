@@ -71,8 +71,7 @@
     <string name="str_light">Light</string>
     <string name="str_dark">Dark</string>
     <string name="str_systemDefault">System default</string>
-    <string name="str_colorScheme">Color scheme</string>
-    <string name="str_dynamic">Dynamic</string>
+    <string name="str_dynamicColors">Dynamic colors</string>
     <string name="str_appVersion">App version</string>
     <string name="str_membersAndContributors">Members and contributors</string>
     <string name="info_AlessioCameroni">Lead Developer &amp; Designer</string>

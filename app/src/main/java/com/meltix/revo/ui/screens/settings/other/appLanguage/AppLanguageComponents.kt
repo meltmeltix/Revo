@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.settings.customization
+package com.meltix.revo.ui.screens.settings.other.appLanguage
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,7 +11,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,14 +29,14 @@ import androidx.compose.ui.unit.dp
 import com.meltix.revo.R
 
 @Composable
-fun CustomizationLayout(
+fun AppLanguageLayout(
     windowWidthSizeClass: WindowWidthSizeClass,
     onBackButtonClick: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
     when(windowWidthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
-        else -> ExpandedLayout { content() }
+        else -> ExpandedLayout(onBackButtonClick, content)
     }
 }
 
@@ -44,7 +50,7 @@ private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text(stringResource(id = R.string.str_customization)) },
+                title = { Text(stringResource(id = R.string.str_appLanguage)) },
                 navigationIcon = {
                     IconButton(onClick = { onBackButtonClick() }) {
                         Icon(
@@ -74,7 +80,7 @@ private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ExpandedLayout(content: LazyListScope.() -> Unit) {
+private fun ExpandedLayout(onBackButtonClick: () -> Unit, content: LazyListScope.() -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     
@@ -82,8 +88,15 @@ private fun ExpandedLayout(content: LazyListScope.() -> Unit) {
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
-                title = { Text(stringResource(R.string.str_customization)) },
-                windowInsets = WindowInsets(top = 0.dp),
+                title = { Text(stringResource(id = R.string.str_appLanguage)) },
+                navigationIcon = {
+                    IconButton(onClick = { onBackButtonClick() }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            contentDescription = stringResource(id = R.string.str_back)
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         }
