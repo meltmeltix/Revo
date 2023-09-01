@@ -104,6 +104,7 @@ private fun CompactLayout(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.surface
     ) {
+        // TODO remember to change padding for edge to edge content
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {

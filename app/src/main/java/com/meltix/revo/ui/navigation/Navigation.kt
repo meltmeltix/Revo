@@ -13,7 +13,6 @@ import com.meltix.revo.ui.screens.library.playlistScreen.PlaylistsScreen
 import com.meltix.revo.ui.screens.library.songScreen.SongsScreen
 import com.meltix.revo.ui.screens.library.spotifyScreen.SpotifyFavoritesScreen
 import com.meltix.revo.ui.screens.player.PlayerScreen
-import com.meltix.revo.ui.screens.search.SearchScreen
 import com.meltix.revo.ui.screens.welcome.WelcomeScreen
 
 @Composable
@@ -85,24 +84,6 @@ fun RootNavigation(
                 }
             }
         ) { PlayerScreen(navController = navController) }
-
-        // Search screen
-        composable(
-            route = RootScreens.Search.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    RootScreens.Main.route -> horSlideEnterFromScreen()
-                    else -> null
-                }
-            },
-            exitTransition = {
-                when (targetState.destination.route) {
-                    RootScreens.Main.route -> horSlidePopExitToScreen()
-                    else -> null
-                }
-            },
-            //TODO Add popEnter when actually listing items
-        ) { SearchScreen(navController = navController) }
 
         settingsGraph(navController, nestedGraphStartDestination)
     }

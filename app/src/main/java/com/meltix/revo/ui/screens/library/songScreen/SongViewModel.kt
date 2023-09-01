@@ -54,6 +54,15 @@ class SongViewModel @Inject constructor(
             else { _contentState.value = ContentState.FAILURE }
         }
     }
+    
+    fun onRefresh() {
+        viewModelScope.launch {
+            _contentState.value = ContentState.LOADING
+            withContext(Dispatchers.IO) { _songs.value = songsRepository.getSongList() }
+            if (_songs.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            else { _contentState.value = ContentState.FAILURE }
+        }
+    }
 
     private fun sortList(
         list: List<Song>,

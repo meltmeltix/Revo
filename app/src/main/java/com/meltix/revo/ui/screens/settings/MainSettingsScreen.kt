@@ -28,6 +28,7 @@ fun MainSettingsScreen(navController: NavController) {
                 SettingsListScreen(navController, secondaryNavController)
             },
             rightPaneContent = { startDestination, navController ->
+                // TODO fix the back button for the compact screen as it doesn't go back on click
                 RootNavigation(
                     startDestination = RootScreens.SettingsGraph.route,
                     nestedGraphStartDestination = startDestination,

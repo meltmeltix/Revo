@@ -28,14 +28,7 @@ fun Modifier.contentModifier(
                     Modifier
                         .padding(PaddingValues(top = 64.dp, bottom = 0.dp))
                         .fillMaxSize()
-                        .clip(
-                            RoundedCornerShape(
-                                topStart = 16.dp,
-                                topEnd = 16.dp,
-                                bottomEnd = 0.dp,
-                                bottomStart = 0.dp
-                            )
-                        )
+                        .clip( RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp ) )
                         .background(MaterialTheme.colorScheme.surface)
                 else ->
                     Modifier
@@ -64,14 +57,7 @@ fun Modifier.albumDetailsContentModifier(
                     Modifier
                         .padding(PaddingValues(top = 64.dp, bottom = 0.dp))
                         .fillMaxSize()
-                        .clip(
-                            RoundedCornerShape(
-                                topStart = 16.dp,
-                                topEnd = 16.dp,
-                                bottomEnd = 0.dp,
-                                bottomStart = 0.dp
-                            )
-                        )
+                        .clip( RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp) )
                         .background(MaterialTheme.colorScheme.surface)
                 else ->
                     when(headerLayout) {

@@ -238,14 +238,7 @@ private fun ExpandedLayout(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 16.dp,
-                            topEnd = 16.dp,
-                            bottomEnd = 0.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
+                    .clip( RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp) )
             ) { content() }
         }
     }

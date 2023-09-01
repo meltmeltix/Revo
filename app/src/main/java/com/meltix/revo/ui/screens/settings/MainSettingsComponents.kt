@@ -89,14 +89,7 @@ private fun ExpandedLayout(
             Column(
                 modifier = Modifier
                     .padding(end = 24.dp)
-                    .clip(
-                        RoundedCornerShape(
-                            topStart = 16.dp,
-                            topEnd = 16.dp,
-                            bottomEnd = 0.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
+                    .clip( RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp) )
                     .weight(1f)
                     .fillMaxHeight()
                     .background(MaterialTheme.colorScheme.surface)

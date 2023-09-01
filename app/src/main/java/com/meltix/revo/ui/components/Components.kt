@@ -19,7 +19,6 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -83,10 +82,9 @@ fun LargeImageContainer(
 @Composable
 fun LoadingContent(
     modifier: Modifier,
-    windowClass: WindowSizeClass,
     headlineString: String,
 ) {
-    Surface(color = surfaceColorOnWindowSize(windowClass)) {
+    Surface() {
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.Center,
@@ -113,12 +111,11 @@ fun LoadingContent(
 @Composable
 fun NoContentMessage(
     modifier: Modifier,
-    windowClass: WindowSizeClass,
     headlineString: String,
     infoString: String,
     leadingIcon: Painter
 ) {
-    Surface(color = surfaceColorOnWindowSize(windowClass)) {
+    Surface() {
         Column(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
@@ -155,15 +152,16 @@ fun ContentSelector(
     failedUnit: @Composable (() -> Unit),
     contentUnit: @Composable (() -> Unit)
 ) {
-    when(state) {
+    when (state) {
         ContentState.LOADING -> {
             AnimatedVisibility(
                 visible = true,
                 enter = fadeIn(animationSpec = tween(300)),
                 exit = fadeOut(animationSpec = tween(300))
             ) { loadingUnit() }
-
+            
         }
+        
         ContentState.FAILURE -> {
             AnimatedVisibility(
                 visible = true,
@@ -171,6 +169,7 @@ fun ContentSelector(
                 exit = fadeOut(animationSpec = tween(300))
             ) { failedUnit() }
         }
+        
         ContentState.SUCCESS -> {
             AnimatedVisibility(
                 visible = true,
