@@ -46,10 +46,10 @@ fun SongsScreen(
     val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
 
     RevoTheme {
-        SongsLayout(
+        SongLayout(
             windowClass = windowClass,
             viewModel = viewModel,
-            onRefresh = {},
+            onRefresh = { /* TODO */ },
             onNavigate = { rootNavController.navigate(it) },
             contentState = contentState,
             loadingContent = {

@@ -29,7 +29,7 @@ import com.meltix.revo.util.functions.selectSortingOrderString
 import com.meltix.revo.util.functions.selectSortingTypeString
 
 @Composable
-fun SongsLayout(
+fun SongLayout(
     windowClass: WindowSizeClass,
     viewModel: SongViewModel,
     onRefresh: () -> Unit,
