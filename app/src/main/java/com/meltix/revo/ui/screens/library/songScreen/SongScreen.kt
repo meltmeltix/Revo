@@ -73,64 +73,63 @@ fun SongsScreen(
 private fun LazyListScope.songList(songs: List<Song>, onMenuOptionClick: (String) -> Unit) {
     itemsIndexed(items = songs) { key, item ->
         key(key) {
-            Row(modifier = Modifier.clickable{ }) {
-                PixelyListItem(
-                    headlineTextString = item.songTitle,
-                    largeHeadline = false,
-                    maxHeadlineLines = 1,
-                    supportingTextString = item.artist,
-                    maxSupportingLines = 1,
-                    leadingContent = {
-                        SmallImageContainer(
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            painterPlaceholder =
-                            painterResource(id = R.drawable.ic_baseline_music_note_24),
-                            leadingUnit = {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.albumCoverUri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = stringResource(id = R.string.str_albumImage)
-                                )
-                            }
-                        )
-                    },
-                    trailingContent = {
-                        val expanded = remember { mutableStateOf(false) }
-
-                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                            IconButton(onClick = { expanded.value = true }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                    contentDescription = stringResource(id = R.string.str_moreOptions)
-                                )
-                            }
-                            
-                            RoundedDropDownMenu(
-                                expanded = expanded.value,
-                                onDismissRequest = { expanded.value = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
-                                    onClick = {
-                                        onMenuOptionClick(DetailsScreens.AlbumDetails.route + "/${item.albumId}")
-                                        expanded.value = false
-                                    }
-                                )
-                                
-                                DropdownMenuItem(
-                                    text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
-                                    onClick = {
-                                        onMenuOptionClick(DetailsScreens.ArtistDetails.route + "/${item.artistId}")
-                                        expanded.value = false
-                                    }
-                                )
-                            }
+            PixelyListItem(
+                modifier = Modifier.clickable {  },
+                headlineTextString = item.songTitle,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                supportingTextString = item.artist,
+                maxSupportingLines = 1,
+                leadingContent = {
+                    SmallImageContainer(
+                        modifier = Modifier.padding(horizontal = 5.dp),
+                        painterPlaceholder =
+                        painterResource(id = R.drawable.ic_baseline_music_note_24),
+                        leadingUnit = {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(item.albumCoverUri)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = stringResource(id = R.string.str_albumImage)
+                            )
+                        }
+                    )
+                },
+                trailingContent = {
+                    val expanded = remember { mutableStateOf(false) }
+            
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                contentDescription = stringResource(id = R.string.str_moreOptions)
+                            )
+                        }
+                
+                        RoundedDropDownMenu(
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_goToAlbum)) },
+                                onClick = {
+                                    onMenuOptionClick(DetailsScreens.AlbumDetails.route + "/${item.albumId}")
+                                    expanded.value = false
+                                }
+                            )
+                    
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
+                                onClick = {
+                                    onMenuOptionClick(DetailsScreens.ArtistDetails.route + "/${item.artistId}")
+                                    expanded.value = false
+                                }
+                            )
                         }
                     }
-                )
-            }
+                }
+            )
         }
     }
 }

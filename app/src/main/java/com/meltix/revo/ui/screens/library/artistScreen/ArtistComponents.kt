@@ -1,80 +1,248 @@
 package com.meltix.revo.ui.screens.library.artistScreen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelyDropdownMenuTitle
 import com.meltix.pixely_components.RoundedDropDownMenu
 import com.meltix.revo.R
+import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.preferences.SortingOrder
-import com.meltix.revo.ui.components.topAppBarColorOnWindowSize
-import com.meltix.revo.ui.components.topAppBarInsetsOnWindowsSize
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.util.functions.selectSortingOrderString
 
-// Scaffold components
+@Composable
+fun ArtistLayout(
+    windowClass: WindowSizeClass,
+    viewModel: ArtistViewModel,
+    onRefresh: () -> Unit,
+    onNavigate: (String) -> Unit,
+    contentState: ContentState,
+    loadingContent: @Composable () -> Unit,
+    noContent: @Composable () -> Unit,
+    content: LazyListScope.() -> Unit
+) {
+    when(windowClass.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> CompactLayout(
+            viewModel = viewModel,
+            onRefresh = { onRefresh() },
+            onNavigate = { onNavigate(it) },
+            contentState = contentState,
+            loadingContent = loadingContent,
+            noContent = noContent,
+            content = content
+        )
+        else -> ExpandedLayout(
+            viewModel = viewModel,
+            onRefresh = { onRefresh() },
+            onNavigate = { onNavigate(it) },
+            contentState = contentState,
+            loadingContent = loadingContent,
+            noContent = noContent,
+            content = content
+        )
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArtistTopActionBar(
-    navController: NavController,
-    scrollBehavior: TopAppBarScrollBehavior,
+private fun CompactLayout(
     viewModel: ArtistViewModel,
-    windowClass: WindowSizeClass
+    onRefresh: () -> Unit,
+    onNavigate: (String) -> Unit,
+    contentState: ContentState,
+    loadingContent: @Composable () -> Unit,
+    noContent: @Composable () -> Unit,
+    content: LazyListScope.() -> Unit
 ) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val expandedMenu = remember { mutableStateOf(false) }
     val expandedSortMenu = remember { mutableStateOf(false) }
-
-    TopAppBar(
-        title = { Text(text = stringResource(id = R.string.str_artists)) },
-        actions = {
-            IconButton(onClick = { navController.navigate(RootScreens.Search.route) }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_search_24),
-                    contentDescription = stringResource(id = R.string.str_search)
+    
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surface
+    ) {
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = stringResource(id = R.string.str_artists)) },
+                    actions = {
+                        IconButton(onClick = { /*TODO add searchbar when it is actually possible to use it*/ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_search_24),
+                                contentDescription = stringResource(id = R.string.str_search)
+                            )
+                        }
+                        
+                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                            IconButton(onClick = { expandedMenu.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                    contentDescription = stringResource(id = R.string.str_settings)
+                                )
+                            }
+    
+                            TopBarDropDownMenu(
+                                expanded = expandedMenu,
+                                expandedSortMenu = expandedSortMenu,
+                                onRefresh = { onRefresh() },
+                                onNavigate = { onNavigate(it) },
+                            )
+    
+                            SortDropDownMenu(
+                                expandedSortMenu,
+                                viewModel
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior
                 )
             }
-
-            Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                IconButton(onClick = { expandedMenu.value = true }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                        contentDescription = stringResource(id = R.string.str_settings)
-                    )
+        ) { padding ->
+            when(contentState) {
+                ContentState.LOADING -> loadingContent()
+                ContentState.FAILURE -> noContent()
+                ContentState.SUCCESS -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(
+                                start = padding.calculateStartPadding(LayoutDirection.Ltr),
+                                top = padding.calculateTopPadding(),
+                                end = padding.calculateEndPadding(LayoutDirection.Rtl),
+                                bottom = 0.dp,
+                            )
+                            .fillMaxSize(),
+                        contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) { content() }
                 }
-
-                TopBarDropDownMenu(
-                    expandedMenu,
-                    expandedSortMenu,
-                    navController
-                )
-
-                SortDropDownMenu(
-                    expandedSortMenu,
-                    viewModel
-                )
             }
-        },
-        windowInsets = topAppBarInsetsOnWindowsSize(windowClass),
-        colors = topAppBarColorOnWindowSize(windowClass),
-        scrollBehavior = scrollBehavior,
-    )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ExpandedLayout(
+    viewModel: ArtistViewModel,
+    onRefresh: () -> Unit,
+    onNavigate: (String) -> Unit,
+    contentState: ContentState,
+    loadingContent: @Composable () -> Unit,
+    noContent: @Composable () -> Unit,
+    content: LazyListScope.() -> Unit
+) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
+    val expandedMenu = remember { mutableStateOf(false) }
+    val expandedSortMenu = remember { mutableStateOf(false) }
+    
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.inverseOnSurface
+    ) {
+        Scaffold(
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = stringResource(id = R.string.str_artists)) },
+                    actions = {
+                        IconButton(onClick = { /*TODO add searchbar when it is actually possible to use it*/ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_search_24),
+                                contentDescription = stringResource(id = R.string.str_search)
+                            )
+                        }
+                        
+                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                            IconButton(onClick = { expandedMenu.value = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                    contentDescription = stringResource(id = R.string.str_settings)
+                                )
+                            }
+    
+                            TopBarDropDownMenu(
+                                expanded = expandedMenu,
+                                expandedSortMenu = expandedSortMenu,
+                                onRefresh = { onRefresh() },
+                                onNavigate = { onNavigate(it) },
+                            )
+    
+                            SortDropDownMenu(
+                                expandedSortMenu,
+                                viewModel
+                            )
+                        }
+                    },
+                    windowInsets = WindowInsets(top = 0.dp),
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                        scrolledContainerColor = MaterialTheme.colorScheme.inverseOnSurface
+                    ),
+                    scrollBehavior = scrollBehavior
+                )
+            },
+            containerColor = MaterialTheme.colorScheme.inverseOnSurface
+        ) { padding ->
+            when (contentState) {
+                ContentState.LOADING -> loadingContent()
+                ContentState.FAILURE -> noContent()
+                ContentState.SUCCESS -> {
+                    LazyColumn(
+                        modifier = Modifier
+                            .padding(
+                                start = padding.calculateStartPadding(LayoutDirection.Ltr),
+                                top = padding.calculateTopPadding(),
+                                end = padding.calculateEndPadding(LayoutDirection.Rtl),
+                                bottom = 0.dp,
+                            )
+                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surface),
+                        contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) { content() }
+                }
+            }
+        }
+    }
 }
 
 @Composable
 private fun TopBarDropDownMenu(
     expanded: MutableState<Boolean>,
     expandedSortMenu: MutableState<Boolean>,
-    navController: NavController
+    onRefresh: () -> Unit,
+    onNavigate: (String) -> Unit,
 ) {
     RoundedDropDownMenu(
         expanded = expanded.value,
@@ -99,13 +267,26 @@ private fun TopBarDropDownMenu(
                 )
             }
         )
-
+        
         HorizontalDivider()
-
+    
+        DropdownMenuItem(
+            text = { Text(text = stringResource(id = R.string.str_refresh)) },
+            onClick = { onRefresh() },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_refresh_24),
+                    contentDescription = stringResource(id = R.string.str_refresh)
+                )
+            }
+        )
+    
+        HorizontalDivider()
+    
         DropdownMenuItem(
             text = { Text(text = stringResource(id = R.string.str_settings)) },
             onClick = {
-                navController.navigate(RootScreens.SettingsGraph.route)
+                onNavigate(RootScreens.SettingsGraph.route)
                 expanded.value = false
             },
             leadingIcon = {
@@ -158,18 +339,5 @@ private fun SortOrderSelector(
             },
             trailingIcon = { RadioButton(selected = option == selected, onClick = null) }
         )
-    }
-}
-
-// List components
-@Composable
-fun ArtistItemDropDownMenu(
-    expanded: MutableState<Boolean>
-) {
-    RoundedDropDownMenu(
-        expanded = expanded.value,
-        onDismissRequest = { expanded.value = false }
-    ) {
-
     }
 }

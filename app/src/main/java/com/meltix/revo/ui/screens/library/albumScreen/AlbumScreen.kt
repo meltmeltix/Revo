@@ -2,7 +2,6 @@ package com.meltix.revo.ui.screens.library.albumScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -85,59 +84,56 @@ fun AlbumsScreen(
 private fun LazyListScope.albumList(albums: List<Album>, onMenuOptionClick: (String) -> Unit) {
     itemsIndexed(albums) { key, item ->
         key(key) {
-            Row(
+            PixelyListItem(
                 modifier = Modifier
-                    .clickable{ onMenuOptionClick(DetailsScreens.AlbumDetails.route + "/${item.albumId}") }
-            ) {
-                PixelyListItem(
-                    headlineTextString = item.albumTitle,
-                    largeHeadline = false,
-                    maxHeadlineLines = 1,
-                    supportingTextString = item.artist,
-                    maxSupportingLines = 1,
-                    leadingContent = {
-                        SmallImageContainer(
-                            modifier = Modifier.padding(horizontal = 5.dp),
-                            painterPlaceholder =
-                            painterResource(id = R.drawable.ic_outlined_album_24),
-                            leadingUnit = {
-                                AsyncImage(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(item.albumCoverUri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = stringResource(id = R.string.str_albumImage)
-                                )
-                            },
-                        )
-                    },
-                    trailingContent = {
-                        val expanded = remember { mutableStateOf(false) }
-
-                        Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
-                            IconButton(onClick = { expanded.value = true }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
-                                    contentDescription = stringResource(id = R.string.str_moreOptions)
-                                )
-                            }
-    
-                            RoundedDropDownMenu(
-                                expanded = expanded.value,
-                                onDismissRequest = { expanded.value = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
-                                    onClick = {
-                                        onMenuOptionClick(DetailsScreens.ArtistDetails.route + "/$item.artistId")
-                                        expanded.value = false
-                                    }
-                                )
-                            }
+                    .clickable{ onMenuOptionClick(DetailsScreens.AlbumDetails.route + "/${item.albumId}") },
+                headlineTextString = item.albumTitle,
+                largeHeadline = false,
+                maxHeadlineLines = 1,
+                supportingTextString = item.artist,
+                maxSupportingLines = 1,
+                leadingContent = {
+                    SmallImageContainer(
+                        modifier = Modifier.padding(horizontal = 5.dp),
+                        painterPlaceholder =
+                        painterResource(id = R.drawable.ic_outlined_album_24),
+                        leadingUnit = {
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(item.albumCoverUri)
+                                    .crossfade(true)
+                                    .build(),
+                                contentDescription = stringResource(id = R.string.str_albumImage)
+                            )
+                        },
+                    )
+                },
+                trailingContent = {
+                    val expanded = remember { mutableStateOf(false) }
+            
+                    Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                        IconButton(onClick = { expanded.value = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
+                                contentDescription = stringResource(id = R.string.str_moreOptions)
+                            )
+                        }
+                
+                        RoundedDropDownMenu(
+                            expanded = expanded.value,
+                            onDismissRequest = { expanded.value = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(text = stringResource(id = R.string.str_goToArtist)) },
+                                onClick = {
+                                    onMenuOptionClick(DetailsScreens.ArtistDetails.route + "/$item.artistId")
+                                    expanded.value = false
+                                }
+                            )
                         }
                     }
-                )
-            }
+                }
+            )
         }
     }
 }
