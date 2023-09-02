@@ -49,7 +49,7 @@ private fun LazyListScope.itemList(viewModel: LibrarySettingsViewModel) {
         val checked by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
     
         PixelyListItem(
-            modifier = Modifier.selectable(selected = checked, onClick = { !checked }),
+            modifier = Modifier.selectable(selected = checked, onClick = { viewModel.setSpotifyVisibility(!checked) }),
             headlineTextString = stringResource(id = R.string.str_showSpotifyIntegration),
             supportingTextString = stringResource(id = R.string.desc_showSpotifyIntegration),
             trailingContent = { Switch(checked = checked, onCheckedChange = null) },
