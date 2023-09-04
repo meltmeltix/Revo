@@ -27,14 +27,14 @@ fun MainScreen(
     val windowClass = calculateWindowSizeClass(activity)
     val libraryNavController = rememberNavController()
     val backStackEntry = libraryNavController.currentBackStackEntryAsState().value
-    val currentDestinationRoute = if (backStackEntry?.destination?.route == null) "" else backStackEntry.destination.route
+    val currentDestinationRoute = if (backStackEntry?.destination?.route == null) "" else backStackEntry.destination.route!!
 
     val spotifyItemState by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
     val playerLayout by viewModel.playerLayout.collectAsStateWithLifecycle(PlayerLayout.CENTER)
 
     RevoTheme {
         MainLayout(
-            windowWidthSize = windowClass.widthSizeClass,
+            windowClass = windowClass,
             currentDestinationRoute = currentDestinationRoute,
             onNavigationItemSelected = {
                 viewModel.latestDestination = it
@@ -46,6 +46,9 @@ fun MainScreen(
             },
             viewModel = viewModel,
             spotifyItemState = spotifyItemState,
+            playAllOnClick = {  },
+            newPlaylistOnClick = {  },
+            addTrackOnClick = {  }
         ) {
             LibraryNavigation(
                 rootNavController = navController,

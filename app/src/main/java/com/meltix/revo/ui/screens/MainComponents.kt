@@ -1,5 +1,7 @@
 package com.meltix.revo.ui.screens
 
+import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +16,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -23,6 +28,8 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,64 +39,84 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.meltix.revo.R
+import com.meltix.revo.data.classes.FabType
 import com.meltix.revo.data.classes.MainNavigationItem
+import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.LibraryScreens
-import com.meltix.revo.ui.navigation.LibraryScreens.Albums
-import com.meltix.revo.ui.navigation.LibraryScreens.Artists
-import com.meltix.revo.ui.navigation.LibraryScreens.Playlists
-import com.meltix.revo.ui.navigation.LibraryScreens.Songs
 
 @Composable
 fun MainLayout(
-    windowWidthSize: WindowWidthSizeClass,
-    currentDestinationRoute: String?,
+    windowClass: WindowSizeClass,
+    currentDestinationRoute: String,
     onNavigationItemSelected: (String) -> Unit,
     viewModel: MainViewModel,
     spotifyItemState: Boolean,
+    playAllOnClick: () -> Unit,
+    newPlaylistOnClick: () -> Unit,
+    addTrackOnClick: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     val destinationList = listOf(
         MainNavigationItem(
             name = stringResource(id = R.string.str_songs),
-            route = Songs.route,
+            route = LibraryScreens.Songs.route,
             unselectedIcon = painterResource(id = R.drawable.ic_baseline_music_note_24),
             selectedIcon = painterResource(id = R.drawable.ic_baseline_music_note_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_albums),
-            route = Albums.route,
+            route = LibraryScreens.Albums.route,
             unselectedIcon = painterResource(id = R.drawable.ic_outlined_album_24),
             selectedIcon = painterResource(id = R.drawable.ic_filled_album_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_artists),
-            route = Artists.route,
+            route = LibraryScreens.Artists.route,
             unselectedIcon = painterResource(id = R.drawable.ic_outlined_groups_24),
             selectedIcon = painterResource(id = R.drawable.ic_filled_groups_24)
         ),
         MainNavigationItem(
             name = stringResource(id = R.string.str_playlists),
-            route = Playlists.route,
+            route = LibraryScreens.Playlists.route,
             unselectedIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24),
             selectedIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
         ),
     )
 
-    when(windowWidthSize) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(
             viewModel = viewModel,
             destinationList = destinationList,
             spotifyItemState = spotifyItemState,
             currentDestinationRoute = currentDestinationRoute,
-            onNavigationItemSelected = { onNavigationItemSelected(it) }
+            onNavigationItemSelected = { onNavigationItemSelected(it) },
+            fab = {
+                FabConfiguration(
+                    currentDestinationRoute = currentDestinationRoute,
+                    playAllOnClick = { playAllOnClick() },
+                    newPlaylistOnClick = { newPlaylistOnClick() },
+                    addTrackOnClick = { addTrackOnClick() },
+                    elevation = it
+                )
+            }
         ) { _ -> content() }
         else -> ExpandedLayout(
             viewModel = viewModel,
             destinationList = destinationList,
             spotifyItemState = spotifyItemState,
             currentDestinationRoute = currentDestinationRoute,
-            onNavigationItemSelected = { onNavigationItemSelected(it) }
-        ) { content() }
+            onNavigationItemSelected = { onNavigationItemSelected(it) },
+            fab = {
+                FabConfiguration(
+                    currentDestinationRoute = currentDestinationRoute,
+                    playAllOnClick = { playAllOnClick() },
+                    newPlaylistOnClick = { newPlaylistOnClick() },
+                    addTrackOnClick = { addTrackOnClick() },
+                    elevation = it
+                )
+            },
+            showRailFab = windowClass.heightSizeClass != WindowHeightSizeClass.Compact
+        ) { _ -> content() }
     }
 }
 
@@ -100,6 +127,7 @@ private fun CompactLayout(
     spotifyItemState: Boolean,
     currentDestinationRoute: String?,
     onNavigationItemSelected: (String) -> Unit,
+    fab: @Composable (FloatingActionButtonElevation) -> Unit,
     content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
     Surface(
@@ -113,19 +141,21 @@ private fun CompactLayout(
                         val selected =
                             item.route == currentDestinationRoute ||
                             item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == Songs.route) {
-                            viewModel.latestDestination = Songs.route
+                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
+                            viewModel.latestDestination = LibraryScreens.Songs.route
                         }
 
                         NavigationBarItem(
                             selected = selected,
                             onClick = { onNavigationItemSelected(item.route) },
-                            icon = { Icon(
-                                        painter =
-                                            if (selected) item.selectedIcon
-                                            else item.unselectedIcon,
-                                        contentDescription = item.name
-                                    ) },
+                            icon = {
+                                Icon(
+                                    painter =
+                                        if (selected) item.selectedIcon
+                                        else item.unselectedIcon,
+                                    contentDescription = item.name
+                                )
+                            },
                             label = { Text(item.name) }
                         )
                     }
@@ -135,36 +165,42 @@ private fun CompactLayout(
                         val selected =
                             item.route == currentDestinationRoute ||
                             item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == Songs.route) {
-                            viewModel.latestDestination = Songs.route
+                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
+                            viewModel.latestDestination = LibraryScreens.Songs.route
                         }
                         
                         NavigationBarItem(
                             selected = selected,
                             onClick = { onNavigationItemSelected(item.route) },
-                            icon = { Icon(
-                                painter =
-                                    if (selected) painterResource(R.drawable.ic_filled_spotify_24)
-                                    else painterResource(R.drawable.ic_outlined_spotify_24),
-                                contentDescription = stringResource(R.string.str_spotify)
-                            ) },
+                            icon = {
+                                Icon(
+                                    painter =
+                                        if (selected) painterResource(R.drawable.ic_filled_spotify_24)
+                                        else painterResource(R.drawable.ic_outlined_spotify_24),
+                                    contentDescription = stringResource(R.string.str_spotify)
+                                )
+                            },
                             label = { Text(stringResource(R.string.str_spotify)) }
                         )
                     }
                 }
-            }
+            },
+            floatingActionButton = { fab(FloatingActionButtonDefaults.elevation()) }
         ) { innerPadding -> content(innerPadding) }
     }
 }
 
 @Composable
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 private fun ExpandedLayout(
     viewModel: MainViewModel,
     destinationList: List<MainNavigationItem>,
     spotifyItemState: Boolean,
     currentDestinationRoute: String?,
     onNavigationItemSelected: (String) -> Unit,
-    content: @Composable () -> Unit,
+    fab: @Composable (FloatingActionButtonElevation) -> Unit,
+    showRailFab: Boolean,
+    content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     val systemCutoutPadding = WindowInsets.displayCutout.asPaddingValues()
@@ -181,7 +217,8 @@ private fun ExpandedLayout(
             )
         ) {
             NavigationRail(
-                containerColor = MaterialTheme.colorScheme.inverseOnSurface
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                header = { if(showRailFab) { fab(FloatingActionButtonDefaults.bottomAppBarFabElevation()) } }
             ) {
                 Column(
                     modifier = Modifier
@@ -193,19 +230,21 @@ private fun ExpandedLayout(
                         val selected =
                             item.route == currentDestinationRoute ||
                             item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == Songs.route) {
-                            viewModel.latestDestination = Songs.route
+                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
+                            viewModel.latestDestination = LibraryScreens.Songs.route
                         }
 
                         NavigationRailItem(
                             selected = selected,
                             onClick = { onNavigationItemSelected(item.route) },
-                            icon = { Icon(
-                                painter =
-                                    if (selected) item.selectedIcon
-                                    else item.unselectedIcon,
-                                contentDescription = item.name
-                            ) },
+                            icon = {
+                                Icon(
+                                    painter =
+                                        if (selected) item.selectedIcon
+                                        else item.unselectedIcon,
+                                    contentDescription = item.name
+                                )
+                            },
                             label = { Text(item.name) }
                         )
                     }
@@ -215,8 +254,8 @@ private fun ExpandedLayout(
                         val selected =
                             item.route == currentDestinationRoute ||
                             item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == Songs.route) {
-                            viewModel.latestDestination = Songs.route
+                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
+                            viewModel.latestDestination = LibraryScreens.Songs.route
                         }
                         
                         NavigationRailItem(
@@ -234,12 +273,81 @@ private fun ExpandedLayout(
                 }
             }
 
-            Column(
+            Scaffold(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .clip( RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp) )
-            ) { content() }
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
+                floatingActionButton = { if(!showRailFab) { fab(FloatingActionButtonDefaults.elevation()) } }
+            ) { padding -> content(padding) }
+        }
+    }
+}
+
+@Composable
+private fun FabConfiguration(
+    currentDestinationRoute: String,
+    playAllOnClick: () -> Unit,
+    newPlaylistOnClick: () -> Unit,
+    addTrackOnClick: () -> Unit,
+    elevation: FloatingActionButtonElevation,
+) {
+    val screenVisibility = when {
+        currentDestinationRoute.contains(DetailsScreens.AlbumDetails.route) -> false
+        currentDestinationRoute.contains(DetailsScreens.ArtistDetails.route) -> false
+        else -> true
+    }
+    val fabType = when(currentDestinationRoute) {
+        LibraryScreens.Playlists.route -> FabType.NEW_PLAYLIST
+        DetailsScreens.PlaylistDetails.route -> FabType.ADD_TRACKS
+        else -> FabType.PLAY_ALL
+    }
+    
+    when(fabType) {
+        FabType.PLAY_ALL -> {
+            AnimatedVisibility(
+                visible = screenVisibility
+            ) {
+                FloatingActionButton(
+                    onClick = playAllOnClick,
+                    elevation = elevation
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
+                        contentDescription = stringResource(id = R.string.str_play)
+                    )
+                }
+            }
+        }
+        FabType.NEW_PLAYLIST -> {
+            AnimatedVisibility(
+                visible = screenVisibility
+            ) {
+                FloatingActionButton(
+                    onClick = newPlaylistOnClick,
+                    elevation = elevation
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_playlist_add_24),
+                        contentDescription = stringResource(id = R.string.str_newPlaylist)
+                    )
+                }
+            }
+        }
+        FabType.ADD_TRACKS -> {
+            AnimatedVisibility(
+                visible = screenVisibility
+            ) {
+                FloatingActionButton(
+                    onClick = addTrackOnClick,
+                    elevation = elevation
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_add_24),
+                        contentDescription = stringResource(id = R.string.str_addToPlaylist)
+                    )
+                }
+            }
         }
     }
 }
