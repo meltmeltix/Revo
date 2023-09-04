@@ -28,11 +28,11 @@ import com.meltix.revo.util.functions.selectAlbumViewHeaderLayoutSupportingStrin
 
 @Composable
 fun AlbumDetailsLytLayout(
-    windowWidthSizeClass: WindowWidthSizeClass,
+    windowClass: WindowSizeClass,
     onBackButtonClick: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
-    when(windowWidthSizeClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
         else -> ExpandedLayout(onBackButtonClick, content)
     }

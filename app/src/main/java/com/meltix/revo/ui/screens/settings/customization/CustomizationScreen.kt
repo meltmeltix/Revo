@@ -34,7 +34,7 @@ fun CustomizationScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             CustomizationLayout(
-                windowWidthSizeClass = windowClass.widthSizeClass,
+                windowClass = windowClass,
                 onBackButtonClick = { navController.navigateUp() }
             ) { itemList { navController.navigate(it) } }
         }

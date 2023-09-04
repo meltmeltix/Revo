@@ -29,7 +29,7 @@ fun OtherScreen(navController: NavController) {
         color = MaterialTheme.colorScheme.background
     ) {
         OtherLayout(
-            windowWidthClass = windowClass.widthSizeClass,
+            windowClass = windowClass,
             onBackButtonClick = { navController.navigateUp() }
         ) { itemList { navController.navigate(it) } }
     }

@@ -44,7 +44,7 @@ fun AlbumViewLayoutScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             AlbumDetailsLytLayout(
-                windowWidthSizeClass = windowClass.widthSizeClass,
+                windowClass = windowClass,
                 onBackButtonClick = { navController.navigateUp() }
             ) { itemList(windowClass, viewModel, selectedLayout) }
         }

@@ -38,7 +38,7 @@ fun PlayerLayoutScreen(
             color = MaterialTheme.colorScheme.background
         ) {
             PlayerLytLayout(
-                windowWidthSizeClass = windowClass.widthSizeClass,
+                windowClass = windowClass,
                 onBackButtonClick = { navController.navigateUp() }
             ) { itemList(viewModel, selectedLayout) }
         }

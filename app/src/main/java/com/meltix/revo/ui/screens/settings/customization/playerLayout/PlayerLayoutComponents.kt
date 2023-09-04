@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,11 +40,11 @@ import com.meltix.revo.util.functions.selectPlayerLayoutString
 
 @Composable
 fun PlayerLytLayout(
-    windowWidthSizeClass: WindowWidthSizeClass,
+    windowClass: WindowSizeClass,
     onBackButtonClick: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
-    when(windowWidthSizeClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
         else -> ExpandedLayout(onBackButtonClick, content)
     }

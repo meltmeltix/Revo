@@ -35,7 +35,7 @@ fun AppLanguageScreen(navController: NavController) {
         color = MaterialTheme.colorScheme.background
     ) {
         AppLanguageLayout(
-            windowWidthSizeClass = windowClass.widthSizeClass,
+            windowClass = windowClass,
             onBackButtonClick = { navController.navigateUp() }
         ) {
             itemList(changeLanguageEnabled) {

@@ -49,7 +49,7 @@ fun AboutScreen(navController: NavController) {
             color = MaterialTheme.colorScheme.background
         ) {
             AboutLayout(
-                windowWidthClass = windowClass.widthSizeClass,
+                windowClass = windowClass,
                 onBackButtonClick = { navController.navigateUp() }
             ) { itemList(uriHandler) }
         }

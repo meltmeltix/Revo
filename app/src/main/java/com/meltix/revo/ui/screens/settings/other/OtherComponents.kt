@@ -18,6 +18,7 @@ import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,11 +31,11 @@ import com.meltix.revo.R
 
 @Composable
 fun OtherLayout(
-    windowWidthClass: WindowWidthSizeClass,
+    windowClass: WindowSizeClass,
     onBackButtonClick: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
-    when(windowWidthClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
         else -> ExpandedLayout { content() }
     }

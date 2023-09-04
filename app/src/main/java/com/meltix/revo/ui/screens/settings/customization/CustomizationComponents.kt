@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,11 +25,11 @@ import com.meltix.revo.R
 
 @Composable
 fun CustomizationLayout(
-    windowWidthSizeClass: WindowWidthSizeClass,
+    windowClass: WindowSizeClass,
     onBackButtonClick: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
-    when(windowWidthSizeClass) {
+    when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
         else -> ExpandedLayout { content() }
     }
