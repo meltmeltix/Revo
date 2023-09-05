@@ -130,7 +130,7 @@ private fun CompactLayout(
                             )
                             .fillMaxSize(),
                         contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) { content() }
                 }
             }
@@ -215,7 +215,7 @@ private fun ExpandedLayout(
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.surface),
                         contentPadding = PaddingValues(bottom = systemBarsPadding.calculateBottomPadding()),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) { content() }
                 }
             }
