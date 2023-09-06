@@ -42,7 +42,7 @@ import com.meltix.revo.ui.navigation.SettingsScreens
 fun SettingsListLayout(
     windowClass: WindowSizeClass,
     viewModel: SettingsListViewModel,
-    onBackButtonClick: () -> Unit,
+    onNavigateUp: () -> Unit,
     onCompactItemClick: (String) -> Unit,
     onExpandedItemClick: (String) -> Unit,
     currentDestinationRoute: String?
@@ -77,14 +77,14 @@ fun SettingsListLayout(
     when(windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> CompactLayout(
             destinationList = destinationList,
-            onBackButtonClick = { onBackButtonClick() },
+            onNavigateUp = { onNavigateUp() },
             onItemClick = { onCompactItemClick(it) }
         )
         else -> ExpandedLayout(
             viewModel = viewModel,
             destinationList = destinationList,
             currentDestinationRoute = currentDestinationRoute,
-            onBackButtonClick = { onBackButtonClick() },
+            onNavigateUp = { onNavigateUp() },
             onItemClick = { onExpandedItemClick(it) }
         )
     }
@@ -94,7 +94,7 @@ fun SettingsListLayout(
 @Composable
 private fun CompactLayout(
     destinationList: List<MainSettingsItem>,
-    onBackButtonClick: () -> Unit,
+    onNavigateUp: () -> Unit,
     onItemClick: (String) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -111,7 +111,7 @@ private fun CompactLayout(
                 LargeTopAppBar(
                     title = { Text(stringResource(R.string.str_settings)) },
                     navigationIcon = {
-                        IconButton(onClick = { onBackButtonClick() }) {
+                        IconButton(onClick = { onNavigateUp() }) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_baseline_arrow_back_24),
                                 contentDescription = stringResource(R.string.str_back)
@@ -148,7 +148,7 @@ private fun ExpandedLayout(
     viewModel: SettingsListViewModel,
     destinationList: List<MainSettingsItem>,
     currentDestinationRoute: String?,
-    onBackButtonClick: () -> Unit,
+    onNavigateUp: () -> Unit,
     onItemClick: (String) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -164,7 +164,7 @@ private fun ExpandedLayout(
                 LargeTopAppBar(
                     title = { Text(stringResource(R.string.str_settings)) },
                     navigationIcon = {
-                        IconButton(onClick = { onBackButtonClick() }) {
+                        IconButton(onClick = { onNavigateUp() }) {
                             Icon(
                                 painter = painterResource(R.drawable.ic_baseline_arrow_back_24),
                                 contentDescription = stringResource(R.string.str_back)

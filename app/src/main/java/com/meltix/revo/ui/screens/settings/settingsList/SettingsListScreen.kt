@@ -31,7 +31,7 @@ fun SettingsListScreen(
         SettingsListLayout(
             windowClass = windowClass,
             viewModel = viewModel,
-            onBackButtonClick = { navController.navigateUp() },
+            onNavigateUp = { navController.navigateUp() },
             onCompactItemClick = { route ->
                 navController.navigate(route) {
                     popUpTo(SettingsScreens.MainSettings.route) { saveState = true }

@@ -36,7 +36,7 @@ fun LibrarySettingsScreen(
         ) {
             LibrarySettingsLayout(
                 windowWidthClass = windowClass.widthSizeClass,
-                onBackButtonClick = { navController.navigateUp() },
+                onNavigateUp = { navController.navigateUp() },
             ) { itemList(viewModel) }
         }
     }

@@ -25,18 +25,18 @@ import com.meltix.revo.R
 @Composable
 fun LibrarySettingsLayout(
     windowWidthClass: WindowWidthSizeClass,
-    onBackButtonClick: () -> Unit,
+    onNavigateUp: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
     when(windowWidthClass) {
-        WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
+        WindowWidthSizeClass.Compact -> CompactLayout(onNavigateUp, content)
         else -> ExpandedLayout { content() }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.() -> Unit) {
+private fun CompactLayout(onNavigateUp: () -> Unit, content: LazyListScope.() -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     
@@ -46,7 +46,7 @@ private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.
             LargeTopAppBar(
                 title = { Text(text = stringResource(id = R.string.str_library)) },
                 navigationIcon = {
-                    IconButton(onClick = { onBackButtonClick() }) {
+                    IconButton(onClick = { onNavigateUp() }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                             contentDescription = stringResource(id = R.string.str_back)

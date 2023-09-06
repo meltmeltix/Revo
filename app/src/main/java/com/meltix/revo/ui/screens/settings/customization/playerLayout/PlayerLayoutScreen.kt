@@ -39,7 +39,7 @@ fun PlayerLayoutScreen(
         ) {
             PlayerLytLayout(
                 windowClass = windowClass,
-                onBackButtonClick = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() }
             ) { itemList(viewModel, selectedLayout) }
         }
     }

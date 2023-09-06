@@ -50,7 +50,7 @@ fun AboutScreen(navController: NavController) {
         ) {
             AboutLayout(
                 windowClass = windowClass,
-                onBackButtonClick = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() }
             ) { itemList(uriHandler) }
         }
     }

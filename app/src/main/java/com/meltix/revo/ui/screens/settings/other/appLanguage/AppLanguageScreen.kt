@@ -36,7 +36,7 @@ fun AppLanguageScreen(navController: NavController) {
     ) {
         AppLanguageLayout(
             windowClass = windowClass,
-            onBackButtonClick = { navController.navigateUp() }
+            onNavigateUp = { navController.navigateUp() }
         ) {
             itemList(changeLanguageEnabled) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

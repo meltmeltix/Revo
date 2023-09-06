@@ -35,7 +35,7 @@ fun CustomizationScreen(
         ) {
             CustomizationLayout(
                 windowClass = windowClass,
-                onBackButtonClick = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() }
             ) { itemList { navController.navigate(it) } }
         }
     }

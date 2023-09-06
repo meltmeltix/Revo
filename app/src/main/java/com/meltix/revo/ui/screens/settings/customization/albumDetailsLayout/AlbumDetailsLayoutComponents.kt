@@ -29,18 +29,18 @@ import com.meltix.revo.util.functions.selectAlbumViewHeaderLayoutSupportingStrin
 @Composable
 fun AlbumDetailsLytLayout(
     windowClass: WindowSizeClass,
-    onBackButtonClick: () -> Unit,
+    onNavigateUp: () -> Unit,
     content: LazyListScope.() -> Unit
 ) {
     when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> CompactLayout(onBackButtonClick, content)
-        else -> ExpandedLayout(onBackButtonClick, content)
+        WindowWidthSizeClass.Compact -> CompactLayout(onNavigateUp, content)
+        else -> ExpandedLayout(onNavigateUp, content)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.() -> Unit) {
+private fun CompactLayout(onNavigateUp: () -> Unit, content: LazyListScope.() -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     
@@ -50,7 +50,7 @@ private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.
             LargeTopAppBar(
                 title = { Text(stringResource(id = R.string.str_albumViewLayout)) },
                 navigationIcon = {
-                    IconButton(onClick = { onBackButtonClick() }) {
+                    IconButton(onClick = { onNavigateUp() }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                             contentDescription = stringResource(id = R.string.str_back)
@@ -78,7 +78,7 @@ private fun CompactLayout(onBackButtonClick: () -> Unit, content: LazyListScope.
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ExpandedLayout(onBackButtonClick: () -> Unit, content: LazyListScope.() -> Unit) {
+private fun ExpandedLayout(onNavigateUp: () -> Unit, content: LazyListScope.() -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
     
@@ -88,7 +88,7 @@ private fun ExpandedLayout(onBackButtonClick: () -> Unit, content: LazyListScope
             LargeTopAppBar(
                 title = { Text(stringResource(id = R.string.str_albumViewLayout)) },
                 navigationIcon = {
-                    IconButton(onClick = { onBackButtonClick() }) {
+                    IconButton(onClick = { onNavigateUp() }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                             contentDescription = stringResource(id = R.string.str_back)

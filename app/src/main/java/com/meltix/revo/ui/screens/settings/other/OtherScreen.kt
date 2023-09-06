@@ -30,7 +30,7 @@ fun OtherScreen(navController: NavController) {
     ) {
         OtherLayout(
             windowClass = windowClass,
-            onBackButtonClick = { navController.navigateUp() }
+            onNavigateUp = { navController.navigateUp() }
         ) { itemList { navController.navigate(it) } }
     }
 }

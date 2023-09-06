@@ -45,7 +45,7 @@ fun AlbumViewLayoutScreen(
         ) {
             AlbumDetailsLytLayout(
                 windowClass = windowClass,
-                onBackButtonClick = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() }
             ) { itemList(windowClass, viewModel, selectedLayout) }
         }
     }
