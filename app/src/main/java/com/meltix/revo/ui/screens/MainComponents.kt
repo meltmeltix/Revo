@@ -1,6 +1,5 @@
 package com.meltix.revo.ui.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,9 +27,6 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,12 +37,13 @@ import androidx.compose.ui.unit.dp
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.FabType
 import com.meltix.revo.data.classes.MainNavigationItem
+import com.meltix.revo.data.classes.WindowType
 import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.LibraryScreens
 
 @Composable
 fun MainLayout(
-    windowClass: WindowSizeClass,
+    windowType: Any,
     currentDestinationRoute: String,
     onNavigationItemSelected: (String) -> Unit,
     viewModel: MainViewModel,
@@ -82,41 +79,45 @@ fun MainLayout(
             selectedIcon = painterResource(id = R.drawable.ic_baseline_playlist_play_24)
         ),
     )
-
-    when(windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> CompactLayout(
-            viewModel = viewModel,
-            destinationList = destinationList,
-            spotifyItemState = spotifyItemState,
-            currentDestinationRoute = currentDestinationRoute,
-            onNavigationItemSelected = { onNavigationItemSelected(it) },
-            fab = {
-                FabConfiguration(
-                    currentDestinationRoute = currentDestinationRoute,
-                    playAllOnClick = { playAllOnClick() },
-                    newPlaylistOnClick = { newPlaylistOnClick() },
-                    addTrackOnClick = { addTrackOnClick() },
-                    elevation = it
-                )
-            }
-        ) { _ -> content() }
-        else -> ExpandedLayout(
-            viewModel = viewModel,
-            destinationList = destinationList,
-            spotifyItemState = spotifyItemState,
-            currentDestinationRoute = currentDestinationRoute,
-            onNavigationItemSelected = { onNavigationItemSelected(it) },
-            fab = {
-                FabConfiguration(
-                    currentDestinationRoute = currentDestinationRoute,
-                    playAllOnClick = { playAllOnClick() },
-                    newPlaylistOnClick = { newPlaylistOnClick() },
-                    addTrackOnClick = { addTrackOnClick() },
-                    elevation = it
-                )
-            },
-            showRailFab = windowClass.heightSizeClass != WindowHeightSizeClass.Compact
-        ) { _ -> content() }
+    
+    when(windowType) {
+        WindowType.COMPACT_PORTRAIT -> {
+            CompactLayout(
+                viewModel = viewModel,
+                destinationList = destinationList,
+                spotifyItemState = spotifyItemState,
+                currentDestinationRoute = currentDestinationRoute,
+                onNavigationItemSelected = { onNavigationItemSelected(it) },
+                fab = {
+                    FabConfiguration(
+                        currentDestinationRoute = currentDestinationRoute,
+                        playAllOnClick = { playAllOnClick() },
+                        newPlaylistOnClick = { newPlaylistOnClick() },
+                        addTrackOnClick = { addTrackOnClick() },
+                        elevation = it
+                    )
+                }
+            ) { _ -> content() }
+        }
+        else -> {
+            ExpandedLayout(
+                viewModel = viewModel,
+                destinationList = destinationList,
+                spotifyItemState = spotifyItemState,
+                currentDestinationRoute = currentDestinationRoute,
+                onNavigationItemSelected = { onNavigationItemSelected(it) },
+                fab = {
+                    FabConfiguration(
+                        currentDestinationRoute = currentDestinationRoute,
+                        playAllOnClick = { playAllOnClick() },
+                        newPlaylistOnClick = { newPlaylistOnClick() },
+                        addTrackOnClick = { addTrackOnClick() },
+                        elevation = it
+                    )
+                },
+                showRailFab = windowType != WindowType.COMPACT_LANDSCAPE
+            ) { _ -> content() }
+        }
     }
 }
 
@@ -191,7 +192,6 @@ private fun CompactLayout(
 }
 
 @Composable
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 private fun ExpandedLayout(
     viewModel: MainViewModel,
     destinationList: List<MainNavigationItem>,
@@ -218,7 +218,8 @@ private fun ExpandedLayout(
         ) {
             NavigationRail(
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface,
-                header = { if(showRailFab) { fab(FloatingActionButtonDefaults.bottomAppBarFabElevation()) } }
+                header = { if(showRailFab) { fab(FloatingActionButtonDefaults.bottomAppBarFabElevation()) } },
+                windowInsets = WindowInsets(0.dp)
             ) {
                 Column(
                     modifier = Modifier
@@ -278,7 +279,8 @@ private fun ExpandedLayout(
                     .weight(1f)
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
-                floatingActionButton = { if(!showRailFab) { fab(FloatingActionButtonDefaults.elevation()) } }
+                floatingActionButton = { if(!showRailFab) { fab(FloatingActionButtonDefaults.elevation()) } },
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface
             ) { padding -> content(padding) }
         }
     }
@@ -300,11 +302,11 @@ private fun FabConfiguration(
     val fabType = when(currentDestinationRoute) {
         LibraryScreens.Playlists.route -> FabType.NEW_PLAYLIST
         DetailsScreens.PlaylistDetails.route -> FabType.ADD_TRACKS
-        else -> FabType.PLAY_ALL
+        else -> FabType.SHUFFLE_ALL
     }
     
     when(fabType) {
-        FabType.PLAY_ALL -> {
+        FabType.SHUFFLE_ALL -> {
             AnimatedVisibility(
                 visible = screenVisibility
             ) {
@@ -313,8 +315,8 @@ private fun FabConfiguration(
                     elevation = elevation
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_play_arrow_24),
-                        contentDescription = stringResource(id = R.string.str_play)
+                        painter = painterResource(id = R.drawable.ic_baseline_shuffle_24),
+                        contentDescription = stringResource(id = R.string.str_shuffle)
                     )
                 }
             }

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.meltix.revo.data.classes.player.PlayerLayout
 import com.meltix.revo.ui.navigation.LibraryNavigation
 import com.meltix.revo.ui.theme.RevoTheme
+import com.meltix.revo.util.functions.defineWindowType
 import com.meltix.revo.util.functions.findActivity
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -24,7 +25,7 @@ fun MainScreen(
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
-    val windowClass = calculateWindowSizeClass(activity)
+    val windowSizeClass = calculateWindowSizeClass(activity)
     val libraryNavController = rememberNavController()
     val backStackEntry = libraryNavController.currentBackStackEntryAsState().value
     val currentDestinationRoute = if (backStackEntry?.destination?.route == null) "" else backStackEntry.destination.route!!
@@ -34,7 +35,7 @@ fun MainScreen(
 
     RevoTheme {
         MainLayout(
-            windowClass = windowClass,
+            windowType = defineWindowType(windowSizeClass),
             currentDestinationRoute = currentDestinationRoute,
             onNavigationItemSelected = {
                 viewModel.latestDestination = it
