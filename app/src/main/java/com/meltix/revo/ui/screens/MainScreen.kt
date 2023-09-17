@@ -29,8 +29,7 @@ fun MainScreen(
     val libraryNavController = rememberNavController()
     val backStackEntry = libraryNavController.currentBackStackEntryAsState().value
     val currentDestinationRoute = if (backStackEntry?.destination?.route == null) "" else backStackEntry.destination.route!!
-
-    val spotifyItemState by viewModel.spotifyEnabledState.collectAsStateWithLifecycle(false)
+    
     val playerLayout by viewModel.playerLayout.collectAsStateWithLifecycle(PlayerLayout.CENTER)
 
     RevoTheme {
@@ -46,10 +45,9 @@ fun MainScreen(
                 }
             },
             viewModel = viewModel,
-            spotifyItemState = spotifyItemState,
             playAllOnClick = {  },
             newPlaylistOnClick = {  },
-            addTrackOnClick = {  }
+            addTrackOnClick = {  },
         ) {
             LibraryNavigation(
                 rootNavController = navController,

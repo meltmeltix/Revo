@@ -19,10 +19,6 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
     var latestDestination by mutableStateOf("")
 
-    val spotifyEnabledState = settingsRepository.getSpotifyEnabledState()
-        .map { it }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), false)
-
     val playerLayout = settingsRepository.getPlayerLayout()
         .map { PlayerLayout.values()[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PlayerLayout.CENTER)

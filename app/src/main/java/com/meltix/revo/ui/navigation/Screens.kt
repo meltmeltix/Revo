@@ -13,7 +13,6 @@ open class LibraryScreens(val route: String) {
     object Albums : LibraryScreens("albums")
     object Artists : LibraryScreens("artists")
     object Playlists : LibraryScreens("playlists")
-    object Spotify : LibraryScreens("spotify")
     object DetailsGraph : LibraryScreens("details_graph")
 }
 

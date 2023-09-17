@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
@@ -41,13 +42,13 @@ import com.meltix.revo.data.classes.WindowType
 import com.meltix.revo.ui.navigation.DetailsScreens
 import com.meltix.revo.ui.navigation.LibraryScreens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainLayout(
     windowType: Any,
     currentDestinationRoute: String,
     onNavigationItemSelected: (String) -> Unit,
     viewModel: MainViewModel,
-    spotifyItemState: Boolean,
     playAllOnClick: () -> Unit,
     newPlaylistOnClick: () -> Unit,
     addTrackOnClick: () -> Unit,
@@ -85,7 +86,6 @@ fun MainLayout(
             CompactLayout(
                 viewModel = viewModel,
                 destinationList = destinationList,
-                spotifyItemState = spotifyItemState,
                 currentDestinationRoute = currentDestinationRoute,
                 onNavigationItemSelected = { onNavigationItemSelected(it) },
                 fab = {
@@ -103,7 +103,6 @@ fun MainLayout(
             ExpandedLayout(
                 viewModel = viewModel,
                 destinationList = destinationList,
-                spotifyItemState = spotifyItemState,
                 currentDestinationRoute = currentDestinationRoute,
                 onNavigationItemSelected = { onNavigationItemSelected(it) },
                 fab = {
@@ -115,7 +114,6 @@ fun MainLayout(
                         elevation = it
                     )
                 },
-                showRailFab = windowType != WindowType.COMPACT_LANDSCAPE
             ) { _ -> content() }
         }
     }
@@ -125,7 +123,6 @@ fun MainLayout(
 private fun CompactLayout(
     viewModel: MainViewModel,
     destinationList: List<MainNavigationItem>,
-    spotifyItemState: Boolean,
     currentDestinationRoute: String?,
     onNavigationItemSelected: (String) -> Unit,
     fab: @Composable (FloatingActionButtonElevation) -> Unit,
@@ -160,30 +157,6 @@ private fun CompactLayout(
                             label = { Text(item.name) }
                         )
                     }
-                    
-                    if(spotifyItemState) {
-                        val item = LibraryScreens.Spotify
-                        val selected =
-                            item.route == currentDestinationRoute ||
-                            item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
-                            viewModel.latestDestination = LibraryScreens.Songs.route
-                        }
-                        
-                        NavigationBarItem(
-                            selected = selected,
-                            onClick = { onNavigationItemSelected(item.route) },
-                            icon = {
-                                Icon(
-                                    painter =
-                                        if (selected) painterResource(R.drawable.ic_filled_spotify_24)
-                                        else painterResource(R.drawable.ic_outlined_spotify_24),
-                                    contentDescription = stringResource(R.string.str_spotify)
-                                )
-                            },
-                            label = { Text(stringResource(R.string.str_spotify)) }
-                        )
-                    }
                 }
             },
             floatingActionButton = { fab(FloatingActionButtonDefaults.elevation()) }
@@ -195,11 +168,9 @@ private fun CompactLayout(
 private fun ExpandedLayout(
     viewModel: MainViewModel,
     destinationList: List<MainNavigationItem>,
-    spotifyItemState: Boolean,
     currentDestinationRoute: String?,
     onNavigationItemSelected: (String) -> Unit,
     fab: @Composable (FloatingActionButtonElevation) -> Unit,
-    showRailFab: Boolean,
     content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
     val systemBarsPadding = WindowInsets.systemBars.asPaddingValues()
@@ -218,7 +189,7 @@ private fun ExpandedLayout(
         ) {
             NavigationRail(
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface,
-                header = { if(showRailFab) { fab(FloatingActionButtonDefaults.bottomAppBarFabElevation()) } },
+                header = { fab(FloatingActionButtonDefaults.bottomAppBarFabElevation()) },
                 windowInsets = WindowInsets(0.dp)
             ) {
                 Column(
@@ -249,28 +220,6 @@ private fun ExpandedLayout(
                             label = { Text(item.name) }
                         )
                     }
-                    
-                    if(spotifyItemState) {
-                        val item = LibraryScreens.Spotify
-                        val selected =
-                            item.route == currentDestinationRoute ||
-                            item.route == viewModel.latestDestination
-                        if(currentDestinationRoute == LibraryScreens.Songs.route) {
-                            viewModel.latestDestination = LibraryScreens.Songs.route
-                        }
-                        
-                        NavigationRailItem(
-                            selected = selected,
-                            onClick = { onNavigationItemSelected(item.route) },
-                            icon = { Icon(
-                                painter =
-                                    if (selected) painterResource(R.drawable.ic_filled_spotify_24)
-                                    else painterResource(R.drawable.ic_outlined_spotify_24),
-                                contentDescription = stringResource(R.string.str_spotify)
-                            ) },
-                            label = { Text(stringResource(R.string.str_spotify)) }
-                        )
-                    }
                 }
             }
 
@@ -279,7 +228,6 @@ private fun ExpandedLayout(
                     .weight(1f)
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
-                floatingActionButton = { if(!showRailFab) { fab(FloatingActionButtonDefaults.elevation()) } },
                 containerColor = MaterialTheme.colorScheme.inverseOnSurface
             ) { padding -> content(padding) }
         }

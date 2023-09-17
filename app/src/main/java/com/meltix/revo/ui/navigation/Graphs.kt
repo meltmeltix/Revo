@@ -237,7 +237,6 @@ fun NavGraphBuilder.detailsGraph(
                     LibraryScreens.Albums.route -> verSlideEnterFromFragment()
                     LibraryScreens.Artists.route -> verSlideEnterFromFragment()
                     LibraryScreens.Playlists.route -> verSlideEnterFromFragment()
-                    LibraryScreens.Spotify.route -> verSlideEnterFromFragment()
 
                     DetailsScreens.ArtistDetails.route + "/{artistId}" -> horSlidePopEnterFromScreen()
                     else -> null
@@ -249,7 +248,6 @@ fun NavGraphBuilder.detailsGraph(
                     LibraryScreens.Albums.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Artists.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Playlists.route -> verSlideExitFromSubFragment()
-                    LibraryScreens.Spotify.route -> verSlideExitFromSubFragment()
 
                     DetailsScreens.ArtistDetails.route + "/{artistId}" -> horSlideExitToScreen()
                     else -> null
@@ -290,7 +288,6 @@ fun NavGraphBuilder.detailsGraph(
                     LibraryScreens.Albums.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Artists.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Playlists.route -> verSlideExitFromSubFragment()
-                    LibraryScreens.Spotify.route -> verSlideExitFromSubFragment()
 
                     DetailsScreens.AlbumDetails.route + "/{albumId}" -> horSlidePopExitToScreen()
                     else -> null
@@ -329,7 +326,6 @@ fun NavGraphBuilder.detailsGraph(
                     LibraryScreens.Albums.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Artists.route -> verSlideExitFromSubFragment()
                     LibraryScreens.Playlists.route -> verSlideExitFromSubFragment()
-                    LibraryScreens.Spotify.route -> verSlideExitFromSubFragment()
                     else -> null
                 }
             }
