@@ -9,7 +9,12 @@ import com.meltix.revo.data.classes.WindowType
 @Composable
 fun defineWindowType(windowSizeClass: WindowSizeClass): WindowType {
     return when(windowSizeClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> WindowType.COMPACT_PORTRAIT
+        WindowWidthSizeClass.Compact -> {
+            when(windowSizeClass.heightSizeClass) {
+                WindowHeightSizeClass.Compact -> WindowType.COMPACT_WINDOW
+                else -> WindowType.COMPACT_PORTRAIT
+            }
+        }
         WindowWidthSizeClass.Medium -> {
             when(windowSizeClass.heightSizeClass) {
                 WindowHeightSizeClass.Medium -> WindowType.MEDIUM_PORTRAIT

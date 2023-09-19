@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.components
+package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen.albumHeaderComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
