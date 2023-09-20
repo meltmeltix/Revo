@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.meltix.pixely_components.PixelyListItem
 import com.meltix.revo.R
-import com.meltix.revo.data.classes.player.PlayerLayout
+import com.meltix.revo.data.classes.player.PlayerButtonsLayout
 import com.meltix.revo.util.functions.selectPlayerLayoutString
 
 @Composable
@@ -129,7 +129,7 @@ private fun ExpandedLayout(onNavigateUp: () -> Unit, content: LazyListScope.() -
 @Composable
 fun PlayerLayoutPreviewHeader(
     modifier: Modifier = Modifier,
-    selectedOption: PlayerLayout,
+    selectedOption: PlayerButtonsLayout,
 ) {
     Box(
         modifier = modifier
@@ -144,7 +144,7 @@ fun PlayerLayoutPreviewHeader(
             .height(200.dp)
 
         when(selectedOption) {
-            PlayerLayout.LEFT -> {
+            PlayerButtonsLayout.LEFT -> {
                 when(darkTheme) {
                     true -> {
                         Image(
@@ -162,7 +162,7 @@ fun PlayerLayoutPreviewHeader(
                     }
                 }
             }
-            PlayerLayout.CENTER -> {
+            PlayerButtonsLayout.CENTER -> {
                 when(darkTheme) {
                     true -> {
                         Image(
@@ -180,7 +180,7 @@ fun PlayerLayoutPreviewHeader(
                     }
                 }
             }
-            PlayerLayout.RIGHT -> {
+            PlayerButtonsLayout.RIGHT -> {
                 when(darkTheme) {
                     true -> {
                         Image(
@@ -204,9 +204,9 @@ fun PlayerLayoutPreviewHeader(
 
 @Composable
 fun LayoutSelector(
-    options: Array<PlayerLayout>,
-    selected: PlayerLayout,
-    onSelected: (PlayerLayout) -> Unit,
+    options: Array<PlayerButtonsLayout>,
+    selected: PlayerButtonsLayout,
+    onSelected: (PlayerButtonsLayout) -> Unit,
 ) {
     options.forEach { option ->
         PixelyListItem(

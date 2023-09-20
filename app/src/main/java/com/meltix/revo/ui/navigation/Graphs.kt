@@ -30,14 +30,12 @@ fun NavGraphBuilder.settingsGraph(
             enterTransition = {
                 when (initialState.destination.route) {
                     RootScreens.Main.route -> horSlideEnterFromScreen()
-                    RootScreens.Player.route -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when (targetState.destination.route) {
                     RootScreens.Main.route -> horSlidePopExitToScreen()
-                    RootScreens.Player.route -> horSlidePopExitToScreen()
                     SettingsScreens.Library.route -> horSlideExitToScreen()
                     SettingsScreens.Customization.route -> horSlideExitToScreen()
                     SettingsScreens.Other.route -> horSlideExitToScreen()
@@ -61,14 +59,12 @@ fun NavGraphBuilder.settingsGraph(
             enterTransition = {
                 when (initialState.destination.route) {
                     RootScreens.Main.route -> horSlideEnterFromScreen()
-                    RootScreens.Player.route -> horSlideEnterFromScreen()
                     else -> null
                 }
             },
             exitTransition = {
                 when (targetState.destination.route) {
                     RootScreens.Main.route -> horSlidePopExitToScreen()
-                    RootScreens.Player.route -> horSlidePopExitToScreen()
                     SettingsScreens.Library.route -> horSlideExitToScreen()
                     SettingsScreens.Customization.route -> horSlideExitToScreen()
                     SettingsScreens.Other.route -> horSlideExitToScreen()

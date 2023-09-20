@@ -16,7 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.meltix.pixely_components.PixelySupportInfoText
 import com.meltix.revo.R
-import com.meltix.revo.data.classes.player.PlayerLayout
+import com.meltix.revo.data.classes.player.PlayerButtonsLayout
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.functions.findActivity
 
@@ -30,7 +30,7 @@ fun PlayerLayoutScreen(
     val activity = context.findActivity()
     val windowClass = calculateWindowSizeClass(activity)
     
-    val selectedLayout by viewModel.playerLayout.collectAsStateWithLifecycle(PlayerLayout.CENTER)
+    val selectedLayout by viewModel.playerButtonsLayout.collectAsStateWithLifecycle(PlayerButtonsLayout.CENTER)
 
     RevoTheme {
         Surface(
@@ -45,7 +45,7 @@ fun PlayerLayoutScreen(
     }
 }
 
-private fun LazyListScope.itemList(viewModel: PlayerLayoutViewModel, selectedLayout: PlayerLayout) {
+private fun LazyListScope.itemList(viewModel: PlayerLayoutViewModel, selectedLayout: PlayerButtonsLayout) {
     item {
         PlayerLayoutPreviewHeader(
             modifier = Modifier.padding(horizontal = 15.dp),
@@ -61,7 +61,7 @@ private fun LazyListScope.itemList(viewModel: PlayerLayoutViewModel, selectedLay
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             LayoutSelector(
-                options = PlayerLayout.values(),
+                options = PlayerButtonsLayout.values(),
                 selected = selectedLayout,
                 onSelected = { viewModel.setLayout(it) },
             )

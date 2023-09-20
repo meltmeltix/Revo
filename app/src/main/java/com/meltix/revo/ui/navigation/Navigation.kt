@@ -11,7 +11,6 @@ import com.meltix.revo.ui.screens.library.albumScreen.AlbumsScreen
 import com.meltix.revo.ui.screens.library.artistScreen.ArtistsScreen
 import com.meltix.revo.ui.screens.library.playlistScreen.PlaylistsScreen
 import com.meltix.revo.ui.screens.library.songScreen.SongsScreen
-import com.meltix.revo.ui.screens.player.PlayerScreen
 import com.meltix.revo.ui.screens.welcome.WelcomeScreen
 
 @Composable
@@ -43,46 +42,17 @@ fun RootNavigation(
             },
             exitTransition = {
                 when (targetState.destination.route) {
-                    RootScreens.Search.route -> horSlideExitToScreen()
                     SettingsScreens.MainSettings.route -> horSlideExitToScreen()
-                    RootScreens.Player.route -> verSlidePopExitFromPlayer()
                     else -> null
                 }
             },
             popEnterTransition = {
                 when (initialState.destination.route) {
-                    RootScreens.Search.route -> horSlidePopEnterFromScreen()
                     SettingsScreens.MainSettings.route -> horSlidePopEnterFromScreen()
-                    RootScreens.Player.route -> verSlidePopEnterFromPlayer()
                     else -> null
                 }
             }
         ) { MainScreen(navController = navController) }
-
-        // Player screen
-        composable(
-            route = RootScreens.Player.route,
-            enterTransition = {
-                when (initialState.destination.route) {
-                    RootScreens.Main.route -> verSlideEnterToPlayer()
-                    else -> null
-                }
-            },
-            exitTransition = {
-                when (targetState.destination.route) {
-                    RootScreens.Main.route -> verSlideExitFromPlayer()
-                    RootScreens.SettingsGraph.route -> horSlideExitToScreen()
-                    else -> null
-                }
-            },
-            popEnterTransition = {
-                when (initialState.destination.route) {
-                    RootScreens.Main.route -> verSlideEnterToPlayer()
-                    RootScreens.SettingsGraph.route -> horSlidePopEnterFromScreen()
-                    else -> null
-                }
-            }
-        ) { PlayerScreen(navController = navController) }
 
         settingsGraph(navController, nestedGraphStartDestination)
     }

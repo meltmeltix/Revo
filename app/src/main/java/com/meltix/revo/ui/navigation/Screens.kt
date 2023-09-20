@@ -3,8 +3,6 @@ package com.meltix.revo.ui.navigation
 open class RootScreens(val route: String) {
     object Welcome : RootScreens("welcome")
     object Main : RootScreens("main")
-    object Player : RootScreens("player")
-    object Search : RootScreens("search")
     object SettingsGraph: RootScreens("settings_graph")
 }
 
