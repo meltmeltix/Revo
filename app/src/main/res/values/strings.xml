@@ -133,4 +133,6 @@
     <string name="info_fruitMusicLayout">Heavily inspired by a famous fruit company\'s music app. Big and stylish</string>
     <string name="info_minimalLayout">It\'s free real estate. All the information you need in a neat little header</string>
     <string name="str_refresh">Refresh</string>
+    <string name="str_connect">Connect</string>
+    <string name="info_connect">Manage your connections to external services</string>
 </resources>
