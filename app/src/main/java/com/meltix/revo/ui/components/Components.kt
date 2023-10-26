@@ -1,34 +1,19 @@
 package com.meltix.revo.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.meltix.revo.R
-import com.meltix.revo.data.classes.ContentState
 
 @Composable
 fun SmallImageContainer(
@@ -76,106 +61,5 @@ fun LargeImageContainer(
         )
 
         leadingUnit()
-    }
-}
-
-@Composable
-fun LoadingContent(
-    modifier: Modifier,
-    headlineString: String,
-) {
-    Surface() {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = headlineString,
-                modifier = Modifier
-                    .padding(horizontal = 25.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            LinearProgressIndicator(
-                modifier = Modifier
-                    .clip(MaterialTheme.shapes.medium),
-            )
-        }
-    }
-}
-
-@Composable
-fun NoContentMessage(
-    modifier: Modifier,
-    headlineString: String,
-    infoString: String,
-    leadingIcon: Painter
-) {
-    Surface() {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = leadingIcon,
-                contentDescription = stringResource(id = R.string.str_songs),
-                modifier = Modifier
-                    .padding(bottom = 20.dp)
-                    .size(50.dp)
-            )
-            Text(
-                text = headlineString,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineSmall
-            )
-            Text(
-                text = infoString,
-                modifier = Modifier
-                    .padding(horizontal = 30.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
-}
-
-@Composable
-fun ContentSelector(
-    state: ContentState,
-    loadingUnit: @Composable (() -> Unit),
-    failedUnit: @Composable (() -> Unit),
-    contentUnit: @Composable (() -> Unit)
-) {
-    when (state) {
-        ContentState.LOADING -> {
-            AnimatedVisibility(
-                visible = true,
-                enter = fadeIn(animationSpec = tween(300)),
-                exit = fadeOut(animationSpec = tween(300))
-            ) { loadingUnit() }
-            
-        }
-        
-        ContentState.FAILURE -> {
-            AnimatedVisibility(
-                visible = true,
-                enter = fadeIn(animationSpec = tween(300)),
-                exit = fadeOut(animationSpec = tween(300))
-            ) { failedUnit() }
-        }
-        
-        ContentState.SUCCESS -> {
-            AnimatedVisibility(
-                visible = true,
-                enter = fadeIn(animationSpec = tween(300)),
-                exit = fadeOut(animationSpec = tween(300))
-            ) { contentUnit() }
-        }
     }
 }

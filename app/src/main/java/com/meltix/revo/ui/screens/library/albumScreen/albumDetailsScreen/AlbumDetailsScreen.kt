@@ -1,43 +1,22 @@
 package com.meltix.revo.ui.screens.library.albumScreen.albumDetailsScreen
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.meltix.pixely_components.PixelyListItem
-import com.meltix.pixely_components.PixelySectionTitle
-import com.meltix.revo.R
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.album.AlbumDetails
-import com.meltix.revo.data.classes.album.AlbumSong
 import com.meltix.revo.data.classes.album.HeaderLayout
-import com.meltix.revo.ui.components.ContentSelector
-import com.meltix.revo.ui.components.albumDetailsContentModifier
-import com.meltix.revo.ui.components.surfaceColorOnWindowSize
 import com.meltix.revo.util.functions.findActivity
 
 
@@ -65,105 +44,10 @@ fun AlbumViewScreen(
 
     LaunchedEffect(Unit) { viewModel.initializeAlbumData(albumId) }
 
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            AlbumDetailsTopActionBar(
-                rootNavController = rootNavController,
-                libraryNavController = libraryNavController,
-                scrollBehavior = scrollBehavior,
-                firstVisibleItem = firstVisibleItem,
-                viewModel = viewModel,
-                headerLayout = headerLayout,
-                windowClass = windowClass,
-                albumDetails = albumDetails
-            )
-        },
-        containerColor = surfaceColorOnWindowSize(windowClass),
-        content = { padding ->
-            ContentSelector(
-                state = contentState,
-                loadingUnit = {
-                    // TODO: Add Loading Unit
-                },
-                failedUnit = {
-                    // TODO: Add Failed Unit
-                },
-                contentUnit = {
-                    ContentUnit(
-                        modifier = Modifier.albumDetailsContentModifier(windowClass, padding, headerLayout),
-                        viewModel = viewModel,
-                        libraryNavController = libraryNavController,
-                        windowClass = windowClass,
-                        headerLayout = headerLayout,
-                        albumDetails = albumDetails,
-                        listScrollState = scrollState,
-                        songList = songList
-                    )
-                }
-            )
-        }
-    )
+    
 }
 
-@Composable
-private fun ContentUnit(
-    modifier: Modifier,
-    viewModel: AlbumDetailsViewModel,
-    libraryNavController: NavController,
-    windowClass: WindowSizeClass,
-    headerLayout: HeaderLayout,
-    albumDetails: AlbumDetails,
-    listScrollState: LazyListState,
-    songList: List<AlbumSong>,
-) {
-    val contentScale = when(headerLayout) {
-        HeaderLayout.REVO -> ContentScale.FillBounds
-        HeaderLayout.FRUIT_MUSIC ->
-            when(windowClass.widthSizeClass) {
-                WindowWidthSizeClass.Compact -> ContentScale.FillHeight
-                else -> ContentScale.FillWidth
-            }
-        HeaderLayout.MINIMAL -> ContentScale.FillWidth
-    }
-
-    LazyColumn(
-        modifier = modifier,
-        state = listScrollState,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
-    ) {
-        item {
-            AlbumDetailsHeader(
-                viewModel = viewModel,
-                navController = libraryNavController,
-                windowClass = windowClass,
-                layout = headerLayout,
-                leadingUnit = {
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(albumDetails.coverUri)
-                            .crossfade(true)
-                            .build(),
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = contentScale,
-                        contentDescription = stringResource(id = R.string.str_albumImage),
-                    )
-                },
-                albumDetails = albumDetails
-            )
-        }
-
-        item {
-            PixelySectionTitle(
-                stringTitle = stringResource(id = R.string.str_songs),
-                horizontalContentPadding = 15.dp
-            )
-        }
-
-        albumSongsList(songList)
-    }
-}
-
+/*
 private fun LazyListScope.albumSongsList(songs: List<AlbumSong>) {
     itemsIndexed(items = songs) { key, item ->
         key(key) {
@@ -215,4 +99,4 @@ private fun LazyListScope.albumSongsList(songs: List<AlbumSong>) {
             }
         }
     }
-}
+}*/

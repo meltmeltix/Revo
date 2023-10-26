@@ -8,7 +8,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.meltix.revo.ui.navigation.SettingsScreens
 import com.meltix.revo.ui.theme.RevoTheme
 import com.meltix.revo.util.functions.findActivity
 
@@ -28,28 +27,6 @@ fun SettingsListScreen(
         else settingsBackStackEntry.destination.route
     
     RevoTheme {
-        SettingsListLayout(
-            windowClass = windowClass,
-            viewModel = viewModel,
-            onNavigateUp = { navController.navigateUp() },
-            onCompactItemClick = { route ->
-                navController.navigate(route) {
-                    popUpTo(SettingsScreens.MainSettings.route) { saveState = true }
-                    launchSingleTop = true
-                    restoreState = true
-                }
-            },
-            onExpandedItemClick = { route ->
-                if(settingsNavController != null) {
-                    viewModel.latestDestination = route
-                    settingsNavController.navigate(route) {
-                        popUpTo(SettingsScreens.Library.route) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            },
-            currentDestinationRoute = settingsCurrentDestinationRoute
-        )
+    
     }
 }
