@@ -4,6 +4,12 @@
 <strong>A clean and simple music player for Android</strong>
 </p>
 
+<p align="center">
+  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/revoplayer">
+    <img src="https://badges.crowdin.net/revoplayer/localized.svg">
+  </a>
+</p>
+
 ---
 
 <p align="center">
