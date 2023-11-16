@@ -5,29 +5,29 @@
     <string name="search_your_library">Cerca nella tua libreria…</string>
     <string name="menu">Menu</string>
     <!-- Navigation destinations -->
-    <string name="songs">Songs</string>
-    <string name="albums">Albums</string>
-    <string name="artists">Artists</string>
-    <string name="playlists">Playlists</string>
+    <string name="songs">Brani</string>
+    <string name="albums">Album</string>
+    <string name="artists">Artisti</string>
+    <string name="playlists">Playlist</string>
     <!-- Music related -->
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
+    <string name="play">Riproduci</string>
+    <string name="pause">Pausa</string>
     <!-- Plurals -->
     <plurals name="songAmount">
-        <item quantity="one">song</item>
-        <item quantity="other">songs</item>
+        <item quantity="one">brano</item>
+        <item quantity="other">brani</item>
     </plurals>
     <plurals name="albumAmount">
         <item quantity="one">album</item>
-        <item quantity="other">albums</item>
+        <item quantity="other">album</item>
     </plurals>
     <plurals name="hourAmountAbbr">
         <item quantity="one">hr</item>
-        <item quantity="other">hrs</item>
+        <item quantity="other">h</item>
     </plurals>
     <plurals name="minutesAmountAbbr">
         <item quantity="one">min</item>
-        <item quantity="other">mins</item>
+        <item quantity="other">min</item>
     </plurals>
     <string name="secondsAmountAbbr">sec</string>
 </resources>
