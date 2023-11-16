@@ -3,4 +3,31 @@
     <string name="app_language">German</string>
     <string name="search">Search</string>
     <string name="search_your_library">Search your library…</string>
+    <string name="menu">Menu</string>
+    <!-- Navigation destinations -->
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="playlists">Playlists</string>
+    <!-- Music related -->
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <!-- Plurals -->
+    <plurals name="songAmount">
+        <item quantity="one">song</item>
+        <item quantity="other">songs</item>
+    </plurals>
+    <plurals name="albumAmount">
+        <item quantity="one">album</item>
+        <item quantity="other">albums</item>
+    </plurals>
+    <plurals name="hourAmountAbbr">
+        <item quantity="one">hr</item>
+        <item quantity="other">hrs</item>
+    </plurals>
+    <plurals name="minutesAmountAbbr">
+        <item quantity="one">min</item>
+        <item quantity="other">mins</item>
+    </plurals>
+    <string name="secondsAmountAbbr">sec</string>
 </resources>
