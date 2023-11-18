@@ -13,7 +13,7 @@
 ---
 
 <p align="center">
-  <a href="https://github.com/alessiocameroni/RevoMusicPlayer/issues/4">Progress, announcements and updates</a>
+  <a href="https://github.com/meltmeltix/Revo/discussions">Progress, announcements and updates</a>
 </p>
 
 <br>
