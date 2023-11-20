@@ -22,7 +22,7 @@
         <item quantity="other">album</item>
     </plurals>
     <plurals name="hourAmountAbbr">
-        <item quantity="one">hr</item>
+        <item quantity="one">h</item>
         <item quantity="other">h</item>
     </plurals>
     <plurals name="minutesAmountAbbr">
