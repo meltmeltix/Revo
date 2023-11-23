@@ -4,6 +4,8 @@
     <string name="search">Cerca</string>
     <string name="search_your_library">Cerca nella tua libreria…</string>
     <string name="menu">Menu</string>
+    <string name="settings">Impostazioni</string>
+    <string name="clear">Cancella</string>
     <!-- Navigation destinations -->
     <string name="songs">Brani</string>
     <string name="albums">Album</string>
@@ -12,6 +14,7 @@
     <!-- Music related -->
     <string name="play">Riproduci</string>
     <string name="pause">Pausa</string>
+    <string name="shuffle">Riproduzione casuale</string>
     <!-- Plurals -->
     <plurals name="songAmount">
         <item quantity="one">brano</item>
