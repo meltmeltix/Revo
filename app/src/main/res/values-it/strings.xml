@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_language">Italiano</string>
+    <!-- App -->
+    <string name="permission">Revo needs permission to access your device storage to find and play your tunes</string>
+    <string name="permission_denied">Permission to access external storage denied</string>
+    <string name="grant_permission">Grant permission</string>
+    <!-- UI elements -->
     <string name="search">Cerca</string>
     <string name="search_your_library">Cerca nella tua libreria…</string>
     <string name="menu">Menu</string>
@@ -16,6 +21,7 @@
     <string name="pause">Pausa</string>
     <string name="shuffle">Riproduzione casuale</string>
     <!-- Library related -->
+    <string name="refresh">Refresh</string>
     <string name="loading">Caricamento %s…</string>
     <string name="empty_songs">È un po\' troppo tranquillo qui…</string>
     <string name="empty_albums">Hai dimenticato il disco?</string>
