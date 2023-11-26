@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 
-
 val Clam6Shape: Shape = object: Shape {
     override fun createOutline(
         size: Size,

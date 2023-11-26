@@ -80,6 +80,7 @@ dependencies {
     implementation ('androidx.compose.material3:material3:1.2.0-alpha11')
     implementation ('androidx.compose.material3:material3-window-size-class:1.2.0-alpha11')
     implementation ("com.github.meltmeltix:pixely-components:3.0.1")
+    implementation ("ir.mahozad.multiplatform:wavy-slider:0.3.0")
 
     // Dependency Injection
     implementation ("com.google.dagger:hilt-android:$dagger_version")

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.meltix.revo.domain.repository.SettingsRepository
 import kotlinx.coroutines.flow.map
@@ -21,6 +22,7 @@ class SettingsRepositoryImpl(
 ): SettingsRepository {
     private companion object {
         // Library Keys
+        val DESTINATIONS_ORDER = stringSetPreferencesKey("destinations_order")
         val SPOTIFY_ENABLED = booleanPreferencesKey("spotify_enabled")
 
         // Customization Keys
@@ -31,6 +33,11 @@ class SettingsRepositoryImpl(
     }
 
     // Get Data functions
+    override fun getDestinationsOrder() = context.dataStore.data
+        .map { preferences ->
+            preferences[DESTINATIONS_ORDER] ?: setOf("SONGS", "ARTISTS", "ALBUMS", "PLAYLISTS")
+        }
+    
     override fun getSpotifyEnabledState() = context.dataStore.data
         .map { preferences -> preferences[SPOTIFY_ENABLED] ?: false }
 
@@ -39,9 +46,11 @@ class SettingsRepositoryImpl(
 
     override fun getAlbumViewLayout() = context.dataStore.data
         .map { preferences -> preferences[ALBUM_VIEW_LAYOUT] ?: 0 }
-
-
+    
+    
     // Set Data functions
+    override suspend fun setDestinationsOrder(destinationsOrder: Set<String>)
+        { context.dataStore.edit { preferences -> preferences[DESTINATIONS_ORDER] = destinationsOrder } }
     override suspend fun setSpotifyEnabledState(enabledState: Boolean)
         { context.dataStore.edit { preferences -> preferences[SPOTIFY_ENABLED] = enabledState } }
 

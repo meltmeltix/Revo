@@ -3,6 +3,12 @@
     <string name="app_name" translatable="false">Revo</string>
     <string name="app_language">English</string>
 
+    <!-- App -->
+    <string name="permission">Revo needs permission to access your device storage to find and play your tunes</string>
+    <string name="permission_denied">Permission to access external storage denied</string>
+    <string name="grant_permission">Grant permission</string>
+
+    <!-- UI elements -->
     <string name="search">Search</string>
     <string name="search_your_library">Search your library…</string>
     <string name="menu">Menu</string>
@@ -21,6 +27,7 @@
     <string name="shuffle">Shuffle</string>
 
     <!-- Library related -->
+    <string name="refresh">Refresh</string>
     <string name="loading">Loading your %s…</string>
     <string name="empty_songs">It\'s a little too quiet in here…</string>
     <string name="empty_albums">Did you forgot the disc?</string>
