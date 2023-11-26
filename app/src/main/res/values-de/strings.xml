@@ -2,14 +2,14 @@
 <resources>
     <string name="app_language">German</string>
     <!-- App -->
-    <string name="permission">Revo needs permission to access your device storage to find and play your tunes</string>
-    <string name="permission_denied">Permission to access external storage denied</string>
-    <string name="grant_permission">Grant permission</string>
+    <string name="permission">Revo benötigt die Erlaubnis, auf deinen Gerätespeicher zuzugreifen, um deine Musik zu finden und abzuspielen</string>
+    <string name="permission_denied">Die Zugriffsberechtigung auf den externen Speicher wurde verweigert</string>
+    <string name="grant_permission">Zugriff erlauben</string>
     <!-- UI elements -->
-    <string name="search">Search</string>
-    <string name="search_your_library">Search your library…</string>
-    <string name="menu">Menu</string>
-    <string name="settings">Settings</string>
+    <string name="search">Suche</string>
+    <string name="search_your_library">Deine Mediathek durchsuchen…</string>
+    <string name="menu">Menü</string>
+    <string name="settings">Einstellungen</string>
     <string name="clear">Clear</string>
     <!-- Navigation destinations -->
     <string name="songs">Songs</string>
