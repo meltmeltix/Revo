@@ -16,27 +16,27 @@
     <string name="pause">Pausa</string>
     <string name="shuffle">Riproduzione casuale</string>
     <!-- Library related -->
-    <string name="loading">Loading your %s…</string>
-    <string name="empty_songs">It\'s a little too quiet in here…</string>
-    <string name="empty_albums">Did you forgot the disc?</string>
-    <string name="empty_artists">Where are all the artists?</string>
-    <string name="empty_library_info">There doesn\'t seem to be any %s in your library… Add some songs and get the party started!</string>
+    <string name="loading">Caricamento %s…</string>
+    <string name="empty_songs">È un po\' troppo tranquillo qui…</string>
+    <string name="empty_albums">Hai dimenticato il disco?</string>
+    <string name="empty_artists">Dove sono tutti gli artisti?</string>
+    <string name="empty_library_info">Sembra che non ci sia alcun %s nella tua libreria… Aggiungi delle canzoni e dai inizio alla festa!</string>
     <!-- Plurals -->
     <plurals name="songAmount">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">%d brano</item>
+        <item quantity="other">%d brani</item>
     </plurals>
     <plurals name="albumAmount">
         <item quantity="one">%d album</item>
-        <item quantity="other">%d albums</item>
+        <item quantity="other">%d album</item>
     </plurals>
     <plurals name="hourAmount">
-        <item quantity="one">%d hr</item>
-        <item quantity="other">%d hrs</item>
+        <item quantity="one">%d ora</item>
+        <item quantity="other">%d ore</item>
     </plurals>
     <plurals name="minutesAmount">
         <item quantity="one">%d min</item>
-        <item quantity="other">%d mins</item>
+        <item quantity="other">%d min</item>
     </plurals>
     <string name="secondsAmount">%d sec</string>
 </resources>
