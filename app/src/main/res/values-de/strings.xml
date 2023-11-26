@@ -23,12 +23,12 @@
     <string name="empty_library_info">There doesn\'t seem to be any %s in your library… Add some songs and get the party started!</string>
     <!-- Plurals -->
     <plurals name="songAmount">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">song</item>
+        <item quantity="other">songs</item>
     </plurals>
     <plurals name="albumAmount">
-        <item quantity="one">%d album</item>
-        <item quantity="other">%d albums</item>
+        <item quantity="one">album</item>
+        <item quantity="other">albums</item>
     </plurals>
     <plurals name="hourAmount">
         <item quantity="one">%d hr</item>
