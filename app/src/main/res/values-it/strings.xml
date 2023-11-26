@@ -3,4 +3,40 @@
     <string name="app_language">Italiano</string>
     <string name="search">Cerca</string>
     <string name="search_your_library">Cerca nella tua libreria…</string>
+    <string name="menu">Menu</string>
+    <string name="settings">Impostazioni</string>
+    <string name="clear">Cancella</string>
+    <!-- Navigation destinations -->
+    <string name="songs">Brani</string>
+    <string name="albums">Album</string>
+    <string name="artists">Artisti</string>
+    <string name="playlists">Playlist</string>
+    <!-- Music related -->
+    <string name="play">Riproduci</string>
+    <string name="pause">Pausa</string>
+    <string name="shuffle">Riproduzione casuale</string>
+    <!-- Library related -->
+    <string name="loading">Loading your %s…</string>
+    <string name="empty_songs">It\'s a little too quiet in here…</string>
+    <string name="empty_albums">Did you forgot the disc?</string>
+    <string name="empty_artists">Where are all the artists?</string>
+    <string name="empty_library_info">There doesn\'t seem to be any %s in your library… Add some songs and get the party started!</string>
+    <!-- Plurals -->
+    <plurals name="songAmount">
+        <item quantity="one">%d song</item>
+        <item quantity="other">%d songs</item>
+    </plurals>
+    <plurals name="albumAmount">
+        <item quantity="one">%d album</item>
+        <item quantity="other">%d albums</item>
+    </plurals>
+    <plurals name="hourAmount">
+        <item quantity="one">%d hr</item>
+        <item quantity="other">%d hrs</item>
+    </plurals>
+    <plurals name="minutesAmount">
+        <item quantity="one">%d min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+    <string name="secondsAmount">%d sec</string>
 </resources>
