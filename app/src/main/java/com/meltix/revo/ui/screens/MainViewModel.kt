@@ -1,24 +1,25 @@
 package com.meltix.revo.ui.screens
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.meltix.revo.data.classes.player.PlayerButtonsLayout
 import com.meltix.revo.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private var settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository
 ): ViewModel() {
-    val spotifyEnabledState = mutableStateOf(true)
+    var latestDestination by mutableStateOf("")
 
-    init {
-        viewModelScope.launch {
-            settingsRepository.getSpotifyEnabledState().collect {
-                spotifyEnabledState.value = it
-            }
-        }
-    }
+    val playerButtonsLayout = settingsRepository.getPlayerLayout()
+        .map { PlayerButtonsLayout.values()[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PlayerButtonsLayout.CENTER)
 }

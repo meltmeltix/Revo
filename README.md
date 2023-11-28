@@ -1,4 +1,4 @@
-![Revo Music Player Header](https://raw.githubusercontent.com/alessiocameroni/RevoMusicPlayer/master/github/RevoLogoHeader.png)
+![Revo Music Player Header](https://raw.githubusercontent.com/meltmeltix/Revo/master/github/RevoLogoHeader.png)
 
 <p align="center">
 <strong>A clean and simple music player for Android</strong>

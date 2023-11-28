@@ -1,37 +1,19 @@
 package com.meltix.revo.ui.navigation
 
-open class Screens(val route: String) {
-    object WelcomeScreen : Screens("welcome_screen")
-    object MainScreen : Screens("main_screen")
-    object PlayerScreen : Screens("player_screen")
-    object SearchScreen : Screens("search_screen")
-    object SettingsScreen : Screens("settings_screen")
+open class RootScreens(val route: String) {
+    object Main : RootScreens("main")
 }
 
-open class NavigationScreens(val route: String) {
-    object SongScreen : NavigationScreens("songs")
-
-    object AlbumScreen : NavigationScreens("albums")
-    object AlbumViewScreen : NavigationScreens("album_view_screen")
-
-    object ArtistScreen : NavigationScreens("artists")
-    object ArtistViewScreen : NavigationScreens("artist_view_screen")
-
-    object PlaylistScreen : NavigationScreens("playlists")
-    object PlaylistViewScreen : NavigationScreens("playlist_view_screen")
-
-    object SpotifyScreen : NavigationScreens("spotify")
+open class LibraryScreens(val route: String) {
+    object Songs : LibraryScreens("songs")
+    object Albums : LibraryScreens("albums")
+    object Artists : LibraryScreens("artists")
+    object Playlists : LibraryScreens("playlists")
+    object DetailsGraph : LibraryScreens("details_graph")
 }
 
-open class SettingsScreens(val route: String) {
-    object LibrarySettingsScreen : SettingsScreens("library_settings_screen")
-
-    object CustomizationScreen : SettingsScreens("customization_screen")
-    object PlayerLayoutScreen : SettingsScreens("player_layout_screen")
-    object AlbumViewLayoutScreen : SettingsScreens("album_view_layout_screen")
-
-    object OtherScreen : SettingsScreens("other_screen")
-    object AppLanguageScreen : SettingsScreens("app_language_screen")
-
-    object AboutScreen : SettingsScreens("about_screen")
+open class DetailsScreens(val route: String) {
+    object AlbumDetails : DetailsScreens("album_view")
+    object ArtistDetails : DetailsScreens("artist_view")
+    object PlaylistDetails : DetailsScreens("playlist_view")
 }

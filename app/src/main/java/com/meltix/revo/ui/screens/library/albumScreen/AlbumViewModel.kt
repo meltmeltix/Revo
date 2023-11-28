@@ -53,6 +53,15 @@ class AlbumViewModel @Inject constructor(
             else { _contentState.value = ContentState.FAILURE }
         }
     }
+    
+    fun onRefresh() {
+        viewModelScope.launch {
+            _contentState.value = ContentState.LOADING
+            withContext(Dispatchers.IO) { _albums.value = albumsRepository.getAlbumList() }
+            if (_albums.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            else { _contentState.value = ContentState.FAILURE }
+        }
+    }
 
     private fun sortList(
         list: List<Album>,

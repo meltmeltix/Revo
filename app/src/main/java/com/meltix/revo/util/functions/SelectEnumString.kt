@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.meltix.revo.R
 import com.meltix.revo.data.classes.album.HeaderLayout
-import com.meltix.revo.data.classes.player.PlayerLayout
+import com.meltix.revo.data.classes.player.PlayerButtonsLayout
 import com.meltix.revo.data.classes.preferences.SortingOrder
 import com.meltix.revo.data.classes.preferences.SortingType
 
@@ -29,11 +29,11 @@ fun selectSortingOrderString(option: SortingOrder): String =
     }
 
 @Composable
-fun selectPlayerLayoutString(option: PlayerLayout): String =
+fun selectPlayerLayoutString(option: PlayerButtonsLayout): String =
     when(option) {
-        PlayerLayout.LEFT -> stringResource(id = R.string.str_left)
-        PlayerLayout.CENTER -> stringResource(id = R.string.str_center)
-        PlayerLayout.RIGHT -> stringResource(id = R.string.str_right)
+        PlayerButtonsLayout.LEFT -> stringResource(id = R.string.str_left)
+        PlayerButtonsLayout.CENTER -> stringResource(id = R.string.str_center)
+        PlayerButtonsLayout.RIGHT -> stringResource(id = R.string.str_right)
     }
 
 @Composable

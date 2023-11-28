@@ -9,7 +9,13 @@ import com.meltix.revo.domain.repository.ArtistsRepository
 import com.meltix.revo.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -36,6 +42,15 @@ class ArtistViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            withContext(Dispatchers.IO) { _artists.value = artistsRepository.getArtistList() }
+            if (_artists.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
+            else { _contentState.value = ContentState.FAILURE }
+        }
+    }
+    
+    fun onRefresh() {
+        viewModelScope.launch {
+            _contentState.value = ContentState.LOADING
             withContext(Dispatchers.IO) { _artists.value = artistsRepository.getArtistList() }
             if (_artists.value.isNotEmpty()) { _contentState.value = ContentState.SUCCESS }
             else { _contentState.value = ContentState.FAILURE }
