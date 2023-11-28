@@ -10,12 +10,6 @@
   </a>
 </p>
 
----
-
-<p align="center">
-  <a href="https://github.com/meltmeltix/Revo/discussions">Progress, announcements and updates</a>
-</p>
-
 <br>
 
 ## 🤔 About
@@ -23,7 +17,22 @@ Revo is a local music player aiming to be clean and consistent, with a modern us
 
 I primarily built Revo for myself as a solo project, helping me learn Android Development.
 
+**This app is still a work in progress. Any current changes may not be final.**
+
 <br>
 
-## ⚒️ WIP
-This app is still a massive work in progress. Features list, screenshots and further information will be added as soon as the app is ready!
+## 📱 Showcase
+![Revo Music Player Showcase](https://raw.githubusercontent.com/meltmeltix/Revo/master/github/PrototypeShowcase.png)
+
+<p align="center">
+	<a href="https://www.figma.com/file/yfl85VV276HKtSZzOFg2LL/Revo?type=design&mode=design&t=9lYqlAAbjTT4ICVw-1">
+		<img src="https://raw.githubusercontent.com/meltmeltix/Revo/master/github/OpenInFigmaButton.png" height="45"/>
+	</a>
+</p>
+
+<br>
+
+## 🤝 Contribute
+
+
+<br>
