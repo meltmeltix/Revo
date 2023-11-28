@@ -33,6 +33,17 @@ I primarily built Revo for myself as a solo project, helping me learn Android De
 <br>
 
 ## 🤝 Contribute
-
+**Revo will always be a solo project**. 
+However, if you'd like to contribute by adding translations, please open an issue so that I can add the new locale.
+Once I add the requested locale, head to [this project's Crowdin page](https://crowdin.com/project/revoplayer) and start translating!
 
 <br>
+
+## 📜 License
+[![GNU GPLv3 Image](https://www.gnu.org/graphics/gplv3-127x51.png)](http://www.gnu.org/licenses/gpl-3.0.en.html)
+
+Revo is and will always be Free Software: you can use, study share and improve it at your
+will. You can redistribute and/or modify it under the terms of the
+[GNU General Public License](https://www.gnu.org/licenses/gpl.html) as
+published by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
