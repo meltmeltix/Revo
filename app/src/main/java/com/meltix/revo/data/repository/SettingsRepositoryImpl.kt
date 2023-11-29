@@ -3,7 +3,6 @@ package com.meltix.revo.data.repository
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
@@ -23,11 +22,9 @@ class SettingsRepositoryImpl(
     private companion object {
         // Library Keys
         val DESTINATIONS_ORDER = stringSetPreferencesKey("destinations_order")
-        val SPOTIFY_ENABLED = booleanPreferencesKey("spotify_enabled")
+        val FAB_POSITION = intPreferencesKey("fab_position")
 
         // Customization Keys
-        val APP_THEME = intPreferencesKey("app_theme")
-        val COLOR_SCHEME = intPreferencesKey("color_scheme")
         val PLAYER_LAYOUT = intPreferencesKey("player_layout")
         val ALBUM_VIEW_LAYOUT = intPreferencesKey("album_view_layout")
     }
@@ -38,9 +35,9 @@ class SettingsRepositoryImpl(
             preferences[DESTINATIONS_ORDER] ?: setOf("SONGS", "ARTISTS", "ALBUMS", "PLAYLISTS")
         }
     
-    override fun getSpotifyEnabledState() = context.dataStore.data
-        .map { preferences -> preferences[SPOTIFY_ENABLED] ?: false }
-
+    override fun getFabPosition() = context.dataStore.data
+        .map { preferences -> preferences[FAB_POSITION] ?: 2 }
+    
     override fun getPlayerLayout() = context.dataStore.data
         .map { preferences -> preferences[PLAYER_LAYOUT] ?: 1 }
 
@@ -51,9 +48,10 @@ class SettingsRepositoryImpl(
     // Set Data functions
     override suspend fun setDestinationsOrder(destinationsOrder: Set<String>)
         { context.dataStore.edit { preferences -> preferences[DESTINATIONS_ORDER] = destinationsOrder } }
-    override suspend fun setSpotifyEnabledState(enabledState: Boolean)
-        { context.dataStore.edit { preferences -> preferences[SPOTIFY_ENABLED] = enabledState } }
-
+    
+    override suspend fun setFabPosition(fabPosition: Int)
+        { context.dataStore.edit { preferences -> preferences[FAB_POSITION] = fabPosition } }
+    
     override suspend fun setPlayerLayout(playerLayoutValue: Int)
         { context.dataStore.edit { preferences -> preferences[PLAYER_LAYOUT] = playerLayoutValue } }
 

@@ -78,7 +78,7 @@ fun LibraryPermissions(
 }
 
 @Composable
-fun LibraryLoading(itemType: String) {
+fun LibraryLoading(itemName: String) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.padding(24.dp),
@@ -86,7 +86,7 @@ fun LibraryLoading(itemType: String) {
             verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically)
         ) {
             Text(
-                text = stringResource(R.string.loading, itemType.lowercase()),
+                text = stringResource(R.string.loading, itemName.lowercase()),
                 color = MaterialTheme.colorScheme.onSurface
             )
             LinearProgressIndicator(modifier = Modifier.clip(MaterialTheme.shapes.medium))

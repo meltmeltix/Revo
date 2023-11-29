@@ -1,4 +1,4 @@
-package com.meltix.revo.data.classes.preferences
+package com.meltix.revo.data.classes.sorting
 
 enum class SortingOrder {
     ASCENDING,

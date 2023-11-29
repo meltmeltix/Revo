@@ -4,7 +4,16 @@ import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import com.meltix.revo.data.classes.WindowType
+
+enum class WindowType {
+    COMPACT_WINDOW,
+    COMPACT_PORTRAIT,
+    COMPACT_LANDSCAPE,
+    MEDIUM_PORTRAIT,
+    MEDIUM_LANDSCAPE,
+    EXPANDED_PORTRAIT,
+    EXPANDED_LANDSCAPE
+}
 
 /**
  * Class that defines with an enum class the type of screen depending

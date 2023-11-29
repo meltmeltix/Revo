@@ -1,4 +1,4 @@
-package com.meltix.revo.data.classes
+package com.meltix.revo.data.classes.library
 
 enum class FabType {
     SHUFFLE_ALL,

@@ -3,9 +3,9 @@ package com.meltix.revo.ui.screens.library.songScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meltix.revo.data.classes.ContentState
-import com.meltix.revo.data.classes.preferences.SortingOrder
-import com.meltix.revo.data.classes.preferences.SortingType
 import com.meltix.revo.data.classes.song.Song
+import com.meltix.revo.data.classes.sorting.SortingOrder
+import com.meltix.revo.data.classes.sorting.SortingType
 import com.meltix.revo.domain.repository.SongsRepository
 import com.meltix.revo.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

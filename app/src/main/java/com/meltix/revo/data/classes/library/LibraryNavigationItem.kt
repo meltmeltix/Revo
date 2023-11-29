@@ -1,4 +1,4 @@
-package com.meltix.revo.data.classes
+package com.meltix.revo.data.classes.library
 
 data class LibraryNavigationItem(
     val name: Int,
