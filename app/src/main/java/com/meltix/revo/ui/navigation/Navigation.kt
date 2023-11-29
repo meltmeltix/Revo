@@ -6,12 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.meltix.revo.data.classes.LibraryNavigationItem
+import com.meltix.revo.data.classes.library.LibraryNavigationItem
 import com.meltix.revo.ui.screens.MainScreen
-import com.meltix.revo.ui.screens.library.albumScreen.AlbumsScreen
-import com.meltix.revo.ui.screens.library.artistScreen.ArtistsScreen
-import com.meltix.revo.ui.screens.library.playlistScreen.PlaylistsScreen
-import com.meltix.revo.ui.screens.library.songScreen.SongsScreen
+import com.meltix.revo.ui.screens.library.albumsScreen.AlbumsScreen
+import com.meltix.revo.ui.screens.library.artistsScreen.ArtistsScreen
+import com.meltix.revo.ui.screens.library.playlistsScreen.PlaylistsScreen
+import com.meltix.revo.ui.screens.library.songsScreen.SongsScreen
 
 @Composable
 fun RootNavigation(
