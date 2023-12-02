@@ -1,7 +1,7 @@
 package com.meltix.revo.data.classes
 
-enum class Positions {
-    LEFT,
+enum class Position {
+    START,
     CENTER,
-    RIGHT
+    END
 }

@@ -23,6 +23,7 @@ class SettingsRepositoryImpl(
         // Library Keys
         val DESTINATIONS_ORDER = stringSetPreferencesKey("destinations_order")
         val FAB_POSITION = intPreferencesKey("fab_position")
+        val FAB_ACTION = intPreferencesKey("fab_action")
 
         // Customization Keys
         val PLAYER_LAYOUT = intPreferencesKey("player_layout")
@@ -38,6 +39,9 @@ class SettingsRepositoryImpl(
     override fun getFabPosition() = context.dataStore.data
         .map { preferences -> preferences[FAB_POSITION] ?: 2 }
     
+    override fun getFabAction() = context.dataStore.data
+        .map { preferences -> preferences[FAB_ACTION] ?: 0 }
+    
     override fun getPlayerLayout() = context.dataStore.data
         .map { preferences -> preferences[PLAYER_LAYOUT] ?: 1 }
 
@@ -51,6 +55,9 @@ class SettingsRepositoryImpl(
     
     override suspend fun setFabPosition(fabPosition: Int)
         { context.dataStore.edit { preferences -> preferences[FAB_POSITION] = fabPosition } }
+    
+    override suspend fun setFabAction(fabAction: Int)
+        { context.dataStore.edit { preferences -> preferences[FAB_ACTION] = fabAction } }
     
     override suspend fun setPlayerLayout(playerLayoutValue: Int)
         { context.dataStore.edit { preferences -> preferences[PLAYER_LAYOUT] = playerLayoutValue } }
