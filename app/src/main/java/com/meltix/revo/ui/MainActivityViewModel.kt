@@ -1,11 +1,10 @@
 package com.meltix.revo.ui
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meltix.revo.R
-import com.meltix.revo.data.classes.Destinations
-import com.meltix.revo.data.classes.LibraryNavigationItem
+import com.meltix.revo.data.classes.library.Destinations
+import com.meltix.revo.data.classes.library.LibraryNavigationItem
 import com.meltix.revo.data.classes.UiState
 import com.meltix.revo.domain.repository.SettingsRepository
 import com.meltix.revo.ui.navigation.LibraryScreens
@@ -39,9 +38,6 @@ class MainActivityViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _destinations.value = orderDestinations(destinationsList.value)
-    
-            Log.d("MainActivity", _destinations.value.toString())
-            
             _uiState.value = UiState.SUCCESS
         }
     }
