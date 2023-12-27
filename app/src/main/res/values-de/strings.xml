@@ -17,16 +17,16 @@
     <string name="artists">Artists</string>
     <string name="playlists">Playlists</string>
     <!-- Music related -->
-    <string name="play">Play</string>
+    <string name="play">Abspielen</string>
     <string name="pause">Pause</string>
     <string name="shuffle">Shuffle</string>
     <!-- Library related -->
-    <string name="refresh">Refresh</string>
-    <string name="loading">Loading your %s…</string>
-    <string name="empty_songs">It\'s a little too quiet in here…</string>
-    <string name="empty_albums">Did you forgot the disc?</string>
-    <string name="empty_artists">Where are all the artists?</string>
-    <string name="empty_library_info">There doesn\'t seem to be any %s in your library… Add some songs and get the party started!</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="loading">Lade deine %s…</string>
+    <string name="empty_songs">Es ist ein bisschen zu ruhig hier…</string>
+    <string name="empty_albums">Hast Du die CD vergessen?</string>
+    <string name="empty_artists">Wo sind die Künstler?</string>
+    <string name="empty_library_info">Es scheint keine %s in Deiner Bibliothek zu geben… Füge einige Lieder hinzu und lass die Party beginnen!</string>
     <!-- Plurals -->
     <plurals name="songAmount">
         <item quantity="one">song</item>
@@ -37,12 +37,12 @@
         <item quantity="other">albums</item>
     </plurals>
     <plurals name="hourAmount">
-        <item quantity="one">%d hr</item>
+        <item quantity="one">%d Std.</item>
         <item quantity="other">%d hrs</item>
     </plurals>
     <plurals name="minutesAmount">
         <item quantity="one">%d min</item>
-        <item quantity="other">%d mins</item>
+        <item quantity="other">%d Min.</item>
     </plurals>
-    <string name="secondsAmount">%d sec</string>
+    <string name="secondsAmount">%d Sek.</string>
 </resources>
