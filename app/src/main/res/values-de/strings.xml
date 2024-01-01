@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_language">German</string>
-    <string name="search">Search</string>
-    <string name="search_your_library">Search your library…</string>
-    <string name="menu">Menu</string>
-    <string name="settings">Settings</string>
-    <string name="clear">Clear</string>
+    <!-- App -->
+    <string name="permission">Revo benötigt die Erlaubnis, auf deinen Gerätespeicher zuzugreifen, um deine Musik zu finden und abzuspielen</string>
+    <string name="permission_denied">Die Zugriffsberechtigung auf den externen Speicher wurde verweigert</string>
+    <string name="grant_permission">Zugriff erlauben</string>
+    <!-- UI elements -->
+    <string name="search">Suche</string>
+    <string name="search_your_library">Deine Mediathek durchsuchen…</string>
+    <string name="menu">Menü</string>
+    <string name="settings">Einstellungen</string>
+    <string name="clear">Löschen</string>
     <!-- Navigation destinations -->
     <string name="songs">Songs</string>
-    <string name="albums">Albums</string>
+    <string name="albums">Alben</string>
     <string name="artists">Artists</string>
     <string name="playlists">Playlists</string>
     <!-- Music related -->
-    <string name="play">Play</string>
+    <string name="play">Abspielen</string>
     <string name="pause">Pause</string>
     <string name="shuffle">Shuffle</string>
     <!-- Library related -->
-    <string name="loading">Loading your %s…</string>
-    <string name="empty_songs">It\'s a little too quiet in here…</string>
-    <string name="empty_albums">Did you forgot the disc?</string>
-    <string name="empty_artists">Where are all the artists?</string>
-    <string name="empty_library_info">There doesn\'t seem to be any %s in your library… Add some songs and get the party started!</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="loading">Lade deine %s…</string>
+    <string name="empty_songs">Es ist ein bisschen zu ruhig hier…</string>
+    <string name="empty_albums">Hast Du die CD vergessen?</string>
+    <string name="empty_artists">Wo sind die Künstler?</string>
+    <string name="empty_library_info">Es scheint keine %s in Deiner Bibliothek zu geben… Füge einige Lieder hinzu und lass die Party beginnen!</string>
     <!-- Plurals -->
     <plurals name="songAmount">
-        <item quantity="one">%d song</item>
-        <item quantity="other">%d songs</item>
+        <item quantity="one">song</item>
+        <item quantity="other">songs</item>
     </plurals>
     <plurals name="albumAmount">
-        <item quantity="one">%d album</item>
-        <item quantity="other">%d albums</item>
+        <item quantity="one">album</item>
+        <item quantity="other">albums</item>
     </plurals>
     <plurals name="hourAmount">
-        <item quantity="one">%d hr</item>
+        <item quantity="one">%d Std.</item>
         <item quantity="other">%d hrs</item>
     </plurals>
     <plurals name="minutesAmount">
         <item quantity="one">%d min</item>
-        <item quantity="other">%d mins</item>
+        <item quantity="other">%d Min.</item>
     </plurals>
-    <string name="secondsAmount">%d sec</string>
+    <string name="secondsAmount">%d Sek.</string>
 </resources>
