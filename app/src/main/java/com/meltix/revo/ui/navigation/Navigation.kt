@@ -1,5 +1,6 @@
 package com.meltix.revo.ui.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -36,7 +37,8 @@ fun RootNavigation(
 fun LibraryNavigation(
     startDestination: String,
     rootNavController: NavController,
-    libraryNavController: NavHostController
+    libraryNavController: NavHostController,
+    contentPadding: PaddingValues
 ) {
     NavHost(navController = libraryNavController, startDestination = startDestination) {
         composable(
@@ -44,7 +46,8 @@ fun LibraryNavigation(
         ) {
             SongsScreen(
                 rootNavController = rootNavController,
-                libraryNavController = libraryNavController
+                libraryNavController = libraryNavController,
+                contentPadding = contentPadding
             )
         }
     

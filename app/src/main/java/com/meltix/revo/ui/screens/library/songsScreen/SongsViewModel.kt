@@ -1,4 +1,4 @@
-package com.meltix.revo.ui.screens.library.songScreen
+package com.meltix.revo.ui.screens.library.songsScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,13 +10,19 @@ import com.meltix.revo.domain.repository.SongsRepository
 import com.meltix.revo.domain.repository.SortingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SongViewModel @Inject constructor(
+class SongsViewModel @Inject constructor(
     private val sortingRepository: SortingRepository,
     private val songsRepository: SongsRepository
 ): ViewModel() {
@@ -36,7 +42,7 @@ class SongViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingType.TITLE)
 
     val sortingOrder = sortingRepository.getSongSortOrder()
-        .map { SortingOrder.values()[it] }
+        .map { SortingOrder.entries[it] }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), SortingOrder.ASCENDING)
 
     private val _songs: MutableStateFlow<List<Song>> = MutableStateFlow(emptyList())

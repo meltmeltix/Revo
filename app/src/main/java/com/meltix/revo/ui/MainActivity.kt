@@ -18,8 +18,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.meltix.revo.data.classes.library.LibraryNavigationItem
 import com.meltix.revo.data.classes.UiState
+import com.meltix.revo.data.classes.library.LibraryNavigationItem
 import com.meltix.revo.ui.navigation.RootNavigation
 import com.meltix.revo.ui.navigation.RootScreens
 import com.meltix.revo.ui.theme.RevoTheme
@@ -36,7 +36,7 @@ val permissionsList = listOf(
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val viewModel: MainActivityViewModel by viewModels()
+    private val viewModel: MainActivityViewModel by viewModels()
     
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {

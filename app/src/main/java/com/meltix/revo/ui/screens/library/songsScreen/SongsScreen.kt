@@ -1,10 +1,10 @@
-package com.meltix.revo.ui.screens.library.songScreen
+package com.meltix.revo.ui.screens.library.songsScreen
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import com.meltix.revo.data.classes.ContentState
 import com.meltix.revo.data.classes.song.Song
 import com.meltix.revo.ui.theme.RevoTheme
-import com.meltix.revo.util.functions.WindowType
 import com.meltix.revo.util.functions.defineWindowType
 import com.meltix.revo.util.functions.findActivity
 
@@ -21,7 +20,8 @@ import com.meltix.revo.util.functions.findActivity
 fun SongsScreen(
     rootNavController: NavController,
     libraryNavController: NavController,
-    viewModel: SongViewModel = hiltViewModel(),
+    viewModel: SongsViewModel = hiltViewModel(),
+    contentPadding: PaddingValues,
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -29,17 +29,24 @@ fun SongsScreen(
 
     val contentState by viewModel.contentState.collectAsStateWithLifecycle(ContentState.LOADING)
     val songList by viewModel.songs.collectAsStateWithLifecycle(emptyList())
-
-    RevoTheme {
-        SongsScreen(
-            contentState = contentState,
-            songList = songList,
-            windowType = windowType
-        )
-    }
+    
+    SongsScreen(
+        contentState = contentState,
+        contentPadding = contentPadding,
+        songList = songList
+    )
 }
 
 @Composable
-private fun SongsScreen(contentState: ContentState, songList: List<Song>, windowType: WindowType) {
-
+private fun SongsScreen(
+    contentState: ContentState,
+    contentPadding: PaddingValues,
+    songList: List<Song>
+) {
+    RevoTheme {
+        SongsLayout(
+            contentPadding = contentPadding,
+            list = songList
+        )
+    }
 }

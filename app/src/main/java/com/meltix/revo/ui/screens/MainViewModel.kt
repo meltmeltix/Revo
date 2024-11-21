@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meltix.revo.data.classes.player.PlayerButtonsLayout
+import com.meltix.revo.data.classes.Position
 import com.meltix.revo.domain.repository.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,7 +19,11 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
     var latestDestination by mutableStateOf("")
 
+    val fabPosition = settingsRepository.getFabPosition()
+        .map { Position.entries[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Position.END)
+    
     val playerButtonsLayout = settingsRepository.getPlayerLayout()
-        .map { PlayerButtonsLayout.values()[it] }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), PlayerButtonsLayout.CENTER)
+        .map { Position.entries[it] }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), Position.CENTER)
 }

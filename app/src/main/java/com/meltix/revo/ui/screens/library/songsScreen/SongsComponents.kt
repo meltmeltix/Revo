@@ -1,13 +1,15 @@
-package com.meltix.revo.ui.screens.library.songScreen
+package com.meltix.revo.ui.screens.library.songsScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.key
@@ -15,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,7 +41,10 @@ fun LazyListScope.songList(list: List<Song>) {
             maxSupportingLines = 1,
             leadingContent = {
                 ImageContainer(
-                    modifier = Modifier.padding(start = 8.dp, end = 5.dp),
+                    modifier = Modifier
+                        .padding(start = 8.dp, end = 5.dp)
+                        .size(60.dp)
+                        .clip(MaterialTheme.shapes.medium),
                     placeholder = {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_music_note_24),
@@ -58,7 +64,7 @@ fun LazyListScope.songList(list: List<Song>) {
             trailingContent = {
                 val expanded = remember { mutableStateOf(false) }
     
-                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart)) {
+                Box(modifier = Modifier.wrapContentSize(Alignment.TopStart).padding(end = 8.dp)) {
                     IconButton(onClick = { expanded.value = true }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_more_vert_24),
