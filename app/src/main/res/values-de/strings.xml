@@ -29,20 +29,20 @@
     <string name="empty_library_info">Es scheint keine %s in Deiner Bibliothek zu geben… Füge einige Lieder hinzu und lass die Party beginnen!</string>
     <!-- Plurals -->
     <plurals name="songAmount">
-        <item quantity="one">song</item>
-        <item quantity="other">songs</item>
+        <item quantity="one">%d Song</item>
+        <item quantity="other">%d Songs</item>
     </plurals>
     <plurals name="albumAmount">
-        <item quantity="one">album</item>
-        <item quantity="other">albums</item>
+        <item quantity="one">%d Album</item>
+        <item quantity="other">%d Albums</item>
     </plurals>
     <plurals name="hourAmount">
         <item quantity="one">%d Std.</item>
-        <item quantity="other">%d hrs</item>
+        <item quantity="other">%d Std.</item>
     </plurals>
     <plurals name="minutesAmount">
-        <item quantity="one">%d min</item>
+        <item quantity="one">%d Min.</item>
         <item quantity="other">%d Min.</item>
     </plurals>
-    <string name="secondsAmount">%d Sek.</string>
+    <string name="secondsAmount">%d Sek</string>
 </resources>
